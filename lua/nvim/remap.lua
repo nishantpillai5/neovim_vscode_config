@@ -1,5 +1,6 @@
 vim.api.nvim_set_keymap('n', '<leader>s', ':w<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>x', ':q<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>xx', ':q<CR>', {noremap = true, silent = true})
+-- vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
 
 -- Resize vertically with Ctrl-Right and Ctrl-Left
 vim.api.nvim_set_keymap("n", "<C-Right>", ":vertical resize +2<CR>", { silent = true })
