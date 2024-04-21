@@ -10,25 +10,47 @@ return {
             local wk = require("which-key")
             wk.register({
                 ["<leader>"] = {
-                    f = {
-                        name = "Files",
-                        f = "find files",
-                        g = "live grep",
+                    x = "close current file",
+                    ["<space>"] = "hop",
+                    s = "save",
+                    u = "undo tree",
+                    [";"] = {
+                        name = "Terminal",
+                        [";"] = "command palette",
+                        t = "toggle",
                     },
-                    x = {
-                        name = "Close",
-                        x = "close current file",
+                    f = {
+                        name = "Find",
+                        f = "git files",
+                        a = "all files",
+                        g = "live grep",
+                        s = "search string",
+                        ws = "search word",
+                        Ws = "search whole word",
+                        o = "symbols",
+                        m = "marks",
+                        r = "registers",
+                        h = "harpoon",
+                        [";"] = "terminal",
                     },
                     e = {
                         name = "File Explorer",
                         e = "toggle tree",
+                        n = "netrw",
+                        f = "oil",
                     },
-                    ["<space>"] = "hop",
                     h = "harpoon list",
                     a = "harpoon add",
-                    t = "terminal",
-                    s = "save",
-                    u = "undo tree",
+                    t = {
+                        name = "Trouble",
+                        t = "toggle",
+                        w = "workspace",
+                        d = "document",
+                        q = "quickfix",
+                        l = "loclist",
+                        n = "next",
+                        p = "previous",
+                    },
                     d = {
                         name = "Debug",
                         s = "start",
@@ -45,13 +67,29 @@ return {
                         b = "list targets",
                         d = "list debug targets",
                     },
-                    v = {
+                    z = {
                         name = "Visual",
                         l = "toggle relative line number",
                         h = "clear search highlight",
+                        z = "zen mode",
                     },
                     fml = "surrender",
-                }
+                },
+                g = {
+                    d = "definition",
+                    D = "declaration",
+                    i = "implementation",
+                    o = "symbol",
+                    r = "references",
+                    s = "git status",
+                    h = "signature help",
+                    l = "diagnostics",
+                },
+                ["[d"] = "previous diagnostic",
+                ["d"] = "next diagnostic",
+                K = "hover",
+                ["<F2>"] = "rename",
+                ["<F3>"] = "format",
             })
         end,
     }
