@@ -31,6 +31,7 @@ return {
                         m = "marks",
                         r = "registers",
                         h = "harpoon",
+                        d = "debug tasks",
                         [";"] = "terminal",
                     },
                     e = {
@@ -42,7 +43,7 @@ return {
                     h = "harpoon list",
                     a = "harpoon add",
                     t = {
-                        name = "Trouble",
+                        name = "Panel",
                         t = "toggle",
                         w = "workspace",
                         d = "document",
@@ -53,6 +54,8 @@ return {
                     },
                     d = {
                         name = "Debug",
+                        d = "preview",
+                        t = "toggle view",
                         s = "start",
                         x = "stop",
                         r = "run with debug",
@@ -61,11 +64,13 @@ return {
                         j = "step into",
                         k = "step out",
                         l = "step over",
+                        b = "breakpoint",
+                        B = "breakpoint w/ message",
                     },
                     b = {
                         name = "Build",
+                        t = "toggle",
                         b = "list targets",
-                        d = "list debug targets",
                     },
                     z = {
                         name = "Visual",

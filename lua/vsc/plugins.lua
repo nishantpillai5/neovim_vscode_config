@@ -1,5 +1,5 @@
 require("lazy").setup(
     {
-        {import = "../plugins.hop"},
+        {import = "../plugins.editor_common"},
     }
 )
