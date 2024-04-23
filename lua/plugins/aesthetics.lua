@@ -1,27 +1,36 @@
 return {
     -- Looks
     {
-        'dasupradyumna/midnight.nvim',
+        'Mofiqul/vscode.nvim',
         lazy = false,
         priority = 1000,
         config = function()
-            vim.cmd.colorscheme 'midnight'
+            require('vscode').setup({
+                -- transparent = true,
+                italic_comments = true,
+            })
+            vim.cmd.colorscheme 'vscode'
         end,
     },
     {
         'nvim-lualine/lualine.nvim',
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = { 'nvim-tree/nvim-web-devicons' },
         config = function()
             require('lualine').setup({
-                sections = {
-                  lualine_x = { "overseer" },
+                -- sections = {
+                --   lualine_x = { "overseer" },
+                -- },
+                options = {
+                    theme = 'vscode',
                 },
-              })
+            })
         end,
     },
     -- Indentation guides
     {
         "lukas-reineke/indent-blankline.nvim",
+        event = { 'BufReadPre', 'BufNewFile' },
         dependencies = { "HiPhish/rainbow-delimiters.nvim" },
         config = function()
             local highlight = {
@@ -47,9 +56,44 @@ return {
             end)
 
             vim.g.rainbow_delimiters = { highlight = highlight }
-            require("ibl").setup { scope = { highlight = highlight } }
+            require("ibl").setup( {
+                scope = { highlight = highlight },
+                exclude = {
+                    filetypes = { "dashboard", },
+                },
+            })
 
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
         end,
-    }
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+            "VonHeikemen/lsp-zero.nvim",
+        },
+        config = function ()
+            require("noice").setup({
+                lsp = {
+                    override = {
+                        ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                        ["vim.lsp.util.stylize_markdown"] = true,
+                        ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    },
+                },
+                presets = {
+                    -- bottom_search = true, -- use a classic bottom cmdline for search
+                    -- command_palette = true, -- position the cmdline and popupmenu together
+                    long_message_to_split = true, -- long messages will be sent to a split
+                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = true, -- add a border to hover docs and signature help
+                },
+            })
+            vim.keymap.set("n", "<leader>znl", function() require("noice").cmd("last") end)
+            vim.keymap.set("n", "<leader>znh", function() require("noice").cmd("history") end)
+            vim.keymap.set("n", "<leader>znx", function() require("noice").cmd("disable") end)
+        end,
+    },
 }

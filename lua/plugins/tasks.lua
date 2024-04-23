@@ -1,20 +1,32 @@
 return {
-    -- Build and Run
     {
         'stevearc/overseer.nvim',
-        opts = {},
+        keys = {
+            { "<leader>bb", "<cmd>OverseerRun<cr>", desc = "tasks" },
+            { "<leader>bt", "<cmd>OverseerToggle(right)<cr>", desc = "toggle task list" },
+        },
         config = function()
             require('overseer').setup({
                 strategy = "toggleterm",
                 dap = false,
             })
-            vim.keymap.set("n", "<leader>bb", "<cmd>OverseerRun<CR>")
-            vim.keymap.set("n", "<leader>bt", "<cmd>OverseerToggle<CR>")
         end,
     },
     {
         'mfussenegger/nvim-dap',
         dependencies = { 'stevearc/overseer.nvim' },
+        keys = {
+            -- { "<leader>dr", "<cmd>lua require('dap').stop()<cr>", desc = "run w/o debug" },
+            -- { "<leader>ds", "<cmd>lua require('dap').stop()<cr>", desc = "start" },
+            { "<leader>dx", "<cmd>lua require('dap').stop()<cr>", desc = "stop" },
+            { "<leader>dc", "<cmd>lua require('dap').continue()<cr>", desc = "continue" },
+            { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "pause" },
+            { "<leader>dj", "<cmd>lua require('dap').step_into()<cr>", desc = "step into" },
+            { "<leader>dk", "<cmd>lua require('dap').step_out()<cr>", desc = "step out" },
+            { "<leader>dl", "<cmd>lua require('dap').step_over()<cr>", desc = "step over" },
+            { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "breakpoint" },
+            { "<leader>dB", "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>", desc = "breakpoint w/ message" },
+        },
         config = function()
             local dap = require('dap')
             require("dap.ext.vscode").json_decode = require("overseer.json").decode
@@ -60,25 +72,16 @@ return {
             vim.keymap.set({'n', 'v'}, '<leader>dd', function()
                 require('dap.ui.widgets').preview()
             end)
-            -- vim.keymap.set("n", "<leader>ds", function() require("dap").toggle_breakpoint() end)
-            vim.keymap.set("n", "<leader>dx", function() require("dap").stop() end)
-            -- vim.keymap.set("n", "<leader>dr", function() require("dap").toggle_breakpoint() end)
-
-            vim.keymap.set("n", "<leader>dc", function() require("dap").continue() end)
-            vim.keymap.set("n", "<leader>dp", function() require("dap").pause() end)
-            vim.keymap.set("n", "<leader>dj", function() require("dap").step_into() end)
-            vim.keymap.set("n", "<leader>dk", function() require("dap").step_out() end)
-            vim.keymap.set("n", "<leader>dl", function() require("dap").step_over() end)
-            vim.keymap.set("n", "<leader>db", function() require("dap").toggle_breakpoint() end)
-            vim.keymap.set('n', '<Leader>dB', function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
         end,
     },
     {
         "rcarriga/nvim-dap-ui",
-        dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
+        dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+        keys = {
+            { "<leader>dt", "<cmd>lua require('dapui').toggle()<CR>", desc = "toggle debug view" },
+        },
         config = function()
             require("dapui").setup()
-            vim.keymap.set("n", "<leader>dt", function() require("dapui").toggle() end)
         end
     }
 }

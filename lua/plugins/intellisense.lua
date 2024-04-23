@@ -12,9 +12,13 @@ return {
             })
         end,
     },
-    "nvim-treesitter/nvim-treesitter-context",
+    {
+        "nvim-treesitter/nvim-treesitter-context",
+        event = { 'BufReadPre', 'BufNewFile' },
+    },
     {
         'VonHeikemen/lsp-zero.nvim',
+        event = "VeryLazy",
         branch = 'v3.x',
         dependencies = {
             'williamboman/mason.nvim',
@@ -68,5 +72,8 @@ return {
             })
         end,
     },
-    "github/copilot.vim",
+    {
+        "github/copilot.vim",
+        event = { 'BufReadPre', 'BufNewFile' },
+    },
 }

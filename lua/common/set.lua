@@ -51,3 +51,7 @@ vim.o.clipboard = "unnamedplus"
 
 -- Faster operation
 -- vim.opt.updatetime = 300
+
+-- Disable auto-commenting new lines: https://neovim.discourse.group/t/3746
+--vim.opt.formatoptions:remove("cro")
+vim.cmd([[autocmd BufEnter * set formatoptions-=cro]])

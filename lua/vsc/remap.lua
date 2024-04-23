@@ -47,7 +47,7 @@ vim.api.nvim_set_keymap('n', '<leader>dk', ':lua require(\'vscode-neovim\').call
 vim.api.nvim_set_keymap('n', '<leader>dl', ':lua require(\'vscode-neovim\').call(\'workbench.action.debug.stepOver\')<CR>', {noremap = true, silent = true})
 
 -- Git
-vim.api.nvim_set_keymap('n', '<leader>gs', ':lua require(\'vscode-neovim\').call(\'workbench.view.scm\')<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>gss', ':lua require(\'vscode-neovim\').call(\'workbench.view.scm\')<CR>', {noremap = true, silent = true})
 
 -- Resize vertically with Ctrl-Right and Ctrl-Left
 vim.api.nvim_set_keymap('n', '<C-Left>', ':lua require(\'vscode-neovim\').call(\'workbench.action.decreaseViewWidth\')<CR>', {silent = true})
@@ -56,6 +56,10 @@ vim.api.nvim_set_keymap('n', '<C-Right>', ':lua require(\'vscode-neovim\').call(
 -- Resize horizontally with Ctrl-Up and Ctrl-Down
 vim.api.nvim_set_keymap('n', '<C-Up>', ':lua require(\'vscode-neovim\').call(\'workbench.action.increaseViewHeight\')<CR>', {silent = true})
 vim.api.nvim_set_keymap('n', '<C-Down>', ':lua require(\'vscode-neovim\').call(\'workbench.action.decreaseViewHeight\')<CR>', {silent = true})
+
+-- Split
+vim.api.nvim_set_keymap('n', '<leader>zs', ':lua require(\'vscode-neovim\').call(\'workbench.action.splitEditorRight\')<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>zh', ':lua require(\'vscode-neovim\').call(\'workbench.action.splitEditorDown\')<CR>', {noremap = true, silent = true})
 
 -- vim.api.nvim_set_keymap('n', '<leader>r', ':lua require(\'vscode-neovim\').call(\'editor.action.refactor\')<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<leader>z', ':lua require(\'vscode-neovim\').call(\'workbench.action.focusActivityBar\')<CR>', {noremap = true, silent = true})
