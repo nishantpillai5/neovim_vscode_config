@@ -1,45 +1,4 @@
 return {
-    -- Start page
-    {
-        'nvimdev/dashboard-nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require('dashboard').setup({
-                theme = 'hyper',
-                change_to_vcs_root = true,
-                config = {
-                    week_header = {
-                        enable = true,
-                    },
-                    shortcut = {
-                        { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-                        {
-                            icon = ' ',
-                            icon_hl = '@variable',
-                            desc = 'Files',
-                            group = 'Label',
-                            action = 'Telescope find_files',
-                            key = 'f',
-                        },
-                        {
-                            desc = ' Apps',
-                            group = 'DiagnosticHint',
-                            action = 'Telescope app',
-                            key = 'a',
-                        },
-                        {
-                            desc = ' dotfiles',
-                            group = 'Number',
-                            action = 'Telescope dotfiles',
-                            key = 'd',
-                        },
-                    },
-                },
-          })
-      end,
-      dependencies = { 'nvim-tree/nvim-web-devicons' }
-    },
     -- Comments
     {
         'numToStr/Comment.nvim',
@@ -49,6 +8,7 @@ return {
     -- Tmux like navigation
     {
         "alexghergh/nvim-tmux-navigation",
+        event = { 'BufReadPre', 'BufNewFile' },
         config = function()
             local nvim_tmux_nav = require('nvim-tmux-navigation')
             nvim_tmux_nav.setup {
@@ -304,7 +264,7 @@ return {
     },
     {
         "gbprod/yanky.nvim",
-        -- event = "VeryLazy", 
+        event = "VeryLazy",
         config = function()
             require("yanky").setup({
                 highlight = {
@@ -342,12 +302,14 @@ return {
     },
     {
         'vladdoster/remember.nvim',
+        event = "VeryLazy",
         config = function()
             require("remember").setup({})
         end,
     },
     {
         "sitiom/nvim-numbertoggle",
+        event = { 'BufReadPre', 'BufNewFile' },
     },
     {
         'glepnir/dbsession.nvim',
