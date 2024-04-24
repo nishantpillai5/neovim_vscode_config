@@ -1,2 +1,3 @@
-require('vsc.remap')
-require('vsc.plugins')
+require("vsc.remap")
+require("vsc.plugins")
+

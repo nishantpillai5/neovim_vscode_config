@@ -1,7 +1,7 @@
-require('common')
+require("common")
 
 if vim.g.vscode then
-    require('vsc')
+	require("vsc")
 else
-    require('nvim')
+	require("nvim")
 end
