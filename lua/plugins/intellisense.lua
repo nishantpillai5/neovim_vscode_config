@@ -13,10 +13,12 @@ return {
       })
     end,
   },
+  -- Context
   {
     "nvim-treesitter/nvim-treesitter-context",
     event = { "BufReadPre", "BufNewFile" },
   },
+  -- LSP
   {
     "VonHeikemen/lsp-zero.nvim",
     event = "VeryLazy",
@@ -49,60 +51,81 @@ return {
       require("mason").setup({})
       require("mason-lspconfig").setup({
         ensure_installed = {
-          "typos_lsp",
+          -- "typos_lsp",
           "clangd",
-          "markdown_oxide",
           "lua_ls",
+          "markdown_oxide",
           "yamlls",
           "jsonls",
           "bashls",
         },
-        handlers = {
-          lsp_zero.default_setup,
-          clangd = function()
-            require("lspconfig").clangd.setup({
-              on_attach = on_attach,
-              capabilities = cmp_nvim_lsp.default_capabilities(),
-              cmd = {
-                "clangd",
-                "--offset-encoding=utf-16",
-              },
-            })
-          end,
-          lua_ls = function()
-            require("lspconfig").lua_ls.setup({
-              on_init = function(client)
-                local path = client.workspace_folders[1].name
-                if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-                  return
-                end
+      })
 
-                client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                  runtime = {
-                    version = "LuaJIT", -- (LuaJIT in the case of Neovim)
+      require("mason-lspconfig").setup_handlers({
+        -- default handler
+        function(server_name)
+          require("lspconfig")[server_name].setup({})
+        end,
+
+        -- clangd
+        ["clangd"] = function()
+          require("lspconfig").clangd.setup({
+            on_attach = on_attach,
+            capabilities = cmp_nvim_lsp.default_capabilities(),
+            cmd = {
+              "clangd",
+              "--offset-encoding=utf-16",
+            },
+          })
+        end,
+
+        -- Lua
+        ["lua_ls"] = function()
+          require("lspconfig").lua_ls.setup({
+            on_init = function(client)
+              local path = client.workspace_folders[1].name
+              if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+                return
+              end
+
+              client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                runtime = {
+                  version = "LuaJIT", -- (LuaJIT in the case of Neovim)
+                },
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME,
                   },
-                  -- Make the server aware of Neovim runtime files
-                  workspace = {
-                    checkThirdParty = false,
-                    library = {
-                      vim.env.VIMRUNTIME,
-                    },
-                  },
-                })
-              end,
-              settings = {
-                Lua = {},
-              },
-            })
-          end,
-        },
+                },
+              })
+            end,
+            settings = {
+              Lua = {},
+            },
+          })
+        end,
       })
     end,
   },
+  -- Lint
   {
-    "github/copilot.vim",
-    event = { "BufReadPre", "BufNewFile" },
+    "mfussenegger/nvim-lint",
+    event = "VeryLazy",
+    config = function()
+      local lint = require("lint")
+      lint.linters_by_ft = {
+        -- markdown = { "markdownlint", },
+      }
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        callback = function()
+          require("lint").try_lint()
+        end,
+      })
+    end,
   },
+  -- Fomatter
   {
     "stevearc/conform.nvim",
     keys = {
@@ -126,5 +149,10 @@ return {
         end)
       end)
     end,
+  },
+  -- AI
+  {
+    "github/copilot.vim",
+    event = { "BufReadPre", "BufNewFile" },
   },
 }
