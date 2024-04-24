@@ -19,11 +19,9 @@ return {
       "theHamsta/nvim-dap-virtual-text",
     },
     keys = {
-
       { "<leader>dt", desc = "toggle preview" },
-      { "<leader>dc", desc = "continue" },
+      { "<leader>ds", desc = "continue/start" },
       -- { "<leader>dr", "<cmd>lua require('dap').stop()<cr>", desc = "run w/o debug" },
-      -- { "<leader>ds", "<cmd>lua require('dap').stop()<cr>", desc = "start" },
       { "<leader>dx", "<cmd>lua require('dap').close()<cr>", desc = "stop" },
       { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "pause" },
       { "<leader>dj", "<cmd>lua require('dap').step_into()<cr>", desc = "step into" },
@@ -45,6 +43,9 @@ return {
       require("dap.ext.vscode").load_launchjs()
       require("overseer").patch_dap(true)
       require("nvim-dap-virtual-text").setup()
+
+      vim.fn.sign_define('DapBreakpoint', {text='', texthl='@error', linehl='', numhl=''})
+      vim.fn.sign_define('DapLogPoint', {text='󰰍', texthl='@error', linehl='', numhl=''})
 
       dap.adapters.cppdbg = {
         id = "cppdbg",
