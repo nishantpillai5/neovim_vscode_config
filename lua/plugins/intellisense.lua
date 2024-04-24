@@ -35,9 +35,8 @@ return {
       local lsp_zero = require("lsp-zero")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-      lsp_zero.on_attach(function(client, bufnr)
-        -- see :help lsp-zero-keybindings
-        -- to learn the available actions
+      lsp_zero.on_attach(function(_, bufnr)
+        -- see :help lsp-zero-keybindings to learn the available actions
         lsp_zero.default_keymaps({
           buffer = bufnr,
           preserve_mappings = false,
@@ -46,8 +45,6 @@ return {
         vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, { buffer = bufnr })
       end)
 
-      -- to learn how to use mason.nvim
-      -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
       require("mason").setup({})
       require("mason-lspconfig").setup({
         ensure_installed = {
@@ -118,7 +115,10 @@ return {
       lint.linters_by_ft = {
         -- markdown = { "markdownlint", },
       }
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+
+      -- local lint_augroup = vim.api.nvim_create_autocmd("lint", { clear = true })
+      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+        -- group = lint_augroup,
         callback = function()
           require("lint").try_lint()
         end,

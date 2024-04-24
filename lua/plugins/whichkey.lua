@@ -40,11 +40,7 @@ return {
             b = "breakpoint",
             B = "breakpoint w/ message",
           },
-          b = {
-            name = "Build",
-            b = "list targets",
-            t = "toggle",
-          },
+          o = { name = "Tasks" },
           z = { name = "Visual" },
         },
         g = {

@@ -5,9 +5,18 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
+      local c = require("vscode.colors").get_colors()
+
       require("vscode").setup({
-        -- transparent = true,
         italic_comments = true,
+        group_overrides = {
+          -- TODO: Add more overrides
+          -- https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/theme.lua
+          -- https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
+          DiagnosticError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
+          DiagnosticInfo = { fg = c.vscBlue, bg = c.vscPopupHighlightGray },
+          DiagnosticHint = { fg = c.vscBlue, bg = c.vscPopupHighlightGray },
+        },
       })
       vim.cmd.colorscheme("vscode")
     end,
@@ -58,78 +67,54 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("lualine").setup({
-        -- sections = {
-        --   lualine_x = { "overseer" },
-        -- },
+        extensions = { "overseer" },
         options = {
           theme = "vscode",
+          section_separators = { left = "", right = "" },
+          component_separators = { left = "", right = "" },
+          ignore_focus = { "OverseerList", "neo-tree" },
         },
-      })
-    end,
-  },
-  {
-    "akinsho/bufferline.nvim",
-    version = "*",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("bufferline").setup({
-        options = {
-          buffer_close_icon = "✕",
-          close_command = "bdelete %d",
-          close_icon = "",
-          indicator = {
-            style = "icon",
-            icon = " ",
+        sections = {
+          lualine_a = {
+            "mode",
+            "selectioncount",
           },
-          left_trunc_marker = "",
-          modified_icon = "●",
-          offsets = { { filetype = "neo-tree", text = "Neo-tree", text_align = "center" } },
-          right_mouse_command = "bdelete! %d",
-          right_trunc_marker = "",
-          show_close_icon = false,
-          show_tab_indicators = true,
+          lualine_b = {
+            "branch", -- FIXME: Lazy load breaks this
+            "diff",
+            "diagnostics",
+          },
+          lualine_c = {
+            "filename",
+          },
+          lualine_x = {
+            "overseer",
+          },
+          lualine_y = {
+            "encoding",
+            "fileformat",
+            "filetype",
+          },
+          lualine_z = {
+            "progress",
+            "location",
+          },
         },
-        highlights = {
-          fill = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLineNC" },
+        winbar = {
+          lualine_a = {},
+          lualine_b = {},
+          lualine_c = {
+            {
+              "buffers",
+              mode = 4,
+              symbols = {
+                alternate_file = "",
+              },
+            }, -- TODO: Pin icon for harpooned buffers
           },
-          background = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-          },
-          buffer_visible = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-          },
-          buffer_selected = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-          },
-          separator = {
-            fg = { attribute = "bg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-          },
-          separator_selected = {
-            fg = { attribute = "fg", highlight = "Special" },
-            bg = { attribute = "bg", highlight = "Normal" },
-          },
-          separator_visible = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLineNC" },
-          },
-          close_button = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "StatusLine" },
-          },
-          close_button_selected = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-          },
-          close_button_visible = {
-            fg = { attribute = "fg", highlight = "Normal" },
-            bg = { attribute = "bg", highlight = "Normal" },
-          },
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
         },
       })
     end,

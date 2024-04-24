@@ -259,7 +259,7 @@ return {
     },
     keys = {
       { "<leader>f;", "<cmd>Telescope toggleterm_manager<cr>", desc = "find terminal" },
-      { "<leader>;t", "<cmd>lua require('toggleterm').toggle_all(true)<cr>", desc = "terminal toggle" },
+      { "<leader>;;", "<cmd>lua require('toggleterm').toggle_all(true)<cr>", desc = "terminal toggle" },
       { "<leader>gsl", desc = "lazygit" },
     },
     config = function()
@@ -355,11 +355,11 @@ return {
     event = { "BufReadPre", "BufNewFile" },
   },
   {
-    "glepnir/dbsession.nvim",
+    "stevearc/resession.nvim",
     keys = {
-      { "<leader>ws", "<cmd>SessionSave<cr>", desc = "save session" },
-      { "<leader>wx", "<cmd>SessionDelete<cr>", desc = "delete session" },
-      { "<leader>wl", "<cmd>SessionLoad<cr>", desc = "load session" },
+      { "<leader>ws", "<cmd>lua require('resession').save()<cr>", desc = "save session" },
+      { "<leader>wx", "<cmd>lua require('resession').delete()<cr>", desc = "delete session" },
+      { "<leader>wl", "<cmd>lua require('resession').load()<cr>", desc = "load session" },
     },
     opts = {},
   },

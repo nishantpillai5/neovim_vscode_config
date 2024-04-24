@@ -1,7 +1,7 @@
 -- Editor
 vim.api.nvim_set_keymap("n", "<leader>s", ":w<cr>", { noremap = true, silent = true, desc = "save" })
 vim.api.nvim_set_keymap("n", "<leader>x", ":q<cr>", { noremap = true, silent = true, desc = "close" })
-vim.api.nvim_set_keymap("n", "<leader>;;", ":", { noremap = true, silent = true, desc = "vim cmd" })
+-- vim.api.nvim_set_keymap("n", "<leader>;;", ":", { noremap = true, silent = true, desc = "vim cmd" })
 
 -- Split
 vim.api.nvim_set_keymap("n", "<leader>zv", "<cmd>vs<cr>", { noremap = true, silent = true, desc = "vertical split" })
@@ -20,3 +20,6 @@ vim.api.nvim_set_keymap("n", "<C-Down>", ":resize +2<cr>", { silent = true, desc
 
 -- Exit terminal mode with Esc
 vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true, desc = "exit terminal" })
+
+-- Buffers
+vim.api.nvim_set_keymap("n", "<leader>b", ":buffers<cr>:buffer<Space>", { silent = true, desc = "go to buffer" })

@@ -14,15 +14,15 @@ vim.api.nvim_set_keymap(
 )
 
 -- Terminal
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<leader>;;",
+--   ":lua require('vscode-neovim').call('workbench.action.showCommands')<CR>",
+--   { noremap = true, silent = true }
+-- )
 vim.api.nvim_set_keymap(
   "n",
   "<leader>;;",
-  ":lua require('vscode-neovim').call('workbench.action.showCommands')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>;t",
   ":lua require('vscode-neovim').call('workbench.action.terminal.toggleTerminal')<CR>",
   { noremap = true, silent = true }
 )
