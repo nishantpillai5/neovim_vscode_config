@@ -67,7 +67,7 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("lualine").setup({
-        extensions = { "overseer" },
+        extensions = { "overseer", "nvim-dap-ui" },
         options = {
           theme = "vscode",
           section_separators = { left = "", right = "" },
