@@ -31,6 +31,22 @@ return {
     },
   },
   {
+    "kdheepak/lazygit.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    keys = {
+      { "<leader>gsl", "<cmd>LazyGit<cr>", desc = "Gitstatus.lazygit" },
+    },
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+  },
+  {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
     config = function()
@@ -88,8 +104,9 @@ return {
     keys = {
       { "<leader>ff", desc = "Find.git" },
       { "<leader>fa", desc = "Find.all" },
-      { "<leader>fg", desc = "Find.grep" },
-      { "<leader>f/", desc = "Find.search" },
+      { "<leader>fg", desc = "Find.Grep.buffers" },
+      { "<leader>fgg", desc = "Find.Grep.global" },
+      { "<leader>f/", desc = "Find.Search" },
       { "<leader>f/w", desc = "Find.Search.word" },
       { "<leader>f/W", desc = "Find.Search.whole_word" },
       { "<leader>fo", desc = "Find.symbols" },
@@ -160,8 +177,12 @@ return {
 
       vim.keymap.set("n", "<leader>ff", builtin.git_files)
       vim.keymap.set("n", "<leader>fa", builtin.find_files)
-      vim.keymap.set("n", "<leader>fg", builtin.live_grep)
+      vim.keymap.set("n", "<leader>fgg", builtin.live_grep)
       -- vim.keymap.set("n", "<leader>fg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
+
+      vim.keymap.set("n", "<leader>fg", function()
+        builtin.live_grep({ grep_open_files = true })
+      end)
       vim.keymap.set("n", "<leader>f/", function()
         builtin.grep_string({ search = vim.fn.input("Search > ") })
       end)

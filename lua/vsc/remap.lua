@@ -78,6 +78,13 @@ vim.api.nvim_set_keymap(
 
 vim.api.nvim_set_keymap(
   "n",
+  "<leader>fgg",
+  ":lua require('vscode-neovim').call('workbench.action.findInFiles')<CR>",
+  { noremap = true, silent = true }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
   "<leader>f/",
   ":lua require('vscode-neovim').call('workbench.action.findInFiles')<CR>",
   { noremap = true, silent = true }
