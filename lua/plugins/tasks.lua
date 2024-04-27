@@ -2,8 +2,8 @@ return {
   {
     "stevearc/overseer.nvim",
     keys = {
-      { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "run task" },
-      { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "toggle task list" },
+      { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Tasks.run" },
+      { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Tasks.toggle" },
     },
     config = function()
       require("overseer").setup({
@@ -19,22 +19,26 @@ return {
       "theHamsta/nvim-dap-virtual-text",
     },
     keys = {
-      { "<leader>dt", desc = "toggle preview" },
-      { "<leader>ds", desc = "continue/start" },
+      { "<leader>ds", desc = "Dap.continue/start" },
       -- { "<leader>dr", "<cmd>lua require('dap').stop()<cr>", desc = "run w/o debug" },
-      { "<leader>dx", "<cmd>lua require('dap').close()<cr>", desc = "stop" },
-      { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "pause" },
-      { "<leader>dj", "<cmd>lua require('dap').step_into()<cr>", desc = "step into" },
-      { "<leader>dk", "<cmd>lua require('dap').step_out()<cr>", desc = "step out" },
-      { "<leader>dl", "<cmd>lua require('dap').step_over()<cr>", desc = "step over" },
-      { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "breakpoint" },
-      { "<leader>dK", "<cmd>lua require('dap.ui.variables').hover(function() vim.fn.expand('<cexpr>') end)<cr>", mode = "n", desc = "hover" },
-      { "<leader>dK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "hover" },
-      { "<leader>d?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "hover" },
+      { "<leader>dx", "<cmd>lua require('dap').close()<cr>", desc = "Dap.stop" },
+      { "<leader>dp", "<cmd>lua require('dap').pause()<cr>", desc = "Dap.pause" },
+      { "<leader>dj", "<cmd>lua require('dap').step_into()<cr>", desc = "Dap.step_into" },
+      { "<leader>dk", "<cmd>lua require('dap').step_out()<cr>", desc = "Dap.step_out" },
+      { "<leader>dl", "<cmd>lua require('dap').step_over()<cr>", desc = "Dap.step_over" },
+      { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
+      {
+        "<leader>dK",
+        "<cmd>lua require('dap.ui.variables').hover(function() vim.fn.expand('<cexpr>') end)<cr>",
+        mode = "n",
+        desc = "Dap.hover",
+      },
+      { "<leader>dK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Dap.hover" },
+      { "<leader>d?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Dap.hover" },
       {
         "<leader>dB",
         "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
-        desc = "breakpoint w/ message",
+        desc = "Dap.breakpoint_with_message",
       },
     },
     config = function()
@@ -44,8 +48,8 @@ return {
       require("overseer").patch_dap(true)
       require("nvim-dap-virtual-text").setup()
 
-      vim.fn.sign_define('DapBreakpoint', {text='', texthl='@error', linehl='', numhl=''})
-      vim.fn.sign_define('DapLogPoint', {text='󰰍', texthl='@error', linehl='', numhl=''})
+      vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "@error", linehl = "", numhl = "" })
+      vim.fn.sign_define("DapLogPoint", { text = "󰰍", texthl = "@error", linehl = "", numhl = "" })
 
       dap.adapters.cppdbg = {
         id = "cppdbg",
@@ -56,35 +60,10 @@ return {
         },
       }
 
-      -- dap.configurations.cpp = {
-      --     {
-      --         name = "Launch file",
-      --         type = "cppdbg",
-      --         request = "launch",
-      --         program = function()
-      --           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      --         end,
-      --         cwd = '${workspaceFolder}',
-      --         stopAtEntry = true,
-      --     },
-      --     {
-      --         name = 'Attach to gdbserver :2000',
-      --         type = 'cppdbg',
-      --         request = 'launch',
-      --         MIMode = 'gdb',
-      --         miDebuggerServerAddress = 'localhost:2000',
-      --         miDebuggerPath = '/usr/bin/gdb',
-      --         cwd = '${workspaceFolder}',
-      --         program = function()
-      --             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-      --         end,
-      --     },
-      -- }
+      vim.g.dap_virtual_text = true
 
-      -- dap.configurations.c = dap.configurations.cpp
       -- Keymaps
-
-      vim.keymap.set("n", "<leader>dc", function()
+      vim.keymap.set("n", "<leader>ds", function()
         if vim.fn.filereadable(".vscode/launch.json") then
           require("dap.ext.vscode").load_launchjs(nil, { cppdbg = { "c", "cpp" } })
         end
@@ -94,15 +73,13 @@ return {
       vim.keymap.set({ "n", "v" }, "<leader>dt", function()
         require("dap.ui.widgets").preview()
       end)
-
-      vim.g.dap_virtual_text = true
     end,
   },
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
-      { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", desc = "toggle debug view" },
+      { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },
     },
     config = function()
       require("dapui").setup()

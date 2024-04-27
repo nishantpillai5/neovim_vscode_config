@@ -47,7 +47,7 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 -- Use system clipboard
-vim.o.clipboard = "unnamedplus"
+-- vim.o.clipboard = "unnamedplus"
 
 -- Faster operation
 -- vim.opt.updatetime = 300

@@ -63,9 +63,23 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "VeryLazy" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+      local function scope()
+        local status, neoscopes = pcall(require, "neoscopes")
+        if not status then
+          return "󱇳 No scope selected"
+        end
+
+        local current_scope = neoscopes.get_current_scope()
+        if current_scope == nil then
+          return "󱇳 No scope selected"
+        end
+
+        return "󱇳 " .. neoscopes.get_current_scope().name
+      end
+
       require("lualine").setup({
         extensions = { "overseer", "nvim-dap-ui" },
         options = {
@@ -80,15 +94,16 @@ return {
             "selectioncount",
           },
           lualine_b = {
-            "branch", -- FIXME: Lazy load breaks this
+            "branch",
             "diff",
-            "diagnostics",
           },
           lualine_c = {
-            "filename",
+            { "filename", path = 1 },
           },
           lualine_x = {
             "overseer",
+            "diagnostics",
+            scope,
           },
           lualine_y = {
             "encoding",
@@ -185,13 +200,13 @@ return {
       })
       vim.keymap.set("n", "<leader>znl", function()
         require("noice").cmd("last")
-      end)
+      end, { desc = "Visual.Notifications.last" })
       vim.keymap.set("n", "<leader>znh", function()
         require("noice").cmd("history")
-      end)
+      end, { desc = "Visual.Notifications.history" })
       vim.keymap.set("n", "<leader>znx", function()
         require("noice").cmd("disable")
-      end)
+      end, { desc = "Visual.Notifications.disable" })
     end,
   },
 }
