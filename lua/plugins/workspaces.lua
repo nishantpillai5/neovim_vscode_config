@@ -22,7 +22,8 @@ return {
             builtin.grep_string({ search = vim.fn.input("Search > ") })
           end)
         else
-          require("notify")("Current Scope: 󱇳 " .. neoscopes.get_current_scope().name)
+          require("notify")("Scope refreshed: 󱇳 " .. neoscopes.get_current_scope().name)
+
           _G.find_files = function()
             require("telescope.builtin").find_files({
               search_dirs = neoscopes.get_current_dirs(),
