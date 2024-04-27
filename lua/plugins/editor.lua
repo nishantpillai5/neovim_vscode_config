@@ -169,7 +169,6 @@ return {
       require("telescope").load_extension("conflicts")
       require("telescope").load_extension("yank_history")
       require("telescope").load_extension("refactoring")
-
       require("telescope").load_extension("picker_list")
 
       -- Keymaps
@@ -445,7 +444,7 @@ return {
   {
     "ThePrimeagen/refactoring.nvim",
     keys = {
-      { "<leader>rr", ":Refactor ", desc = "Refactor.refactor" },
+      { "<leader>rr", desc = "Refactor.refactor" },
     },
     opts = {},
   },
