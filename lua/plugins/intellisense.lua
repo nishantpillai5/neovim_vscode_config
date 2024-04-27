@@ -161,6 +161,7 @@ return {
   {
     "gelguy/wilder.nvim",
     event = "VeryLazy",
+    cond = false, -- WARN: disabled, interferes with inc-rename
     config = function()
       local wilder = require("wilder")
       wilder.setup({

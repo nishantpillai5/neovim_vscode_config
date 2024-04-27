@@ -51,10 +51,10 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
--- TODO: move to git chunks
+-- TODO: add move to git chunks
 
 -- Finder
--- TODO: only git files
+-- TODO: make this search only git files
 vim.api.nvim_set_keymap(
   "n",
   "<leader>ff",
@@ -286,7 +286,7 @@ vim.api.nvim_set_keymap(
 )
 
 -- Refactor
--- vim.api.nvim_set_keymap('n', '<leader>r', ':lua require(\'vscode-neovim\').call(\'editor.action.refactor\')<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>rn', ':lua require(\'vscode-neovim\').call(\'editor.action.refactor\')<CR>', {noremap = true, silent = true})
 
 -- Visual
 vim.api.nvim_set_keymap(

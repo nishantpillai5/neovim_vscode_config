@@ -45,6 +45,7 @@
   "overseer.nvim": { "branch": "master", "commit": "89942ad366c8a9bb93f82411de17dc7c644b4e3b" },
   "plenary.nvim": { "branch": "master", "commit": "08e301982b9a057110ede7a735dd1b5285eb341f" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "7ef0766b5cd2f5cdf4fcb08886f0a2ebf65981fa" },
+  "refactoring.nvim": { "branch": "master", "commit": "d2786877c91aa409c824f27b4ce8a9f560dda60a" },
   "remember.nvim": { "branch": "master", "commit": "b7613e14692478a0428dc69ca380b6fbb2448e60" },
   "resession.nvim": { "branch": "master", "commit": "4463a78e1783c99466d5f5fb79516d06a5d6f3f8" },
   "telescope-git-conflicts.nvim": { "branch": "main", "commit": "1ac7040f601d16ab3800bdda6f5912a0e385cb29" },

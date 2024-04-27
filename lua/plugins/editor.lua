@@ -168,6 +168,8 @@ return {
       require("telescope").load_extension("zf-native")
       require("telescope").load_extension("conflicts")
       require("telescope").load_extension("yank_history")
+      require("telescope").load_extension("refactoring")
+
       require("telescope").load_extension("picker_list")
 
       -- Keymaps
@@ -199,6 +201,10 @@ return {
 
       vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
       vim.keymap.set("n", "<leader>ft", require("telescope").extensions.picker_list.picker_list)
+
+      vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+        require("telescope").extensions.refactoring.refactors()
+      end)
     end,
   },
   {
@@ -423,14 +429,25 @@ return {
     "sitiom/nvim-numbertoggle",
     event = { "BufReadPre", "BufNewFile" },
   },
+  -- Refactor
   {
     "smjonas/inc-rename.nvim",
     keys = {
-      { "<leader>rn", "<cmd>lua require('inc_rename').rename()<cr>", desc = "rename" },
+      { "<leader>rn", desc = "Refactor.rename" },
     },
     config = function()
       require("inc_rename").setup()
+      vim.keymap.set("n", "<leader>rn", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
     end,
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    keys = {
+      { "<leader>rr", ":Refactor ", desc = "Refactor.refactor" },
+    },
+    opts = {},
   },
   {
     "monaqa/dial.nvim",
@@ -459,11 +476,11 @@ return {
         keywords = { NISH = { icon = "󰬕", color = "info" } },
       })
 
-      vim.keymap.set("n", "]d", function()
+      vim.keymap.set("n", "]t", function()
         require("todo-comments").jump_next()
       end, { desc = "Next.todo" })
 
-      vim.keymap.set("n", "[d", function()
+      vim.keymap.set("n", "[t", function()
         require("todo-comments").jump_prev()
       end, { desc = "Prev.todo" })
     end,

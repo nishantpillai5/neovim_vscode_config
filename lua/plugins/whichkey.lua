@@ -7,6 +7,7 @@ return {
       vim.o.timeoutlen = 300
     end,
     config = function()
+      -- TODO: update to only define prefixes
       local wk = require("which-key")
       wk.register({
         ["<leader>"] = {
