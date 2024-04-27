@@ -157,4 +157,26 @@ return {
     "github/copilot.vim",
     event = { "BufReadPre", "BufNewFile" },
   },
+  -- Command completion
+  {
+    "gelguy/wilder.nvim",
+    event = "VeryLazy",
+    config = function()
+      local wilder = require("wilder")
+      wilder.setup({
+        modes = { ":" },
+      })
+
+      wilder.set_option(
+        "renderer",
+        wilder.popupmenu_renderer(wilder.popupmenu_palette_theme({
+          border = "rounded",
+          max_height = "20%",
+          min_height = 0,
+          prompt_position = "bottom",
+          reverse = 1,
+        }))
+      )
+    end,
+  },
 }

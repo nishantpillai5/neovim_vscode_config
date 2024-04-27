@@ -86,7 +86,7 @@ return {
           theme = "vscode",
           section_separators = { left = "", right = "" },
           component_separators = { left = "", right = "" },
-          ignore_focus = { "OverseerList", "neo-tree" },
+          ignore_focus = { "OverseerList", "neo-tree", "vista" },
         },
         sections = {
           lualine_a = {
@@ -99,6 +99,7 @@ return {
           },
           lualine_c = {
             { "filename", path = 1 },
+            "harpoon2",
           },
           lualine_x = {
             "overseer",
@@ -116,8 +117,6 @@ return {
           },
         },
         winbar = {
-          lualine_a = {},
-          lualine_b = {},
           lualine_c = {
             {
               "buffers",
@@ -125,14 +124,21 @@ return {
               symbols = {
                 alternate_file = "",
               },
-            }, -- TODO: Pin icon for harpooned buffers
+            },
           },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
         },
       })
     end,
+  },
+  {
+    "letieu/harpoon-lualine",
+    event = { "VeryLazy" },
+    dependencies = {
+      {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+      },
+    },
   },
   -- Indentation guides
   {
@@ -183,6 +189,7 @@ return {
     },
     config = function()
       require("noice").setup({
+        cmdline = { enabled = false },
         lsp = {
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

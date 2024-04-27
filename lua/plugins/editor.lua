@@ -104,7 +104,7 @@ return {
     keys = {
       { "<leader>ff", desc = "Find.git" },
       { "<leader>fa", desc = "Find.all" },
-      { "<leader>fg", desc = "Find.Grep.buffers" },
+      { "<leader>fg", desc = "Find.Grep.buffers/workspace" },
       { "<leader>fgg", desc = "Find.Grep.global" },
       { "<leader>f/", desc = "Find.Search" },
       { "<leader>f/w", desc = "Find.Search.word" },
@@ -128,21 +128,13 @@ return {
       require("telescope").setup({
         defaults = {
           path_display = {
-            filename_first = {
-              reverse_directories = true,
-            },
+            filename_first = { reverse_directories = true },
           },
         },
         pickers = {
-          find_files = {
-            follow = true,
-          },
-          live_grep = {
-            follow = true,
-          },
-          grep_string = {
-            follow = true,
-          },
+          find_files = { follow = true },
+          live_grep = { follow = true },
+          grep_string = { follow = true },
         },
         extensions = {
           ["zf-native"] = {
@@ -285,7 +277,7 @@ return {
       { "<leader>/w", "<cmd>lua require('spectre').open_visual()<cr>", mode = "v", desc = "Search.global.word" },
     },
   },
-  -- File Explorer
+  -- Explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
     branch = "v3.x",
@@ -298,13 +290,23 @@ return {
     "stevearc/oil.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
-      { "<leader>eo", "<cmd>Oil<cr>", desc = "Explorer.oil" },
+      { "<leader>eee", "<cmd>Oil<cr>", desc = "Explorer.oil" },
     },
     config = function()
       require("oil").setup({
         -- Keep netrw enabled
         default_file_explorer = false,
       })
+    end,
+  },
+  {
+    "liuchengxu/vista.vim",
+    keys = {
+      { "<leader>eo", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
+    },
+    config = function()
+      vim.g.vista_echo_cursor_strategy = "floating_win"
+      vim.g.vista_sidebar_position = "vertical topleft"
     end,
   },
   -- Panel

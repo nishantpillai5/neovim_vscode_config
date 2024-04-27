@@ -125,7 +125,7 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
--- File Explorer
+-- Explorer
 vim.api.nvim_set_keymap(
   "n",
   "<leader>ee",
@@ -137,6 +137,13 @@ vim.api.nvim_set_keymap(
   "n",
   "<leader>ef",
   ":lua require('vscode-neovim').call('workbench.view.explorer')<CR>",
+  { noremap = true, silent = true }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>eo",
+  ":lua require('vscode-neovim').call('outline.focus')<CR>",
   { noremap = true, silent = true }
 )
 
