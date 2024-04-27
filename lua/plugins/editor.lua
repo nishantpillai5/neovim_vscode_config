@@ -114,11 +114,14 @@ return {
       { "<leader>fr", desc = "Find.registers" },
       { "<leader>fp", desc = "Find.yank" },
       { "<leader>fb", desc = "Find.buffers" },
+      { "<leader>ft", desc = "Find.telescope" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "natecraddock/telescope-zf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
+      "Snikimonkd/telescope-git-conflicts.nvim",
+      "OliverChao/telescope-picker-list.nvim",
     },
     config = function()
       local lga_actions = require("telescope-live-grep-args.actions")
@@ -171,14 +174,16 @@ return {
       })
 
       require("telescope").load_extension("zf-native")
-
-      local builtin = require("telescope.builtin")
+      require("telescope").load_extension("conflicts")
       require("telescope").load_extension("yank_history")
+      require("telescope").load_extension("picker_list")
 
+      -- Keymaps
+      local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<leader>ff", builtin.git_files)
       vim.keymap.set("n", "<leader>fa", builtin.find_files)
       vim.keymap.set("n", "<leader>fgg", builtin.live_grep)
-      -- vim.keymap.set("n", "<leader>fg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
+      -- vim.keymap.set("n", "<leader>fgg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
 
       vim.keymap.set("n", "<leader>fg", function()
         builtin.live_grep({ grep_open_files = true })
@@ -201,6 +206,7 @@ return {
       -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
       vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+      vim.keymap.set("n", "<leader>ft", require("telescope").extensions.picker_list.picker_list)
     end,
   },
   {
@@ -463,5 +469,10 @@ return {
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPre", "BufNewFile" },
+  },
+  {
+    "chentoast/marks.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
   },
 }
