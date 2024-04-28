@@ -12,13 +12,8 @@ return {
       wk.register({
         ["<leader>"] = {
           ["<space>"] = "hop",
-          [";"] = {
-            name = "Terminal",
-            t = "toggle",
-          },
-          r = {
-            name = "Refactor",
-          },
+          [";"] = { name = "Terminal" },
+          r = { name = "Refactor" },
           f = {
             name = "Find",
             d = "debug tasks",
@@ -26,21 +21,7 @@ return {
           e = { name = "File Explorer" },
           w = { name = "Workspace/Session" },
           t = { name = "Trouble" },
-          d = {
-            name = "Debug",
-            d = "preview",
-            t = "toggle view",
-            s = "start",
-            x = "stop",
-            r = "run with debug",
-            c = "continue",
-            p = "pause",
-            j = "step into",
-            k = "step out",
-            l = "step over",
-            b = "breakpoint",
-            B = "breakpoint w/ message",
-          },
+          d = { name = "Debug" },
           o = { name = "Tasks" },
           z = { name = "Visual" },
         },
@@ -53,16 +34,10 @@ return {
           h = "signature help",
           l = "diagnostics",
         },
-        gs = {
-          name = "Git",
-          s = "fugitive",
-          l = "lazy",
-        },
+        gs = { name = "Git" },
         ["[d"] = "previous diagnostic",
-        ["d"] = "next diagnostic",
+        ["]d"] = "next diagnostic",
         K = "hover",
-        ["<F2>"] = "rename",
-        ["<F3>"] = "format",
       })
     end,
   },

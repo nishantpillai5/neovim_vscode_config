@@ -137,6 +137,8 @@ return {
         formatters_by_ft = {
           lua = { "stylua" },
           json = { "prettier" },
+          c = { "clang-format" },
+          cpp = { "clang-format" },
           ["_"] = { "trim_whitespace" },
         },
       })
