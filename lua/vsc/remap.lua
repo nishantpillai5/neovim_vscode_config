@@ -221,15 +221,13 @@ vim.api.nvim_set_keymap(
   { noremap = true, silent = true }
 )
 
-
--- Run and debug
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>dr",
-  ":lua require('vscode-neovim').call('workbench.action.debug.run')<CR>",
-  { noremap = true, silent = true }
-)
+-- DAP
+-- vim.api.nvim_set_keymap(
+--   "n",
+--   "<leader>dr",
+--   ":lua require('vscode-neovim').call('workbench.action.debug.run')<CR>",
+--   { noremap = true, silent = true }
+-- )
 -- vim.api.nvim_set_keymap(
 --   "n",
 --   "<leader>ds",
@@ -238,37 +236,37 @@ vim.api.nvim_set_keymap(
 -- )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>ds",
+  "<F5>",
   ":lua require('vscode-neovim').call('workbench.action.debug.continue')<CR>",
   { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>dx",
+  "<C-F5>",
   ":lua require('vscode-neovim').call('workbench.action.debug.stop')<CR>",
   { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>dp",
+  "<F6>",
   ":lua require('vscode-neovim').call('workbench.action.debug.pause')<CR>",
   { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>dj",
+  "<F7>",
   ":lua require('vscode-neovim').call('workbench.action.debug.stepInto')<CR>",
   { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>dk",
+  "<C-F7>",
   ":lua require('vscode-neovim').call('workbench.action.debug.stepOut')<CR>",
   { noremap = true, silent = true }
 )
 vim.api.nvim_set_keymap(
   "n",
-  "<leader>dl",
+  "<F8>",
   ":lua require('vscode-neovim').call('workbench.action.debug.stepOver')<CR>",
   { noremap = true, silent = true }
 )
@@ -286,7 +284,12 @@ vim.api.nvim_set_keymap(
 )
 
 -- Refactor
-vim.api.nvim_set_keymap('n', '<leader>rn', ':lua require(\'vscode-neovim\').call(\'editor.action.refactor\')<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>rn",
+  ":lua require('vscode-neovim').call('editor.action.refactor')<CR>",
+  { noremap = true, silent = true }
+)
 
 -- Visual
 vim.api.nvim_set_keymap(
