@@ -1,6 +1,10 @@
+local load_plugin = {}
+load_plugin["folke/which-key.nvim"] = true
+
 return {
   {
     "folke/which-key.nvim",
+        cond = load_plugin["folke/which-key.nvim"],
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true

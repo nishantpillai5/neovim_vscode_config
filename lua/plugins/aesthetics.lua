@@ -1,7 +1,18 @@
+local load_plugin = {}
+-- Looks
+load_plugin["Mofiqul/vscode.nvim"] = true
+load_plugin["nvimdev/dashboard-nvim"] = true
+load_plugin["nvim-lualine/lualine.nvim"] = true
+load_plugin["letieu/harpoon-lualine"] = true
+load_plugin["lukas-reineke/indent-blankline.nvim"] = true
+load_plugin["folke/noice.nvim"] = true
+load_plugin["levouh/tint.nvim"] = false
+
 return {
   -- Looks
   {
     "Mofiqul/vscode.nvim",
+    cond = load_plugin["Mofiqul/vscode.nvim"],
     lazy = false,
     priority = 1000,
     config = function()
@@ -23,6 +34,7 @@ return {
   },
   {
     "nvimdev/dashboard-nvim",
+    cond = load_plugin["nvimdev/dashboard-nvim"],
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     priority = 900,
@@ -63,6 +75,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
+    cond = load_plugin["nvim-lualine/lualine.nvim"],
     event = { "VeryLazy" },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
@@ -97,10 +110,7 @@ return {
             "branch",
             "diff",
           },
-          lualine_c = {
-            { "filename", path = 1 },
-            "harpoon2",
-          },
+          lualine_c = {},
           lualine_x = {
             "overseer",
             "diagnostics",
@@ -117,6 +127,12 @@ return {
           },
         },
         winbar = {
+          lualine_a = {
+            { "filename", path = 1 },
+          },
+          lualine_b = {
+            "harpoon2",
+          },
           lualine_c = {
             {
               "buffers",
@@ -132,6 +148,7 @@ return {
   },
   {
     "letieu/harpoon-lualine",
+    cond = load_plugin["letieu/harpoon-lualine"],
     event = { "VeryLazy" },
     dependencies = {
       {
@@ -143,6 +160,7 @@ return {
   -- Indentation guides
   {
     "lukas-reineke/indent-blankline.nvim",
+    cond = load_plugin["lukas-reineke/indent-blankline.nvim"],
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     config = function()
@@ -181,6 +199,7 @@ return {
   },
   {
     "folke/noice.nvim",
+    cond = load_plugin["folke/noice.nvim"],
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -197,7 +216,7 @@ return {
           },
         },
         presets = {
-          bottom_search = true,
+          bottom_search = false,
           long_message_to_split = true,
           inc_rename = true,
           lsp_doc_border = true,
@@ -213,5 +232,13 @@ return {
         require("noice").cmd("disable")
       end, { desc = "Visual.Notifications.disable" })
     end,
+  },
+  {
+    "levouh/tint.nvim",
+    cond = load_plugin["levouh/tint.nvim"],
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      saturation = 0.3,
+    },
   },
 }

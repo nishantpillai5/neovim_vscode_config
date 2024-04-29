@@ -1,6 +1,11 @@
+local load_plugin = {}
+load_plugin["smartpde/neoscopes"] = true
+load_plugin["stevearc/resession.nvim"] = true
+
 return {
   {
     "smartpde/neoscopes",
+    cond = load_plugin["smartpde/neoscopes"],
     keys = {
       { "<leader>fw", desc = "Find.workspace" },
       { "<leader>ww", desc = "Workspace.refresh" },
@@ -73,6 +78,7 @@ return {
   },
   {
     "stevearc/resession.nvim",
+    cond = load_plugin["stevearc/resession.nvim"],
     keys = {
       { "<leader>ws", desc = "Workspace.session_save" },
       { "<leader>wl", desc = "Workspace.session_load" },

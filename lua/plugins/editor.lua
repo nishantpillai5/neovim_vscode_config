@@ -1,13 +1,71 @@
+local load_plugin = {}
+  -- Comments
+load_plugin["numToStr/Comment.nvim"] = true
+load_plugin["folke/todo-comments.nvim"] = true
+  -- Tmux like navigation
+load_plugin["alexghergh/nvim-tmux-navigation"] = true
+  -- Git
+load_plugin["tpope/vim-fugitive"] = true
+load_plugin["kdheepak/lazygit.nvim"] = true
+load_plugin["lewis6991/gitsigns.nvim"] = true
+  -- Finder
+load_plugin["nvim-telescope/telescope.nvim"] = true
+load_plugin["ThePrimeagen/harpoon"] = true
+load_plugin["nvim-pack/nvim-spectre"] = true
+  -- Explorer
+load_plugin["nvim-neo-tree/neo-tree.nvim"] = true
+load_plugin["stevearc/oil.nvim"] = true
+load_plugin["liuchengxu/vista.vim"] = true
+  -- Panel
+load_plugin["folke/trouble.nvim"] = true
+  -- Terminal
+load_plugin["ryanmsnyder/toggleterm-manager.nvim"] = true
+  -- Refactor
+load_plugin["smjonas/inc-rename.nvim"] = true
+load_plugin["ThePrimeagen/refactoring.nvim"] = false -- WARN: not tested, slow startup
+  -- Helpers
+load_plugin["mbbill/undotree"] = true
+load_plugin["gbprod/yanky.nvim"] = false -- WARN: This slows things down
+load_plugin["monaqa/dial.nvim"] = true
+load_plugin["chentoast/marks.nvim"] = true
+load_plugin["Wansmer/treesj"] = true
+  -- Misc
+load_plugin["folke/zen-mode.nvim"] = true
+load_plugin["vladdoster/remember.nvim"] = true
+load_plugin["sitiom/nvim-numbertoggle"] = true
+load_plugin["RRethy/vim-illuminate"] = true
+
 return {
   -- Comments
   {
     "numToStr/Comment.nvim",
+    cond = load_plugin["numToStr/Comment.nvim"],
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
+  },
+  {
+    "folke/todo-comments.nvim",
+    cond = load_plugin["folke/todo-comments.nvim"],
+    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("todo-comments").setup({
+        keywords = { NISH = { icon = "󰬕", color = "info" } },
+      })
+
+      vim.keymap.set("n", "]t", function()
+        require("todo-comments").jump_next()
+      end, { desc = "Next.todo" })
+
+      vim.keymap.set("n", "[t", function()
+        require("todo-comments").jump_prev()
+      end, { desc = "Prev.todo" })
+    end,
   },
   -- Tmux like navigation
   {
     "alexghergh/nvim-tmux-navigation",
+    cond = load_plugin["alexghergh/nvim-tmux-navigation"],
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nvim_tmux_nav = require("nvim-tmux-navigation")
@@ -26,12 +84,15 @@ return {
   -- Git
   {
     "tpope/vim-fugitive",
+    cond = load_plugin["tpope/vim-fugitive"],
+    event = "VeryLazy",
     keys = {
       { "<leader>gss", "<cmd>Git<cr>", desc = "Gitstatus.fugitive" },
     },
   },
   {
     "kdheepak/lazygit.nvim",
+    cond = load_plugin["kdheepak/lazygit.nvim"],
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -48,6 +109,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    cond = load_plugin["lewis6991/gitsigns.nvim"],
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("gitsigns").setup({
@@ -101,6 +163,8 @@ return {
   -- Finder
   {
     "nvim-telescope/telescope.nvim",
+    cond = load_plugin["nvim-telescope/telescope.nvim"],
+    event = "VeryLazy",
     keys = {
       { "<leader>ff", desc = "Find.git" },
       { "<leader>fa", desc = "Find.all" },
@@ -167,8 +231,8 @@ return {
 
       require("telescope").load_extension("zf-native")
       require("telescope").load_extension("conflicts")
-      require("telescope").load_extension("yank_history")
-      require("telescope").load_extension("refactoring")
+      -- require("telescope").load_extension("yank_history")
+      -- require("telescope").load_extension("refactoring")
       require("telescope").load_extension("picker_list")
 
       -- Keymaps
@@ -198,16 +262,17 @@ return {
       vim.keymap.set("n", "<leader>fb", builtin.buffers)
       -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
-      vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+      -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
       vim.keymap.set("n", "<leader>ft", require("telescope").extensions.picker_list.picker_list)
 
-      vim.keymap.set({ "n", "x" }, "<leader>rr", function()
-        require("telescope").extensions.refactoring.refactors()
-      end)
+      -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+      --   require("telescope").extensions.refactoring.refactors()
+      -- end)
     end,
   },
   {
     "ThePrimeagen/harpoon",
+    cond = load_plugin["ThePrimeagen/harpoon"],
     branch = "harpoon2",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
     keys = {
@@ -259,6 +324,7 @@ return {
   },
   {
     "nvim-pack/nvim-spectre",
+    cond = load_plugin["nvim-pack/nvim-spectre"],
     keys = {
       {
         "<leader>//",
@@ -285,6 +351,7 @@ return {
   -- Explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
+    cond = load_plugin["nvim-neo-tree/neo-tree.nvim"],
     branch = "v3.x",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
     keys = {
@@ -293,6 +360,7 @@ return {
   },
   {
     "stevearc/oil.nvim",
+    cond = load_plugin["stevearc/oil.nvim"],
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<leader>eee", "<cmd>Oil<cr>", desc = "Explorer.oil" },
@@ -306,17 +374,20 @@ return {
   },
   {
     "liuchengxu/vista.vim",
+    cond = load_plugin["liuchengxu/vista.vim"],
     keys = {
       { "<leader>eo", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
     },
     config = function()
       vim.g.vista_echo_cursor_strategy = "floating_win"
       vim.g.vista_sidebar_position = "vertical topleft"
+      vim.g.vista_enable_centering_jump = 0
     end,
   },
   -- Panel
   {
     "folke/trouble.nvim",
+    cond = load_plugin["folke/trouble.nvim"],
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<leader>tt", "<cmd>lua require('trouble').toggle()<cr>", desc = "Trouble.toggle" },
@@ -348,6 +419,7 @@ return {
   -- Terminal
   {
     "ryanmsnyder/toggleterm-manager.nvim",
+    cond = load_plugin["ryanmsnyder/toggleterm-manager.nvim"],
     dependencies = {
       "akinsho/nvim-toggleterm.lua",
       "nvim-telescope/telescope.nvim",
@@ -372,15 +444,39 @@ return {
       })
     end,
   },
-  -- Misc
+  -- Refactor
+  {
+    "smjonas/inc-rename.nvim",
+    cond = load_plugin["smjonas/inc-rename.nvim"],
+    keys = {
+      { "<leader>rn", desc = "Refactor.rename" },
+    },
+    config = function()
+      require("inc_rename").setup()
+      vim.keymap.set("n", "<leader>rn", function()
+        return ":IncRename " .. vim.fn.expand("<cword>")
+      end, { expr = true })
+    end,
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+    cond = load_plugin["ThePrimeagen/refactoring.nvim"],
+    keys = {
+      { "<leader>rr", desc = "Refactor.refactor" },
+    },
+    opts = {},
+  },
+  -- Helpers
   {
     "mbbill/undotree",
+    cond = load_plugin["mbbill/undotree"],
     keys = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "undotree_toggle" },
     },
   },
   {
     "gbprod/yanky.nvim",
+    cond = load_plugin["gbprod/yanky.nvim"],
     event = "VeryLazy",
     config = function()
       require("yanky").setup({
@@ -400,56 +496,8 @@ return {
     end,
   },
   {
-    "Wansmer/treesj",
-    opts = {
-      use_default_keymaps = false,
-    },
-    keys = {
-      { "<space>J", "<cmd>lua require('treesj').toggle()<cr>", desc = "code_join" },
-      -- { "<space>Jm", "<cmd>lua require('treesj').join()<cr>", desc = "code join" },
-      -- { "<space>Js", "<cmd>lua require('treesj').split()<cr>", desc = "code split" }
-    },
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-  },
-  {
-    "folke/zen-mode.nvim",
-    keys = {
-      { "<leader>zz", "<cmd>lua require('zen-mode').toggle({ window = { width = .85 }})<cr>", desc = "Visual.zen" },
-    },
-  },
-  {
-    "vladdoster/remember.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("remember").setup({})
-    end,
-  },
-  {
-    "sitiom/nvim-numbertoggle",
-    event = { "BufReadPre", "BufNewFile" },
-  },
-  -- Refactor
-  {
-    "smjonas/inc-rename.nvim",
-    keys = {
-      { "<leader>rn", desc = "Refactor.rename" },
-    },
-    config = function()
-      require("inc_rename").setup()
-      vim.keymap.set("n", "<leader>rn", function()
-        return ":IncRename " .. vim.fn.expand("<cword>")
-      end, { expr = true })
-    end,
-  },
-  {
-    "ThePrimeagen/refactoring.nvim",
-    keys = {
-      { "<leader>rr", desc = "Refactor.refactor" },
-    },
-    opts = {},
-  },
-  {
     "monaqa/dial.nvim",
+    cond = load_plugin["monaqa/dial.nvim"],
     keys = {
       { "<C-a>", "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = "increment" },
       { "<C-x>", "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = "decrement" },
@@ -467,30 +515,48 @@ return {
     end,
   },
   {
-    "folke/todo-comments.nvim",
+    "chentoast/marks.nvim",
+    cond = load_plugin["chentoast/marks.nvim"],
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {},
+  },
+  {
+    "Wansmer/treesj",
+    cond = load_plugin["Wansmer/treesj"],
+    opts = {
+      use_default_keymaps = false,
+    },
+    keys = {
+      { "<space>J", "<cmd>lua require('treesj').toggle()<cr>", desc = "code_join" },
+      -- { "<space>Jm", "<cmd>lua require('treesj').join()<cr>", desc = "code join" },
+      -- { "<space>Js", "<cmd>lua require('treesj').split()<cr>", desc = "code split" }
+    },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+  },
+  -- Misc
+  {
+    "folke/zen-mode.nvim",
+    cond = load_plugin["folke/zen-mode.nvim"],
+    keys = {
+      { "<leader>zz", "<cmd>lua require('zen-mode').toggle({ window = { width = .85 }})<cr>", desc = "Visual.zen" },
+    },
+  },
+  {
+    "vladdoster/remember.nvim",
+    cond = load_plugin["vladdoster/remember.nvim"],
     event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("todo-comments").setup({
-        keywords = { NISH = { icon = "󰬕", color = "info" } },
-      })
-
-      vim.keymap.set("n", "]t", function()
-        require("todo-comments").jump_next()
-      end, { desc = "Next.todo" })
-
-      vim.keymap.set("n", "[t", function()
-        require("todo-comments").jump_prev()
-      end, { desc = "Prev.todo" })
+      require("remember").setup({})
     end,
   },
   {
-    "RRethy/vim-illuminate",
+    "sitiom/nvim-numbertoggle",
+    cond = load_plugin["sitiom/nvim-numbertoggle"],
     event = { "BufReadPre", "BufNewFile" },
   },
   {
-    "chentoast/marks.nvim",
+    "RRethy/vim-illuminate",
+    cond = load_plugin["RRethy/vim-illuminate"],
     event = { "BufReadPre", "BufNewFile" },
-    opts = {},
   },
 }

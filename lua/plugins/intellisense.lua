@@ -1,6 +1,22 @@
+local load_plugin = {}
+load_plugin["nvim-treesitter/nvim-treesitter"] = true
+-- Context
+load_plugin["nvim-treesitter/nvim-treesitter-context"] = true
+-- LSP
+load_plugin["VonHeikemen/lsp-zero.nvim"] = true
+-- Lint
+load_plugin["mfussenegger/nvim-lint"] = true
+-- Fomatter
+load_plugin["stevearc/conform.nvim"] = true
+-- AI
+load_plugin["github/copilot.vim"] = true
+-- Completion
+load_plugin["gelguy/wilder.nvim"] = false -- WARN: not tested
+
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    cond = load_plugin["nvim-treesitter/nvim-treesitter"],
     event = "VeryLazy",
     build = ":TSUpdate",
     config = function()
@@ -16,11 +32,13 @@ return {
   -- Context
   {
     "nvim-treesitter/nvim-treesitter-context",
+    cond = load_plugin["nvim-treesitter/nvim-treesitter-context"],
     event = { "BufReadPre", "BufNewFile" },
   },
   -- LSP
   {
     "VonHeikemen/lsp-zero.nvim",
+    cond = load_plugin["VonHeikemen/lsp-zero.nvim"],
     event = "VeryLazy",
     branch = "v3.x",
     dependencies = {
@@ -110,6 +128,7 @@ return {
   -- Lint
   {
     "mfussenegger/nvim-lint",
+    cond = load_plugin["mfussenegger/nvim-lint"],
     event = "VeryLazy",
     config = function()
       local lint = require("lint")
@@ -129,6 +148,7 @@ return {
   -- Fomatter
   {
     "stevearc/conform.nvim",
+    cond = load_plugin["stevearc/conform.nvim"],
     keys = {
       { "<leader>p", mode = { "n", "v" }, desc = "format" },
     },
@@ -157,13 +177,14 @@ return {
   -- AI
   {
     "github/copilot.vim",
+    cond = load_plugin["github/copilot.vim"],
     event = { "BufReadPre", "BufNewFile" },
   },
   -- Command completion
   {
     "gelguy/wilder.nvim",
+    cond = load_plugin["gelguy/wilder.nvim"],
     event = "VeryLazy",
-    cond = false, -- WARN: disabled, interferes with inc-rename
     config = function()
       local wilder = require("wilder")
       wilder.setup({
