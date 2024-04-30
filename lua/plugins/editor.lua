@@ -1,35 +1,35 @@
 local load_plugin = {}
-  -- Comments
+-- Comments
 load_plugin["numToStr/Comment.nvim"] = true
 load_plugin["folke/todo-comments.nvim"] = true
-  -- Tmux like navigation
+-- Tmux like navigation
 load_plugin["alexghergh/nvim-tmux-navigation"] = true
-  -- Git
+-- Git
 load_plugin["tpope/vim-fugitive"] = true
 load_plugin["kdheepak/lazygit.nvim"] = true
 load_plugin["lewis6991/gitsigns.nvim"] = true
-  -- Finder
+-- Finder
 load_plugin["nvim-telescope/telescope.nvim"] = true
 load_plugin["ThePrimeagen/harpoon"] = true
 load_plugin["nvim-pack/nvim-spectre"] = true
-  -- Explorer
+-- Explorer
 load_plugin["nvim-neo-tree/neo-tree.nvim"] = true
 load_plugin["stevearc/oil.nvim"] = true
 load_plugin["liuchengxu/vista.vim"] = true
-  -- Panel
+-- Panel
 load_plugin["folke/trouble.nvim"] = true
-  -- Terminal
+-- Terminal
 load_plugin["ryanmsnyder/toggleterm-manager.nvim"] = true
-  -- Refactor
+-- Refactor
 load_plugin["smjonas/inc-rename.nvim"] = true
 load_plugin["ThePrimeagen/refactoring.nvim"] = false -- WARN: not tested, slow startup
-  -- Helpers
+-- Helpers
 load_plugin["mbbill/undotree"] = true
 load_plugin["gbprod/yanky.nvim"] = false -- WARN: This slows things down
 load_plugin["monaqa/dial.nvim"] = true
 load_plugin["chentoast/marks.nvim"] = true
 load_plugin["Wansmer/treesj"] = true
-  -- Misc
+-- Misc
 load_plugin["folke/zen-mode.nvim"] = true
 load_plugin["vladdoster/remember.nvim"] = true
 load_plugin["sitiom/nvim-numbertoggle"] = true
@@ -233,6 +233,7 @@ return {
       require("telescope").load_extension("conflicts")
       -- require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")
+      require("telescope").load_extension("notify")
       require("telescope").load_extension("picker_list")
 
       -- Keymaps
@@ -379,9 +380,11 @@ return {
       { "<leader>eo", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
     },
     config = function()
+      vim.g.vista_echo_cursor = 0
       vim.g.vista_echo_cursor_strategy = "floating_win"
       vim.g.vista_sidebar_position = "vertical topleft"
-      vim.g.vista_enable_centering_jump = 0
+      vim.g.vista_cursor_delay = 1500
+      vim.g.vista_sidebar_width = 40
     end,
   },
   -- Panel

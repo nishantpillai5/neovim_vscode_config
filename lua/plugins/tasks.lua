@@ -27,16 +27,11 @@ return {
     },
     keys = {
       { "<F5>", desc = "Dap.continue/start" },
-      -- { "<leader>dr", "<cmd>lua require('dap').stop()<cr>", desc = "run w/o debug" },
-      { "<C-F5>", "<cmd>lua require('dap').close()<cr>", desc = "Dap.stop" },
-      { "<leader>dx", "<cmd>lua require('dap').close()<cr>", desc = "Dap.stop" },
-      { "<F6>", "<cmd>lua require('dap').pause()<cr>", desc = "Dap.pause" },
-      { "<F7>", "<cmd>lua require('dap').step_into()<cr>", desc = "Dap.step_into" },
-      { "<leader>dj", "<cmd>lua require('dap').step_into()<cr>", desc = "Dap.step_into" },
-      { "<C-F7>", "<cmd>lua require('dap').step_out()<cr>", desc = "Dap.step_out" },
-      { "<leader>dk", "<cmd>lua require('dap').step_out()<cr>", desc = "Dap.step_out" },
-      { "<F8>", "<cmd>lua require('dap').step_over()<cr>", desc = "Dap.step_over" },
-      { "<leader>dl", "<cmd>lua require('dap').step_over()<cr>", desc = "Dap.step_over" },
+      { "<C-F5>", desc = "Dap.stop" },
+      { "<F6>", desc = "Dap.pause" },
+      { "<F7>", desc = "Dap.step_into" },
+      { "<C-F7>", desc = "Dap.step_out" },
+      { "<F8>", desc = "Dap.step_over" },
       { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
       {
         "<leader>dB",
@@ -50,7 +45,11 @@ return {
       require("dap.ext.vscode").json_decode = require("overseer.json").decode
       require("dap.ext.vscode").load_launchjs()
       require("overseer").patch_dap(true)
-      require("nvim-dap-virtual-text").setup()
+      require("nvim-dap-virtual-text").setup({
+        only_first_definition = false,
+        all_references = true,
+      })
+
       vim.g.dap_virtual_text = true
 
       vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "@error", linehl = "", numhl = "" })
@@ -70,7 +69,33 @@ return {
         if vim.fn.filereadable(".vscode/launch.json") then
           require("dap.ext.vscode").load_launchjs(nil, { cppdbg = { "c", "cpp" } })
         end
+        -- require("notify")("DAP: Continue")
         require("dap").continue()
+      end)
+
+      vim.keymap.set("n", "<C-F5>", function()
+        require("notify")("DAP: Stop")
+        require("dap").close()
+      end)
+
+      vim.keymap.set("n", "<F6>", function()
+        require("notify")("DAP: Pause")
+        require("dap").pause()
+      end)
+
+      vim.keymap.set("n", "<F7>", function()
+        require("notify")("DAP: Step Into")
+        require("dap").step_into()
+      end)
+
+      vim.keymap.set("n", "<C-F7>", function()
+        require("notify")("DAP: Step Out")
+        require("dap").step_out()
+      end)
+
+      vim.keymap.set("n", "<F8>", function()
+        -- require("notify")("DAP: Step Over")
+        require("dap").step_over()
       end)
 
       vim.keymap.set({ "n", "v" }, "<leader>dt", function()

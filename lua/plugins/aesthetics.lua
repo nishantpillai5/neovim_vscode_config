@@ -6,7 +6,7 @@ load_plugin["nvim-lualine/lualine.nvim"] = true
 load_plugin["letieu/harpoon-lualine"] = true
 load_plugin["lukas-reineke/indent-blankline.nvim"] = true
 load_plugin["folke/noice.nvim"] = true
-load_plugin["levouh/tint.nvim"] = false
+load_plugin["levouh/tint.nvim"] = true
 
 return {
   -- Looks
@@ -27,6 +27,9 @@ return {
           DiagnosticError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
           DiagnosticInfo = { fg = c.vscBlue, bg = c.vscPopupHighlightGray },
           DiagnosticHint = { fg = c.vscBlue, bg = c.vscPopupHighlightGray },
+          NvimDapVirtualText = { fg = c.vscYellow, bg = c.vscPopupHighlightGray },
+          NvimDapVirtualTextError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
+          NvimDapVirtualTextChanged = { fg = c.vscOrange, bg = c.vscPopupHighlightGray },
         },
       })
       vim.cmd.colorscheme("vscode")
@@ -195,6 +198,16 @@ return {
       })
 
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    end,
+  },
+  {
+    "rcarriga/nvim-notify",
+    config = function()
+      vim.notify = require("notify").setup({
+        stages = "fade",
+        timeout = 3000,
+        render = "compact",
+      })
     end,
   },
   {

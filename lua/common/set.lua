@@ -18,11 +18,12 @@ vim.opt.listchars:append("space:⋅")
 
 -- Undo
 vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir = os.getenv("HOME") .. "/.nvim/undodir"
 
 -- Backups
 -- vim.opt.backup = false
 -- vim.opt.swapfile = false
+vim.opt.backupdir = os.getenv("HOME") .. "/.nvim/backupdir"
 
 -- Search
 -- vim.opt.hlsearch = false

@@ -50,6 +50,19 @@ return {
       "L3MON4D3/LuaSnip",
     },
     config = function()
+      local diagnostics_active = true
+      local toggle_diagnostics = function()
+        diagnostics_active = not diagnostics_active
+        if diagnostics_active then
+          vim.diagnostic.show()
+        else
+          vim.diagnostic.hide()
+        end
+      end
+
+      vim.keymap.set("n", "<leader>zl", toggle_diagnostics, { desc = "Visual.diagnostics" })
+
+      -- Config
       local lsp_zero = require("lsp-zero")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
       -- TODO: cmp <cr> to confirm selection
@@ -150,7 +163,7 @@ return {
     "stevearc/conform.nvim",
     cond = load_plugin["stevearc/conform.nvim"],
     keys = {
-      { "<leader>p", mode = { "n", "v" }, desc = "format" },
+      { "<leader>ls", mode = { "n", "v" }, desc = "lsp.format" },
     },
     config = function()
       require("conform").setup({
@@ -163,7 +176,7 @@ return {
         },
       })
 
-      vim.keymap.set({ "n", "v" }, "<leader>p", function()
+      vim.keymap.set({ "n", "v" }, "<leader>ls", function()
         require("conform").format({
           lsp_fallback = true,
           async = true,
