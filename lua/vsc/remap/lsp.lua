@@ -1,13 +1,5 @@
+local map = require("vsc.vscode_mapper").map
+
 -- Formatter
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ls",
-  ":lua require('vscode-neovim').call('editor.action.formatDocument')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "v",
-  "<leader>ls",
-  ":lua require('vscode-neovim').call('editor.action.formatSelection')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>ls", "editor.action.formatDocument")
+map("v", "<leader>ls", "editor.action.formatSelection")

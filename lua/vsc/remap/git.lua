@@ -1,19 +1,11 @@
---Fugitive
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>gs",
-  ":lua require('vscode-neovim').call('workbench.view.scm')<CR>",
-  { noremap = true, silent = true }
-)
+local map = require("vsc.vscode_mapper").map
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>gl",
-  ":lua require('vscode-neovim').call('git.viewHistory')<CR>",
-  { noremap = true, silent = true }
-)
+--Fugitive
+map("n", "<leader>gs", "workbench.view.scm")
+map("n", "<leader>gl", "git.viewHistory")
+
+-- Gitsigns
+map("n", "[c", "workbench.action.editor.previousChange")
+map("n", "]c", "workbench.action.editor.nextChange")
 
 --LazyGit
-
---Gitsigns
--- TODO: stage hunks, move to chunk

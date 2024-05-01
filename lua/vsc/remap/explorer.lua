@@ -1,25 +1,12 @@
+local map = require("vsc.vscode_mapper").map
+
 -- Neotree
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ee",
-  ":lua require('vscode-neovim').call('workbench.view.explorer')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>ee", "workbench.view.explorer")
 
 -- Netrw
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>ef",
-  ":lua require('vscode-neovim').call('workbench.view.explorer')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>ef", "workbench.view.explorer")
 
 -- Oil
 
 -- Vista
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>eo",
-  ":lua require('vscode-neovim').call('outline.focus')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>eo", "outline.focus")

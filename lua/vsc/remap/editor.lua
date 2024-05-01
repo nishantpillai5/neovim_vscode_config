@@ -1,24 +1,10 @@
+local map = require("vsc.vscode_mapper").map
+
 -- Comments
 -- Tmux like navigation
 -- Refactor
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>rn",
-  ":lua require('vscode-neovim').call('editor.action.refactor')<CR>",
-  { noremap = true, silent = true }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>rr",
-  ":lua require('vscode-neovim').call('editor.action.refactor')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>rn", "editor.action.refactor")
+map("n", "<leader>rr", "editor.action.refactor")
 
 -- Misc
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>zz",
-  ":lua require('vscode-neovim').call('workbench.action.toggleMaximizeEditorGroup')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>zz", "workbench.action.toggleMaximizeEditorGroup")

@@ -1,71 +1,19 @@
+local map = require("vsc.vscode_mapper").map
+
 -- Build
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>oo",
-  ":lua require('vscode-neovim').call('workbench.action.tasks.build')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>oo", "workbench.action.tasks.build")
 
 -- DAP
--- vim.api.nvim_set_keymap(
---   "n",
---   "<leader>dr",
---   ":lua require('vscode-neovim').call('workbench.action.debug.run')<CR>",
---   { noremap = true, silent = true }
--- )
--- vim.api.nvim_set_keymap(
---   "n",
---   "<leader>ds",
---   ":lua require('vscode-neovim').call('workbench.action.debug.start')<CR>",
---   { noremap = true, silent = true }
--- )
-vim.api.nvim_set_keymap(
-  "n",
-  "<F5>",
-  ":lua require('vscode-neovim').call('workbench.action.debug.continue')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-F5>",
-  ":lua require('vscode-neovim').call('workbench.action.debug.stop')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<F6>",
-  ":lua require('vscode-neovim').call('workbench.action.debug.pause')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<F7>",
-  ":lua require('vscode-neovim').call('workbench.action.debug.stepInto')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-F7>",
-  ":lua require('vscode-neovim').call('workbench.action.debug.stepOut')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<F8>",
-  ":lua require('vscode-neovim').call('workbench.action.debug.stepOver')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>db",
-  ":lua require('vscode-neovim').call('editor.debug.action.toggleBreakpoint')<CR>",
-  { noremap = true, silent = true }
-)
+-- map( "n", "<leader>dr", 'workbench.action.debug.run')
+-- map( "n", "<leader>ds", 'workbench.action.debug.start')
+map("n", "<F5>", "workbench.action.debug.continue")
+map("n", "<C-F5>", "workbench.action.debug.stop")
+map("n", "<F6>", "workbench.action.debug.pause")
+map("n", "<F7>", "workbench.action.debug.stepInto")
+map("n", "<C-F7>", "workbench.action.debug.stepOut")
+map("n", "<F8>", "workbench.action.debug.stepOver")
+map("n", "<leader>db", "editor.debug.action.toggleBreakpoint")
+
 -- DAP UI
 -- TODO: add hover
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>dd",
-  ":lua require('vscode-neovim').call('workbench.view.debug')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>dd", "workbench.view.debug")

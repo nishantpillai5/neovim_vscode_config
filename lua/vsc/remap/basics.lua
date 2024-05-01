@@ -1,63 +1,16 @@
-local vscode = require("vscode-neovim")
+local map = require("vsc.vscode_mapper").map
 
 -- Basics
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>x",
-  ":lua require('vscode-neovim').call('workbench.action.closeActiveEditor')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>s",
-  ":lua require('vscode-neovim').call('workbench.action.files.save')<CR>",
-  { noremap = true, silent = true }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  ":",
-  ":lua require('vscode-neovim').call('workbench.action.showCommands')<CR>",
-  { noremap = true, silent = true }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>zv",
-  ":lua require('vscode-neovim').call('workbench.action.splitEditorRight')<CR>",
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>zs",
-  ":lua require('vscode-neovim').call('workbench.action.splitEditorDown')<CR>",
-  { noremap = true, silent = true }
-)
+map("n", "<leader>x", "workbench.action.closeActiveEditor")
+map("n", "<leader>s", "workbench.action.files.save")
+map("n", ":", "workbench.action.showCommands")
+map("n", "<leader>zv", "workbench.action.splitEditorRight")
+map("n", "<leader>zs", "workbench.action.splitEditorDown")
 
 -- Resize horizontally with Ctrl-Up and Ctrl-Down
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-Up>",
-  ":lua require('vscode-neovim').call('workbench.action.increaseViewHeight')<CR>",
-  { silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-Down>",
-  ":lua require('vscode-neovim').call('workbench.action.decreaseViewHeight')<CR>",
-  { silent = true }
-)
+map("n", "<C-Up>", "workbench.action.increaseViewHeight")
+map("n", "<C-Down>", "workbench.action.decreaseViewHeight")
 
 -- Resize vertically with Ctrl-Right and Ctrl-Left
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-Left>",
-  ":lua require('vscode-neovim').call('workbench.action.decreaseViewWidth')<CR>",
-  { silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<C-Right>",
-  ":lua require('vscode-neovim').call('workbench.action.increaseViewWidth')<CR>",
-  { silent = true }
-)
+map("n", "<C-Left>", "workbench.action.decreaseViewWidth")
+map("n", "<C-Right>", "workbench.action.increaseViewWidth")
