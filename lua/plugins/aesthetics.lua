@@ -5,6 +5,7 @@ load_plugin["nvimdev/dashboard-nvim"] = true
 load_plugin["nvim-lualine/lualine.nvim"] = true
 load_plugin["letieu/harpoon-lualine"] = true
 load_plugin["lukas-reineke/indent-blankline.nvim"] = true
+load_plugin["rcarriga/nvim-notify"] = true
 load_plugin["folke/noice.nvim"] = true
 load_plugin["levouh/tint.nvim"] = true
 
@@ -79,10 +80,10 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     cond = load_plugin["nvim-lualine/lualine.nvim"],
-    event = { "VeryLazy" },
+    event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local function scope()
+      local function neoscope()
         local status, neoscopes = pcall(require, "neoscopes")
         if not status then
           return "󱇳 No scope selected"
@@ -94,6 +95,21 @@ return {
         end
 
         return "󱇳 " .. neoscopes.get_current_scope().name
+      end
+
+      local lsp_clients = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        local clients = vim.lsp.buf_get_clients(bufnr)
+        if next(clients) == nil then
+          return ""
+        end
+
+        local c = {}
+        for _, client in pairs(clients) do
+          table.insert(c, client.name)
+        end
+        return "󰒋 " .. table.concat(c, ",")
       end
 
       require("lualine").setup({
@@ -113,11 +129,13 @@ return {
             "branch",
             "diff",
           },
-          lualine_c = {},
+          lualine_c = {
+            neoscope,
+          },
           lualine_x = {
             "overseer",
             "diagnostics",
-            scope,
+            lsp_clients,
           },
           lualine_y = {
             "encoding",
@@ -152,7 +170,7 @@ return {
   {
     "letieu/harpoon-lualine",
     cond = load_plugin["letieu/harpoon-lualine"],
-    event = { "VeryLazy" },
+    event = "VeryLazy",
     dependencies = {
       {
         "ThePrimeagen/harpoon",
@@ -202,12 +220,15 @@ return {
   },
   {
     "rcarriga/nvim-notify",
+    cond = load_plugin["rcarriga/nvim-notify"],
+    event = "VeryLazy",
     config = function()
-      vim.notify = require("notify").setup({
+      require("notify").setup({
         stages = "fade",
         timeout = 3000,
         render = "compact",
       })
+      vim.notify = require("notify")
     end,
   },
   {
@@ -235,15 +256,10 @@ return {
           lsp_doc_border = true,
         },
       })
-      vim.keymap.set("n", "<leader>znl", function()
-        require("noice").cmd("last")
-      end, { desc = "Visual.Notifications.last" })
-      vim.keymap.set("n", "<leader>znh", function()
-        require("noice").cmd("history")
-      end, { desc = "Visual.Notifications.history" })
-      vim.keymap.set("n", "<leader>znx", function()
+
+      vim.keymap.set("n", "<leader>zn", function()
         require("noice").cmd("disable")
-      end, { desc = "Visual.Notifications.disable" })
+      end, { desc = "Visual.notifications_disable" })
     end,
   },
   {

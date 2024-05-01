@@ -111,30 +111,43 @@ return {
         -- Lua
         ["lua_ls"] = function()
           require("lspconfig").lua_ls.setup({
-            on_init = function(client)
-              local path = client.workspace_folders[1].name
-              if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
-                return
-              end
-
-              client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                runtime = {
-                  version = "LuaJIT", -- (LuaJIT in the case of Neovim)
-                },
-                -- Make the server aware of Neovim runtime files
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME,
-                  },
-                },
-              })
-            end,
+            -- on_init = function(client)
+            --   local path = client.workspace_folders[1].name
+            --   if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then
+            --     return
+            --   end
+            --
+            --   client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
+            --     runtime = {
+            --       version = "LuaJIT", -- (LuaJIT in the case of Neovim)
+            --     },
+            --     -- Make the server aware of Neovim runtime files
+            --     workspace = {
+            --       checkThirdParty = false,
+            --       library = {
+            --         vim.env.VIMRUNTIME,
+            --       },
+            --     },
+            --   })
+            -- end,
             settings = {
               Lua = {},
             },
           })
         end,
+      })
+
+      -- Completion
+      local cmp = require("cmp")
+      cmp.setup({
+        mapping = cmp.mapping.preset.insert({
+          -- confirm completion
+          -- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+
+          -- scroll up and down the documentation window
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+        }),
       })
     end,
   },
