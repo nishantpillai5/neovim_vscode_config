@@ -4,7 +4,7 @@ load_plugin["folke/which-key.nvim"] = true
 return {
   {
     "folke/which-key.nvim",
-        cond = load_plugin["folke/which-key.nvim"],
+    cond = load_plugin["folke/which-key.nvim"],
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true
@@ -18,6 +18,7 @@ return {
           ["<space>"] = "hop",
           [";"] = { name = "Terminal" },
           r = { name = "Refactor" },
+          l = { name = "LSP" },
           f = {
             name = "Find",
             d = "debug tasks",
@@ -28,6 +29,7 @@ return {
           d = { name = "Debug" },
           o = { name = "Tasks" },
           z = { name = "Visual" },
+          g = { name = "Git" },
         },
         g = {
           d = "definition",
@@ -38,7 +40,6 @@ return {
           h = "signature help",
           l = "diagnostics",
         },
-        gs = { name = "Git" },
         ["[d"] = "previous diagnostic",
         ["]d"] = "next diagnostic",
         K = "hover",

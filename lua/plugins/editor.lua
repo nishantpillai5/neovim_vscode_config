@@ -87,7 +87,7 @@ return {
     cond = load_plugin["tpope/vim-fugitive"],
     event = "VeryLazy",
     keys = {
-      { "<leader>gss", "<cmd>Git<cr>", desc = "Gitstatus.fugitive" },
+      { "<leader>gs", "<cmd>Git<cr>", desc = "Git.status" },
     },
   },
   {
@@ -97,7 +97,7 @@ return {
       "nvim-lua/plenary.nvim",
     },
     keys = {
-      { "<leader>gsl", "<cmd>LazyGit<cr>", desc = "Gitstatus.lazygit" },
+      { "<leader>gl", "<cmd>LazyGit<cr>", desc = "Git.lazygit" },
     },
     cmd = {
       "LazyGit",
@@ -238,33 +238,33 @@ return {
 
       -- Keymaps
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.git_files)
-      vim.keymap.set("n", "<leader>fa", builtin.find_files)
-      vim.keymap.set("n", "<leader>fgg", builtin.live_grep)
+      vim.keymap.set("n", "<leader>ff", builtin.git_files, {desc = "Find.git"})
+      vim.keymap.set("n", "<leader>fa", builtin.find_files, {desc = "Find.all"})
+      vim.keymap.set("n", "<leader>fgg", builtin.live_grep, {desc = "Find.Grep.global"})
       -- vim.keymap.set("n", "<leader>fgg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
 
       vim.keymap.set("n", "<leader>fg", function()
         builtin.live_grep({ grep_open_files = true })
-      end)
+      end, {desc = "Find.Grep.buffers/workspace"})
       vim.keymap.set("n", "<leader>f/", function()
         builtin.grep_string({ search = vim.fn.input("Search > ") })
-      end)
+      end, {desc = "Find.Search"})
       vim.keymap.set("n", "<leader>f/w", function()
         local word = vim.fn.expand("<cword>")
         builtin.grep_string({ search = word })
-      end)
+      end, {desc = "Find.Search.word"})
       vim.keymap.set("n", "<leader>f/W", function()
         local word = vim.fn.expand("<cWORD>")
         builtin.grep_string({ search = word })
-      end)
-      vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols)
-      vim.keymap.set("n", "<leader>fm", builtin.marks)
-      vim.keymap.set("n", "<leader>fr", builtin.registers, {})
-      vim.keymap.set("n", "<leader>fb", builtin.buffers)
+      end, {desc = "Find.Search.whole_word"})
+      vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, {desc = "Find.symbols"})
+      vim.keymap.set("n", "<leader>fm", builtin.marks, {desc = "Find.marks"})
+      vim.keymap.set("n", "<leader>fr", builtin.registers, {desc = "Find.registers"})
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, {desc = "Find.buffers"})
       -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
       -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
-      vim.keymap.set("n", "<leader>ft", require("telescope").extensions.picker_list.picker_list)
+      vim.keymap.set("n", "<leader>ft", require("telescope").extensions.picker_list.picker_list, {desc = "Find.telescope"})
 
       -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
       --   require("telescope").extensions.refactoring.refactors()
@@ -275,7 +275,10 @@ return {
     "ThePrimeagen/harpoon",
     cond = load_plugin["ThePrimeagen/harpoon"],
     branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
     keys = {
       { "<leader>a", desc = "harpoon_add" },
       { "<leader>h", desc = "harpoon_list" },
@@ -308,19 +311,19 @@ return {
 
       vim.keymap.set("n", "<leader>a", function()
         harpoon:list():add()
-      end)
+      end, { desc = "harpoon_add" })
       vim.keymap.set("n", "<leader>h", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
-      end)
+      end, {desc = "harpoon_list"})
       vim.keymap.set("n", "<leader>fh", function()
         toggle_telescope(harpoon:list())
-      end)
+      end, {desc = "Find.harpoon"})
       vim.keymap.set("n", "<C-PageUp>", function()
         harpoon:list():prev()
-      end)
+      end, {desc = "harpoon_prev"})
       vim.keymap.set("n", "<C-PageDown>", function()
         harpoon:list():next()
-      end)
+      end, {desc = "harpoon_next"})
     end,
   },
   {
@@ -406,13 +409,14 @@ return {
       },
       { "<leader>tq", "<cmd>lua require('trouble').toggle('quickfix')<cr>", desc = "Trouble.quickfix" },
       { "<leader>tl", "<cmd>lua require('trouble').toggle('loclist')<cr>", desc = "Trouble.loclist" },
+      -- WARN: replaceing LSP zero binding
       {
-        "<leader>]t",
+        "]d",
         "<cmd>lua require('trouble').next({skip_groups = true, jump = true})<cr>",
         desc = "Next.trouble",
       },
       {
-        "<leader>[t",
+        "[d",
         "<cmd>lua require('trouble').previous({skip_groups = true, jump = true})<cr>",
         desc = "Previous.trouble",
       },
