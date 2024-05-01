@@ -8,8 +8,6 @@ load_plugin["VonHeikemen/lsp-zero.nvim"] = true
 load_plugin["mfussenegger/nvim-lint"] = true
 -- Fomatter
 load_plugin["stevearc/conform.nvim"] = true
--- AI
-load_plugin["github/copilot.vim"] = true
 -- Completion
 load_plugin["gelguy/wilder.nvim"] = false -- WARN: not tested
 
@@ -205,12 +203,6 @@ return {
         end)
       end)
     end,
-  },
-  -- AI
-  {
-    "github/copilot.vim",
-    cond = load_plugin["github/copilot.vim"],
-    event = { "BufReadPre", "BufNewFile" },
   },
   -- Command completion
   {

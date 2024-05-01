@@ -18,7 +18,7 @@ return {
           ["<space>"] = "hop",
           [";"] = { name = "Terminal" },
           r = { name = "Refactor" },
-          l = { name = "LSP" },
+          l = { name = "LSP", c = { name = "Chat"} },
           f = {
             name = "Find",
             d = "debug tasks",

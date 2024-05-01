@@ -118,7 +118,7 @@ return {
           theme = "vscode",
           section_separators = { left = "", right = "" },
           component_separators = { left = "", right = "" },
-          ignore_focus = { "OverseerList", "neo-tree", "vista" },
+          ignore_focus = { "OverseerList", "neo-tree", "vista", "copilot-chat" },
         },
         sections = {
           lualine_a = {
