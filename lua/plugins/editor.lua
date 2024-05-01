@@ -17,6 +17,7 @@ load_plugin["folke/zen-mode.nvim"] = true
 load_plugin["vladdoster/remember.nvim"] = true
 load_plugin["sitiom/nvim-numbertoggle"] = true
 load_plugin["RRethy/vim-illuminate"] = true
+load_plugin["gregorias/coerce.nvim"] = true
 
 return {
   -- Comments
@@ -177,5 +178,14 @@ return {
     "RRethy/vim-illuminate",
     cond = load_plugin["RRethy/vim-illuminate"],
     event = { "BufReadPre", "BufNewFile" },
+  },
+  {
+    "gregorias/coerce.nvim",
+    cond = load_plugin["gregorias/coerce.nvim"],
+    keys = {
+      { "cr", desc = "coerce" },
+    },
+    tag = "v1.0",
+    opts = {},
   },
 }

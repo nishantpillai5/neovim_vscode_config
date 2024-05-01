@@ -267,7 +267,7 @@ return {
     cond = load_plugin["levouh/tint.nvim"],
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      saturation = 0.3,
+      saturation = 0.2,
     },
   },
 }

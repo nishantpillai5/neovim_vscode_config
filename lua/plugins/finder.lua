@@ -82,33 +82,38 @@ return {
 
       -- Keymaps
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.git_files, {desc = "Find.git"})
-      vim.keymap.set("n", "<leader>fa", builtin.find_files, {desc = "Find.all"})
-      vim.keymap.set("n", "<leader>fgg", builtin.live_grep, {desc = "Find.Grep.global"})
+      vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git" })
+      vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
+      vim.keymap.set("n", "<leader>fgg", builtin.live_grep, { desc = "Find.Grep.global" })
       -- vim.keymap.set("n", "<leader>fgg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
 
       vim.keymap.set("n", "<leader>fg", function()
         builtin.live_grep({ grep_open_files = true })
-      end, {desc = "Find.Grep.buffers/workspace"})
+      end, { desc = "Find.Grep.buffers/workspace" })
       vim.keymap.set("n", "<leader>f/", function()
         builtin.grep_string({ search = vim.fn.input("Search > ") })
-      end, {desc = "Find.Search"})
+      end, { desc = "Find.Search" })
       vim.keymap.set("n", "<leader>f/w", function()
         local word = vim.fn.expand("<cword>")
         builtin.grep_string({ search = word })
-      end, {desc = "Find.Search.word"})
+      end, { desc = "Find.Search.word" })
       vim.keymap.set("n", "<leader>f/W", function()
         local word = vim.fn.expand("<cWORD>")
         builtin.grep_string({ search = word })
-      end, {desc = "Find.Search.whole_word"})
-      vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, {desc = "Find.symbols"})
-      vim.keymap.set("n", "<leader>fm", builtin.marks, {desc = "Find.marks"})
-      vim.keymap.set("n", "<leader>fr", builtin.registers, {desc = "Find.registers"})
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, {desc = "Find.buffers"})
+      end, { desc = "Find.Search.whole_word" })
+      vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, { desc = "Find.symbols" })
+      vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
+      vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find.buffers" })
       -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
       -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
-      vim.keymap.set("n", "<leader>ft", require("telescope").extensions.picker_list.picker_list, {desc = "Find.telescope"})
+      vim.keymap.set(
+        "n",
+        "<leader>ft",
+        require("telescope").extensions.picker_list.picker_list,
+        { desc = "Find.telescope" }
+      )
 
       -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
       --   require("telescope").extensions.refactoring.refactors()
@@ -158,16 +163,16 @@ return {
       end, { desc = "harpoon_add" })
       vim.keymap.set("n", "<leader>h", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
-      end, {desc = "harpoon_list"})
+      end, { desc = "harpoon_list" })
       vim.keymap.set("n", "<leader>fh", function()
         toggle_telescope(harpoon:list())
-      end, {desc = "Find.harpoon"})
+      end, { desc = "Find.harpoon" })
       vim.keymap.set("n", "<C-PageUp>", function()
         harpoon:list():prev()
-      end, {desc = "harpoon_prev"})
+      end, { desc = "harpoon_prev" })
       vim.keymap.set("n", "<C-PageDown>", function()
         harpoon:list():next()
-      end, {desc = "harpoon_next"})
+      end, { desc = "harpoon_next" })
     end,
   },
   {

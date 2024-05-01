@@ -11,6 +11,7 @@ return {
     keys = {
       { "<leader>gs", "<cmd>Git<cr>", desc = "Git.status" },
       { "<leader>gl", "<cmd>Git log<cr>", desc = "Git.log" },
+      { "<leader>gB", "<cmd>Git blame<cr>", desc = "Git.blame_buffer" },
     },
   },
   {
@@ -38,6 +39,7 @@ return {
       require("gitsigns").setup({
         on_attach = function(bufnr)
           local gitsigns = require("gitsigns")
+          vim.keymap.set("n", "<leader>gb", require("gitsigns").blame_line, { desc = "Git.blame" })
 
           local function map(mode, l, r, opts)
             opts = opts or {}

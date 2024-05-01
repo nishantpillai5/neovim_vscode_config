@@ -9,7 +9,7 @@ load_plugin["VonHeikemen/lsp-zero.nvim"] = true
 load_plugin["mfussenegger/nvim-lint"] = true
 -- Fomatter
 load_plugin["stevearc/conform.nvim"] = true
--- Completion
+-- Terminal Completion
 load_plugin["gelguy/wilder.nvim"] = false -- WARN: not tested
 
 return {
@@ -31,15 +31,14 @@ return {
   -- Context
   {
     "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     cond = load_plugin["nvim-treesitter/nvim-treesitter-context"],
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "code-biscuits/nvim-biscuits",
     cond = load_plugin["code-biscuits/nvim-biscuits"],
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       {
         "<leader>zc",
@@ -88,7 +87,6 @@ return {
       -- Config
       local lsp_zero = require("lsp-zero")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
-      -- TODO: cmp <cr> to confirm selection
 
       lsp_zero.on_attach(function(_, bufnr)
         -- see :help lsp-zero-keybindings to learn the available actions
@@ -165,10 +163,7 @@ return {
       local cmp = require("cmp")
       cmp.setup({
         mapping = cmp.mapping.preset.insert({
-          -- confirm completion
-          -- ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-
-          -- scroll up and down the documentation window
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
           ["<C-u>"] = cmp.mapping.scroll_docs(-4),
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
         }),
