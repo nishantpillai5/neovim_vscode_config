@@ -1,5 +1,5 @@
 local load_plugin = {}
--- Looks
+
 load_plugin["Mofiqul/vscode.nvim"] = true
 load_plugin["nvimdev/dashboard-nvim"] = true
 load_plugin["nvim-lualine/lualine.nvim"] = true
@@ -10,7 +10,6 @@ load_plugin["folke/noice.nvim"] = true
 load_plugin["levouh/tint.nvim"] = true
 
 return {
-  -- Looks
   {
     "Mofiqul/vscode.nvim",
     cond = load_plugin["Mofiqul/vscode.nvim"],
@@ -31,6 +30,7 @@ return {
           NvimDapVirtualText = { fg = c.vscYellow, bg = c.vscPopupHighlightGray },
           NvimDapVirtualTextError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
           NvimDapVirtualTextChanged = { fg = c.vscOrange, bg = c.vscPopupHighlightGray },
+          BiscuitColor = { fg = c.vscGreen, bg = c.vscPopupHighlightGray },
         },
       })
       vim.cmd.colorscheme("vscode")

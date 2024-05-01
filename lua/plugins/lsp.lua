@@ -2,6 +2,7 @@ local load_plugin = {}
 load_plugin["nvim-treesitter/nvim-treesitter"] = true
 -- Context
 load_plugin["nvim-treesitter/nvim-treesitter-context"] = true
+load_plugin["code-biscuits/nvim-biscuits"] = true
 -- LSP
 load_plugin["VonHeikemen/lsp-zero.nvim"] = true
 -- Lint
@@ -32,6 +33,30 @@ return {
     "nvim-treesitter/nvim-treesitter-context",
     cond = load_plugin["nvim-treesitter/nvim-treesitter-context"],
     event = { "BufReadPre", "BufNewFile" },
+  },
+  {
+    "code-biscuits/nvim-biscuits",
+    cond = load_plugin["code-biscuits/nvim-biscuits"],
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+    keys = {
+      {
+        "<leader>zc",
+        function()
+          local nvim_biscuits = require("nvim-biscuits")
+          nvim_biscuits.BufferAttach()
+          nvim_biscuits.toggle_biscuits()
+        end,
+        mode = "n",
+        desc = "Visual.context",
+      },
+    },
+    opts = {
+      default_config = {
+        prefix_string = "  ",
+      },
+    },
   },
   -- LSP
   {
