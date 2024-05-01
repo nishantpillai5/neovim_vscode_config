@@ -11,25 +11,26 @@ return {
       vim.o.timeoutlen = 300
     end,
     config = function()
-      -- TODO: update to only define prefixes
       local wk = require("which-key")
       wk.register({
         ["<leader>"] = {
           ["<space>"] = "hop",
-          [";"] = { name = "Terminal" },
-          r = { name = "Refactor" },
-          l = { name = "LSP", c = { name = "Chat"} },
-          f = {
-            name = "Find",
-            d = "debug tasks",
+          [";"] = "Terminal",
+          r = "Refactor",
+          l = "LSP",
+          c = "Chat",
+          f = "Find",
+          e = "File Explorer",
+          w = "Workspace/Session",
+          t = "Trouble",
+          d = "Debug",
+          o = "Tasks",
+          z = "Visual",
+          g = {
+            name = "Git",
+            h = { name = "Hunk" },
           },
-          e = { name = "File Explorer" },
-          w = { name = "Workspace/Session" },
-          t = { name = "Trouble" },
-          d = { name = "Debug" },
-          o = { name = "Tasks" },
-          z = { name = "Visual" },
-          g = { name = "Git" },
+          ["/"] = "Search",
         },
         g = {
           d = "definition",
@@ -40,10 +41,19 @@ return {
           h = "signature help",
           l = "diagnostics",
         },
-        ["[d"] = "previous diagnostic",
-        ["]d"] = "next diagnostic",
+        ["[d"] = "prev.diagnostic",
+        ["]d"] = "next.diagnostic",
         K = "hover",
       })
+
+      wk.register({
+        ["<leader>"] = {
+          c = "Chat",
+          g = { name = "Git", h = "Hunk" },
+          l = "LSP",
+          ["/"] = "Search",
+        },
+      }, { mode = "v" })
     end,
   },
 }

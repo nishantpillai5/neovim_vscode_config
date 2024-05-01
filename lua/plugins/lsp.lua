@@ -121,7 +121,7 @@ return {
         -- clangd
         ["clangd"] = function()
           require("lspconfig").clangd.setup({
-            on_attach = on_attach,
+            -- on_attach = on_attach,
             capabilities = cmp_nvim_lsp.default_capabilities(),
             cmd = {
               "clangd",
@@ -133,6 +133,7 @@ return {
         -- Lua
         ["lua_ls"] = function()
           require("lspconfig").lua_ls.setup({
+            capabilities = cmp_nvim_lsp.default_capabilities(),
             on_init = function(client)
               local path = client.workspace_folders[1].name
               if vim.loop.fs_stat(path .. "/.luarc.json") or vim.loop.fs_stat(path .. "/.luarc.jsonc") then

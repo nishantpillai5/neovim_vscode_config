@@ -19,3 +19,7 @@ This repository contains my Neovim configuration which also has parallel configu
   }
 }
 ```
+
+## Issues
+
+- [ ] searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
