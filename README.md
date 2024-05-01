@@ -6,7 +6,7 @@ This repository contains my Neovim configuration which also has parallel configu
 
 `settings.json`
 
-```json
+```jsonc
 {
   // Neovim
   "vscode-neovim.compositeKeys": {
