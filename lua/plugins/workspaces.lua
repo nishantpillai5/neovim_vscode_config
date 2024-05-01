@@ -56,9 +56,9 @@ return {
             })
           end
 
-          vim.api.nvim_set_keymap("n", "<leader>ff", ":lua find_files()<CR>", { noremap = true })
-          vim.api.nvim_set_keymap("n", "<leader>fg", ":lua live_grep()<CR>", { noremap = true })
-          vim.api.nvim_set_keymap("n", "<leader>f/", ":lua grep_string()<CR>", { noremap = true })
+          vim.keymap.set("n", "<leader>ff", ":lua find_files()<CR>", { desc = "Find.files" })
+          vim.keymap.set("n", "<leader>fg", ":lua live_grep()<CR>", { desc = "Find.grep" })
+          vim.keymap.set("n", "<leader>f/", ":lua grep_string()<CR>", { desc = "Find.string" })
         end
       end
 
