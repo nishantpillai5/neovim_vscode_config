@@ -18,4 +18,4 @@ This repository contains my Neovim configuration which also has parallel configu
     "asvetliakov.vscode-neovim": 1
   },
 }
-``
+```
