@@ -1,5 +1,5 @@
 local load_plugin = {}
-load_plugin["obsidian.nvim"] = false
+load_plugin["obsidian.nvim"] = false -- WARN: not tested yet
 
 return {
   {
