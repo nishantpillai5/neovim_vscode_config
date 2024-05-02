@@ -115,6 +115,7 @@ return {
       require("lualine").setup({
         extensions = { "overseer", "nvim-dap-ui" },
         options = {
+          globalstatus = true,
           theme = "vscode",
           section_separators = { left = "", right = "" },
           component_separators = { left = "", right = "" },
@@ -127,17 +128,19 @@ return {
           },
           lualine_b = {
             "branch",
-            "diff",
           },
           lualine_c = {
-            neoscope,
+            "harpoon2",
+            { "filename", path = 1 },
+            "diff",
           },
           lualine_x = {
             "overseer",
             "diagnostics",
-            lsp_clients,
+            neoscope,
           },
           lualine_y = {
+            lsp_clients,
             "encoding",
             "fileformat",
             "filetype",
@@ -148,12 +151,8 @@ return {
           },
         },
         winbar = {
-          lualine_a = {
-            { "filename", path = 1 },
-          },
-          lualine_b = {
-            "harpoon2",
-          },
+          lualine_a = { "harpoon2" },
+          lualine_b = {},
           lualine_c = {
             {
               "buffers",

@@ -81,43 +81,49 @@ return {
       require("telescope").load_extension("picker_list")
 
       -- Keymaps
-      local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git" })
-      vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
-      vim.keymap.set("n", "<leader>fgg", builtin.live_grep, { desc = "Find.Grep.global" })
-      -- vim.keymap.set("n", "<leader>fgg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
+      _G.Telescope_Map = function()
+        local builtin = require("telescope.builtin")
+        vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git" })
+        vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
+        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find.Live_grep.global" })
+        -- vim.keymap.set("n", "<leader>fgg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
 
-      vim.keymap.set("n", "<leader>fg", function()
-        builtin.live_grep({ grep_open_files = true })
-      end, { desc = "Find.Grep.buffers/workspace" })
-      vim.keymap.set("n", "<leader>f/", function()
-        builtin.grep_string({ search = vim.fn.input("Search > ") })
-      end, { desc = "Find.Search" })
-      vim.keymap.set("n", "<leader>f/w", function()
-        local word = vim.fn.expand("<cword>")
-        builtin.grep_string({ search = word })
-      end, { desc = "Find.Search.word" })
-      vim.keymap.set("n", "<leader>f/W", function()
-        local word = vim.fn.expand("<cWORD>")
-        builtin.grep_string({ search = word })
-      end, { desc = "Find.Search.whole_word" })
-      vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, { desc = "Find.symbols" })
-      vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
-      vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
-      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find.buffers" })
-      -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        vim.keymap.set("n", "<leader>f/", function()
+          builtin.live_grep({ grep_open_files = true })
+        end, { desc = "Find.Search.in_buffers" })
 
-      -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
-      vim.keymap.set(
-        "n",
-        "<leader>ft",
-        require("telescope").extensions.picker_list.picker_list,
-        { desc = "Find.telescope" }
-      )
+        vim.keymap.set("n", "<leader>f//", function()
+          builtin.grep_string({ search = vim.fn.input("Search > ") })
+        end, { desc = "Find.Search.global" })
 
-      -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
-      --   require("telescope").extensions.refactoring.refactors()
-      -- end)
+        vim.keymap.set("n", "<leader>fw", function()
+          local word = vim.fn.expand("<cword>")
+          builtin.grep_string({ search = word })
+        end, { desc = "Find.word" })
+
+        vim.keymap.set("n", "<leader>fW", function()
+          local word = vim.fn.expand("<cWORD>")
+          builtin.grep_string({ search = word })
+        end, { desc = "Find.whole_word" })
+        vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, { desc = "Find.symbols" })
+        vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
+        vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
+        vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find.buffers" })
+        -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+        -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+        vim.keymap.set(
+          "n",
+          "<leader>ft",
+          require("telescope").extensions.picker_list.picker_list,
+          { desc = "Find.telescope" }
+        )
+
+        -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+        --   require("telescope").extensions.refactoring.refactors()
+        -- end)
+      end
+
+      _G.Telescope_Map()
     end,
   },
   {

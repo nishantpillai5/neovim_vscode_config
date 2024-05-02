@@ -16,53 +16,62 @@ return {
       local neoscopes = require("neoscopes")
       neoscopes.setup({})
 
+      -- Remap Telescope
       local refresh_workspace = function()
         local current_scope = neoscopes.get_current_scope()
         if current_scope == nil then
           require("notify")("󱇳 No scope selected")
-          local builtin = require("telescope.builtin")
-          vim.keymap.set("n", "<leader>ff", builtin.git_files)
-          vim.keymap.set("n", "<leader>fg", function()
-            builtin.live_grep({ grep_open_files = true })
-          end)
-          vim.keymap.set("n", "<leader>f/", function()
-            builtin.grep_string({ search = vim.fn.input("Search > ") })
-          end)
+          _G.Telescope_Map()
         else
           require("notify")("Scope refreshed: 󱇳 " .. neoscopes.get_current_scope().name)
 
-          local builtin = require("telescope.builtin")
-
-          _G.find_files = function()
-            builtin.find_files({
+          vim.keymap.set("n", "<leader>ff", function()
+            require("telescope.builtin").find_files({
               prompt_prefix = "󱇳 > ",
               search_dirs = neoscopes.get_current_dirs(),
             })
-          end
-          _G.live_grep = function()
-            builtin.live_grep({
-              prompt_prefix = "󱇳 > ",
-              search_dirs = neoscopes.get_current_dirs(),
+          end, { desc = "Find.files(workspace)" })
+          -- remapping fa, f/ not needed
 
+          vim.keymap.set("n", "<leader>fg", function()
+            require("telescope.builtin").live_grep({
+              search_dirs = neoscopes.get_current_dirs(),
               additional_args = { "--follow" },
             })
-          end
-          _G.grep_string = function()
-            builtin.grep_string({
+          end, { desc = "Find.Live_grep.global(workspace)" })
+
+          vim.keymap.set("n", "<leader>f//", function()
+            require("telescope.builtin").grep_string({
               prompt_prefix = "󱇳 > ",
               search = vim.fn.input("Search > "),
               search_dirs = neoscopes.get_current_dirs(),
               additional_args = { "--follow" },
             })
-          end
+          end, { desc = "Find.Search.global(workspace)" })
 
-          vim.keymap.set("n", "<leader>ff", ":lua find_files()<CR>", { desc = "Find.files" })
-          vim.keymap.set("n", "<leader>fg", ":lua live_grep()<CR>", { desc = "Find.grep" })
-          vim.keymap.set("n", "<leader>f/", ":lua grep_string()<CR>", { desc = "Find.string" })
+          vim.keymap.set("n", "<leader>fw", function()
+            local word = vim.fn.expand("<cword>")
+            require("telescope.builtin").grep_string({
+              search = word,
+              search_dirs = neoscopes.get_current_dirs(),
+              additional_args = { "--follow" },
+            })
+          end, { desc = "Find.word(workspace)" })
+
+          vim.keymap.set("n", "<leader>fW", function()
+            local word = vim.fn.expand("<cWORD>")
+            require("telescope.builtin").grep_string({
+              search = word,
+              search_dirs = neoscopes.get_current_dirs(),
+              additional_args = { "--follow" },
+            })
+          end, { desc = "Find.whole_word(workspace)" })
         end
       end
 
-      vim.keymap.set("n", "<leader>fw", function()
+      -- TODO: use ww to find and refresh using callback in select
+
+      vim.keymap.set("n", "<leader>fww", function()
         neoscopes.setup({})
         neoscopes.select()
       end)

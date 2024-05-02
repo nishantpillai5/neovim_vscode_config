@@ -12,5 +12,9 @@ vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { silent = true, desc = "move_line_
 vim.keymap.set("n", "<C-d>", "<C-d>zz", { silent = true, desc = "page_down" })
 vim.keymap.set("n", "<C-u", "<C-u>zz", { silent = true, desc = "page_up" })
 
+-- Next/Prev
+vim.keymap.set("n", "#", "#zz", { silent = true, desc = "prev" })
+vim.keymap.set("n", "*", "*zz", { silent = true, desc = "next" })
+
 -- Yank
 -- vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "paste" })

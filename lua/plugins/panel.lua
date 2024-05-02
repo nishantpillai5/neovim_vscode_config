@@ -1,10 +1,11 @@
 local load_plugin = {}
 
 load_plugin["folke/trouble.nvim"] = true
+load_plugin["akinsho/nvim-toggleterm.lua"] = true
 load_plugin["ryanmsnyder/toggleterm-manager.nvim"] = true
 
 return {
-{
+  {
     "folke/trouble.nvim",
     cond = load_plugin["folke/trouble.nvim"],
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -36,7 +37,16 @@ return {
       -- vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
     },
   },
-
+  {
+    "akinsho/nvim-toggleterm.lua",
+    cond = load_plugin["akinsho/nvim-toggleterm.lua"],
+    opts = {
+      direction = "vertical",
+      close_on_exit = false,
+      start_in_insert = false,
+      hide_numbers = true,
+    },
+  },
   {
     "ryanmsnyder/toggleterm-manager.nvim",
     cond = load_plugin["ryanmsnyder/toggleterm-manager.nvim"],
@@ -64,5 +74,4 @@ return {
       })
     end,
   },
-
 }
