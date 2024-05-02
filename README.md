@@ -23,8 +23,7 @@ This repository contains my Neovim configuration which also has parallel configu
 ## Todo
 
 - [ ] cpplint
-- [ ] copilot chat with selection
-- [ ] searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
-- [ ] loading session does the same as above
 - [ ] refresh scope with a callback instead of a keybind
 - [ ] notify if no toggleterm windows available
+- [ ] searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
+- [ ] loading session does the same as above
