@@ -180,6 +180,9 @@ return {
       local lint = require("lint")
       lint.linters_by_ft = {
         -- markdown = { "markdownlint", },
+        c = { "cpplint" },
+        cpp = { "cpplint" },
+        lua = { "luacheck" },
       }
 
       -- local lint_augroup = vim.api.nvim_create_autocmd("lint", { clear = true })

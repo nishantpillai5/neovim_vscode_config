@@ -41,10 +41,12 @@ return {
     "akinsho/nvim-toggleterm.lua",
     cond = load_plugin["akinsho/nvim-toggleterm.lua"],
     opts = {
+      size = vim.o.columns * 0.4,
       direction = "vertical",
       close_on_exit = false,
       start_in_insert = false,
       hide_numbers = true,
+      persist_size = false,
     },
   },
   {

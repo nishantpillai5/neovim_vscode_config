@@ -4,9 +4,10 @@ local map = require("vsc.vscode_mapper").map
 -- TODO: make this search only git files
 map("n", "<leader>ff", "workbench.action.quickOpen")
 map("n", "<leader>fa", "workbench.action.quickOpen")
-map("n", "<leader>fg", "fuzzySearch.activeTextEditor")
+map("n", "<leader>fg", "workbench.action.findInFiles")
 map("n", "<leader>fgg", "workbench.action.findInFiles")
-map("n", "<leader>f/", "workbench.action.findInFiles")
+map("n", "<leader>f/", "fuzzySearch.activeTextEditor")
+map("n", "<leader>f//", "workbench.action.findInFiles")
 map("n", "<leader>fo", "workbench.action.gotoSymbol")
 
 -- Harpoon

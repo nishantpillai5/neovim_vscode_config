@@ -102,14 +102,22 @@ return {
 
         local clients = vim.lsp.buf_get_clients(bufnr)
         if next(clients) == nil then
-          return ""
+          return "LSP:"
         end
 
         local c = {}
         for _, client in pairs(clients) do
           table.insert(c, client.name)
         end
-        return "󰒋 " .. table.concat(c, ",")
+        return "LSP: " .. table.concat(c, ",")
+      end
+
+      local lint_progress = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return "Lint:" .. table.concat(linters, ", ")
+        end
+        return "Lint: " .. table.concat(linters, ", ")
       end
 
       require("lualine").setup({
@@ -120,6 +128,10 @@ return {
           section_separators = { left = "", right = "" },
           component_separators = { left = "", right = "" },
           ignore_focus = { "OverseerList", "neo-tree", "vista", "copilot-chat" },
+          disabled_filetypes = {
+            statusline = {},
+            winbar = { "toggleterm" },
+          },
         },
         sections = {
           lualine_a = {
@@ -138,9 +150,10 @@ return {
             "overseer",
             "diagnostics",
             neoscope,
+            lint_progress,
+            lsp_clients,
           },
           lualine_y = {
-            lsp_clients,
             "encoding",
             "fileformat",
             "filetype",
