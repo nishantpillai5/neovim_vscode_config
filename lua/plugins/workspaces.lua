@@ -1,14 +1,21 @@
 local load_plugin = {}
 load_plugin["smartpde/neoscopes"] = true
 load_plugin["stevearc/resession.nvim"] = true
+load_plugin["aymericbeaumet/vim-symlink"] = true
 
 return {
+  {
+    "aymericbeaumet/vim-symlink",
+    cond = load_plugin["aymericbeaumet/vim-symlink"],
+    dependencies = { "moll/vim-bbye" },
+    event = "VeryLazy",
+  },
   {
     "smartpde/neoscopes",
     cond = load_plugin["smartpde/neoscopes"],
     keys = {
-      { "<leader>fw", desc = "Find.workspace" },
-      { "<leader>ww", desc = "Workspace.refresh" },
+      { "<leader>ww", desc = "Find.workspace" },
+      { "<leader>wr", desc = "Workspace.refresh" },
       { "<leader>wx", desc = "Workspace.close" },
     },
     dependencies = { "nvim-telescope/telescope.nvim" },
@@ -71,12 +78,12 @@ return {
 
       -- TODO: use ww to find and refresh using callback in select
 
-      vim.keymap.set("n", "<leader>fww", function()
+      vim.keymap.set("n", "<leader>ww", function()
         neoscopes.setup({})
         neoscopes.select()
       end)
 
-      vim.keymap.set("n", "<leader>ww", function()
+      vim.keymap.set("n", "<leader>wr", function()
         refresh_workspace()
       end)
       vim.keymap.set("n", "<leader>wx", function()

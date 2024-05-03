@@ -120,6 +120,12 @@ return {
         return "Lint: " .. table.concat(linters, ", ")
       end
 
+      local function harpoon_indicator(harpoon_entry)
+        local harpoon_file_path = harpoon_entry.value
+        local file_name = harpoon_file_path == "" and "(empty)" or vim.fn.fnamemodify(harpoon_file_path, ":t")
+        return file_name
+      end
+
       require("lualine").setup({
         extensions = { "overseer", "nvim-dap-ui" },
         options = {
@@ -164,7 +170,19 @@ return {
           },
         },
         winbar = {
-          lualine_a = { "harpoon2" },
+          lualine_a = {
+            {
+              "harpoon2",
+              _separator = " | ",
+              indicators = { "1", "2", "3", "4" },
+              active_indicators = {
+                harpoon_indicator,
+                harpoon_indicator,
+                harpoon_indicator,
+                harpoon_indicator,
+              },
+            },
+          },
           lualine_b = {},
           lualine_c = {
             {
