@@ -27,7 +27,7 @@ return {
             search_dirs = neoscopes.get_current_dirs(),
           })
         end, { desc = "Find.files(workspace)" })
-        -- remapping fa, f/ not needed
+        -- remapping fa, f/, fgg not needed
 
         vim.keymap.set("n", "<leader>fg", function()
           require("telescope.builtin").live_grep({
@@ -36,7 +36,7 @@ return {
           })
         end, { desc = "Find.Live_grep.global(workspace)" })
 
-        vim.keymap.set("n", "<leader>f//", function()
+        vim.keymap.set("n", "<leader>f?", function()
           require("telescope.builtin").grep_string({
             prompt_prefix = "󱇳 > ",
             search = vim.fn.input("Search > "),

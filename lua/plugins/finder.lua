@@ -86,13 +86,18 @@ return {
         vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git" })
         vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
         vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find.Live_grep.global" })
-        -- vim.keymap.set("n", "<leader>fgg", "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>")
+        vim.keymap.set(
+          "n",
+          "<leader>fG",
+          "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
+          { desc = "Find.Live_grep.global_with_args" }
+        )
 
         vim.keymap.set("n", "<leader>f/", function()
-          builtin.live_grep({ grep_open_files = true })
+          builtin.grep_string({ grep_open_files = true })
         end, { desc = "Find.Search.in_buffers" })
 
-        vim.keymap.set("n", "<leader>f//", function()
+        vim.keymap.set("n", "<leader>f?", function()
           builtin.grep_string({ search = vim.fn.input("Search > ") })
         end, { desc = "Find.Search.global" })
 
@@ -105,6 +110,7 @@ return {
           local word = vim.fn.expand("<cWORD>")
           builtin.grep_string({ search = word })
         end, { desc = "Find.whole_word" })
+
         vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, { desc = "Find.symbols" })
         vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
         vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
