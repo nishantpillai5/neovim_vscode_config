@@ -94,7 +94,10 @@ return {
         )
 
         vim.keymap.set("n", "<leader>f/", function()
-          builtin.grep_string({ grep_open_files = true })
+          builtin.grep_string({
+            search = vim.fn.input("Search > "),
+            grep_open_files = true,
+          })
         end, { desc = "Find.Search.in_buffers" })
 
         vim.keymap.set("n", "<leader>f?", function()
