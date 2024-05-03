@@ -23,10 +23,8 @@ This repository contains my Neovim configuration which also has parallel configu
 ## Todo
 
 - [ ] telescope search in visual mode
+- [ ] harpoon not adding relative file path
 - [ ] cpplint
-- [ ] refresh scope with a callback instead of a keybind
 - [ ] notify if no toggleterm windows available
 - [ ] searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
 - [ ] loading session does the same as above
-- [ ] move surround to common
-- [ ] harpoon not adding relative file path

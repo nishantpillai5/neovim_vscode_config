@@ -81,7 +81,7 @@ return {
       require("telescope").load_extension("picker_list")
 
       -- Keymaps
-      _G.Telescope_Map = function()
+      _G.Telescope_keymaps = function()
         local builtin = require("telescope.builtin")
         vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git" })
         vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
@@ -123,7 +123,7 @@ return {
         -- end)
       end
 
-      _G.Telescope_Map()
+      _G.Telescope_keymaps()
     end,
   },
   {
