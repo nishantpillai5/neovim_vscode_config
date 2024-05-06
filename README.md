@@ -22,8 +22,9 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- [ ] Create installation guide and dependencies
 - [ ] harpoon not adding relative file path
 - [ ] notify if no toggleterm windows available
 - [ ] searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
 - [ ] loading session does the same as above
-- [ ] cpplint
+- [ ] cppcheck
