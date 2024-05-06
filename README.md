@@ -22,6 +22,7 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- [ ] use trouble keybinds for quickfix
 - [ ] Create installation guide and dependencies
 - [ ] harpoon not adding relative file path
 - [ ] notify if no toggleterm windows available
