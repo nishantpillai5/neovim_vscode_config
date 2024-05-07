@@ -102,6 +102,8 @@ return {
 
           -- Text object
           map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          -- Addon
+          require("scrollbar.handlers.gitsigns").setup()
         end,
       })
     end,

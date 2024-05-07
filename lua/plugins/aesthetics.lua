@@ -1,13 +1,15 @@
 local load_plugin = {}
 
 load_plugin["Mofiqul/vscode.nvim"] = true
+load_plugin["petertriho/nvim-scrollbar"] = true
+load_plugin["nvim-zh/colorful-winsep.nvim"] = true
 load_plugin["nvimdev/dashboard-nvim"] = true
 load_plugin["nvim-lualine/lualine.nvim"] = true
 load_plugin["letieu/harpoon-lualine"] = true
 load_plugin["lukas-reineke/indent-blankline.nvim"] = true
 load_plugin["rcarriga/nvim-notify"] = true
 load_plugin["folke/noice.nvim"] = true
-load_plugin["levouh/tint.nvim"] = true
+load_plugin["levouh/tint.nvim"] = false
 
 return {
   {
@@ -35,6 +37,20 @@ return {
       })
       vim.cmd.colorscheme("vscode")
     end,
+  },
+  {
+    "petertriho/nvim-scrollbar",
+    cond = load_plugin["petertriho/nvim-scrollbar"],
+    event = { "WinNew" },
+    config = function()
+      require("scrollbar").setup()
+    end,
+  },
+  {
+    "nvim-zh/colorful-winsep.nvim",
+    cond = load_plugin["nvim-zh/colorful-winsep.nvim"],
+    event = { "WinNew" },
+    config = true,
   },
   {
     "nvimdev/dashboard-nvim",
