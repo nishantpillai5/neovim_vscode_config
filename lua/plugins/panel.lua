@@ -2,6 +2,7 @@ local plugins = {
   "folke/trouble.nvim",
   "akinsho/nvim-toggleterm.lua",
   "ryanmsnyder/toggleterm-manager.nvim",
+  "stevearc/overseer.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -42,15 +43,42 @@ return {
   {
     "akinsho/nvim-toggleterm.lua",
     cond = conds["akinsho/nvim-toggleterm.lua"] or false,
-    opts = {
-      size = vim.o.columns * 0.3,
-      direction = "vertical",
-      close_on_exit = true,
-      start_in_insert = false,
-      hide_numbers = true,
-      persist_size = false,
-      -- auto_scroll = false,
+    keys = {
+      { "<leader>;;", desc = "Terminal.toggle" },
     },
+    config = function()
+      require("toggleterm").setup({
+        size = vim.o.columns * 0.3,
+        direction = "vertical",
+        close_on_exit = true,
+        start_in_insert = false,
+        hide_numbers = true,
+        persist_size = false,
+      })
+
+      local init_or_toggle = function()
+        vim.cmd([[ ToggleTermToggleAll ]])
+
+        -- list current buffers
+        local buffers = vim.api.nvim_list_bufs()
+
+        -- check if toggleterm buffer exists. If not then create one by vim.cmd [[ exe 1 . "ToggleTerm" ]]
+        local toggleterm_exists = false
+        for _, buf in ipairs(buffers) do
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+          if buf_name:find("toggleterm#") then
+            toggleterm_exists = true
+            break
+          end
+        end
+
+        if not toggleterm_exists then
+          vim.cmd([[ exe 1 . "ToggleTerm" ]])
+        end
+      end
+
+      vim.keymap.set("n", "<leader>;;", init_or_toggle, { desc = "Terminal.toggle" })
+    end,
   },
   {
     "ryanmsnyder/toggleterm-manager.nvim",
@@ -62,7 +90,6 @@ return {
     },
     keys = {
       { "<leader>f;", "<cmd>Telescope toggleterm_manager<cr>", desc = "Find.terminal" },
-      { "<leader>;;", "<cmd>lua require('toggleterm').toggle_all(true)<cr>", desc = "Terminal.toggle" },
     },
     config = function()
       local toggleterm_manager = require("toggleterm-manager")
@@ -77,6 +104,43 @@ return {
           },
         },
       })
+    end,
+  },
+  {
+    "stevearc/overseer.nvim",
+    cond = conds["stevearc/overseer.nvim"] or false,
+    dependencies = { "akinsho/nvim-toggleterm.lua" },
+    keys = {
+      { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Tasks.run" },
+      { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Tasks.toggle" },
+      { "<leader>ol", "<cmd>OverseerRestartLast<cr>", desc = "Tasks.restart_last" },
+    },
+    config = function()
+      require("overseer").setup({
+        strategy = {
+          "toggleterm",
+          open_on_start = false,
+        },
+        dap = false,
+        task_list = {
+          width = 0.1,
+          bindings = {
+            ["L"] = "IncreaseDetail",
+            ["H"] = "DecreaseDetail",
+            ["<C-l>"] = false,
+            ["<C-h>"] = false,
+          },
+        },
+      })
+      vim.api.nvim_create_user_command("OverseerRestartLast", function()
+        local overseer = require("overseer")
+        local tasks = overseer.list_tasks({ recent_first = true })
+        if vim.tbl_isempty(tasks) then
+          vim.notify("No tasks found", vim.log.levels.WARN)
+        else
+          overseer.run_action(tasks[1], "restart")
+        end
+      end, {})
     end,
   },
 }

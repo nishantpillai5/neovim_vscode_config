@@ -22,7 +22,6 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
-- notify if no toggleterm windows available, toggleterm doesnt toggle if processes are not running
 - Nvim doesnt exit properly, searching in git log fails, not disposing running gdb server
 - non git dirs break telescope file search if a file is opened
 - use trouble keybinds for quickfix
@@ -35,3 +34,4 @@ This repository contains my Neovim configuration which also has parallel configu
 - add title for overseer, vista
 - toggle dap virtual text (blocked see issue)
 - start a custom terminal for builds with ft set to log and autoscroll off
+- rename tasks, panel
