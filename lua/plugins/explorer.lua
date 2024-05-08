@@ -1,13 +1,16 @@
-local load_plugin = {}
+local plugins = {
+  "nvim-neo-tree/neo-tree.nvim",
+  "stevearc/oil.nvim",
+  "liuchengxu/vista.vim",
+}
 
-load_plugin["nvim-neo-tree/neo-tree.nvim"] = true
-load_plugin["stevearc/oil.nvim"] = true
-load_plugin["liuchengxu/vista.vim"] = true
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "nvim-neo-tree/neo-tree.nvim",
-    cond = load_plugin["nvim-neo-tree/neo-tree.nvim"],
+    cond = get_cond("nvim-neo-tree/neo-tree.nvim", cond_table),
     branch = "v3.x",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
     keys = {
@@ -16,7 +19,7 @@ return {
   },
   {
     "stevearc/oil.nvim",
-    cond = load_plugin["stevearc/oil.nvim"],
+    cond = get_cond("stevearc/oil.nvim", cond_table),
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<leader>eee", "<cmd>Oil<cr>", desc = "Explorer.oil" },
@@ -30,7 +33,7 @@ return {
   },
   {
     "liuchengxu/vista.vim",
-    cond = load_plugin["liuchengxu/vista.vim"],
+    cond = get_cond("liuchengxu/vista.vim", cond_table),
     keys = {
       { "<leader>eo", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
     },

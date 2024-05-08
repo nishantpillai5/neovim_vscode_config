@@ -1,13 +1,16 @@
-local load_plugin = {}
+local plugins = {
+  "folke/trouble.nvim",
+  "akinsho/nvim-toggleterm.lua",
+  "ryanmsnyder/toggleterm-manager.nvim",
+}
 
-load_plugin["folke/trouble.nvim"] = true
-load_plugin["akinsho/nvim-toggleterm.lua"] = true
-load_plugin["ryanmsnyder/toggleterm-manager.nvim"] = true
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "folke/trouble.nvim",
-    cond = load_plugin["folke/trouble.nvim"],
+    cond = get_cond("folke/trouble.nvim", cond_table),
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<leader>tt", "<cmd>lua require('trouble').toggle()<cr>", desc = "Trouble.toggle" },
@@ -39,11 +42,11 @@ return {
   },
   {
     "akinsho/nvim-toggleterm.lua",
-    cond = load_plugin["akinsho/nvim-toggleterm.lua"],
+    cond = get_cond("akinsho/nvim-toggleterm.lua", cond_table),
     opts = {
       size = vim.o.columns * 0.4,
       direction = "vertical",
-      close_on_exit = false,
+      close_on_exit = true,
       start_in_insert = false,
       hide_numbers = true,
       persist_size = false,
@@ -51,7 +54,7 @@ return {
   },
   {
     "ryanmsnyder/toggleterm-manager.nvim",
-    cond = load_plugin["ryanmsnyder/toggleterm-manager.nvim"],
+    cond = get_cond("ryanmsnyder/toggleterm-manager.nvim", cond_table),
     dependencies = {
       "akinsho/nvim-toggleterm.lua",
       "nvim-telescope/telescope.nvim",

@@ -1,12 +1,16 @@
-local load_plugin = {}
-load_plugin["stevearc/overseer.nvim"] = true
-load_plugin["mfussenegger/nvim-dap"] = true
-load_plugin["rcarriga/nvim-dap-ui"] = true
+local plugins = {
+  "stevearc/overseer.nvim",
+  "mfussenegger/nvim-dap",
+  "rcarriga/nvim-dap-ui",
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "stevearc/overseer.nvim",
-    cond = load_plugin["stevearc/overseer.nvim"],
+    cond = get_cond("stevearc/overseer.nvim", cond_table),
     keys = {
       { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Tasks.run" },
       { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Tasks.toggle" },
@@ -39,7 +43,7 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    cond = load_plugin["mfussenegger/nvim-dap"],
+    cond = get_cond("mfussenegger/nvim-dap", cond_table),
     dependencies = {
       "stevearc/overseer.nvim",
       "theHamsta/nvim-dap-virtual-text",
@@ -51,9 +55,9 @@ return {
       { "<F7>", desc = "Dap.step_into" },
       { "<C-F7>", desc = "Dap.step_out" },
       { "<F8>", desc = "Dap.step_over" },
-      { "<leader>db", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
+      { "<leader>b", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
       {
-        "<leader>dB",
+        "<leader>B",
         "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
         desc = "Dap.breakpoint_with_message",
       },
@@ -124,7 +128,7 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    cond = load_plugin["rcarriga/nvim-dap-ui"],
+    cond = get_cond("rcarriga/nvim-dap-ui", cond_table),
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
       { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },

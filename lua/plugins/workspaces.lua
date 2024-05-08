@@ -1,18 +1,22 @@
-local load_plugin = {}
-load_plugin["smartpde/neoscopes"] = true
-load_plugin["stevearc/resession.nvim"] = true
-load_plugin["aymericbeaumet/vim-symlink"] = true
+local plugins = {
+  "smartpde/neoscopes",
+  "stevearc/resession.nvim",
+  "aymericbeaumet/vim-symlink",
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "aymericbeaumet/vim-symlink",
-    cond = load_plugin["aymericbeaumet/vim-symlink"],
+    cond = get_cond("aymericbeaumet/vim-symlink", cond_table),
     dependencies = { "moll/vim-bbye" },
     event = "VeryLazy",
   },
   {
     "smartpde/neoscopes",
-    cond = load_plugin["smartpde/neoscopes"],
+    cond = get_cond("smartpde/neoscopes", cond_table),
     keys = {
       { "<leader>ww", desc = "Find.workspace" },
       { "<leader>wx", desc = "Workspace.close" },
@@ -91,7 +95,7 @@ return {
   },
   {
     "stevearc/resession.nvim",
-    cond = load_plugin["stevearc/resession.nvim"],
+    cond = get_cond("stevearc/resession.nvim", cond_table),
     keys = {
       { "<leader>ws", desc = "Workspace.session_save" },
       { "<leader>wl", desc = "Workspace.session_load" },

@@ -1,13 +1,16 @@
-local load_plugin = {}
+local plugins = {
+  "nvim-telescope/telescope.nvim",
+  "ThePrimeagen/harpoon",
+  "nvim-pack/nvim-spectre",
+}
 
-load_plugin["nvim-telescope/telescope.nvim"] = true
-load_plugin["ThePrimeagen/harpoon"] = true
-load_plugin["nvim-pack/nvim-spectre"] = true
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "nvim-telescope/telescope.nvim",
-    cond = load_plugin["nvim-telescope/telescope.nvim"],
+    cond = get_cond("nvim-telescope/telescope.nvim", cond_table),
     event = "VeryLazy",
     keys = {
       { "<leader>ff", desc = "Find.git" },
@@ -137,7 +140,7 @@ return {
   },
   {
     "ThePrimeagen/harpoon",
-    cond = load_plugin["ThePrimeagen/harpoon"],
+    cond = get_cond("ThePrimeagen/harpoon", cond_table),
     branch = "harpoon2",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -192,7 +195,7 @@ return {
   },
   {
     "nvim-pack/nvim-spectre",
-    cond = load_plugin["nvim-pack/nvim-spectre"],
+    cond = get_cond("nvim-pack/nvim-spectre", cond_table),
     keys = {
       {
         "<leader>//",

@@ -1,35 +1,39 @@
-local load_plugin = {}
--- Comments
-load_plugin["numToStr/Comment.nvim"] = true
-load_plugin["folke/todo-comments.nvim"] = true
--- Tmux like navigation
-load_plugin["alexghergh/nvim-tmux-navigation"] = true
--- Refactor
-load_plugin["smjonas/inc-rename.nvim"] = true
-load_plugin["ThePrimeagen/refactoring.nvim"] = false -- WARN: not tested, slow startup
--- Misc
-load_plugin["mbbill/undotree"] = true
-load_plugin["gbprod/yanky.nvim"] = false -- WARN: This slows things down
-load_plugin["monaqa/dial.nvim"] = true
-load_plugin["chentoast/marks.nvim"] = true
-load_plugin["Wansmer/treesj"] = true
-load_plugin["folke/zen-mode.nvim"] = true
-load_plugin["vladdoster/remember.nvim"] = true
-load_plugin["sitiom/nvim-numbertoggle"] = true
-load_plugin["RRethy/vim-illuminate"] = true
-load_plugin["gregorias/coerce.nvim"] = true
+local plugins = {
+  -- Comments
+  "numToStr/Comment.nvim",
+  "folke/todo-comments.nvim",
+  -- Tmux like navigation
+  "alexghergh/nvim-tmux-navigation",
+  -- Refactor
+  "smjonas/inc-rename.nvim",
+  -- "ThePrimeagen/refactoring.nvim", -- WARN: not tested, slow startup
+  -- Misc
+  "mbbill/undotree",
+  -- "gbprod/yanky.nvim", -- WARN: This slows things down
+  "monaqa/dial.nvim",
+  "chentoast/marks.nvim",
+  "Wansmer/treesj",
+  "folke/zen-mode.nvim",
+  "vladdoster/remember.nvim",
+  "sitiom/nvim-numbertoggle",
+  "RRethy/vim-illuminate",
+  "gregorias/coerce.nvim",
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   -- Comments
   {
     "numToStr/Comment.nvim",
-    cond = load_plugin["numToStr/Comment.nvim"],
+    cond = get_cond("numToStr/Comment.nvim", cond_table),
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
   {
     "folke/todo-comments.nvim",
-    cond = load_plugin["folke/todo-comments.nvim"],
+    cond = get_cond("folke/todo-comments.nvim", cond_table),
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
@@ -49,7 +53,7 @@ return {
   -- Tmux like navigation
   {
     "alexghergh/nvim-tmux-navigation",
-    cond = load_plugin["alexghergh/nvim-tmux-navigation"],
+    cond = get_cond("alexghergh/nvim-tmux-navigation", cond_table),
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nvim_tmux_nav = require("nvim-tmux-navigation")
@@ -68,7 +72,7 @@ return {
   -- Refactor
   {
     "smjonas/inc-rename.nvim",
-    cond = load_plugin["smjonas/inc-rename.nvim"],
+    cond = get_cond("smjonas/inc-rename.nvim", cond_table),
     keys = {
       { "<leader>rn", desc = "Refactor.rename" },
     },
@@ -81,7 +85,7 @@ return {
   },
   {
     "ThePrimeagen/refactoring.nvim",
-    cond = load_plugin["ThePrimeagen/refactoring.nvim"],
+    cond = get_cond("ThePrimeagen/refactoring.nvim", cond_table),
     keys = {
       { "<leader>rr", desc = "Refactor.refactor" },
     },
@@ -90,14 +94,14 @@ return {
   -- Misc
   {
     "mbbill/undotree",
-    cond = load_plugin["mbbill/undotree"],
+    cond = get_cond("mbbill/undotree", cond_table),
     keys = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "undotree_toggle" },
     },
   },
   {
     "gbprod/yanky.nvim",
-    cond = load_plugin["gbprod/yanky.nvim"],
+    cond = get_cond("gbprod/yanky.nvim", cond_table),
     event = "VeryLazy",
     config = function()
       require("yanky").setup({
@@ -118,7 +122,7 @@ return {
   },
   {
     "monaqa/dial.nvim",
-    cond = load_plugin["monaqa/dial.nvim"],
+    cond = get_cond("monaqa/dial.nvim", cond_table),
     keys = {
       { "<C-a>", "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = "increment" },
       { "<C-x>", "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = "decrement" },
@@ -137,13 +141,13 @@ return {
   },
   {
     "chentoast/marks.nvim",
-    cond = load_plugin["chentoast/marks.nvim"],
+    cond = get_cond("chentoast/marks.nvim", cond_table),
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
   {
     "Wansmer/treesj",
-    cond = load_plugin["Wansmer/treesj"],
+    cond = get_cond("Wansmer/treesj", cond_table),
     opts = {
       use_default_keymaps = false,
     },
@@ -156,14 +160,14 @@ return {
   },
   {
     "folke/zen-mode.nvim",
-    cond = load_plugin["folke/zen-mode.nvim"],
+    cond = get_cond("folke/zen-mode.nvim", cond_table),
     keys = {
       { "<leader>zz", "<cmd>lua require('zen-mode').toggle({ window = { width = .85 }})<cr>", desc = "Visual.zen" },
     },
   },
   {
     "vladdoster/remember.nvim",
-    cond = load_plugin["vladdoster/remember.nvim"],
+    cond = get_cond("vladdoster/remember.nvim", cond_table),
     event = "VeryLazy",
     config = function()
       require("remember").setup({})
@@ -171,17 +175,17 @@ return {
   },
   {
     "sitiom/nvim-numbertoggle",
-    cond = load_plugin["sitiom/nvim-numbertoggle"],
+    cond = get_cond("sitiom/nvim-numbertoggle", cond_table),
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "RRethy/vim-illuminate",
-    cond = load_plugin["RRethy/vim-illuminate"],
+    cond = get_cond("RRethy/vim-illuminate", cond_table),
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "gregorias/coerce.nvim",
-    cond = load_plugin["gregorias/coerce.nvim"],
+    cond = get_cond("gregorias/coerce.nvim", cond_table),
     keys = {
       { "cr", desc = "coerce" },
     },

@@ -1,10 +1,14 @@
-local load_plugin = {}
-load_plugin["folke/which-key.nvim"] = true
+local plugins = {
+  "folke/which-key.nvim",
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "folke/which-key.nvim",
-    cond = load_plugin["folke/which-key.nvim"],
+    cond = get_cond("folke/which-key.nvim", cond_table),
     event = "VeryLazy",
     init = function()
       vim.o.timeout = true

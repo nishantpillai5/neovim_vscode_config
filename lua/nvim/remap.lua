@@ -22,6 +22,3 @@ vim.keymap.set("n", "<C-Down>", ":resize +2<cr>", { silent = true, desc = "horiz
 
 -- Exit terminal mode with Esc
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { silent = true, desc = "exit_terminal" })
-
--- Buffers
-vim.keymap.set("n", "<leader>b", ":buffers<cr>:buffer<Space>", { silent = true, desc = "go_to_buffer" })

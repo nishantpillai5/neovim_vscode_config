@@ -1,13 +1,17 @@
-local load_plugin = {}
+local plugins = {
+  "tpope/vim-fugitive",
+  "kdheepak/lazygit.nvim",
+  "lewis6991/gitsigns.nvim",
+  "sindrets/diffview.nvim",
+}
 
-load_plugin["tpope/vim-fugitive"] = true
-load_plugin["kdheepak/lazygit.nvim"] = true
-load_plugin["lewis6991/gitsigns.nvim"] = true
-load_plugin["sindrets/diffview.nvim"] = true
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
+
 return {
   {
     "tpope/vim-fugitive",
-    cond = load_plugin["tpope/vim-fugitive"],
+    cond = get_cond("tpope/vim-fugitive", cond_table),
     event = "VeryLazy",
     keys = {
       { "<leader>gs", "<cmd>Git<cr>", desc = "Git.status" },
@@ -17,7 +21,7 @@ return {
   },
   {
     "kdheepak/lazygit.nvim",
-    cond = load_plugin["kdheepak/lazygit.nvim"],
+    cond = get_cond("kdheepak/lazygit.nvim", cond_table),
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -34,7 +38,7 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    cond = load_plugin["sindrets/diffview.nvim"],
+    cond = get_cond("sindrets/diffview.nvim", cond_table),
     keys = {
       { "<leader>gd", desc = "Git.diff" },
     },
@@ -49,12 +53,12 @@ return {
         end
       end
 
-      vim.keymap.set("n", "<leader>gd",  diffview_toggle, { desc = "Git.diff" })
+      vim.keymap.set("n", "<leader>gd", diffview_toggle, { desc = "Git.diff" })
     end,
   },
   {
     "lewis6991/gitsigns.nvim",
-    cond = load_plugin["lewis6991/gitsigns.nvim"],
+    cond = get_cond("lewis6991/gitsigns.nvim", cond_table),
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("gitsigns").setup({
@@ -86,22 +90,30 @@ return {
           end, { desc = "Prev.chunk" })
 
           -- Actions
-          map('n', '<leader>ghs', gitsigns.stage_hunk, {desc = "Git.Hunk.stage"})
-          map('n', '<leader>ghr', gitsigns.reset_hunk, {desc = "Git.Hunk.reset"})
-          map('v', '<leader>ghs', function() gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')} end, {desc = "Git.Hunk.stage"})
-          map('v', '<leader>ghr', function() gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')} end, {desc = "Git.Hunk.reset"})
-          map('n', '<leader>ghS', gitsigns.stage_buffer, {desc = "Git.Buffer.stage_buffer"})
-          map('n', '<leader>ghu', gitsigns.undo_stage_hunk, {desc = "Git.Hunk.undo_stage"})
-          map('n', '<leader>ghR', gitsigns.reset_buffer, {desc = "Git.Hunk.reset_buffer"})
-          map('n', '<leader>ghp', gitsigns.preview_hunk, {desc = "Git.Hunk.preview"})
-          map('n', '<leader>ghb', function() gitsigns.blame_line{full=true} end, {desc = "Git.Hunk.blame"})
-          map('n', '<leader>gtb', gitsigns.toggle_current_line_blame, {desc = "Git.toggle.blame"})
-          map('n', '<leader>ghd', gitsigns.diffthis, {desc = "Git.Hunk.diff1"})
-          map('n', '<leader>ghD', function() gitsigns.diffthis('~') end, {desc = "Git.Hunk.diff2"})
-          map('n', '<leader>gtd', gitsigns.toggle_deleted, {desc = "Git.toggle.deleted"})
+          map("n", "<leader>ghs", gitsigns.stage_hunk, { desc = "Git.Hunk.stage" })
+          map("n", "<leader>ghr", gitsigns.reset_hunk, { desc = "Git.Hunk.reset" })
+          map("v", "<leader>ghs", function()
+            gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end, { desc = "Git.Hunk.stage" })
+          map("v", "<leader>ghr", function()
+            gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
+          end, { desc = "Git.Hunk.reset" })
+          map("n", "<leader>ghS", gitsigns.stage_buffer, { desc = "Git.Buffer.stage_buffer" })
+          map("n", "<leader>ghu", gitsigns.undo_stage_hunk, { desc = "Git.Hunk.undo_stage" })
+          map("n", "<leader>ghR", gitsigns.reset_buffer, { desc = "Git.Hunk.reset_buffer" })
+          map("n", "<leader>ghp", gitsigns.preview_hunk, { desc = "Git.Hunk.preview" })
+          map("n", "<leader>ghb", function()
+            gitsigns.blame_line({ full = true })
+          end, { desc = "Git.Hunk.blame" })
+          map("n", "<leader>gtb", gitsigns.toggle_current_line_blame, { desc = "Git.toggle.blame" })
+          map("n", "<leader>ghd", gitsigns.diffthis, { desc = "Git.Hunk.diff1" })
+          map("n", "<leader>ghD", function()
+            gitsigns.diffthis("~")
+          end, { desc = "Git.Hunk.diff2" })
+          map("n", "<leader>gtd", gitsigns.toggle_deleted, { desc = "Git.toggle.deleted" })
 
           -- Text object
-          map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+          map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
           -- Addon
           require("scrollbar.handlers.gitsigns").setup()
         end,

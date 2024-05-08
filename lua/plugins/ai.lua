@@ -1,16 +1,20 @@
-local load_plugin = {}
-load_plugin["github/copilot.vim"] = true
-load_plugin["CopilotC-Nvim/CopilotChat.nvim"] = true
+local plugins = {
+  "github/copilot.vim",
+  "CopilotC-Nvim/CopilotChat.nvim",
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "github/copilot.vim",
-    cond = load_plugin["github/copilot.vim"],
+    cond = get_cond("github/copilot.vim", cond_table),
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    cond = load_plugin["CopilotC-Nvim/CopilotChat.nvim"],
+    cond = get_cond("CopilotC-Nvim/CopilotChat.nvim", cond_table),
     event = { "BufReadPre", "BufNewFile" },
     build = function()
       vim.notify("Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim.")

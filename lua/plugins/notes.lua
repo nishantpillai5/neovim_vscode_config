@@ -1,10 +1,14 @@
-local load_plugin = {}
-load_plugin["obsidian.nvim"] = false -- WARN: not tested yet
+local plugins = {
+  -- "obsidian.nvim", -- WARN: not tested
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "epwalsh/obsidian.nvim",
-    cond = load_plugin["obsidian.nvim"],
+    cond = get_cond("obsidian.nvim", cond_table),
     version = "*",
     lazy = true,
     ft = "markdown",

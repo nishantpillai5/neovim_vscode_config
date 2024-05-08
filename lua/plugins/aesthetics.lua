@@ -1,24 +1,47 @@
-local load_plugin = {}
+local plugins = {
+  "Mofiqul/vscode.nvim",
+  "petertriho/nvim-scrollbar",
+  "nvim-zh/colorful-winsep.nvim",
+  "nvimdev/dashboard-nvim",
+  "nvim-lualine/lualine.nvim",
+  "letieu/harpoon-lualine",
+  "lukas-reineke/indent-blankline.nvim",
+  "rcarriga/nvim-notify",
+  "folke/noice.nvim",
+}
 
-load_plugin["Mofiqul/vscode.nvim"] = true
-load_plugin["petertriho/nvim-scrollbar"] = true
-load_plugin["nvim-zh/colorful-winsep.nvim"] = true
-load_plugin["nvimdev/dashboard-nvim"] = true
-load_plugin["nvim-lualine/lualine.nvim"] = true
-load_plugin["letieu/harpoon-lualine"] = true
-load_plugin["lukas-reineke/indent-blankline.nvim"] = true
-load_plugin["rcarriga/nvim-notify"] = true
-load_plugin["folke/noice.nvim"] = true
-load_plugin["levouh/tint.nvim"] = false
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "Mofiqul/vscode.nvim",
-    cond = load_plugin["Mofiqul/vscode.nvim"],
+    cond = get_cond("Mofiqul/vscode.nvim", cond_table),
     lazy = false,
     priority = 1000,
     config = function()
       local c = require("vscode.colors").get_colors()
+      _G.HighlightSeparator = function(mode)
+        -- TODO: Get these values from the colorscheme
+        if mode == "n" then
+          vim.cmd("hi NvimSeparator guifg=" .. "#0A7ACA")
+        elseif mode == "i" then
+          vim.cmd("hi NvimSeparator guifg=" .. "#4EC9B0")
+        elseif (mode == "v") or (mode == "V") then
+          vim.cmd("hi NvimSeparator guifg=" .. "#FFAF00")
+        elseif mode == "c" then
+          vim.cmd("hi NvimSeparator guifg=" .. "#DDB6F2")
+        elseif mode == "t" then
+          vim.cmd("hi NvimSeparator guifg=" .. "#4EC9B0")
+        end
+      end
+
+      vim.api.nvim_create_autocmd({ "ModeChanged" }, {
+        callback = function(arg)
+          local mode = arg.match:match(".:(%a)")
+          _G.HighlightSeparator(mode)
+        end,
+      })
 
       require("vscode").setup({
         italic_comments = true,
@@ -35,26 +58,31 @@ return {
           BiscuitColor = { fg = c.vscGreen, bg = c.vscPopupHighlightGray },
         },
       })
+
       vim.cmd.colorscheme("vscode")
     end,
   },
   {
     "petertriho/nvim-scrollbar",
-    cond = load_plugin["petertriho/nvim-scrollbar"],
-    event = { "WinNew" },
+    cond = get_cond("petertriho/nvim-scrollbar", cond_table),
+    event = { "BufReadPre" },
     config = function()
+      -- TODO: prettier scrollbar
       require("scrollbar").setup()
     end,
   },
   {
     "nvim-zh/colorful-winsep.nvim",
-    cond = load_plugin["nvim-zh/colorful-winsep.nvim"],
+    cond = get_cond("nvim-zh/colorful-winsep.nvim", cond_table),
     event = { "WinNew" },
-    config = true,
+    config = function()
+      require("colorful-winsep").setup({ smooth = false })
+      _G.HighlightSeparator("n")
+    end,
   },
   {
     "nvimdev/dashboard-nvim",
-    cond = load_plugin["nvimdev/dashboard-nvim"],
+    cond = get_cond("nvimdev/dashboard-nvim", cond_table),
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     priority = 900,
@@ -95,7 +123,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    cond = load_plugin["nvim-lualine/lualine.nvim"],
+    cond = get_cond("nvim-lualine/lualine.nvim", cond_table),
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
@@ -215,7 +243,7 @@ return {
   },
   {
     "letieu/harpoon-lualine",
-    cond = load_plugin["letieu/harpoon-lualine"],
+    cond = get_cond("letieu/harpoon-lualine", cond_table),
     event = "VeryLazy",
     dependencies = {
       {
@@ -227,7 +255,7 @@ return {
   -- Indentation guides
   {
     "lukas-reineke/indent-blankline.nvim",
-    cond = load_plugin["lukas-reineke/indent-blankline.nvim"],
+    cond = get_cond("lukas-reineke/indent-blankline.nvim", cond_table),
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     config = function()
@@ -266,7 +294,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    cond = load_plugin["rcarriga/nvim-notify"],
+    cond = get_cond("rcarriga/nvim-notify", cond_table),
     event = "VeryLazy",
     config = function()
       require("notify").setup({
@@ -279,7 +307,7 @@ return {
   },
   {
     "folke/noice.nvim",
-    cond = load_plugin["folke/noice.nvim"],
+    cond = get_cond("folke/noice.nvim", cond_table),
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -307,13 +335,5 @@ return {
         require("noice").cmd("disable")
       end, { desc = "Visual.notifications_disable" })
     end,
-  },
-  {
-    "levouh/tint.nvim",
-    cond = load_plugin["levouh/tint.nvim"],
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      saturation = 0.2,
-    },
   },
 }

@@ -1,27 +1,43 @@
-local load_plugin = {}
-load_plugin["nvim-treesitter/nvim-treesitter"] = true
--- Context
-load_plugin["nvim-treesitter/nvim-treesitter-context"] = true
-load_plugin["code-biscuits/nvim-biscuits"] = true
--- LSP
-load_plugin["VonHeikemen/lsp-zero.nvim"] = true
--- Lint
-load_plugin["mfussenegger/nvim-lint"] = true
--- Fomatter
-load_plugin["stevearc/conform.nvim"] = true
--- Terminal Completion
-load_plugin["gelguy/wilder.nvim"] = false -- WARN: not tested
+local plugins = {
+  "nvim-treesitter/nvim-treesitter",
+  -- Context
+  "nvim-treesitter/nvim-treesitter-context",
+  "code-biscuits/nvim-biscuits",
+  -- LSP
+  "VonHeikemen/lsp-zero.nvim",
+  -- Lint
+  "mfussenegger/nvim-lint",
+  -- Fomatter
+  "stevearc/conform.nvim",
+  -- Terminal Completion
+  -- "gelguy/wilder.nvim", -- WARN: not tested
+}
+
+local cond_table = require("common.lazy").get_cond_table(plugins)
+local get_cond = require("common.lazy").get_cond
 
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    cond = load_plugin["nvim-treesitter/nvim-treesitter"],
+    cond = get_cond("nvim-treesitter/nvim-treesitter", cond_table),
     event = "VeryLazy",
     build = ":TSUpdate",
     config = function()
       local configs = require("nvim-treesitter.configs")
       configs.setup({
-        ensure_installed = { "c", "lua", "vim", "vimdoc", "javascript", "html", "python", "regex", "bash", "markdown", "markdown_inline"},
+        ensure_installed = {
+          "c",
+          "lua",
+          "vim",
+          "vimdoc",
+          "javascript",
+          "html",
+          "python",
+          "regex",
+          "bash",
+          "markdown",
+          "markdown_inline",
+        },
         sync_install = false,
         highlight = { enable = true },
         indent = { enable = true },
@@ -32,12 +48,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    cond = load_plugin["nvim-treesitter/nvim-treesitter-context"],
+    cond = get_cond("nvim-treesitter/nvim-treesitter-context", cond_table),
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "code-biscuits/nvim-biscuits",
-    cond = load_plugin["code-biscuits/nvim-biscuits"],
+    cond = get_cond("code-biscuits/nvim-biscuits", cond_table),
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       {
@@ -60,7 +76,7 @@ return {
   -- LSP
   {
     "VonHeikemen/lsp-zero.nvim",
-    cond = load_plugin["VonHeikemen/lsp-zero.nvim"],
+    cond = get_cond("VonHeikemen/lsp-zero.nvim", cond_table),
     event = "VeryLazy",
     branch = "v3.x",
     dependencies = {
@@ -174,12 +190,12 @@ return {
   -- Lint
   {
     "mfussenegger/nvim-lint",
-    cond = load_plugin["mfussenegger/nvim-lint"],
+    cond = get_cond("mfussenegger/nvim-lint", cond_table),
     event = "VeryLazy",
     config = function()
       local lint = require("lint")
       lint.linters_by_ft = {
-        c = { "cppcheck" },
+        -- c = { "cppcheck" },
       }
 
       local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
@@ -194,7 +210,7 @@ return {
   -- Fomatter
   {
     "zapling/mason-conform.nvim",
-    cond = load_plugin["stevearc/conform.nvim"],
+    cond = get_cond("stevearc/conform.nvim", cond_table),
     dependencies = {
       "williamboman/mason.nvim",
       "stevearc/conform.nvim",
@@ -228,7 +244,7 @@ return {
   -- Command completion
   {
     "gelguy/wilder.nvim",
-    cond = load_plugin["gelguy/wilder.nvim"],
+    cond = get_cond("gelguy/wilder.nvim", cond_table),
     event = "VeryLazy",
     config = function()
       local wilder = require("wilder")
