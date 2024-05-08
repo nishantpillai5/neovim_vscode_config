@@ -3,13 +3,12 @@ local plugins = {
   "kylechui/nvim-surround",
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "smoka7/hop.nvim",
-    cond = get_cond("smoka7/hop.nvim", cond_table),
+    cond = conds["smoka7/hop.nvim"] or false,
     keys = {
       { "<leader><space>", "<cmd>HopChar2<cr>", desc = "hop" },
     },
@@ -21,7 +20,7 @@ return {
   },
   {
     "kylechui/nvim-surround",
-    cond = get_cond("kylechui/nvim-surround", cond_table),
+    cond = conds["kylechui/nvim-surround"] or false,
     event = "VeryLazy",
     version = "*",
     config = function()

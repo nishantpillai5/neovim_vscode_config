@@ -4,13 +4,12 @@ local plugins = {
   "rcarriga/nvim-dap-ui",
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "stevearc/overseer.nvim",
-    cond = get_cond("stevearc/overseer.nvim", cond_table),
+    cond = conds["stevearc/overseer.nvim"] or false,
     keys = {
       { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Tasks.run" },
       { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Tasks.toggle" },
@@ -43,7 +42,7 @@ return {
   },
   {
     "mfussenegger/nvim-dap",
-    cond = get_cond("mfussenegger/nvim-dap", cond_table),
+    cond = conds["mfussenegger/nvim-dap"] or false,
     dependencies = {
       "stevearc/overseer.nvim",
       "theHamsta/nvim-dap-virtual-text",
@@ -128,7 +127,7 @@ return {
   },
   {
     "rcarriga/nvim-dap-ui",
-    cond = get_cond("rcarriga/nvim-dap-ui", cond_table),
+    cond = conds["rcarriga/nvim-dap-ui"] or false,
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
       { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },

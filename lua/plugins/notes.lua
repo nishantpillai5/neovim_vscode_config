@@ -2,13 +2,12 @@ local plugins = {
   -- "obsidian.nvim", -- WARN: not tested
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "epwalsh/obsidian.nvim",
-    cond = get_cond("obsidian.nvim", cond_table),
+    cond = conds["obsidian.nvim"] or false,
     version = "*",
     lazy = true,
     ft = "markdown",

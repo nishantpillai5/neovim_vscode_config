@@ -13,13 +13,12 @@ local plugins = {
   -- "gelguy/wilder.nvim", -- WARN: not tested
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    cond = get_cond("nvim-treesitter/nvim-treesitter", cond_table),
+    cond = conds["nvim-treesitter/nvim-treesitter"] or false,
     event = "VeryLazy",
     build = ":TSUpdate",
     config = function()
@@ -48,12 +47,12 @@ return {
   {
     "nvim-treesitter/nvim-treesitter-context",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
-    cond = get_cond("nvim-treesitter/nvim-treesitter-context", cond_table),
+    cond = conds["nvim-treesitter/nvim-treesitter-context"] or false,
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "code-biscuits/nvim-biscuits",
-    cond = get_cond("code-biscuits/nvim-biscuits", cond_table),
+    cond = conds["code-biscuits/nvim-biscuits"] or false,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       {
@@ -76,7 +75,7 @@ return {
   -- LSP
   {
     "VonHeikemen/lsp-zero.nvim",
-    cond = get_cond("VonHeikemen/lsp-zero.nvim", cond_table),
+    cond = conds["VonHeikemen/lsp-zero.nvim"] or false,
     event = "VeryLazy",
     branch = "v3.x",
     dependencies = {
@@ -190,7 +189,7 @@ return {
   -- Lint
   {
     "mfussenegger/nvim-lint",
-    cond = get_cond("mfussenegger/nvim-lint", cond_table),
+    cond = conds["mfussenegger/nvim-lint"] or false,
     event = "VeryLazy",
     config = function()
       local lint = require("lint")
@@ -210,7 +209,7 @@ return {
   -- Fomatter
   {
     "zapling/mason-conform.nvim",
-    cond = get_cond("stevearc/conform.nvim", cond_table),
+    cond = conds["stevearc/conform.nvim"] or false,
     dependencies = {
       "williamboman/mason.nvim",
       "stevearc/conform.nvim",
@@ -244,7 +243,7 @@ return {
   -- Command completion
   {
     "gelguy/wilder.nvim",
-    cond = get_cond("gelguy/wilder.nvim", cond_table),
+    cond = conds["gelguy/wilder.nvim"] or false,
     event = "VeryLazy",
     config = function()
       local wilder = require("wilder")

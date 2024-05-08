@@ -10,13 +10,12 @@ local plugins = {
   "folke/noice.nvim",
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "Mofiqul/vscode.nvim",
-    cond = get_cond("Mofiqul/vscode.nvim", cond_table),
+    cond = conds["Mofiqul/vscode.nvim"] or false,
     lazy = false,
     priority = 1000,
     config = function()
@@ -64,7 +63,7 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
-    cond = get_cond("petertriho/nvim-scrollbar", cond_table),
+    cond = conds["petertriho/nvim-scrollbar"] or false,
     event = { "BufReadPre" },
     config = function()
       -- TODO: prettier scrollbar
@@ -73,7 +72,7 @@ return {
   },
   {
     "nvim-zh/colorful-winsep.nvim",
-    cond = get_cond("nvim-zh/colorful-winsep.nvim", cond_table),
+    cond = conds["nvim-zh/colorful-winsep.nvim"] or false,
     event = { "WinNew" },
     config = function()
       require("colorful-winsep").setup({ smooth = false })
@@ -82,7 +81,7 @@ return {
   },
   {
     "nvimdev/dashboard-nvim",
-    cond = get_cond("nvimdev/dashboard-nvim", cond_table),
+    cond = conds["nvimdev/dashboard-nvim"] or false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     lazy = false,
     priority = 900,
@@ -123,7 +122,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
-    cond = get_cond("nvim-lualine/lualine.nvim", cond_table),
+    cond = conds["nvim-lualine/lualine.nvim"] or false,
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
@@ -243,7 +242,7 @@ return {
   },
   {
     "letieu/harpoon-lualine",
-    cond = get_cond("letieu/harpoon-lualine", cond_table),
+    cond = conds["letieu/harpoon-lualine"] or false,
     event = "VeryLazy",
     dependencies = {
       {
@@ -255,7 +254,7 @@ return {
   -- Indentation guides
   {
     "lukas-reineke/indent-blankline.nvim",
-    cond = get_cond("lukas-reineke/indent-blankline.nvim", cond_table),
+    cond = conds["lukas-reineke/indent-blankline.nvim"] or false,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     config = function()
@@ -294,7 +293,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    cond = get_cond("rcarriga/nvim-notify", cond_table),
+    cond = conds["rcarriga/nvim-notify"] or false,
     event = "VeryLazy",
     config = function()
       require("notify").setup({
@@ -307,7 +306,7 @@ return {
   },
   {
     "folke/noice.nvim",
-    cond = get_cond("folke/noice.nvim", cond_table),
+    cond = conds["folke/noice.nvim"] or false,
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",

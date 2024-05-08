@@ -4,13 +4,12 @@ local plugins = {
   "ryanmsnyder/toggleterm-manager.nvim",
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "folke/trouble.nvim",
-    cond = get_cond("folke/trouble.nvim", cond_table),
+    cond = conds["folke/trouble.nvim"] or false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     keys = {
       { "<leader>tt", "<cmd>lua require('trouble').toggle()<cr>", desc = "Trouble.toggle" },
@@ -42,7 +41,7 @@ return {
   },
   {
     "akinsho/nvim-toggleterm.lua",
-    cond = get_cond("akinsho/nvim-toggleterm.lua", cond_table),
+    cond = conds["akinsho/nvim-toggleterm.lua"] or false,
     opts = {
       size = vim.o.columns * 0.4,
       direction = "vertical",
@@ -54,7 +53,7 @@ return {
   },
   {
     "ryanmsnyder/toggleterm-manager.nvim",
-    cond = get_cond("ryanmsnyder/toggleterm-manager.nvim", cond_table),
+    cond = conds["ryanmsnyder/toggleterm-manager.nvim"] or false,
     dependencies = {
       "akinsho/nvim-toggleterm.lua",
       "nvim-telescope/telescope.nvim",

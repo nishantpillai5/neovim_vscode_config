@@ -20,20 +20,19 @@ local plugins = {
   "gregorias/coerce.nvim",
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   -- Comments
   {
     "numToStr/Comment.nvim",
-    cond = get_cond("numToStr/Comment.nvim", cond_table),
+    cond = conds["numToStr/Comment.nvim"] or false,
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
   {
     "folke/todo-comments.nvim",
-    cond = get_cond("folke/todo-comments.nvim", cond_table),
+    cond = conds["folke/todo-comments.nvim"] or false,
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
@@ -53,7 +52,7 @@ return {
   -- Tmux like navigation
   {
     "alexghergh/nvim-tmux-navigation",
-    cond = get_cond("alexghergh/nvim-tmux-navigation", cond_table),
+    cond = conds["alexghergh/nvim-tmux-navigation"] or false,
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local nvim_tmux_nav = require("nvim-tmux-navigation")
@@ -72,7 +71,7 @@ return {
   -- Refactor
   {
     "smjonas/inc-rename.nvim",
-    cond = get_cond("smjonas/inc-rename.nvim", cond_table),
+    cond = conds["smjonas/inc-rename.nvim"] or false,
     keys = {
       { "<leader>rn", desc = "Refactor.rename" },
     },
@@ -85,7 +84,7 @@ return {
   },
   {
     "ThePrimeagen/refactoring.nvim",
-    cond = get_cond("ThePrimeagen/refactoring.nvim", cond_table),
+    cond = conds["ThePrimeagen/refactoring.nvim"] or false,
     keys = {
       { "<leader>rr", desc = "Refactor.refactor" },
     },
@@ -94,14 +93,14 @@ return {
   -- Misc
   {
     "mbbill/undotree",
-    cond = get_cond("mbbill/undotree", cond_table),
+    cond = conds["mbbill/undotree"] or false,
     keys = {
       { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "undotree_toggle" },
     },
   },
   {
     "gbprod/yanky.nvim",
-    cond = get_cond("gbprod/yanky.nvim", cond_table),
+    cond = conds["gbprod/yanky.nvim"] or false,
     event = "VeryLazy",
     config = function()
       require("yanky").setup({
@@ -122,7 +121,7 @@ return {
   },
   {
     "monaqa/dial.nvim",
-    cond = get_cond("monaqa/dial.nvim", cond_table),
+    cond = conds["monaqa/dial.nvim"] or false,
     keys = {
       { "<C-a>", "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = "increment" },
       { "<C-x>", "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = "decrement" },
@@ -141,13 +140,13 @@ return {
   },
   {
     "chentoast/marks.nvim",
-    cond = get_cond("chentoast/marks.nvim", cond_table),
+    cond = conds["chentoast/marks.nvim"] or false,
     event = { "BufReadPre", "BufNewFile" },
     opts = {},
   },
   {
     "Wansmer/treesj",
-    cond = get_cond("Wansmer/treesj", cond_table),
+    cond = conds["Wansmer/treesj"] or false,
     opts = {
       use_default_keymaps = false,
     },
@@ -160,14 +159,14 @@ return {
   },
   {
     "folke/zen-mode.nvim",
-    cond = get_cond("folke/zen-mode.nvim", cond_table),
+    cond = conds["folke/zen-mode.nvim"] or false,
     keys = {
       { "<leader>zz", "<cmd>lua require('zen-mode').toggle({ window = { width = .85 }})<cr>", desc = "Visual.zen" },
     },
   },
   {
     "vladdoster/remember.nvim",
-    cond = get_cond("vladdoster/remember.nvim", cond_table),
+    cond = conds["vladdoster/remember.nvim"] or false,
     event = "VeryLazy",
     config = function()
       require("remember").setup({})
@@ -175,17 +174,17 @@ return {
   },
   {
     "sitiom/nvim-numbertoggle",
-    cond = get_cond("sitiom/nvim-numbertoggle", cond_table),
+    cond = conds["sitiom/nvim-numbertoggle"] or false,
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "RRethy/vim-illuminate",
-    cond = get_cond("RRethy/vim-illuminate", cond_table),
+    cond = conds["RRethy/vim-illuminate"] or false,
     event = { "BufReadPre", "BufNewFile" },
   },
   {
     "gregorias/coerce.nvim",
-    cond = get_cond("gregorias/coerce.nvim", cond_table),
+    cond = conds["gregorias/coerce.nvim"] or false,
     keys = {
       { "cr", desc = "coerce" },
     },

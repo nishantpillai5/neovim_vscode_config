@@ -5,13 +5,12 @@ local plugins = {
   "sindrets/diffview.nvim",
 }
 
-local cond_table = require("common.lazy").get_cond_table(plugins)
-local get_cond = require("common.lazy").get_cond
+local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
     "tpope/vim-fugitive",
-    cond = get_cond("tpope/vim-fugitive", cond_table),
+    cond = conds["tpope/vim-fugitive"] or false,
     event = "VeryLazy",
     keys = {
       { "<leader>gs", "<cmd>Git<cr>", desc = "Git.status" },
@@ -21,7 +20,7 @@ return {
   },
   {
     "kdheepak/lazygit.nvim",
-    cond = get_cond("kdheepak/lazygit.nvim", cond_table),
+    cond = conds["kdheepak/lazygit.nvim"] or false,
     dependencies = {
       "nvim-lua/plenary.nvim",
     },
@@ -38,7 +37,7 @@ return {
   },
   {
     "sindrets/diffview.nvim",
-    cond = get_cond("sindrets/diffview.nvim", cond_table),
+    cond = conds["sindrets/diffview.nvim"] or false,
     keys = {
       { "<leader>gd", desc = "Git.diff" },
     },
@@ -58,7 +57,7 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
-    cond = get_cond("lewis6991/gitsigns.nvim", cond_table),
+    cond = conds["lewis6991/gitsigns.nvim"] or false,
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       require("gitsigns").setup({
