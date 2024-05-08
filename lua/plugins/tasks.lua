@@ -46,6 +46,7 @@ return {
     dependencies = {
       "stevearc/overseer.nvim",
       "theHamsta/nvim-dap-virtual-text",
+      "ofirgall/goto-breakpoints.nvim",
     },
     keys = {
       { "<F5>", desc = "Dap.continue/start" },
@@ -61,6 +62,9 @@ return {
         desc = "Dap.breakpoint_with_message",
       },
       { "<leader>dt", desc = "Dap.toggle" },
+      { "[b", "<cmd>lua require('goto-breakpoints').prev()<cr>", desc = "Prev.breakpoint" },
+      { "]b", "<cmd>lua require('goto-breakpoints').next()<cr>", desc = "Next.breakpoint" },
+      -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stop refresh
     },
     config = function()
       local dap = require("dap")

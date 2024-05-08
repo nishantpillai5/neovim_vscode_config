@@ -43,12 +43,13 @@ return {
     "akinsho/nvim-toggleterm.lua",
     cond = conds["akinsho/nvim-toggleterm.lua"] or false,
     opts = {
-      size = vim.o.columns * 0.4,
+      size = vim.o.columns * 0.3,
       direction = "vertical",
       close_on_exit = true,
       start_in_insert = false,
       hide_numbers = true,
       persist_size = false,
+      -- auto_scroll = false,
     },
   },
   {

@@ -22,19 +22,16 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
-- log lsp
-- add title for overseer, vista
-- reorder overseer actions
-- Go to next breakpoint
-- reduce default size of toggleterm
-- toggle dap virtual text
+- notify if no toggleterm windows available, toggleterm doesnt toggle if processes are not running
 - Nvim doesnt exit properly, searching in git log fails, not disposing running gdb server
-- toggleterm doesnt toggle if processes are not running
 - non git dirs break telescope file search if a file is opened
 - use trouble keybinds for quickfix
 - Create installation guide and dependencies
 - harpoon not adding relative file path
-- notify if no toggleterm windows available
 - searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
 - loading session does the same as above
 - cppcheck
+- reorder overseer actions
+- add title for overseer, vista
+- toggle dap virtual text (blocked see issue)
+- start a custom terminal for builds with ft set to log and autoscroll off

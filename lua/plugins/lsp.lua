@@ -11,6 +11,8 @@ local plugins = {
   "stevearc/conform.nvim",
   -- Terminal Completion
   -- "gelguy/wilder.nvim", -- WARN: not tested
+  -- Log Highlighting
+  "mtdl9/vim-log-highlighting",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -261,6 +263,23 @@ return {
           reverse = 1,
         }))
       )
+    end,
+  },
+  -- Log Highlighting
+  {
+    "mtdl9/vim-log-highlighting",
+    cond = conds["mtdl9/vim-log-highlighting"] or false,
+    event = "VeryLazy",
+    config = function()
+
+  -- TODO: create syntax for [filename.c(1234)]
+  -- vim.api.nvim_create_autocmd({ "Syntax" }, {
+  --   -- pattern = { "*.log" },
+  --   callback = function()
+  --     vim.cmd("syn match logLevelError /\\[.*\\.c\\(*/")
+  --   end,
+  -- })
+
     end,
   },
 }
