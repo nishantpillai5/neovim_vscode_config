@@ -119,8 +119,8 @@ return {
   {
     "mfussenegger/nvim-dap-python",
     cond = conds["mfussenegger/nvim-dap-python"] or false,
-    event = "BufEnter *.py",
     dependencies = { "mfussenegger/nvim-dap" },
+    event = "BufEnter *.py",
     config = function ()
        require('dap-python').setup('C:/Users/Nishant Pillai/.virtualenvs/debugpy/Scripts/python')
     end,
