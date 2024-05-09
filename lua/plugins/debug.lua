@@ -1,6 +1,7 @@
 local plugins = {
   "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
+  "mfussenegger/nvim-dap-python"
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -113,6 +114,15 @@ return {
     },
     config = function()
       require("dapui").setup()
+    end,
+  },
+  {
+    "mfussenegger/nvim-dap-python",
+    cond = conds["mfussenegger/nvim-dap-python"] or false,
+    event = "BufEnter *.py",
+    dependencies = { "mfussenegger/nvim-dap" },
+    config = function ()
+       require('dap-python').setup('C:/Users/Nishant Pillai/.virtualenvs/debugpy/Scripts/python')
     end,
   },
 }
