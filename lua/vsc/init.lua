@@ -5,8 +5,8 @@ require("vsc.remap.explorer")
 require("vsc.remap.finder")
 require("vsc.remap.git")
 require("vsc.remap.lsp")
-require("vsc.remap.panel")
-require("vsc.remap.tasks")
+require("vsc.remap.panels")
+require("vsc.remap.debug")
 
 require("vsc.plugins")
 
