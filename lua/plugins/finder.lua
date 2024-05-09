@@ -24,6 +24,7 @@ return {
       { "<leader>fr", desc = "Find.registers" },
       { "<leader>fp", desc = "Find.yank" },
       { "<leader>fb", desc = "Find.buffers" },
+      { "<leader>fn", desc = "Find.notes" },
       { "<leader>ft", desc = "Find.telescope" },
     },
     dependencies = {
@@ -77,7 +78,7 @@ return {
 
       require("telescope").load_extension("zf-native")
       require("telescope").load_extension("conflicts")
-      -- require("telescope").load_extension("yank_history")
+      require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")
       require("telescope").load_extension("notify")
       require("telescope").load_extension("picker_list")
@@ -121,7 +122,14 @@ return {
         vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find.buffers" })
         -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-        -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+        vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+
+        vim.keymap.set( "n", "<leader>fn", function ()
+            builtin.find_files({
+              cwd = require("common.env").NOTES_DIR
+            })
+        end, { desc = "Find.notes" })
+
         vim.keymap.set(
           "n",
           "<leader>ft",

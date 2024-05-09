@@ -1,3 +1,5 @@
+local HOME = require("common.env").HOME
+
 vim.opt.wrap = false
 
 -- Line numbers
@@ -18,12 +20,12 @@ vim.opt.listchars:append("space:⋅")
 
 -- Undo
 vim.opt.undofile = true
-vim.opt.undodir = os.getenv("HOME") .. "/.nvim/undodir"
+vim.opt.undodir = HOME .. "/.nvim/undodir"
 
 -- Backups
 -- vim.opt.backup = false
 -- vim.opt.swapfile = false
-vim.opt.backupdir = os.getenv("HOME") .. "/.nvim/backupdir"
+vim.opt.backupdir = HOME .. "/.nvim/backupdir"
 
 -- Search
 -- vim.opt.hlsearch = false

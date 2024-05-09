@@ -36,8 +36,11 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- Default to all files when not in a git repo
+
 - Obsidian
 - Leetcode
+  - run file in terminal
 
 - Keep lualine on zen mode, or replace with noneckpain
 - Create installation guide and dependencies

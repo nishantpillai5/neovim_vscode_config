@@ -1,24 +1,24 @@
 local plugins = {
-  -- "obsidian.nvim", -- WARN: not tested
+  "obsidian.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
+local NOTES_DIR = require("common.env").NOTES_DIR
 
 return {
   {
     "epwalsh/obsidian.nvim",
     cond = conds["obsidian.nvim"] or false,
     version = "*",
-    lazy = true,
-    ft = "markdown",
-    -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+    cmd = {"ObsidianToday"},
     -- event = {
-    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-    --   "BufReadPre path/to/my-vault/**.md",
-    --   "BufNewFile path/to/my-vault/**.md",
+    --   "BufReadPre " .. NOTES_DIR .. "/**.md",
+    --   "BufNewFile " .. NOTES_DIR .. "/**.md",
     -- },
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- "preservim/vim-markdown"
+    },
     opts = {
       ui = {
         enable = false,
@@ -26,8 +26,18 @@ return {
       workspaces = {
         {
           name = "notes",
-          path = "~/notes/notes",
+          path = NOTES_DIR,
         },
+      },
+      templates = {
+        folder = "templates",
+        date_format = "%Y-%m-%d-%a",
+        time_format = "%H:%M",
+      },
+      daily_notes = {
+        folder = "dailies",
+        date_format = "%Y.%m.%d",
+        template = "daily.md"
       },
     },
   },
