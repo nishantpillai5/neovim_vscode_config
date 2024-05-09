@@ -14,6 +14,7 @@ local plugins = {
   "chentoast/marks.nvim",
   "Wansmer/treesj",
   "folke/zen-mode.nvim",
+  -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
   "vladdoster/remember.nvim",
   "sitiom/nvim-numbertoggle",
   "RRethy/vim-illuminate",
@@ -161,7 +162,23 @@ return {
     "folke/zen-mode.nvim",
     cond = conds["folke/zen-mode.nvim"] or false,
     keys = {
-      { "<leader>zz", "<cmd>lua require('zen-mode').toggle({ window = { width = .85 }})<cr>", desc = "Visual.zen" },
+      { "<leader>zz", "<cmd>lua require('zen-mode').toggle()<cr>", desc = "Visual.zen" },
+    },
+    opts = {
+      windows = {
+        width = .85,
+      },
+      plugins = {
+        gitsigns = { enabled = false },
+      },
+    },
+  },
+  {
+    "shortcuts/no-neck-pain.nvim",
+    version = "*",
+    cond = conds["shortcuts/no-neck-pain.nvim"] or false,
+    keys = {
+      { "<leader>zz", ":NoNeckPain<cr>", desc = "Visual.zen", silent = true },
     },
   },
   {

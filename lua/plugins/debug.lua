@@ -122,7 +122,7 @@ return {
     dependencies = { "mfussenegger/nvim-dap" },
     event = "BufEnter *.py",
     config = function ()
-       require('dap-python').setup('C:/Users/Nishant Pillai/.virtualenvs/debugpy/Scripts/python')
+       require('dap-python').setup(os.getenv("HOME") .. '/.virtualenvs/debugpy/Scripts/python')
     end,
   },
 }

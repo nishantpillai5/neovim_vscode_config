@@ -6,12 +6,15 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ### Windows
 
+- set HOME env var
 - choco install git
 - choco install nodejs-lts --version="20.13.0"
 - choco install ripgrep
 - choco install zig
 - choco install fd
 - python -m pip install --user --upgrade pynvim
+- debugpy in virtual env
+- install ctags
 
 ## VSCode settings
 
@@ -33,6 +36,7 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- Keep lualine on zen mode, or replace with noneckpain
 - Create installation guide and dependencies
 - Nvim doesnt exit properly, searching in git log fails, not disposing running gdb server
 - non git dirs break telescope file search if a file is opened
