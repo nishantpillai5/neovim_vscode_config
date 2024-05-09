@@ -237,7 +237,7 @@ return {
           async = true,
           timeout_ms = 500,
         }, function()
-          require("notify")("Formatted")
+          vim.notify("Formatted")
         end)
       end)
     end,

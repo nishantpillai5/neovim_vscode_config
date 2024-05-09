@@ -61,32 +61,32 @@ return {
         if vim.fn.filereadable(".vscode/launch.json") then
           require("dap.ext.vscode").load_launchjs(nil, { cppdbg = { "c", "cpp" } })
         end
-        -- require("notify")("DAP: Continue")
+        -- vim.notify("DAP: Continue")
         require("dap").continue()
       end)
 
       vim.keymap.set("n", "<C-F5>", function()
-        require("notify")("DAP: Stop")
+        vim.notify("DAP: Stop")
         require("dap").close()
       end)
 
       vim.keymap.set("n", "<F6>", function()
-        require("notify")("DAP: Pause")
+        vim.notify("DAP: Pause")
         require("dap").pause()
       end)
 
       vim.keymap.set("n", "<F7>", function()
-        require("notify")("DAP: Step Into")
+        vim.notify("DAP: Step Into")
         require("dap").step_into()
       end)
 
       vim.keymap.set("n", "<C-F7>", function()
-        require("notify")("DAP: Step Out")
+        vim.notify("DAP: Step Out")
         require("dap").step_out()
       end)
 
       vim.keymap.set("n", "<F8>", function()
-        -- require("notify")("DAP: Step Over")
+        -- vim.notify("DAP: Step Over")
         require("dap").step_over()
       end)
 

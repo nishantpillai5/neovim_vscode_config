@@ -71,10 +71,10 @@ return {
       local refresh_workspace = function()
         local current_scope = neoscopes.get_current_scope()
         if current_scope == nil then
-          require("notify")("󱇳 No scope selected")
+          vim.notify("󱇳 No scope selected")
           _G.Telescope_keymaps()
         else
-          require("notify")("Scope selected: 󱇳 " .. neoscopes.get_current_scope().name)
+          vim.notify("Scope selected: 󱇳 " .. neoscopes.get_current_scope().name)
           neoscopes_keymaps()
         end
       end
@@ -113,14 +113,14 @@ return {
           local current_scope = neoscopes.get_current_scope()
           if current_scope ~= nil then
             action(current_scope.name)
-            require("notify")("Session: " .. current_scope.name)
+            vim.notify("Session: " .. current_scope.name)
           else
             action("workspace")
-            require("notify")("Session: workspace")
+            vim.notify("Session: workspace")
           end
         else
           action("workspace")
-          require("notify")("Session: workspace")
+          vim.notify("Session: workspace")
         end
       end
 
