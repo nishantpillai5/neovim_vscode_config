@@ -75,5 +75,6 @@
   "vista.vim": { "branch": "master", "commit": "04fa99afe865b16324af94fd8a8391121117d8f7" },
   "vscode.nvim": { "branch": "main", "commit": "1a2cb491a962acf3bbf53c6d0a61b4ec76012570" },
   "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" },
+  "yanky.nvim": { "branch": "main", "commit": "7c5cbf0122ff2dfbb6a92f14885894f65949cc8b" },
   "zen-mode.nvim": { "branch": "main", "commit": "78557d972b4bfbb7488e17b5703d25164ae64e6a" }
 }

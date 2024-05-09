@@ -6,17 +6,17 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ### Windows
 
-- set HOME env var
-- choco install git
-- choco install nodejs-lts --version="20.13.0"
-- choco install ripgrep
-- choco install zig
-- choco install fd
-- python -m pip install --user --upgrade pynvim
-- debugpy in virtual env
-- install ctags
+- set `HOME` environment variable
+- `choco install git`
+- `choco install nodejs-lts --version="20.13.0"`
+- `choco install ripgrep`
+- `choco install zig`
+- `choco install fd`
+- `python -m pip install --user --upgrade pynvim`
+- [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
+- [ctags](https://github.com/universal-ctags/ctags)
 
-## VSCode settings
+### VSCode settings
 
 `settings.json`
 

@@ -9,7 +9,7 @@ local plugins = {
   -- "ThePrimeagen/refactoring.nvim", -- WARN: not tested, slow startup
   -- Misc
   "mbbill/undotree",
-  -- "gbprod/yanky.nvim", -- WARN: This slows things down
+  "gbprod/yanky.nvim", -- WARN: This slows things down
   "monaqa/dial.nvim",
   "chentoast/marks.nvim",
   "Wansmer/treesj",
@@ -110,8 +110,6 @@ return {
         },
       })
       vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-      -- Convert to lua
-
       vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
       vim.keymap.set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
       vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
