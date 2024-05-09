@@ -36,6 +36,9 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- Obsidian
+- Leetcode
+
 - Keep lualine on zen mode, or replace with noneckpain
 - Create installation guide and dependencies
 - Nvim doesnt exit properly, searching in git log fails, not disposing running gdb server
