@@ -24,6 +24,7 @@ return {
     event = "VeryLazy",
     build = ":TSUpdate",
     config = function()
+      require('nvim-treesitter.install').compilers = { 'zig', "gcc", "clang", "cc", "cl", vim.NIL }
       local configs = require("nvim-treesitter.configs")
       configs.setup({
         ensure_installed = {

@@ -2,6 +2,17 @@
 
 This repository contains my Neovim configuration which also has parallel configuration for the [Neovim Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim). Tried to keep the experience as close as possible for both platforms. Keybinds are meant to be Neovim first, i.e. taking Neovim keybinds to VSCode rather than the other way around.
 
+## Installation
+
+### Windows
+
+- choco install git
+- choco install nodejs-lts --version="20.13.0"
+- choco install ripgrep
+- choco install zig
+- choco install fd
+- python -m pip install --user --upgrade pynvim
+
 ## VSCode settings
 
 `settings.json`
