@@ -164,6 +164,7 @@ return {
       local harpoon = require("harpoon")
       harpoon:setup()
 
+      -- Telescope
       local conf = require("telescope.config").values
       local function toggle_telescope(harpoon_files)
         local file_paths = {}
@@ -183,6 +184,7 @@ return {
           :find()
       end
 
+      -- Keymaps
       vim.keymap.set("n", "<leader>a", function()
         harpoon:list():add()
       end, { desc = "harpoon_add" })
@@ -198,6 +200,30 @@ return {
       vim.keymap.set("n", "<C-PageDown>", function()
         harpoon:list():next()
       end, { desc = "harpoon_next" })
+
+      -- Lualine
+      local function lualine_indicator(harpoon_entry)
+        local harpoon_file_path = harpoon_entry.value
+        local file_name = harpoon_file_path == "" and "(empty)" or vim.fn.fnamemodify(harpoon_file_path, ":t")
+        return file_name
+      end
+
+      local lualineA = require("lualine").get_config().winbar.lualine_a or {}
+      table.insert(lualineA, {
+          "harpoon2",
+          _separator = " | ",
+          indicators = { "1", "2", "3", "4" },
+          active_indicators = {
+            lualine_indicator,
+            lualine_indicator,
+            lualine_indicator,
+            lualine_indicator,
+          },
+      })
+
+      require("lualine").setup {
+        winbar = { lualine_a = lualineA },
+      }
     end,
   },
   {

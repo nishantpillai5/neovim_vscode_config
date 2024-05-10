@@ -55,4 +55,3 @@ This repository contains my Neovim configuration which also has parallel configu
 - add title for overseer, vista
 - toggle dap virtual text (blocked see issue)
 - start a custom terminal for builds with ft set to log and autoscroll off
-- Lazy load plugins in lualine [example](https://github.com/chrisgrieser/nvim-recorder?tab=readme-ov-file#lazy-loading-the-plugin)

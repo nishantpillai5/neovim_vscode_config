@@ -23,6 +23,7 @@ return {
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
       local neoscopes = require("neoscopes")
+      -- Helper functions
       local neoscopes_keymaps = function()
         vim.keymap.set("n", "<leader>ff", function()
           require("telescope.builtin").find_files({
@@ -79,8 +80,10 @@ return {
         end
       end
 
+      -- Setup
       neoscopes.setup({ on_scope_selected = refresh_workspace })
 
+      -- Keymaps
       vim.keymap.set("n", "<leader>ww", function()
         neoscopes.setup({ on_scope_selected = refresh_workspace })
         neoscopes.select()
@@ -90,6 +93,23 @@ return {
         neoscopes.clear()
         refresh_workspace()
       end)
+
+      -- Lualine
+      local function lualine_status()
+        local current_scope = neoscopes.get_current_scope()
+        if current_scope == nil then
+          return "󱇳 "
+        end
+
+        return "󱇳 " .. neoscopes.get_current_scope().name
+      end
+
+      local lualineZ = require("lualine").get_config().winbar.lualine_z or {}
+      table.insert(lualineZ, { lualine_status })
+
+      require("lualine").setup {
+        winbar = { lualine_z = lualineZ },
+      }
     end,
   },
   {

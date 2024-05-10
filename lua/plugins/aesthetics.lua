@@ -126,55 +126,12 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      local function neoscope()
-        local status, neoscopes = pcall(require, "neoscopes")
-        if not status then
-          return "󱇳 "
-        end
-
-        local current_scope = neoscopes.get_current_scope()
-        if current_scope == nil then
-          return "󱇳 "
-        end
-
-        return "󱇳 " .. neoscopes.get_current_scope().name
-      end
-
-      local lsp_clients = function()
-        local bufnr = vim.api.nvim_get_current_buf()
-
-        local clients = vim.lsp.buf_get_clients(bufnr)
-        if next(clients) == nil then
-          return "  "
-        end
-
-        local c = {}
-        for _, client in pairs(clients) do
-          table.insert(c, client.name)
-        end
-        return "  " .. table.concat(c, ",")
-      end
-
-      local lint_progress = function()
-        local linters = require("lint").get_running()
-        if #linters == 0 then
-          return "  " .. table.concat(linters, ", ")
-        end
-        return "  " .. table.concat(linters, ", ")
-      end
-
-      local function harpoon_indicator(harpoon_entry)
-        local harpoon_file_path = harpoon_entry.value
-        local file_name = harpoon_file_path == "" and "(empty)" or vim.fn.fnamemodify(harpoon_file_path, ":t")
-        return file_name
-      end
-
       require("lualine").setup({
         extensions = { "overseer", "nvim-dap-ui" },
         options = {
           globalstatus = true,
           theme = "vscode",
-          section_separators = { left = "", right = "" },
+          section_separators = { left = "", right = " " },
           component_separators = { left = "", right = "" },
           ignore_focus = { "OverseerList", "neo-tree", "vista", "copilot-chat" },
           disabled_filetypes = {
@@ -191,15 +148,12 @@ return {
             "branch",
           },
           lualine_c = {
-            "harpoon2",
             { "filename", path = 1 },
             "diff",
           },
           lualine_x = {
             "overseer",
             "diagnostics",
-            lint_progress,
-            lsp_clients,
           },
           lualine_y = {
             "encoding",
@@ -212,20 +166,6 @@ return {
           },
         },
         winbar = {
-          lualine_a = {
-            {
-              "harpoon2",
-              _separator = " | ",
-              indicators = { "1", "2", "3", "4" },
-              active_indicators = {
-                harpoon_indicator,
-                harpoon_indicator,
-                harpoon_indicator,
-                harpoon_indicator,
-              },
-            },
-          },
-          lualine_b = {},
           lualine_c = {
             {
               "buffers",
@@ -234,13 +174,6 @@ return {
                 alternate_file = "",
               },
             },
-          },
-          lualine_y = {
-            require("recorder").recordingStatus,
-            require("recorder").displaySlots,
-          },
-          lualine_z = {
-            neoscope,
           },
         },
       })

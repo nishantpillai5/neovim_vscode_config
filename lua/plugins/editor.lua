@@ -29,15 +29,27 @@ return {
   {
     "chrisgrieser/nvim-recorder",
     cond = conds["chrisgrieser/nvim-recorder"] or false,
-    event = "VeryLazy",
-    opts = {
-      -- dapSharedKeymaps = true,
-      lessNotifications = true,
-      logLevel = vim.log.levels.DEBUG,
-      mapping = {
-        addBreakPoint = "|NX2J0CdIE",
-	  },
-    },
+    keys = {
+      { "q", desc = "macro_record" },
+      { "Q", desc = "macro_play" },
+	},
+    config = function ()
+      require("recorder").setup({
+        -- dapSharedKeymaps = true,
+        lessNotifications = true,
+        logLevel = vim.log.levels.DEBUG,
+        mapping = {
+          addBreakPoint = "|NX2J0CdIE",
+        },
+      })
+      local lualineY = require("lualine").get_config().winbar.lualine_y or {}
+      table.insert(lualineY, { require("recorder").recordingStatus })
+      table.insert(lualineY, { require("recorder").displaySlots })
+
+      require("lualine").setup {
+        winbar = { lualine_y = lualineY },
+      }
+    end
   },
   -- Comments
   {

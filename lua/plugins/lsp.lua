@@ -187,6 +187,44 @@ return {
           ["<C-d>"] = cmp.mapping.scroll_docs(4),
         }),
       })
+
+      -- Lualine
+      local get_logo = function (name)
+        local logo_dict = {
+          ["lua_ls"] = "󰢱",
+          ["GitHub Copilot"] = "",
+          ["clang"] = "󰙱",
+          ["pyright"] = "",
+        }
+        local icon = logo_dict[name]
+        if icon == nil then
+            return name
+        end
+
+        return icon
+      end
+
+      local lsp_clients = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        local clients = vim.lsp.buf_get_clients(bufnr)
+        if next(clients) == nil then
+          return "  "
+        end
+
+        local c = {}
+        for _, client in pairs(clients) do
+          table.insert(c, get_logo(client.name))
+        end
+        return "  " .. table.concat(c, " ")
+      end
+
+      local lualineX = require("lualine").get_config().sections.lualine_x or {}
+      table.insert(lualineX, { lsp_clients })
+
+      require("lualine").setup({
+        sections = { lualine_x = lualineX },
+      })
     end,
   },
   -- Lint
@@ -194,6 +232,7 @@ return {
     "mfussenegger/nvim-lint",
     cond = conds["mfussenegger/nvim-lint"] or false,
     event = "VeryLazy",
+    dependencies = {"VonHeikemen/lsp-zero.nvim"},
     config = function()
       local lint = require("lint")
       lint.linters_by_ft = {
@@ -207,6 +246,24 @@ return {
           require("lint").try_lint()
         end,
       })
+
+      -- Lualine
+      local lint_progress = function()
+        local linters = require("lint").get_running()
+        if #linters == 0 then
+          return "  " .. table.concat(linters, ", ")
+        end
+        return "  " .. table.concat(linters, ", ")
+      end
+
+      local lualineX = require("lualine").get_config().sections.lualine_x or {}
+      local index = #lualineX == 0 and 1 or #lualineX - 1
+      table.insert(lualineX, index, { lint_progress })
+
+      require("lualine").setup({
+        sections = { lualine_x = lualineX },
+      })
+
     end,
   },
   -- Fomatter
