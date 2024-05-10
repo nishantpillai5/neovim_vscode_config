@@ -59,14 +59,14 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     keys = {
       {
-        "<leader>zc",
+        "<leader>zcc",
         function()
           local nvim_biscuits = require("nvim-biscuits")
           nvim_biscuits.BufferAttach()
           nvim_biscuits.toggle_biscuits()
         end,
         mode = "n",
-        desc = "Visual.context",
+        desc = "Visual.Context.virtual",
       },
     },
     opts = {

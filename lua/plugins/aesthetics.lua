@@ -2,6 +2,7 @@ local plugins = {
   "Mofiqul/vscode.nvim",
   "petertriho/nvim-scrollbar",
   "nvim-zh/colorful-winsep.nvim",
+  "utilyre/barbecue.nvim",
   "nvimdev/dashboard-nvim",
   "nvim-lualine/lualine.nvim",
   "letieu/harpoon-lualine",
@@ -78,6 +79,28 @@ return {
       require("colorful-winsep").setup({ smooth = false })
       _G.HighlightSeparator("n")
     end,
+  },
+  {
+    "utilyre/barbecue.nvim",
+    cond = conds["utilyre/barbecue.nvim"] or false,
+    -- event = { "BufReadPre", "BufNewFile" },
+    keys = {
+      -- { "<leader>[", "<cmd>lua require('barbecue.ui').navigate(1)<cr>", desc = "prev_context" },
+      { "<leader>zcl", "<cmd>lua require('barbecue.ui').toggle()<cr>", desc = "Visual.Context.lualine" },
+    },
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+    opts = {
+      theme = {
+        normal = { bg = "#262626" },
+      },
+      show_basename = false,
+      show_dirname = false,
+    },
   },
   {
     "nvimdev/dashboard-nvim",
@@ -165,7 +188,7 @@ return {
             "location",
           },
         },
-        winbar = {
+        tabline = {
           lualine_c = {
             {
               "buffers",

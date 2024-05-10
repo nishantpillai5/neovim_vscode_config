@@ -208,7 +208,7 @@ return {
         return file_name
       end
 
-      local lualineA = require("lualine").get_config().winbar.lualine_a or {}
+      local lualineA = require("lualine").get_config().tabline.lualine_a or {}
       table.insert(lualineA, {
           "harpoon2",
           _separator = " | ",
@@ -222,7 +222,7 @@ return {
       })
 
       require("lualine").setup {
-        winbar = { lualine_a = lualineA },
+        tabline = { lualine_a = lualineA },
       }
     end,
   },

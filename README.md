@@ -36,6 +36,10 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- https://github.com/ofirgall/open.nvim
+- https://github.com/iamcco/markdown-preview.nvim
+
+- Lazy load lualine extensions
 - Default to all files when not in a git repo
 
 - Obsidian

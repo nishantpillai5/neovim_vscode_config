@@ -42,12 +42,12 @@ return {
           addBreakPoint = "|NX2J0CdIE",
         },
       })
-      local lualineY = require("lualine").get_config().winbar.lualine_y or {}
+      local lualineY = require("lualine").get_config().tabline.lualine_y or {}
       table.insert(lualineY, { require("recorder").recordingStatus })
       table.insert(lualineY, { require("recorder").displaySlots })
 
       require("lualine").setup {
-        winbar = { lualine_y = lualineY },
+        tabline = { lualine_y = lualineY },
       }
     end
   },

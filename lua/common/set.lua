@@ -49,6 +49,9 @@ vim.keymap.set("i", "jk", "<Esc>", { noremap = true, silent = true })
 vim.o.splitright = true
 vim.o.splitbelow = true
 
+-- Force show tabline
+vim.o.showtabline=2
+
 -- Use system clipboard
 -- vim.o.clipboard = "unnamedplus"
 

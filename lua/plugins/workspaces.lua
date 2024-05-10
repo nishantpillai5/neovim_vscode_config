@@ -104,11 +104,11 @@ return {
         return "󱇳 " .. neoscopes.get_current_scope().name
       end
 
-      local lualineZ = require("lualine").get_config().winbar.lualine_z or {}
+      local lualineZ = require("lualine").get_config().tabline.lualine_z or {}
       table.insert(lualineZ, { lualine_status })
 
       require("lualine").setup {
-        winbar = { lualine_z = lualineZ },
+        tabline = { lualine_z = lualineZ },
       }
     end,
   },
