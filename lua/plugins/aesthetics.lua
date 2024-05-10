@@ -129,12 +129,12 @@ return {
       local function neoscope()
         local status, neoscopes = pcall(require, "neoscopes")
         if not status then
-          return "󱇳 No scope selected"
+          return "󱇳 "
         end
 
         local current_scope = neoscopes.get_current_scope()
         if current_scope == nil then
-          return "󱇳 No scope selected"
+          return "󱇳 "
         end
 
         return "󱇳 " .. neoscopes.get_current_scope().name
@@ -145,22 +145,22 @@ return {
 
         local clients = vim.lsp.buf_get_clients(bufnr)
         if next(clients) == nil then
-          return "LSP:"
+          return "  "
         end
 
         local c = {}
         for _, client in pairs(clients) do
           table.insert(c, client.name)
         end
-        return "LSP: " .. table.concat(c, ",")
+        return "  " .. table.concat(c, ",")
       end
 
       local lint_progress = function()
         local linters = require("lint").get_running()
         if #linters == 0 then
-          return "Lint:" .. table.concat(linters, ", ")
+          return "  " .. table.concat(linters, ", ")
         end
-        return "Lint: " .. table.concat(linters, ", ")
+        return "  " .. table.concat(linters, ", ")
       end
 
       local function harpoon_indicator(harpoon_entry)
@@ -198,7 +198,6 @@ return {
           lualine_x = {
             "overseer",
             "diagnostics",
-            neoscope,
             lint_progress,
             lsp_clients,
           },
@@ -235,6 +234,13 @@ return {
                 alternate_file = "",
               },
             },
+          },
+          lualine_y = {
+            require("recorder").recordingStatus,
+            require("recorder").displaySlots,
+          },
+          lualine_z = {
+            neoscope,
           },
         },
       })

@@ -1,4 +1,6 @@
 local plugins = {
+  -- Macros
+  "chrisgrieser/nvim-recorder",
   -- Comments
   "numToStr/Comment.nvim",
   "folke/todo-comments.nvim",
@@ -24,6 +26,19 @@ local plugins = {
 local conds = require("common.lazy").get_conds(plugins)
 
 return {
+  {
+    "chrisgrieser/nvim-recorder",
+    cond = conds["chrisgrieser/nvim-recorder"] or false,
+    event = "VeryLazy",
+    opts = {
+      -- dapSharedKeymaps = true,
+      lessNotifications = true,
+      logLevel = vim.log.levels.DEBUG,
+      mapping = {
+        addBreakPoint = "|NX2J0CdIE",
+	  },
+    },
+  },
   -- Comments
   {
     "numToStr/Comment.nvim",
