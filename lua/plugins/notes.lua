@@ -35,7 +35,7 @@ return {
         time_format = "%H:%M",
       },
       daily_notes = {
-        folder = "dailies",
+        folder = "journal",
         date_format = "%Y.%m.%d",
         template = "daily.md"
       },
