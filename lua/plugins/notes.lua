@@ -1,5 +1,6 @@
 local plugins = {
-  "obsidian.nvim",
+  "backdround/global-note.nvim",
+  "epwalsh/obsidian.nvim"
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -7,10 +8,32 @@ local NOTES_DIR = require("common.env").NOTES_DIR
 
 return {
   {
+    "backdround/global-note.nvim",
+    cond = conds["backdround/global-note.nvim"] or false,
+    keys = {
+      { "<leader>nn", desc = "Notes.current" },
+    },
+    config = function ()
+      local global_note = require("global-note")
+      global_note.setup({
+        filename = "current.md",
+        directory = NOTES_DIR,
+        title = "NOTE",
+      })
+
+      vim.keymap.set("n", "<leader>nn", global_note.toggle_note, {
+        desc = "Notes.current",
+      })
+    end
+
+  },
+  {
     "epwalsh/obsidian.nvim",
-    cond = conds["obsidian.nvim"] or false,
+    cond = conds["epwalsh/obsidian.nvim"] or false,
     version = "*",
-    cmd = {"ObsidianToday"},
+    keys = {
+      { "<leader>nj", ":ObsidianToday<cr>", desc = "Notes.journal" },
+    },
     -- event = {
     --   "BufReadPre " .. NOTES_DIR .. "/**.md",
     --   "BufNewFile " .. NOTES_DIR .. "/**.md",
@@ -31,7 +54,7 @@ return {
       },
       templates = {
         folder = "templates",
-        date_format = "%Y-%m-%d-%a",
+        date_format = "%Y.%m.%d.%a",
         time_format = "%H:%M",
       },
       daily_notes = {
