@@ -36,28 +36,24 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
-- https://github.com/ofirgall/open.nvim
-- https://github.com/iamcco/markdown-preview.nvim
+- Default to all files when not in a git repo
+- non git dirs breaks telescope file search if a file is opened, searches file in file's folder instead of cwd
+- add title for overseer, vista
 
+- harpoon not adding relative file path
+- loading a saved session breaks colors (because lsp is loaded after file is opened?)
+  - searching from telescope in dashboard also breaks colors
+
+- cppcheck linting
+
+- use trouble keybinds for quickfix
+- Overseer
+  - Nvim doesn't exit properly, searching in git log fails because not disposing running gdb server properly
+  - start a custom terminal for builds with ft set to log and autoscroll off
+- Leetcode
+  - run file in terminal
+- Keep tabline on zen mode, or replace with noneckpain
 - Lazy load 
   - lualine extensions (overseer)
 
-- Default to all files when not in a git repo
-
-- Obsidian
-- Leetcode
-  - run file in terminal
-
-- Keep lualine on zen mode, or replace with noneckpain
-- Create installation guide and dependencies
-- Nvim doesnt exit properly, searching in git log fails, not disposing running gdb server
-- non git dirs break telescope file search if a file is opened
-- use trouble keybinds for quickfix
-- harpoon not adding relative file path
-- searching from telescope in dashboard breaks colors (because lsp is loaded after file is opened?)
-- loading session does the same as above
-- cppcheck
-- reorder overseer actions
-- add title for overseer, vista
-- toggle dap virtual text (blocked see issue)
-- start a custom terminal for builds with ft set to log and autoscroll off
+- toggle dap virtual text [see GH issue](https://github.com/theHamsta/nvim-dap-virtual-text/issues/74)
