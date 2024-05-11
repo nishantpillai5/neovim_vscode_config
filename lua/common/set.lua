@@ -61,3 +61,6 @@ vim.o.showtabline=2
 -- Disable auto-commenting new lines: https://neovim.discourse.group/t/3746
 --vim.opt.formatoptions:remove("cro")
 vim.cmd([[autocmd BufEnter * set formatoptions-=cro]])
+
+-- Disable browser input plugin autostart
+vim.g.nvim_ghost_autostart = 0

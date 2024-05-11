@@ -2,6 +2,7 @@ local plugins = {
   "eandrju/cellular-automaton.nvim",
   "kwakzalver/duckytype.nvim",
   "dstein64/vim-startuptime",
+  "subnut/nvim-ghost.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -31,5 +32,11 @@ return {
     init = function()
       vim.g.startuptime_tries = 10
     end,
+  },
+  {
+    "subnut/nvim-ghost.nvim",
+    lazy = true,
+    cond = conds["subnut/nvim-ghost.nvim"] or false,
+    cmd = { "GhostTextStart" },
   },
 }

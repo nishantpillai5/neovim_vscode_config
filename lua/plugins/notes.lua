@@ -21,9 +21,12 @@ return {
         title = "NOTE",
       })
 
-      vim.keymap.set("n", "<leader>nn", global_note.toggle_note, {
-        desc = "Notes.current",
-      })
+      vim.keymap.set(
+        "n",
+        "<leader>nn",
+        global_note.toggle_note,
+        { desc = "Notes.current" }
+      )
     end
 
   },
