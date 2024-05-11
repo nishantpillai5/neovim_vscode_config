@@ -193,7 +193,7 @@ return {
         local logo_dict = {
           ["lua_ls"] = "󰢱",
           ["GitHub Copilot"] = "",
-          ["clang"] = "󰙱",
+          ["clangd"] = "󰙱",
           ["pyright"] = "",
         }
         local icon = logo_dict[name]

@@ -9,4 +9,3 @@ require("vsc.remap.panels")
 require("vsc.remap.debug")
 
 require("vsc.plugins")
-
