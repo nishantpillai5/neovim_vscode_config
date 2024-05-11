@@ -36,6 +36,10 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- Change cwd from dashboard
+- Global marks (bookmarks)
+- Learn folds
+
 - Default to all files when not in a git repo
 - non git dirs breaks telescope file search if a file is opened, searches file in file's folder instead of cwd
 - add title for overseer, vista
