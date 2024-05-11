@@ -11,7 +11,6 @@ return {
   {
     "tpope/vim-fugitive",
     cond = conds["tpope/vim-fugitive"] or false,
-    event = "VeryLazy",
     keys = {
       { "<leader>gs", "<cmd>Git<cr>", desc = "Git.status" },
       { "<leader>gl", "<cmd>Git log<cr>", desc = "Git.log" },

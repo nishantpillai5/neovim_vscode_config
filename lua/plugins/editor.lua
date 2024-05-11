@@ -61,7 +61,7 @@ return {
   {
     "folke/todo-comments.nvim",
     cond = conds["folke/todo-comments.nvim"] or false,
-    event = "VeryLazy",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       require("todo-comments").setup({

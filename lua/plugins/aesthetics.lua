@@ -85,7 +85,6 @@ return {
     cond = conds["utilyre/barbecue.nvim"] or false,
     -- event = { "BufReadPre", "BufNewFile" },
     keys = {
-      -- { "<leader>[", "<cmd>lua require('barbecue.ui').navigate(1)<cr>", desc = "prev_context" },
       { "<leader>zcl", "<cmd>lua require('barbecue.ui').toggle()<cr>", desc = "Visual.Context.lualine" },
     },
     name = "barbecue",

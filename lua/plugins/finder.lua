@@ -155,7 +155,7 @@ return {
     },
     keys = {
       { "<leader>a", desc = "harpoon_add" },
-      { "<leader>h", desc = "harpoon_list" },
+      { "<leader>H", desc = "harpoon_list" },
       { "<leader>fh", desc = "Find.harpoon" },
       { "<C-PageUp>", desc = "harpoon_prev" },
       { "<C-PageDown>", desc = "harpoon_next" },
@@ -188,7 +188,7 @@ return {
       vim.keymap.set("n", "<leader>a", function()
         harpoon:list():add()
       end, { desc = "harpoon_add" })
-      vim.keymap.set("n", "<leader>h", function()
+      vim.keymap.set("n", "<leader>H", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end, { desc = "harpoon_list" })
       vim.keymap.set("n", "<leader>fh", function()

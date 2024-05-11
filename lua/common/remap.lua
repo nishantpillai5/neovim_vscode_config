@@ -21,3 +21,6 @@ vim.keymap.set("n", "*", "*zz", { silent = true, desc = "next" })
 
 -- Line wrap
 vim.keymap.set("n", "<leader>zw", ":set wrap!<CR>", { desc = "Visual.wrap_toggle" })
+
+-- Previous buffer
+vim.keymap.set("n", "<leader>h", ":b#<CR>", { desc = "buffer_prev", silent = true })

@@ -257,7 +257,7 @@ return {
       end
 
       local lualineX = require("lualine").get_config().sections.lualine_x or {}
-      local index = #lualineX == 0 and 1 or #lualineX - 1
+      local index = #lualineX == 0 and 1 or #lualineX
       table.insert(lualineX, index, { lint_progress })
 
       require("lualine").setup({
@@ -327,7 +327,7 @@ return {
   {
     "mtdl9/vim-log-highlighting",
     cond = conds["mtdl9/vim-log-highlighting"] or false,
-    event = "VeryLazy",
+    event = { "BufReadPre *.log", "BufNewFile *.log" },
     config = function()
 
   -- TODO: create syntax for [filename.c(1234)]
