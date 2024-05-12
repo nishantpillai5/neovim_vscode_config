@@ -1,6 +1,7 @@
 local plugins = {
   "backdround/global-note.nvim",
-  "epwalsh/obsidian.nvim"
+  "epwalsh/obsidian.nvim",
+  "iamcco/markdown-preview.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -69,6 +70,7 @@ return {
   },
   {
     "iamcco/markdown-preview.nvim",
+    cond = conds["iamcco/markdown-preview.nvim"] or false,
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
     ft = { "markdown" },
     build = function() vim.fn["mkdp#util#install"]() end,
