@@ -1,6 +1,8 @@
 local plugins = {
   -- Autoclose
   "windwp/nvim-autopairs",
+  -- Inline macro
+  "AllenDang/nvim-expand-expr",
   -- Macros
   "chrisgrieser/nvim-recorder",
   -- Comments
@@ -35,6 +37,15 @@ return {
     event = "InsertEnter",
     config = true,
   },
+  -- Inline macro
+  {
+    "AllenDang/nvim-expand-expr",
+    cond = conds["AllenDang/nvim-expand-expr"] or false,
+    keys = {
+      { "<leader>oq", function() require("expand_expr").expand() end, desc = "Tasks.inline_macro" },
+    },
+  },
+  -- Macros
   {
     "chrisgrieser/nvim-recorder",
     cond = conds["chrisgrieser/nvim-recorder"] or false,
