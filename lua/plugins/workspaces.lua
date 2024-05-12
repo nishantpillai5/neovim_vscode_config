@@ -34,7 +34,7 @@ return {
         end, { desc = "Find.files(workspace)" })
         -- remapping fa, f/, fgg not needed
 
-        vim.keymap.set("n", "<leader>fg", function()
+        vim.keymap.set("n", "<leader>fl", function()
           require("telescope.builtin").live_grep({
             search_dirs = neoscopes.get_current_dirs(),
             additional_args = { "--follow" },

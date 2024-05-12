@@ -19,12 +19,12 @@ return {
       { "<leader>fgb", desc = "Find.Git.branch" },
       { "<leader>fgc", desc = "Find.Git.commits" },
       { "<leader>fgz", desc = "Find.Git.stash" },
-      { "<leader>fs", desc = "Find.Search_live.buffers/workspace" },
-      { "<leader>fS", desc = "Find.Search_live.global" },
-      { "<leader>f/", desc = "Find.Search" },
-      { "<leader>f/w", desc = "Find.Search.word" },
-      { "<leader>f/W", desc = "Find.Search.whole_word" },
+      { "<leader>fl", desc = "Find.Live_grep.global" },
+      { "<leader>fL", desc = "Find.Live_grep.global_with_args" },
+      { "<leader>f/", desc = "Find.Search.in_buffers" },
       { "<leader>f?", desc = "Find.Search.global" },
+      { "<leader>fw", desc = "Find.word" },
+      { "<leader>fW", desc = "Find.whole_word" },
       { "<leader>fo", desc = "Find.symbols" },
       { "<leader>fm", desc = "Find.marks" },
       { "<leader>fr", desc = "Find.registers" },
@@ -94,10 +94,10 @@ return {
         vim.keymap.set("n", "<leader>fgc", builtin.git_bcommits, { desc = "Find.Git.commits" })
         vim.keymap.set("n", "<leader>fgz", builtin.git_stash, { desc = "Find.Git.stash" })
 
-        vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Find.Live_grep.global" })
+        vim.keymap.set("n", "<leader>fl", builtin.live_grep, { desc = "Find.Live_grep.global" })
         vim.keymap.set(
           "n",
-          "<leader>fS",
+          "<leader>fL",
           "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
           { desc = "Find.Live_grep.global_with_args" }
         )
