@@ -275,7 +275,7 @@ return {
       "stevearc/conform.nvim",
     },
     keys = {
-      { "<leader>ls", mode = { "n", "v" }, desc = "lsp.format" },
+      { "<leader>ls", mode = { "n", "v" }, desc = "LSP.format" },
     },
     config = function()
       require("conform").setup({

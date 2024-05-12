@@ -36,6 +36,8 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- Update vsc keymaps
+
 - Change cwd from dashboard
 - Global marks (bookmarks)
 - Learn folds
