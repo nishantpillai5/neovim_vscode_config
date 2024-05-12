@@ -1,6 +1,7 @@
 local plugins = {
   "smartpde/neoscopes",
   "stevearc/resession.nvim",
+  -- "niuiic/multiple-session.nvim", --TODO: supports saving breakpoint
   "aymericbeaumet/vim-symlink",
 }
 
@@ -152,5 +153,21 @@ return {
         workspace_session(recession.load)
       end)
     end,
+  },
+  {
+    "niuiic/multiple-session.nvim",
+    cond = conds["niuiic/multiple-session.nvim"] or false,
+    dependencies = { "niuiic/core.nvim" },
+    keys = {
+      { "<leader>ws", function() require('multiple-session').save_session() end, desc = "Workspace.session_save" },
+      { "<leader>wl", function () require('multiple-session').restore_session() end, desc = "Workspace.session_load" },
+      -- { "<leader>wS", "<cmd>lua require('resession').save()<cr>", desc = "Workspace.manual_session_save" },
+      -- { "<leader>wL", "<cmd>lua require('resession').load()<cr>", desc = "Workspace.manual_session_load" },
+      { "<leader>wd", function() require('multiple-session').delete_session() end, desc = "Workspace.session_delete" },
+    },
+    opts = {
+      -- auto_save_session = false,
+      -- auto_load_session = false,
+    }
   },
 }

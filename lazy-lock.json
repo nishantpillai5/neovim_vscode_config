@@ -9,6 +9,7 @@
   "colorful-winsep.nvim": { "branch": "alpha", "commit": "8a046e9d283ebc1e430d12a8742df3ee4f36825e" },
   "conform.nvim": { "branch": "master", "commit": "dc950e5717f1da65b1fcd986b1bbff0d6bd0e2ee" },
   "copilot.vim": { "branch": "release", "commit": "dfa657c80c915a6a3eb6d9010046a0576ad25a37" },
+  "dap-utils.nvim": { "branch": "main", "commit": "fb55e35015a82548cf2b5f24202f9071def077bc" },
   "dashboard-nvim": { "branch": "master", "commit": "a0a78099658c7d4be3714f657b18ca8285d5d106" },
   "dial.nvim": { "branch": "master", "commit": "27eb570085db2ef44bff4f620d3806039184651c" },
   "diffview.nvim": { "branch": "main", "commit": "3dc498c9777fe79156f3d32dddd483b8b3dbd95f" },

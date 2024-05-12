@@ -1,5 +1,5 @@
 local plugins = {
-  "mfussenegger/nvim-dap",
+  "niuiic/dap-utils.nvim",
   "rcarriga/nvim-dap-ui",
   "mfussenegger/nvim-dap-python"
 }
@@ -8,9 +8,10 @@ local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
-    "mfussenegger/nvim-dap",
-    cond = conds["mfussenegger/nvim-dap"] or false,
+    "niuiic/dap-utils.nvim",
+    cond = conds["niuiic/dap-utils.nvim"] or false,
     dependencies = {
+      "mfussenegger/nvim-dap",
       "stevearc/overseer.nvim",
       "theHamsta/nvim-dap-virtual-text",
       "ofirgall/goto-breakpoints.nvim",
@@ -31,7 +32,7 @@ return {
       { "<leader>dt", desc = "Dap.toggle" },
       { "[b", "<cmd>lua require('goto-breakpoints').prev()<cr>", desc = "Prev.breakpoint" },
       { "]b", "<cmd>lua require('goto-breakpoints').next()<cr>", desc = "Next.breakpoint" },
-      -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stop refresh
+      -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stops refreshing
     },
     config = function()
       local dap = require("dap")
@@ -42,6 +43,7 @@ return {
         only_first_definition = false,
         all_references = true,
       })
+      -- require("dap-utils").setup({})
 
       vim.g.dap_virtual_text = true
 
@@ -103,6 +105,7 @@ return {
     keys = {
       { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },
       -- { "<leader>dK", "<cmd>lua require('dapui').eval()<cr>", desc = "Dap.eval" },
+      -- TODO: make dd toggle the K keymap to dap eval instead of hover
       {
         "<leader>dK",
         "<cmd>lua require('dapui').eval(vim.fn.expand('<cWORD>'))<cr>",
