@@ -36,6 +36,8 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
+- make Overseer action and dap list show in telescope instead of notify
+
 - Update vsc keymaps
 
 - Change cwd from dashboard
