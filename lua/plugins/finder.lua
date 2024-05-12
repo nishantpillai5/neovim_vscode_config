@@ -1,5 +1,6 @@
 local plugins = {
   "nvim-telescope/telescope.nvim",
+  "OliverChao/telescope-picker-list.nvim",
   "ThePrimeagen/harpoon",
   "nvim-pack/nvim-spectre",
 }
@@ -12,27 +13,30 @@ return {
     cond = conds["nvim-telescope/telescope.nvim"] or false,
     event = "VeryLazy",
     keys = {
-      { "<leader>ff", desc = "Find.git" },
+      { "<leader>ff", desc = "Find.git_files" },
       { "<leader>fa", desc = "Find.all" },
-      { "<leader>fg", desc = "Find.Grep.buffers/workspace" },
-      { "<leader>fgg", desc = "Find.Grep.global" },
+      { "<leader>fgs", desc = "Find.Git.status" },
+      { "<leader>fgb", desc = "Find.Git.branch" },
+      { "<leader>fgc", desc = "Find.Git.commits" },
+      { "<leader>fgz", desc = "Find.Git.stash" },
+      { "<leader>fs", desc = "Find.Search_live.buffers/workspace" },
+      { "<leader>fS", desc = "Find.Search_live.global" },
       { "<leader>f/", desc = "Find.Search" },
       { "<leader>f/w", desc = "Find.Search.word" },
       { "<leader>f/W", desc = "Find.Search.whole_word" },
+      { "<leader>f?", desc = "Find.Search.global" },
       { "<leader>fo", desc = "Find.symbols" },
       { "<leader>fm", desc = "Find.marks" },
       { "<leader>fr", desc = "Find.registers" },
       { "<leader>fp", desc = "Find.yank" },
       { "<leader>fb", desc = "Find.buffers" },
       { "<leader>fn", desc = "Find.notes" },
-      { "<leader>ft", desc = "Find.telescope" },
+      { "<leader>F", desc = "Find.telescope" },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",
       "natecraddock/telescope-zf-native.nvim",
       "nvim-telescope/telescope-live-grep-args.nvim",
-      "Snikimonkd/telescope-git-conflicts.nvim",
-      "OliverChao/telescope-picker-list.nvim",
     },
     config = function()
       local lga_actions = require("telescope-live-grep-args.actions")
@@ -76,22 +80,24 @@ return {
         },
       })
 
+      _G.loaded_telescope_extension = false
       require("telescope").load_extension("zf-native")
-      require("telescope").load_extension("conflicts")
-      require("telescope").load_extension("yank_history")
-      -- require("telescope").load_extension("refactoring")
-      require("telescope").load_extension("notify")
-      require("telescope").load_extension("picker_list")
 
       -- Keymaps
       _G.Telescope_keymaps = function()
         local builtin = require("telescope.builtin")
-        vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git" })
+        vim.keymap.set("n", "<leader>ff", builtin.git_files, { desc = "Find.git_files" })
         vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
-        vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Find.Live_grep.global" })
+
+        vim.keymap.set("n", "<leader>fgs", builtin.git_status, { desc = "Find.Git.status" })
+        vim.keymap.set("n", "<leader>fgb", builtin.git_branches, { desc = "Find.Git.branches" })
+        vim.keymap.set("n", "<leader>fgc", builtin.git_bcommits, { desc = "Find.Git.commits" })
+        vim.keymap.set("n", "<leader>fgz", builtin.git_stash, { desc = "Find.Git.stash" })
+
+        vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Find.Live_grep.global" })
         vim.keymap.set(
           "n",
-          "<leader>fG",
+          "<leader>fS",
           "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
           { desc = "Find.Live_grep.global_with_args" }
         )
@@ -117,12 +123,17 @@ return {
           builtin.grep_string({ search = word })
         end, { desc = "Find.whole_word" })
 
+        vim.keymap.set("n", "<leader>F", "<cmd>Telescope<cr>", { desc = "Find.telescope" })
+
         vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, { desc = "Find.symbols" })
         vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
         vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find.buffers" })
-        -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+        -- TODO: use string instead to prevent loading extensions?
+        -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+        --   require("telescope").extensions.refactoring.refactors()
+        -- end)
 
         vim.keymap.set( "n", "<leader>fn", function ()
             builtin.find_files({
@@ -130,20 +141,36 @@ return {
             })
         end, { desc = "Find.notes" })
 
-        vim.keymap.set(
-          "n",
-          "<leader>ft",
-          require("telescope").extensions.picker_list.picker_list,
-          { desc = "Find.telescope" }
-        )
 
-        -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
-        --   require("telescope").extensions.refactoring.refactors()
-        -- end)
       end
 
       _G.Telescope_keymaps()
     end,
+  },
+  {
+    "OliverChao/telescope-picker-list.nvim",
+    cond = conds["OliverChao/telescope-picker-list.nvim"] or false,
+    dependencies = {
+      "Snikimonkd/telescope-git-conflicts.nvim",
+    },
+    keys = {
+      {
+        "<leader>ft",
+          function ()
+            if not _G.loaded_telescope_extension then
+              require("telescope").load_extension("conflicts")
+              require("telescope").load_extension("yank_history")
+              -- require("telescope").load_extension("refactoring")
+              require("telescope").load_extension("notify")
+              require("telescope").load_extension("picker_list")
+              _G.loaded_telescope_extension = true
+            end
+            require("telescope").extensions.picker_list.picker_list()
+          end,
+        mode = "n",
+        desc = "Find.telescope"
+      },
+    },
   },
   {
     "ThePrimeagen/harpoon",

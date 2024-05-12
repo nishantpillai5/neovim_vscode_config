@@ -29,7 +29,6 @@ return {
         { desc = "Notes.current" }
       )
     end
-
   },
   {
     "epwalsh/obsidian.nvim",
