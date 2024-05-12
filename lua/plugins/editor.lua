@@ -1,4 +1,6 @@
 local plugins = {
+  -- Autoclose
+  "windwp/nvim-autopairs",
   -- Macros
   "chrisgrieser/nvim-recorder",
   -- Comments
@@ -26,6 +28,13 @@ local plugins = {
 local conds = require("common.lazy").get_conds(plugins)
 
 return {
+  -- Autoclose
+  {
+    "windwp/nvim-autopairs",
+    cond = conds["windwp/nvim-autopairs"] or false,
+    event = "InsertEnter",
+    config = true,
+  },
   {
     "chrisgrieser/nvim-recorder",
     cond = conds["chrisgrieser/nvim-recorder"] or false,
