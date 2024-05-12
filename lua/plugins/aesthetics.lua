@@ -268,7 +268,7 @@ return {
   {
     "folke/noice.nvim",
     cond = conds["folke/noice.nvim"] or false,
-    event = "VimEnter",
+    event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
