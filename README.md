@@ -48,7 +48,7 @@ This repository contains my Neovim configuration which also has parallel configu
 - non git dirs breaks telescope file search if a file is opened, searches file in file's folder instead of cwd
 - add title for overseer, vista
 
-- harpoon not adding relative file path
+- harpoon not adding relative file path, could be because of symlinks
 - loading a saved session breaks colors (because lsp is loaded after file is opened?)
   - searching from telescope in dashboard also breaks colors
 
@@ -58,6 +58,9 @@ This repository contains my Neovim configuration which also has parallel configu
 - Overseer
   - Nvim doesn't exit properly, searching in git log fails because not disposing running gdb server properly
   - start a custom terminal for builds with ft set to log and autoscroll off
+  - termimals with process exited don't toggle
+  - lualine, show branch and commit of running build
+
 - Leetcode
   - run file in terminal
 - Keep tabline on zen mode, or replace with noneckpain

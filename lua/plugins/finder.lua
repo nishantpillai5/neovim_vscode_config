@@ -28,7 +28,7 @@ return {
       { "<leader>fo", desc = "Find.symbols" },
       { "<leader>fm", desc = "Find.marks" },
       { "<leader>fr", desc = "Find.registers" },
-      { "<leader>fp", desc = "Find.yank" },
+      -- { "<leader>fp", desc = "Find.yank" },
       { "<leader>fb", desc = "Find.buffers" },
       { "<leader>fn", desc = "Find.notes" },
       { "<leader>F", desc = "Find.telescope" },
@@ -129,7 +129,7 @@ return {
         vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
         vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Find.buffers" })
-        vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+        -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
         -- TODO: use string instead to prevent loading extensions?
         -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
         --   require("telescope").extensions.refactoring.refactors()
@@ -137,7 +137,7 @@ return {
 
         vim.keymap.set( "n", "<leader>fn", function ()
             builtin.find_files({
-              cwd = require("common.env").NOTES_DIR
+              cwd = require("common.env").DIR_NOTES
             })
         end, { desc = "Find.notes" })
 
@@ -159,7 +159,7 @@ return {
           function ()
             if not _G.loaded_telescope_extension then
               require("telescope").load_extension("conflicts")
-              require("telescope").load_extension("yank_history")
+              -- require("telescope").load_extension("yank_history")
               -- require("telescope").load_extension("refactoring")
               require("telescope").load_extension("notify")
               require("telescope").load_extension("picker_list")
@@ -182,7 +182,7 @@ return {
     },
     keys = {
       { "<leader>a", desc = "harpoon_add" },
-      { "<leader>H", desc = "harpoon_list" },
+      { "<leader>h", desc = "harpoon_list" },
       { "<leader>fh", desc = "Find.harpoon" },
       { "<C-PageUp>", desc = "harpoon_prev" },
       { "<C-PageDown>", desc = "harpoon_next" },
@@ -215,7 +215,7 @@ return {
       vim.keymap.set("n", "<leader>a", function()
         harpoon:list():add()
       end, { desc = "harpoon_add" })
-      vim.keymap.set("n", "<leader>H", function()
+      vim.keymap.set("n", "<leader>h", function()
         harpoon.ui:toggle_quick_menu(harpoon:list())
       end, { desc = "harpoon_list" })
       vim.keymap.set("n", "<leader>fh", function()
@@ -235,8 +235,9 @@ return {
         return file_name
       end
 
-      local lualineA = require("lualine").get_config().tabline.lualine_a or {}
-      table.insert(lualineA, {
+      local tablineA = require("lualine").get_config().tabline.lualine_a or {}
+      local lualineC = require("lualine").get_config().sections.lualine_c or {}
+      table.insert(tablineA, {
           "harpoon2",
           _separator = " | ",
           indicators = { "1", "2", "3", "4" },
@@ -247,9 +248,11 @@ return {
             lualine_indicator,
           },
       })
+      table.insert(lualineC, 1, { "harpoon2" })
 
       require("lualine").setup {
-        tabline = { lualine_a = lualineA },
+        sections = { lualine_c = lualineC},
+        tabline = { lualine_a = tablineA },
       }
     end,
   },

@@ -5,7 +5,7 @@ local plugins = {
 }
 
 local conds = require("common.lazy").get_conds(plugins)
-local NOTES_DIR = require("common.env").NOTES_DIR
+local NOTES_DIR = require("common.env").DIR_NOTES
 
 return {
   {

@@ -15,7 +15,7 @@ local plugins = {
   -- "ThePrimeagen/refactoring.nvim", -- WARN: not tested, slow startup
   -- Misc
   "mbbill/undotree",
-  "gbprod/yanky.nvim", -- WARN: This slows things down
+  -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
   "monaqa/dial.nvim",
   "chentoast/marks.nvim",
   "Wansmer/treesj",
@@ -169,8 +169,8 @@ return {
     "monaqa/dial.nvim",
     cond = conds["monaqa/dial.nvim"] or false,
     keys = {
-      { "<C-a>", "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = "increment" },
-      { "<C-x>", "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = "decrement" },
+      { "<leader>i", "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = "increment" },
+      { "<leader>I", "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = "decrement" },
     },
     config = function()
       local augend = require("dial.augend")
@@ -210,10 +210,11 @@ return {
       { "<leader>zz", "<cmd>lua require('zen-mode').toggle()<cr>", desc = "Visual.zen" },
     },
     opts = {
-      windows = {
+      window = {
         width = .85,
       },
       plugins = {
+        options = { enabled = true, laststatus = 3},
         gitsigns = { enabled = false },
       },
     },

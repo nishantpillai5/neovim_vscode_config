@@ -23,13 +23,13 @@ return {
       { "<F7>", desc = "Dap.step_into" },
       { "<C-F7>", desc = "Dap.step_out" },
       { "<F8>", desc = "Dap.step_over" },
-      { "<leader>b", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
+      { "<leader>bb", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
       {
-        "<leader>B",
+        "<leader>bl",
         "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
-        desc = "Dap.breakpoint_with_message",
+        desc = "Dap.breakpoint_with_log",
       },
-      { "<leader>dt", desc = "Dap.toggle" },
+      -- { "<leader>bt", desc = "Dap.toggle" },
       { "[b", "<cmd>lua require('goto-breakpoints').prev()<cr>", desc = "Prev.breakpoint" },
       { "]b", "<cmd>lua require('goto-breakpoints').next()<cr>", desc = "Next.breakpoint" },
       -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stops refreshing
@@ -93,9 +93,9 @@ return {
         require("dap").step_over()
       end)
 
-      vim.keymap.set({ "n", "v" }, "<leader>dt", function()
-        require("dap.ui.widgets").preview()
-      end)
+      -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
+      --   require("dap.ui.widgets").preview()
+      -- end)
     end,
   },
   {
@@ -103,11 +103,11 @@ return {
     cond = conds["rcarriga/nvim-dap-ui"] or false,
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
-      { "<leader>dd", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },
+      { "<leader>bt", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },
       -- { "<leader>dK", "<cmd>lua require('dapui').eval()<cr>", desc = "Dap.eval" },
       -- TODO: make dd toggle the K keymap to dap eval instead of hover
       {
-        "<leader>dK",
+        "<leader>bK",
         "<cmd>lua require('dapui').eval(vim.fn.expand('<cWORD>'))<cr>",
         mode = "n",
         desc = "Dap.hover",

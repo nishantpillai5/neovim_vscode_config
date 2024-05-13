@@ -148,6 +148,23 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
+      -- Custom functions
+      local function unsaved_buffer_alert()
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if vim.api.nvim_buf_get_option(buf, 'modified') then
+              return '󰽂 '
+          end
+        end
+        return ''
+      end
+      local function readonly_alert()
+        local buf = vim.api.nvim_win_get_buf(0)
+        if vim.bo[buf].readonly then
+           return " "
+        end
+        return ''
+      end
+      -- Setup
       require("lualine").setup({
         extensions = { "overseer", "nvim-dap-ui" },
         options = {
@@ -174,7 +191,6 @@ return {
             "diff",
           },
           lualine_x = {
-            "overseer",
             "diagnostics",
           },
           lualine_y = {
@@ -188,14 +204,17 @@ return {
           },
         },
         tabline = {
+          lualine_b = { "overseer" },
           lualine_c = {
-            {
-              "buffers",
-              mode = 4,
-              symbols = {
-                alternate_file = "",
-              },
-            },
+            readonly_alert,
+            unsaved_buffer_alert,
+            -- {
+            --   "buffers",
+            --   mode = 4,
+            --   symbols = {
+            --     alternate_file = "",
+            --   },
+            -- },
           },
         },
       })

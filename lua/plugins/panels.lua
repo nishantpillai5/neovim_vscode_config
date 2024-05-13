@@ -48,7 +48,7 @@ return {
     },
     config = function()
       require("toggleterm").setup({
-        size = vim.o.columns * 0.3,
+        size = vim.o.columns * 0.35,
         direction = "vertical",
         close_on_exit = true,
         start_in_insert = false,
@@ -57,27 +57,24 @@ return {
       })
 
       local init_or_toggle = function()
-        vim.cmd([[ ToggleTermToggleAll ]])
-
-        -- list current buffers
         local buffers = vim.api.nvim_list_bufs()
-
-        -- check if toggleterm buffer exists. If not then create one by vim.cmd [[ exe 1 . "ToggleTerm" ]]
         local toggleterm_exists = false
         for _, buf in ipairs(buffers) do
           local buf_name = vim.api.nvim_buf_get_name(buf)
-          if buf_name:find("toggleterm#") then
-            toggleterm_exists = true
-            break
+            if buf_name:find("toggleterm") then
+              toggleterm_exists = true
+              break
           end
         end
 
         if not toggleterm_exists then
           vim.cmd([[ exe 1 . "ToggleTerm" ]])
+        else
+          require('toggleterm').toggle_all(true)
         end
       end
 
-      vim.keymap.set("n", "<leader>;;", init_or_toggle, { desc = "Terminal.toggle" })
+      vim.keymap.set("n", "<leader>;;", init_or_toggle, { desc = "Terminal.toggle", silent = true})
     end,
   },
   {
@@ -119,7 +116,7 @@ return {
       require("overseer").setup({
         strategy = {
           "toggleterm",
-          open_on_start = false,
+          open_on_start = true,
         },
         dap = false,
         task_list = {

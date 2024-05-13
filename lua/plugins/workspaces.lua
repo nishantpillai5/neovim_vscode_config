@@ -111,6 +111,10 @@ return {
       require("lualine").setup {
         tabline = { lualine_z = lualineZ },
       }
+
+      -- Add scopes
+      neoscopes.add({ name = "notes", dirs = { require('common.env').DIR_NOTES } })
+      neoscopes.add({ name = "nvim_config", dirs = { require('common.env').DIR_NVIM } })
     end,
   },
   {

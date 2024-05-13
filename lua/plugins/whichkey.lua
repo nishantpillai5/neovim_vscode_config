@@ -26,7 +26,7 @@ return {
           e = "Explorer",
           w = "Workspace/Session",
           t = "Trouble",
-          d = "Debug",
+          b = "Debug",
           n = "Notes",
           o = "Tasks",
           q = "Quarto",
