@@ -25,6 +25,11 @@ return {
     config = function()
       local neoscopes = require("neoscopes")
       -- Helper functions
+      local global_scopes = function()
+        neoscopes.add({ name = "notes", dirs = { require('common.env').DIR_NOTES } })
+        neoscopes.add({ name = "nvim_config", dirs = { require('common.env').DIR_NVIM } })
+      end
+
       local neoscopes_keymaps = function()
         vim.keymap.set("n", "<leader>ff", function()
           require("telescope.builtin").find_files({
@@ -81,12 +86,10 @@ return {
         end
       end
 
-      -- Setup
-      neoscopes.setup({ on_scope_selected = refresh_workspace })
-
       -- Keymaps
       vim.keymap.set("n", "<leader>ww", function()
         neoscopes.setup({ on_scope_selected = refresh_workspace })
+        global_scopes()
         neoscopes.select()
       end)
 
@@ -112,9 +115,6 @@ return {
         tabline = { lualine_z = lualineZ },
       }
 
-      -- Add scopes
-      neoscopes.add({ name = "notes", dirs = { require('common.env').DIR_NOTES } })
-      neoscopes.add({ name = "nvim_config", dirs = { require('common.env').DIR_NVIM } })
     end,
   },
   {
