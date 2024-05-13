@@ -28,11 +28,11 @@ return {
           end
 
           local bufnr = vim.api.nvim_get_current_buf()
-          vim.keymap.set("n", "<leader>p", function()
+          vim.keymap.set("n", "<leader>P", function()
             vim.cmd [[ Git push ]]
           end, {buffer = bufnr, remap = false, desc = "Git.push"})
 
-          vim.keymap.set("n", "<leader>P", function()
+          vim.keymap.set("n", "<leader>p", function()
             vim.cmd [[ Git pull --rebase ]]
           end, {buffer = bufnr, remap = false, desc = "Git.pull"})
         end,
