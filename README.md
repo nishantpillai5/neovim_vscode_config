@@ -36,21 +36,25 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
-- make Overseer action and dap list show in telescope instead of notify
+### Prio1
 
 - Update vsc keymaps
+- Default to all files when not in a git repo
+- non git dirs breaks telescope file search if a file is opened, searches file in file's folder instead of cwd
 
-- Change cwd from dashboard
+- Exclude Toggleterm for unsaved buffer alert
+- Path display not reversed on git files
+- make Overseer action and dap list show in telescope instead of notify
+
+### Prio2
+
 - Global marks (bookmarks)
 - Learn folds
 
-- Default to all files when not in a git repo
-- non git dirs breaks telescope file search if a file is opened, searches file in file's folder instead of cwd
-- add title for overseer, vista
+### Prio3
 
-- harpoon not adding relative file path, could be because of symlinks
-- loading a saved session breaks colors (because lsp is loaded after file is opened?)
-  - searching from telescope in dashboard also breaks colors
+- add title for overseer, vista
+- loading a saved session from dashboard breaks colors
 
 - cppcheck linting
 
@@ -63,8 +67,10 @@ This repository contains my Neovim configuration which also has parallel configu
 
 - Leetcode
   - run file in terminal
-- Keep tabline on zen mode, or replace with noneckpain
 - Lazy load 
   - lualine extensions (overseer)
 
 - toggle dap virtual text [see GH issue](https://github.com/theHamsta/nvim-dap-virtual-text/issues/74)
+- Save workspace-> save harpoon menu
+
+- Change cwd from dashboard, maybe better alternative is [project](https://github.com/ahmedkhalf/project.nvim)

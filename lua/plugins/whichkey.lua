@@ -30,7 +30,7 @@ return {
           n = "Notes",
           o = "Tasks",
           q = "Quarto",
-          z = { "Visual", c = "Context", g = "Git" },
+          z = { name = "Visual", c = "Context", g = "Git" },
           g = { name = "Git", h = "Hunk" },
           ["/"] = "Search",
         },
@@ -46,6 +46,12 @@ return {
         ["[d"] = "prev.diagnostic",
         ["]d"] = "next.diagnostic",
         K = "hover",
+        d = { m = { name = "+Marks" }},
+        m = {
+          name = "+Marks",
+          [";"] = "Marks.mark_toggle",
+          [","] = "Marks.mark_set",
+        },
       })
 
       wk.register({

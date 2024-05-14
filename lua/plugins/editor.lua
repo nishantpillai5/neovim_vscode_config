@@ -214,7 +214,7 @@ return {
         width = .85,
       },
       plugins = {
-        options = { enabled = true, laststatus = 3},
+        options = { enabled = true, laststatus = 3 },
         gitsigns = { enabled = false },
       },
     },

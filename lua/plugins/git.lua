@@ -118,7 +118,7 @@ return {
           map("v", "<leader>ghr", function()
             gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
           end, { desc = "Git.Hunk.reset" })
-          map("n", "<leader>ghS", gitsigns.stage_buffer, { desc = "Git.Buffer.stage_buffer" })
+          map("n", "<leader>ghS", gitsigns.stage_buffer, { desc = "Git.Hunk.stage_buffer" })
           map("n", "<leader>ghu", gitsigns.undo_stage_hunk, { desc = "Git.Hunk.undo_stage" })
           map("n", "<leader>ghR", gitsigns.reset_buffer, { desc = "Git.Hunk.reset_buffer" })
           map("n", "<leader>ghp", gitsigns.preview_hunk, { desc = "Git.Hunk.preview" })

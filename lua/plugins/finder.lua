@@ -39,17 +39,19 @@ return {
       "nvim-telescope/telescope-live-grep-args.nvim",
     },
     config = function()
+      local default_opts = {
+        follow = true ,
+        path_display = { filename_first = { reverse_directories = true } },
+      }
+
       local lga_actions = require("telescope-live-grep-args.actions")
       require("telescope").setup({
-        defaults = {
-          path_display = {
-            filename_first = { reverse_directories = true },
-          },
-        },
+        defaults = default_opts,
         pickers = {
-          find_files = { follow = true },
-          live_grep = { follow = true },
-          grep_string = { follow = true },
+          find_files = default_opts,
+          live_grep = default_opts,
+          grep_string = default_opts,
+          git_files = default_opts,
         },
         extensions = {
           ["zf-native"] = {
@@ -229,30 +231,11 @@ return {
       end, { desc = "harpoon_next" })
 
       -- Lualine
-      local function lualine_indicator(harpoon_entry)
-        local harpoon_file_path = harpoon_entry.value
-        local file_name = harpoon_file_path == "" and "(empty)" or vim.fn.fnamemodify(harpoon_file_path, ":t")
-        return file_name
-      end
-
-      local tablineA = require("lualine").get_config().tabline.lualine_a or {}
       local lualineC = require("lualine").get_config().sections.lualine_c or {}
-      table.insert(tablineA, {
-          "harpoon2",
-          _separator = " | ",
-          indicators = { "1", "2", "3", "4" },
-          active_indicators = {
-            lualine_indicator,
-            lualine_indicator,
-            lualine_indicator,
-            lualine_indicator,
-          },
-      })
-      table.insert(lualineC, 1, { "harpoon2" })
+      table.insert(lualineC, { "harpoon2" })
 
       require("lualine").setup {
-        sections = { lualine_c = lualineC},
-        tabline = { lualine_a = tablineA },
+        sections = { lualine_c = lualineC },
       }
     end,
   },

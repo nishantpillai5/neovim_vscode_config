@@ -83,10 +83,7 @@ return {
   {
     "utilyre/barbecue.nvim",
     cond = conds["utilyre/barbecue.nvim"] or false,
-    -- event = { "BufReadPre", "BufNewFile" },
-    keys = {
-      { "<leader>zcl", "<cmd>lua require('barbecue.ui').toggle()<cr>", desc = "Visual.Context.lualine" },
-    },
+    event = { "BufReadPre", "BufNewFile" },
     name = "barbecue",
     version = "*",
     dependencies = {
@@ -115,7 +112,7 @@ return {
           week_header = {
             enable = true,
           },
-          project = { enable = false },
+          project = { enable = true },
           mru = { cwd_only = true },
           shortcut = {
             {
@@ -168,7 +165,7 @@ return {
       require("lualine").setup({
         extensions = { "overseer", "nvim-dap-ui" },
         options = {
-          globalstatus = true,
+          globalstatus = false,
           theme = "vscode",
           section_separators = { left = "", right = " " },
           component_separators = { left = "", right = "" },
@@ -184,12 +181,9 @@ return {
             "selectioncount",
           },
           lualine_b = {
-            "branch",
-          },
-          lualine_c = {
-            { "filename", path = 1 },
             "diff",
           },
+          -- lualine_c = {},
           lualine_x = {
             "diagnostics",
           },
@@ -204,18 +198,17 @@ return {
           },
         },
         tabline = {
-          lualine_b = { "overseer" },
+          lualine_a = { "branch" },
+          lualine_b = {
+            { "filename", path = 1 },
+          },
           lualine_c = {
             readonly_alert,
             unsaved_buffer_alert,
-            -- {
-            --   "buffers",
-            --   mode = 4,
-            --   symbols = {
-            --     alternate_file = "",
-            --   },
-            -- },
           },
+          lualine_x = { "overseer" },
+          lualine_y = {},
+          lualine_z = {},
         },
       })
     end,
