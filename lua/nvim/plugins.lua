@@ -1,4 +1,4 @@
-require("lazy").setup({
-  import = "../plugins",
-  change_detection = { enabled = false },
-})
+require("lazy").setup(
+  { import = "../plugins" },
+  { change_detection = { notify = false }}
+)
