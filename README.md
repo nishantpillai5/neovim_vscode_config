@@ -38,13 +38,11 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ### Prio1
 
+- Git file history
+- Git blame to url
 - Update vsc keymaps
 - Default to all files when not in a git repo
-- non git dirs breaks telescope file search if a file is opened, searches file in file's folder instead of cwd
-
-- Exclude Toggleterm for unsaved buffer alert
 - Path display not reversed on git files
-- make Overseer action and dap list show in telescope instead of notify
 
 ### Prio2
 
@@ -74,3 +72,4 @@ This repository contains my Neovim configuration which also has parallel configu
 - Save workspace-> save harpoon menu
 
 - Change cwd from dashboard, maybe better alternative is [project](https://github.com/ahmedkhalf/project.nvim)
+- MRU in dashboard in a not git directory, changes cwd

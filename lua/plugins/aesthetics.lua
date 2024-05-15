@@ -9,6 +9,7 @@ local plugins = {
   "lukas-reineke/indent-blankline.nvim",
   "rcarriga/nvim-notify",
   "folke/noice.nvim",
+  "stevearc/dressing.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -112,7 +113,7 @@ return {
           week_header = {
             enable = true,
           },
-          project = { enable = true },
+          project = { enable = true, limit = 1 },
           mru = { cwd_only = true },
           shortcut = {
             {
@@ -146,14 +147,20 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       -- Custom functions
+      local excluded_fts = { "toggleterm", "harpoon" }
+
       local function unsaved_buffer_alert()
         for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-          if vim.api.nvim_buf_get_option(buf, 'modified') then
+          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+          if  vim.api.nvim_buf_get_option(buf, 'modified') then
+            if not vim.tbl_contains(excluded_fts, ft) then
               return '󰽂 '
+            end
           end
         end
         return ''
       end
+
       local function readonly_alert()
         local buf = vim.api.nvim_win_get_buf(0)
         if vim.bo[buf].readonly then
@@ -161,9 +168,10 @@ return {
         end
         return ''
       end
+
       -- Setup
       require("lualine").setup({
-        extensions = { "overseer", "nvim-dap-ui" },
+        extensions = { "nvim-dap-ui" },
         options = {
           globalstatus = false,
           theme = "vscode",
@@ -206,7 +214,7 @@ return {
             readonly_alert,
             unsaved_buffer_alert,
           },
-          lualine_x = { "overseer" },
+          lualine_x = {},
           lualine_y = {},
           lualine_z = {},
         },
@@ -308,4 +316,9 @@ return {
       end, { desc = "Visual.notifications_disable" })
     end,
   },
+  {
+    "stevearc/dressing.nvim",
+    cond = conds["stevearc/dressing.nvim"] or false,
+    opts = {},
+  }
 }

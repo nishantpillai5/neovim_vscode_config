@@ -106,7 +106,11 @@ return {
   {
     "stevearc/overseer.nvim",
     cond = conds["stevearc/overseer.nvim"] or false,
-    dependencies = { "akinsho/nvim-toggleterm.lua" },
+    dependencies = {
+      "akinsho/nvim-toggleterm.lua",
+      "nvim-telescope/telescope.nvim",
+      "stevearc/dressing.nvim"
+    },
     keys = {
       { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Tasks.run" },
       { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Tasks.toggle" },
@@ -138,6 +142,16 @@ return {
           overseer.run_action(tasks[1], "restart")
         end
       end, {})
+
+      -- Lualine 
+      local lualineX = require("lualine").get_config().tabline.lualine_x or {}
+      table.insert(lualineX, { "overseer" })
+
+      require("lualine").setup {
+        extensions = { "overseer", "nvim-dap-ui" },
+        tabline = { lualine_x = lualineX },
+      }
+
     end,
   },
 }

@@ -1,5 +1,5 @@
 local plugins = {
-  "niuiic/dap-utils.nvim",
+  "ofirgall/goto-breakpoints.nvim",
   "rcarriga/nvim-dap-ui",
   "mfussenegger/nvim-dap-python"
 }
@@ -8,28 +8,28 @@ local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
-    "niuiic/dap-utils.nvim",
-    cond = conds["niuiic/dap-utils.nvim"] or false,
+    "ofirgall/goto-breakpoints.nvim",
+    cond = conds["ofirgall/goto-breakpoints.nvim"] or false,
     dependencies = {
       "mfussenegger/nvim-dap",
       "stevearc/overseer.nvim",
       "theHamsta/nvim-dap-virtual-text",
-      "ofirgall/goto-breakpoints.nvim",
+      "nvim-telescope/telescope-dap.nvim",
     },
     keys = {
-      { "<F5>", desc = "Dap.continue/start" },
-      { "<C-F5>", desc = "Dap.stop" },
-      { "<F6>", desc = "Dap.pause" },
-      { "<F7>", desc = "Dap.step_into" },
-      { "<C-F7>", desc = "Dap.step_out" },
-      { "<F8>", desc = "Dap.step_over" },
-      { "<leader>bb", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Dap.breakpoint" },
+      { "<F5>", desc = "Debug.continue/start" },
+      { "<C-F5>", desc = "Debug.stop" },
+      { "<F6>", desc = "Debug.pause" },
+      { "<F7>", desc = "Debug.step_into" },
+      { "<C-F7>", desc = "Debug.step_out" },
+      { "<F8>", desc = "Debug.step_over" },
+      { "<leader>bb", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Breakpoint.toggle" },
       {
         "<leader>bl",
         "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
-        desc = "Dap.breakpoint_with_log",
+        desc = "Breakpoint.toggle_with_log",
       },
-      -- { "<leader>bt", desc = "Dap.toggle" },
+      -- { "<leader>bt", desc = "Debug.toggle" },
       { "[b", "<cmd>lua require('goto-breakpoints').prev()<cr>", desc = "Prev.breakpoint" },
       { "]b", "<cmd>lua require('goto-breakpoints').next()<cr>", desc = "Next.breakpoint" },
       -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stops refreshing
@@ -43,7 +43,6 @@ return {
         only_first_definition = false,
         all_references = true,
       })
-      -- require("dap-utils").setup({})
 
       vim.g.dap_virtual_text = true
 
@@ -59,6 +58,7 @@ return {
         },
       }
 
+      require("telescope").load_extension("dap")
       -- Keymaps
       vim.keymap.set("n", "<F5>", function()
         if vim.fn.filereadable(".vscode/launch.json") then
@@ -96,6 +96,10 @@ return {
       -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
       --   require("dap.ui.widgets").preview()
       -- end)
+      vim.keymap.set("n", "<leader>fb", function()
+
+      end, {desc="Find.breakpoint"})
+
     end,
   },
   {
@@ -103,17 +107,17 @@ return {
     cond = conds["rcarriga/nvim-dap-ui"] or false,
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
-      { "<leader>bt", "<cmd>lua require('dapui').toggle()<CR>", desc = "Dap.toggle_view" },
-      -- { "<leader>dK", "<cmd>lua require('dapui').eval()<cr>", desc = "Dap.eval" },
+      { "<leader>bt", "<cmd>lua require('dapui').toggle()<CR>", desc = "Breakpoint.toggle_view" },
+      -- { "<leader>dK", "<cmd>lua require('dapui').eval()<cr>", desc = "Breakpoint.eval" },
       -- TODO: make dd toggle the K keymap to dap eval instead of hover
       {
         "<leader>bK",
         "<cmd>lua require('dapui').eval(vim.fn.expand('<cWORD>'))<cr>",
         mode = "n",
-        desc = "Dap.hover",
+        desc = "Breakpoint.hover",
       },
-      -- { "<leader>dK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Dap.hover" },
-      -- { "<leader>d?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Dap.hover" },
+      -- { "<leader>dK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
+      -- { "<leader>d?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
     },
     config = function()
       require("dapui").setup()
