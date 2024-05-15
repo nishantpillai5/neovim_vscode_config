@@ -60,8 +60,8 @@ return {
     "sindrets/diffview.nvim",
     cond = conds["sindrets/diffview.nvim"] or false,
     keys = {
-      { "<leader>gD", desc = "Git.diff_global" },
-      { "<leader>gH", desc = "Git.file_history" },
+      { "<leader>gd", desc = "Git.diff_global" },
+      { "<leader>gf", desc = "Git.file_history" },
     },
     config = function()
       local diffview_toggle = function()
@@ -84,8 +84,8 @@ return {
         end
       end
 
-      vim.keymap.set("n", "<leader>gD", diffview_toggle, { desc = "Git.diff_global" })
-      vim.keymap.set("n", "<leader>gH", history_toggle, { desc = "Git.diff_history" })
+      vim.keymap.set("n", "<leader>gd", diffview_toggle, { desc = "Git.diff_global" })
+      vim.keymap.set("n", "<leader>gf", history_toggle, { desc = "Git.file_history" })
     end,
   },
   {
@@ -133,11 +133,11 @@ return {
           map("n", "<leader>ghS", gitsigns.stage_buffer, { desc = "Git.Hunk.stage_buffer" })
           map("n", "<leader>ghu", gitsigns.undo_stage_hunk, { desc = "Git.Hunk.undo_stage" })
           map("n", "<leader>ghR", gitsigns.reset_buffer, { desc = "Git.Hunk.reset_buffer" })
-          map("n", "<leader>ghp", gitsigns.preview_hunk, { desc = "Git.Hunk.preview" })
+          map("n", "<leader>ghd", gitsigns.preview_hunk, { desc = "Git.Hunk.diff" })
           map("n", "<leader>ghb", function()
             gitsigns.blame_line({ full = true })
           end, { desc = "Git.Hunk.blame" })
-          map("n", "<leader>gd", gitsigns.diffthis, { desc = "Git.diff" })
+          map("n", "<leader>gD", gitsigns.diffthis, { desc = "Git.diff_file" })
           map("n", "<leader>zgd", gitsigns.toggle_deleted, { desc = "Visual.Git.deleted" })
           map("n", "<leader>zgb", gitsigns.toggle_current_line_blame, { desc = "Visual.Git.blame" })
 
