@@ -318,6 +318,7 @@ return {
   },
   {
     "stevearc/dressing.nvim",
+    event = "VeryLazy",
     cond = conds["stevearc/dressing.nvim"] or false,
     opts = {},
   }

@@ -60,7 +60,8 @@ return {
     "sindrets/diffview.nvim",
     cond = conds["sindrets/diffview.nvim"] or false,
     keys = {
-      { "<leader>gD", desc = "Git.diff" },
+      { "<leader>gD", desc = "Git.diff_global" },
+      { "<leader>gH", desc = "Git.file_history" },
     },
     config = function()
       local diffview_toggle = function()
@@ -73,7 +74,18 @@ return {
         end
       end
 
+      local history_toggle = function()
+        local lib = require("diffview.lib")
+        local view = lib.get_current_view()
+        if view then
+          vim.cmd.DiffviewClose()
+        else
+          vim.cmd.DiffviewFileHistory()
+        end
+      end
+
       vim.keymap.set("n", "<leader>gD", diffview_toggle, { desc = "Git.diff_global" })
+      vim.keymap.set("n", "<leader>gH", history_toggle, { desc = "Git.diff_history" })
     end,
   },
   {

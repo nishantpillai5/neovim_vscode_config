@@ -38,8 +38,7 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ### Prio1
 
-- Git file history
-- Git blame to url
+- Git blame open url or see commit
 - Update vsc keymaps
 - Default to all files when not in a git repo
 - Path display not reversed on git files
