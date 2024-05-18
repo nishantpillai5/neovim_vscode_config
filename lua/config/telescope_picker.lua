@@ -3,7 +3,10 @@ local M = {}
 M.keymaps = function ()
   vim.keymap.set("n", "<leader>ft", function()
     if not _G.loaded_telescope_extension then
-      require("telescope").load_extension("dap")
+      local status, _ = pcall(require, "dap")
+      if status then
+        require("telescope").load_extension("dap")
+      end
       require("telescope").load_extension("conflicts")
       -- require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")

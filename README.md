@@ -36,19 +36,14 @@ This repository contains my Neovim configuration which also has parallel configu
 
 ## Todo
 
-### Prio1
+### Current
 
-- Add buffer unsaved except for overseer buffers
-- Git blame open url or see commit
 - Update vsc keymaps
-- Path display not reversed on git files
-
-### Prio2
-
-- Learn folds
+- Add buffer unsaved except for overseer buffers
 - Refactor into config folder
+- Learn folds
 
-### Prio3
+### Backlog
 
 - add title for overseer, vista
 - loading a saved session from dashboard breaks colors
@@ -72,3 +67,6 @@ This repository contains my Neovim configuration which also has parallel configu
 
 - Change cwd from dashboard, maybe better alternative is [project](https://github.com/ahmedkhalf/project.nvim)
 - MRU in dashboard in a non git directory, changes cwd
+
+- Path display not reversed on git files
+  https://github.com/nvim-telescope/telescope.nvim/issues/3106
