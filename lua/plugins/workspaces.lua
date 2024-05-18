@@ -2,6 +2,7 @@ local plugins = {
   "smartpde/neoscopes",
   "stevearc/resession.nvim",
   "aymericbeaumet/vim-symlink",
+  "ahmedkhalf/project.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -44,4 +45,18 @@ return {
       config.keymaps()
     end,
   },
+  {
+    "ahmedkhalf/project.nvim",
+    cond = conds["ahmedkhalf/project.nvim"] or false,
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    keys = {
+      { "<leader>wf", desc = "Workspace.find" },
+    },
+    config = function()
+      require("project_nvim").setup()
+      vim.keymap.set("n", "<leader>wf", function()
+        require'telescope'.extensions.projects.projects()
+      end, { desc = "Workspace.find" })
+    end
+  }
 }
