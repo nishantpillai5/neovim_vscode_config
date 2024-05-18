@@ -42,13 +42,13 @@ This repository contains my Neovim configuration which also has parallel configu
 
 - Git blame open url or see commit
 - Update vsc keymaps
-- Default to all files when not in a git repo
 - Path display not reversed on git files
 
 ### Prio2
 
 - Global marks (bookmarks)
 - Learn folds
+- Refactor into config folder
 
 ### Prio3
 

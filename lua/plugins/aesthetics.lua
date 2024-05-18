@@ -21,46 +21,7 @@ return {
     lazy = false,
     priority = 1000,
     config = function()
-      local c = require("vscode.colors").get_colors()
-      _G.HighlightSeparator = function(mode)
-        -- TODO: Get these values from the colorscheme
-        if mode == "n" then
-          vim.cmd("hi NvimSeparator guifg=" .. "#0A7ACA")
-        elseif mode == "i" then
-          vim.cmd("hi NvimSeparator guifg=" .. "#4EC9B0")
-        elseif (mode == "v") or (mode == "V") then
-          vim.cmd("hi NvimSeparator guifg=" .. "#FFAF00")
-        elseif mode == "c" then
-          vim.cmd("hi NvimSeparator guifg=" .. "#DDB6F2")
-        elseif mode == "t" then
-          vim.cmd("hi NvimSeparator guifg=" .. "#4EC9B0")
-        end
-      end
-
-      vim.api.nvim_create_autocmd({ "ModeChanged" }, {
-        callback = function(arg)
-          local mode = arg.match:match(".:(%a)")
-          _G.HighlightSeparator(mode)
-        end,
-      })
-
-      require("vscode").setup({
-        italic_comments = true,
-        group_overrides = {
-          -- TODO: Add more overrides
-          -- https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/theme.lua
-          -- https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
-          DiagnosticError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
-          DiagnosticInfo = { fg = c.vscBlue, bg = c.vscPopupHighlightGray },
-          DiagnosticHint = { fg = c.vscBlue, bg = c.vscPopupHighlightGray },
-          NvimDapVirtualText = { fg = c.vscYellow, bg = c.vscPopupHighlightGray },
-          NvimDapVirtualTextError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
-          NvimDapVirtualTextChanged = { fg = c.vscOrange, bg = c.vscPopupHighlightGray },
-          BiscuitColor = { fg = c.vscGreen, bg = c.vscPopupHighlightGray },
-        },
-      })
-
-      vim.cmd.colorscheme("vscode")
+      require("config.theme").setup()
     end,
   },
   {
@@ -78,7 +39,7 @@ return {
     event = { "WinNew" },
     config = function()
       require("colorful-winsep").setup({ smooth = false })
-      _G.HighlightSeparator("n")
+      require("config.theme").highlightSeparator("n")
     end,
   },
   {
@@ -106,38 +67,7 @@ return {
     lazy = false,
     priority = 900,
     config = function()
-      require("dashboard").setup({
-        theme = "hyper",
-        change_to_vcs_root = true,
-        config = {
-          week_header = {
-            enable = true,
-          },
-          project = { enable = true, limit = 1 },
-          mru = { cwd_only = true },
-          shortcut = {
-            {
-              desc = "󱇳 Workspace",
-              group = "Number",
-              action = "lua require('neoscopes').select()",
-              key = "w",
-            },
-            {
-              desc = " Files",
-              group = "Label",
-              action = "Telescope find_files",
-              key = "f",
-            },
-            {
-              desc = "󰊳 Update",
-              group = "@property",
-              action = "Lazy update",
-              key = "u",
-            },
-          },
-          footer = {},
-        },
-      })
+      require("config.dashboard").setup()
     end,
   },
   {
@@ -146,79 +76,7 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
-      -- Custom functions
-      local excluded_fts = { "toggleterm", "harpoon" }
-
-      local function unsaved_buffer_alert()
-        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
-          if  vim.api.nvim_buf_get_option(buf, 'modified') then
-            if not vim.tbl_contains(excluded_fts, ft) then
-              return '󰽂 '
-            end
-          end
-        end
-        return ''
-      end
-
-      local function readonly_alert()
-        local buf = vim.api.nvim_win_get_buf(0)
-        if vim.bo[buf].readonly then
-           return " "
-        end
-        return ''
-      end
-
-      -- Setup
-      require("lualine").setup({
-        extensions = { "nvim-dap-ui" },
-        options = {
-          globalstatus = false,
-          theme = "vscode",
-          section_separators = { left = "", right = " " },
-          component_separators = { left = "", right = "" },
-          ignore_focus = { "OverseerList", "neo-tree", "vista", "copilot-chat" },
-          disabled_filetypes = {
-            statusline = {},
-            winbar = { "toggleterm" },
-          },
-        },
-        sections = {
-          lualine_a = {
-            "mode",
-            "selectioncount",
-          },
-          lualine_b = {
-            "diff",
-          },
-          -- lualine_c = {},
-          lualine_x = {
-            "diagnostics",
-          },
-          lualine_y = {
-            "encoding",
-            "fileformat",
-            "filetype",
-          },
-          lualine_z = {
-            "progress",
-            "location",
-          },
-        },
-        tabline = {
-          lualine_a = { "branch" },
-          lualine_b = {
-            { "filename", path = 1 },
-          },
-          lualine_c = {
-            readonly_alert,
-            unsaved_buffer_alert,
-          },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {},
-        },
-      })
+      require("config.lualine").setup()
     end,
   },
   {
@@ -239,37 +97,7 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "HiPhish/rainbow-delimiters.nvim" },
     config = function()
-      local highlight = {
-        "RainbowRed",
-        "RainbowYellow",
-        "RainbowBlue",
-        "RainbowOrange",
-        "RainbowGreen",
-        "RainbowViolet",
-        "RainbowCyan",
-      }
-      local hooks = require("ibl.hooks")
-      -- create the highlight groups in the highlight setup hook, so they are reset
-      -- every time the colorscheme changes
-      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
-        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
-        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
-        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
-        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
-        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
-        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
-      end)
-
-      vim.g.rainbow_delimiters = { highlight = highlight }
-      require("ibl").setup({
-        scope = { highlight = highlight },
-        exclude = {
-          filetypes = { "dashboard" },
-        },
-      })
-
-      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+      require("config.indent_blankline").setup()
     end,
   },
   {

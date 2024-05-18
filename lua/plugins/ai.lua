@@ -63,6 +63,8 @@ return {
         language = "English",
       })
 
+      -- TODO: disable <C-l>
+
       vim.api.nvim_create_autocmd("BufEnter", {
         pattern = "copilot-*",
         callback = function()

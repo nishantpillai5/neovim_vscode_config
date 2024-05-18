@@ -1,5 +1,5 @@
 local plugins = {
-  "ofirgall/goto-breakpoints.nvim",
+  "mfussenegger/nvim-dap",
   "rcarriga/nvim-dap-ui",
   "mfussenegger/nvim-dap-python"
 }
@@ -8,10 +8,10 @@ local conds = require("common.lazy").get_conds(plugins)
 
 return {
   {
-    "ofirgall/goto-breakpoints.nvim",
-    cond = conds["ofirgall/goto-breakpoints.nvim"] or false,
+    "mfussenegger/nvim-dap",
+    cond = conds["mfussenegger/nvim-dap"] or false,
     dependencies = {
-      "mfussenegger/nvim-dap",
+      "ofirgall/goto-breakpoints.nvim",
       "stevearc/overseer.nvim",
       "theHamsta/nvim-dap-virtual-text",
       "nvim-telescope/telescope-dap.nvim",
@@ -23,83 +23,21 @@ return {
       { "<F7>", desc = "Debug.step_into" },
       { "<C-F7>", desc = "Debug.step_out" },
       { "<F8>", desc = "Debug.step_over" },
-      { "<leader>bb", "<cmd>lua require('dap').toggle_breakpoint()<cr>", desc = "Breakpoint.toggle" },
-      {
-        "<leader>bl",
-        "<cmd>lua require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>",
-        desc = "Breakpoint.toggle_with_log",
-      },
+      { "<leader>bb", desc = "Breakpoint.toggle" },
+      { "<leader>bl", desc = "Breakpoint.toggle_with_log" },
+      { "[b", desc = "Prev.breakpoint" },
+      { "]b", desc = "Next.breakpoint" },
+      { "fbb", desc = "Find.Breakpoint" },
+      { "fbc", desc = "Find.Breakpoint.configurations" },
+      { "fbv", desc = "Find.Breakpoint.variables" },
+      { "fbf", desc = "Find.Breakpoint.frames" },
       -- { "<leader>bt", desc = "Debug.toggle" },
-      { "[b", "<cmd>lua require('goto-breakpoints').prev()<cr>", desc = "Prev.breakpoint" },
-      { "]b", "<cmd>lua require('goto-breakpoints').next()<cr>", desc = "Next.breakpoint" },
       -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stops refreshing
     },
     config = function()
-      local dap = require("dap")
-      require("dap.ext.vscode").json_decode = require("overseer.json").decode
-      require("dap.ext.vscode").load_launchjs()
-      require("overseer").patch_dap(true)
-      require("nvim-dap-virtual-text").setup({
-        only_first_definition = false,
-        all_references = true,
-      })
-
-      vim.g.dap_virtual_text = true
-
-      vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "@error", linehl = "", numhl = "" })
-      vim.fn.sign_define("DapLogPoint", { text = "󰰍", texthl = "@error", linehl = "", numhl = "" })
-
-      dap.adapters.cppdbg = {
-        id = "cppdbg",
-        type = "executable",
-        command = "C:\\Data\\Other\\cpptools-win64\\extension\\debugAdapters\\bin\\OpenDebugAD7.exe",
-        options = {
-          detached = false,
-        },
-      }
-
-      require("telescope").load_extension("dap")
-      -- Keymaps
-      vim.keymap.set("n", "<F5>", function()
-        if vim.fn.filereadable(".vscode/launch.json") then
-          require("dap.ext.vscode").load_launchjs(nil, { cppdbg = { "c", "cpp" } })
-        end
-        -- vim.notify("DAP: Continue")
-        require("dap").continue()
-      end)
-
-      vim.keymap.set("n", "<C-F5>", function()
-        vim.notify("DAP: Stop")
-        require("dap").close()
-      end)
-
-      vim.keymap.set("n", "<F6>", function()
-        vim.notify("DAP: Pause")
-        require("dap").pause()
-      end)
-
-      vim.keymap.set("n", "<F7>", function()
-        vim.notify("DAP: Step Into")
-        require("dap").step_into()
-      end)
-
-      vim.keymap.set("n", "<C-F7>", function()
-        vim.notify("DAP: Step Out")
-        require("dap").step_out()
-      end)
-
-      vim.keymap.set("n", "<F8>", function()
-        -- vim.notify("DAP: Step Over")
-        require("dap").step_over()
-      end)
-
-      -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
-      --   require("dap.ui.widgets").preview()
-      -- end)
-      vim.keymap.set("n", "<leader>fb", function()
-
-      end, {desc="Find.breakpoint"})
-
+      local config = require("config.dap")
+      config.setup()
+      config.keymaps()
     end,
   },
   {
