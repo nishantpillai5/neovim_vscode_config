@@ -39,34 +39,23 @@ This repository contains my Neovim configuration which also has parallel configu
 ### Current
 
 - Update vsc keymaps
-- Add buffer unsaved except for overseer buffers
+- Add buffer unsaved exceptions for overseer buffers
 - Refactor into config folder
 - Learn folds
 
 ### Backlog
 
-- add title for overseer, vista
-- loading a saved session from dashboard breaks colors
-
+- add window title for overseer, vista
 - cppcheck linting
-
 - use trouble keybinds for quickfix
 - Overseer
   - Nvim doesn't exit properly, searching in git log fails because not disposing running gdb server properly
   - start a custom terminal for builds with ft set to log and autoscroll off
   - termimals with process exited don't toggle
   - lualine, show branch and commit of running build
-
-- Leetcode
-  - run file in terminal
-- Lazy load 
-  - lualine extensions (overseer)
-
+- Leetcode: run file in terminal
 - toggle dap virtual text [see GH issue](https://github.com/theHamsta/nvim-dap-virtual-text/issues/74)
-- Save workspace-> save harpoon menu
-
-- Change cwd from dashboard, maybe better alternative is [project](https://github.com/ahmedkhalf/project.nvim)
+- Save harpoon menu on save workspace
+- loading a saved session from dashboard breaks colors
 - MRU in dashboard in a non git directory, changes cwd
-
-- Path display not reversed on git files
-  https://github.com/nvim-telescope/telescope.nvim/issues/3106
+- Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
