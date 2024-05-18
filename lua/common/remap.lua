@@ -25,21 +25,11 @@ vim.keymap.set("n", "<leader>zw", ":set wrap!<CR>", { desc = "Visual.wrap_toggle
 -- Previous buffer
 vim.keymap.set("n", "<leader>H", ":b#<CR>", { desc = "buffer_prev", silent = true })
 
--- Editor
-vim.keymap.set("n", "<leader>s", ":w<cr>", { silent = true, desc = "save" })
-vim.keymap.set("n", "<leader>S", ":wq<cr>", { silent = true, desc = "save_quit" })
-vim.keymap.set("n", "<leader>x", ":q<cr>", { silent = true, desc = "quit" })
-vim.keymap.set("n", "<leader>X", ":q!<cr>", { silent = true, desc = "quit_force" })
-
 -- vim.keymap.set("n", "<leader>j", ":cnext<cr>", { silent = true, desc = "next_quickfix" })
 -- vim.keymap.set("n", "<leader>k", ":cprev<cr>", { silent = true, desc = "prev_quickfix" })
 
 -- vim.keymap.set("n", "<leader>J", ":lnext<cr>", { silent = true, desc = "next_loclist" })
 -- vim.keymap.set("n", "<leader>K", ":lprev<cr>", { silent = true, desc = "prev_loclist" })
-
--- Split
-vim.keymap.set("n", "<leader>zv", "<cmd>vs<cr>", { desc = "Visual.vertical_split" })
-vim.keymap.set("n", "<leader>zs", "<cmd>sp<cr>", { desc = "Visual.horizontal_split" })
 
 -- Netrw
 vim.keymap.set("n", "<leader>ef", vim.cmd.Ex, { desc = "Explorer.netrw" })

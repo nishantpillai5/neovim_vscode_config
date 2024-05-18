@@ -1,3 +1,13 @@
+-- Editor
+vim.keymap.set("n", "<leader>s", ":w<cr>", { silent = true, desc = "save" })
+vim.keymap.set("n", "<leader>S", ":wq<cr>", { silent = true, desc = "save_quit" })
+vim.keymap.set("n", "<leader>x", ":q<cr>", { silent = true, desc = "quit" })
+vim.keymap.set("n", "<leader>X", ":q!<cr>", { silent = true, desc = "quit_force" })
+
+-- Split
+vim.keymap.set("n", "<leader>zv", "<cmd>vs<cr>", { desc = "Visual.vertical_split" })
+vim.keymap.set("n", "<leader>zs", "<cmd>sp<cr>", { desc = "Visual.horizontal_split" })
+
 -- Resize vertically with Ctrl-Right and Ctrl-Left
 vim.keymap.set("n", "<C-Right>", ":vertical resize +2<cr>", { silent = true, desc = "vertical_resize_right" })
 vim.keymap.set("n", "<C-Left>", ":vertical resize -2<cr>", { silent = true, desc = "vertical_resize_left" })

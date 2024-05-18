@@ -13,6 +13,7 @@ return {
     cond = conds["nvim-telescope/telescope.nvim"] or false,
     event = "VeryLazy",
     keys = {
+      { "<leader>:", desc = "find_commands" },
       { "<leader>ff", desc = "Find.git_files" },
       { "<leader>fa", desc = "Find.all" },
       { "<leader>fgs", desc = "Find.Git.status" },

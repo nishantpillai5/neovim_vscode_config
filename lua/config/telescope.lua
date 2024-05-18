@@ -26,6 +26,7 @@ end
 
 M.keymaps = function()
     local builtin = require("telescope.builtin")
+    vim.keymap.set("n", "<leader>:", builtin.commands, { desc = "find_commands" })
     vim.keymap.set("n", "<leader>ff", M.project_files, { desc = "Find.git_files" })
     vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Find.all" })
 
