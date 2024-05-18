@@ -3,6 +3,7 @@ local plugins = {
   "kdheepak/lazygit.nvim",
   "lewis6991/gitsigns.nvim",
   "sindrets/diffview.nvim",
+  "linrongbin16/gitlinker.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -57,4 +58,14 @@ return {
       require("config.gitsigns").setup()
     end,
   },
+  {
+    "linrongbin16/gitlinker.nvim",
+    cond = conds["linrongbin16/gitlinker.nvim"] or false,
+    cmd = "GitLink",
+    keys = {
+      { "<leader>gy", "<cmd>GitLink blame<cr>", mode = { "n", "v" }, desc = "Git.yank_link" },
+      { "<leader>gY", "<cmd>GitLink! blame<cr>", mode = { "n", "v" }, desc = "Git.open_link" },
+    },
+    opts = {},
+  }
 }
