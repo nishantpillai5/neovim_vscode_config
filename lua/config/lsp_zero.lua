@@ -23,7 +23,7 @@ M.setup = function ()
     lsp_zero.default_keymaps({
       buffer = bufnr,
       preserve_mappings = false,
-      exclude = { "gs" },
+      exclude = { "gs", "gr" },
     })
     vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, { buffer = bufnr })
   end)

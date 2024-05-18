@@ -22,15 +22,21 @@ M.keymaps = function ()
     trouble.toggle('loclist')
   end, {desc = "Trouble.loclist"})
 
-  vim.keymap.set("n", "]d", function()
+  vim.keymap.set("n", "<leader>tg", function()
+    vim.cmd("Gitsigns setloclist")
+  end, {desc = "Trouble.git"})
+
+  vim.keymap.set("n", "<leader>j", function()
     trouble.next({skip_groups = true, jump = true})
   end, {desc = "Next.trouble"})
 
-  vim.keymap.set("n", "[d", function()
+  vim.keymap.set("n", "<leader>k", function()
     trouble.previous({skip_groups = true, jump = true})
   end, {desc = "Prev.trouble"})
 
-  -- vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+  vim.keymap.set("n", "gr", function()
+    trouble.toggle("lsp_references")
+  end, {desc = "references"})
 end
 
 return M

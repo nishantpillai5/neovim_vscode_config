@@ -2,15 +2,15 @@ local M = {}
 
 M.keymaps = function ()
   vim.keymap.set("n", "<leader>gs", function()
-    vim.cmd [[ Git ]]
+    vim.cmd("Git")
   end, {desc = "Git.status"})
 
   vim.keymap.set("n", "<leader>gl", function()
-    vim.cmd [[ Git log ]]
+    vim.cmd("Git log")
   end, {desc = "Git.log"})
 
   vim.keymap.set("n", "<leader>gB", function()
-    vim.cmd [[ Git blame ]]
+    vim.cmd("Git blame")
   end, {desc = "Git.blame_buffer"})
 end
 

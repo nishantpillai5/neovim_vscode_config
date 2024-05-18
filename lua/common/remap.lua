@@ -31,8 +31,8 @@ vim.keymap.set("n", "<leader>S", ":wq<cr>", { silent = true, desc = "save_quit" 
 vim.keymap.set("n", "<leader>x", ":q<cr>", { silent = true, desc = "quit" })
 vim.keymap.set("n", "<leader>X", ":q!<cr>", { silent = true, desc = "quit_force" })
 
-vim.keymap.set("n", "<leader>j", ":cnext<cr>", { silent = true, desc = "next_quickfix" })
-vim.keymap.set("n", "<leader>k", ":cprev<cr>", { silent = true, desc = "prev_quickfix" })
+-- vim.keymap.set("n", "<leader>j", ":cnext<cr>", { silent = true, desc = "next_quickfix" })
+-- vim.keymap.set("n", "<leader>k", ":cprev<cr>", { silent = true, desc = "prev_quickfix" })
 
 -- vim.keymap.set("n", "<leader>J", ":lnext<cr>", { silent = true, desc = "next_loclist" })
 -- vim.keymap.set("n", "<leader>K", ":lprev<cr>", { silent = true, desc = "prev_loclist" })

@@ -18,9 +18,10 @@ return {
       { "<leader>td", desc = "Trouble.document_diagnostics" },
       { "<leader>tq", desc = "Trouble.quickfix" },
       { "<leader>tl", desc = "Trouble.loclist" },
-      -- WARN: replacing LSP zero binding
-      { "]d", desc = "Next.trouble" },
-      { "[d", desc = "Prev.trouble" },
+      { "<leader>tg", desc = "Trouble.git" },
+      { "<leader>j", desc = "trouble_next" },
+      { "<leader>k", desc = "trouble_prev" },
+      { "gr", desc = "references" },
     },
     config = function ()
       local config = require("config.trouble")

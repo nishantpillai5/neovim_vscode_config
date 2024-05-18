@@ -73,4 +73,4 @@ This repository contains my Neovim configuration which also has parallel configu
 - Save workspace-> save harpoon menu
 
 - Change cwd from dashboard, maybe better alternative is [project](https://github.com/ahmedkhalf/project.nvim)
-- MRU in dashboard in a not git directory, changes cwd
+- MRU in dashboard in a non git directory, changes cwd

@@ -2,19 +2,19 @@ local M = {}
 
 M.keymaps = function ()
   vim.keymap.set("n", "<leader>oo", function()
-    vim.cmd [[ OverseerRun ]]
+    vim.cmd("OverseerRun")
   end, { desc = "Tasks.run" })
 
   vim.keymap.set("n", "<leader>eo", function()
-    vim.cmd [[ OverseerToggle left ]]
+    vim.cmd("OverseerToggle left")
   end, { desc = "Explorer.tasks" })
 
   vim.keymap.set("n", "<leader>ot", function()
-    vim.cmd [[ OverseerToggle left ]]
+    vim.cmd("OverseerToggle left")
   end, { desc = "Tasks.toggle" })
 
   vim.keymap.set("n", "<leader>ol", function()
-    vim.cmd [[ OverseerRestartLast ]]
+    vim.cmd("OverseerRestartLast")
   end, { desc = "Tasks.restart_last" })
 end
 
