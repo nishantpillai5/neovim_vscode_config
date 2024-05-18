@@ -1,14 +1,13 @@
 local M = {}
 
--- We cache the results of "git rev-parse"
--- Process creation is expensive in Windows, so this reduces latency
-local is_inside_work_tree = {}
-
 local default_opts = {
-  follow = true ,
-  path_display = { filename_first = { reverse_directories = true } },
+    follow = true ,
+    path_display = { filename_first = { reverse_directories = true } },
 }
 
+local is_inside_work_tree = {}
+-- We cache the results of "git rev-parse"
+-- Process creation is expensive in Windows, so this reduces latency
 M.project_files = function()
   local builtin = require("telescope.builtin")
 
@@ -81,6 +80,23 @@ M.keymaps = function()
 end
 
 M.setup = function ()
+  local action_layout = require("telescope.actions.layout")
+  default_opts = {
+    follow = true ,
+    path_display = { filename_first = { reverse_directories = true } },
+    preview = {
+      filesize_limit = 0.1, -- MB
+    },
+    mappings = {
+      n = {
+        ["<M-p>"] = action_layout.toggle_preview
+      },
+      i = {
+        ["<M-p>"] = action_layout.toggle_preview
+      },
+    },
+  }
+
   local lga_actions = require("telescope-live-grep-args.actions")
   require("telescope").setup({
     defaults = default_opts,

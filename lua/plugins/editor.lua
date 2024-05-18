@@ -54,21 +54,9 @@ return {
       { "Q", desc = "macro_play" },
 	},
     config = function ()
-      require("recorder").setup({
-        -- dapSharedKeymaps = true,
-        lessNotifications = true,
-        logLevel = vim.log.levels.DEBUG,
-        mapping = {
-          addBreakPoint = "|NX2J0CdIE",
-        },
-      })
-      local lualineY = require("lualine").get_config().tabline.lualine_y or {}
-      table.insert(lualineY, { require("recorder").recordingStatus })
-      table.insert(lualineY, { require("recorder").displaySlots })
-
-      require("lualine").setup {
-        tabline = { lualine_y = lualineY },
-      }
+      local config = require("config.recorder")
+      config.setup()
+      config.lualine()
     end
   },
   -- Comments
