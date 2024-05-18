@@ -34,7 +34,7 @@ return {
     "liuchengxu/vista.vim",
     cond = conds["liuchengxu/vista.vim"] or false,
     keys = {
-      { "<leader>eo", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
+      { "<leader>es", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
     },
     config = function()
       vim.g.vista_echo_cursor = 0

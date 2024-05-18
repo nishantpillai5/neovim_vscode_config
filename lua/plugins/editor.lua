@@ -22,7 +22,7 @@ local plugins = {
   "folke/zen-mode.nvim",
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
   "vladdoster/remember.nvim",
-  "sitiom/nvim-numbertoggle",
+  -- "sitiom/nvim-numbertoggle", -- WARN: doesn't work with harpoon
   "RRethy/vim-illuminate",
   "gregorias/coerce.nvim",
 }

@@ -113,7 +113,8 @@ return {
     },
     keys = {
       { "<leader>oo", "<cmd>OverseerRun<cr>", desc = "Tasks.run" },
-      { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Tasks.toggle" },
+      { "<leader>eo", "<cmd>OverseerToggle left<cr>", desc = "Explorer.tasks" },
+      { "<leader>ot", "<cmd>OverseerToggle left<cr>", desc = "Explorer.tasks" },
       { "<leader>ol", "<cmd>OverseerRestartLast<cr>", desc = "Tasks.restart_last" },
     },
     config = function()

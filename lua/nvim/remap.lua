@@ -1,6 +1,8 @@
 -- Editor
 vim.keymap.set("n", "<leader>s", ":w<cr>", { silent = true, desc = "save" })
-vim.keymap.set("n", "<leader>x", ":q<cr>", { silent = true, desc = "close" })
+vim.keymap.set("n", "<leader>S", ":wq<cr>", { silent = true, desc = "save_quit" })
+vim.keymap.set("n", "<leader>x", ":q<cr>", { silent = true, desc = "quit" })
+vim.keymap.set("n", "<leader>X", ":q!<cr>", { silent = true, desc = "quit_force" })
 
 vim.keymap.set("n", "<leader>j", ":cnext<cr>", { silent = true, desc = "next_quickfix" })
 vim.keymap.set("n", "<leader>k", ":cprev<cr>", { silent = true, desc = "prev_quickfix" })

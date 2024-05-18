@@ -25,7 +25,7 @@ return {
       { "<leader>f?", desc = "Find.Search.global" },
       { "<leader>fw", desc = "Find.word" },
       { "<leader>fW", desc = "Find.whole_word" },
-      { "<leader>fo", desc = "Find.symbols" },
+      { "<leader>fs", desc = "Find.symbols" },
       { "<leader>fm", desc = "Find.marks" },
       { "<leader>fr", desc = "Find.registers" },
       -- { "<leader>fp", desc = "Find.yank" },
@@ -106,8 +106,7 @@ return {
         )
 
         vim.keymap.set("n", "<leader>f/", function()
-          builtin.grep_string({
-            search = vim.fn.input("Search > "),
+          builtin.live_grep({
             grep_open_files = true,
           })
         end, { desc = "Find.Search.in_buffers" })
@@ -128,7 +127,7 @@ return {
 
         vim.keymap.set("n", "<leader>F", "<cmd>Telescope<cr>", { desc = "Find.telescope" })
 
-        vim.keymap.set("n", "<leader>fo", builtin.lsp_document_symbols, { desc = "Find.symbols" })
+        vim.keymap.set("n", "<leader>fs", builtin.lsp_document_symbols, { desc = "Find.symbols" })
         vim.keymap.set("n", "<leader>fm", builtin.marks, { desc = "Find.marks" })
         vim.keymap.set("n", "<leader>fr", builtin.registers, { desc = "Find.registers" })
         vim.keymap.set("n", "<leader>fh", builtin.buffers, { desc = "Find.buffers" })
