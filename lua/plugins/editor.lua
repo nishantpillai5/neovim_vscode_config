@@ -1,10 +1,6 @@
 local plugins = {
   -- Autoclose
   "windwp/nvim-autopairs",
-  -- Inline macro
-  "AllenDang/nvim-expand-expr",
-  -- Macros
-  "chrisgrieser/nvim-recorder",
   -- Comments
   "numToStr/Comment.nvim",
   "folke/todo-comments.nvim",
@@ -16,15 +12,12 @@ local plugins = {
   -- Misc
   "mbbill/undotree",
   -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
-  "monaqa/dial.nvim",
-  "chentoast/marks.nvim",
   "Wansmer/treesj",
   "folke/zen-mode.nvim",
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
   "vladdoster/remember.nvim",
   -- "sitiom/nvim-numbertoggle", -- WARN: doesn't work with harpoon
   "RRethy/vim-illuminate",
-  "gregorias/coerce.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
@@ -36,31 +29,6 @@ return {
     cond = conds["windwp/nvim-autopairs"] or false,
     event = "InsertEnter",
     config = true,
-  },
-  -- Inline macro
-  {
-    "AllenDang/nvim-expand-expr",
-    cond = conds["AllenDang/nvim-expand-expr"] or false,
-    keys = {
-      { "<leader>oq",
-        function() require("expand_expr").expand() end,
-        desc = "Tasks.inline_macro"
-      },
-    },
-  },
-  -- Macros
-  {
-    "chrisgrieser/nvim-recorder",
-    cond = conds["chrisgrieser/nvim-recorder"] or false,
-    keys = {
-      { "q", desc = "macro_record" },
-      { "Q", desc = "macro_play" },
-	},
-    config = function ()
-      local config = require("config.recorder")
-      config.setup()
-      config.lualine()
-    end
   },
   -- Comments
   {
@@ -149,31 +117,6 @@ return {
     end,
   },
   {
-    "monaqa/dial.nvim",
-    cond = conds["monaqa/dial.nvim"] or false,
-    keys = {
-      { "<leader>i", "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = "increment" },
-      { "<leader>I", "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = "decrement" },
-    },
-    config = function()
-      local augend = require("dial.augend")
-      require("dial.config").augends:register_group({
-        default = {
-          augend.integer.alias.decimal,
-          augend.integer.alias.hex,
-          augend.semver.alias.semver,
-          augend.date.alias["%Y/%m/%d"],
-        },
-      })
-    end,
-  },
-  {
-    "chentoast/marks.nvim",
-    cond = conds["chentoast/marks.nvim"] or false,
-    event = { "BufReadPre", "BufNewFile" },
-    opts = {},
-  },
-  {
     "Wansmer/treesj",
     cond = conds["Wansmer/treesj"] or false,
     opts = {
@@ -227,14 +170,5 @@ return {
     "RRethy/vim-illuminate",
     cond = conds["RRethy/vim-illuminate"] or false,
     event = { "BufReadPre", "BufNewFile" },
-  },
-  {
-    "gregorias/coerce.nvim",
-    cond = conds["gregorias/coerce.nvim"] or false,
-    keys = {
-      { "cr", desc = "coerce" },
-    },
-    tag = "v1.0",
-    opts = {},
   },
 }

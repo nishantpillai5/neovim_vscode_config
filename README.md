@@ -47,11 +47,6 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 - Add buffer unsaved exceptions for overseer buffers
 - Learn folds
-- Move plugin to common
-  - Macro
-  - Dial
-  - Marks
-  - Coerce
 
 ### Backlog
 
