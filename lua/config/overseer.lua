@@ -1,16 +1,17 @@
 local M = {}
 
 M.keymaps = function ()
+  local align = require("common.env").ALIGN
   vim.keymap.set("n", "<leader>oo", function()
     vim.cmd("OverseerRun")
   end, { desc = "Tasks.run" })
 
   vim.keymap.set("n", "<leader>eo", function()
-    vim.cmd("OverseerToggle left")
+    vim.cmd("OverseerToggle "..align)
   end, { desc = "Explorer.tasks" })
 
   vim.keymap.set("n", "<leader>ot", function()
-    vim.cmd("OverseerToggle left")
+    vim.cmd("OverseerToggle "..align)
   end, { desc = "Tasks.toggle" })
 
   vim.keymap.set("n", "<leader>ol", function()

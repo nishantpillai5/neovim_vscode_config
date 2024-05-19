@@ -13,8 +13,11 @@ return {
     branch = "v3.x",
     dependencies = { "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons", "MunifTanjim/nui.nvim" },
     keys = {
-      { "<leader>et", "<cmd>Neotree reveal focus toggle<cr>", desc = "Explorer.neotree" },
+      { "<leader>et", desc = "Explorer.neotree" },
     },
+    config = function()
+      require("config.neotree").keymaps()
+    end
   },
   {
     "stevearc/oil.nvim",
@@ -37,9 +40,14 @@ return {
       { "<leader>es", "<cmd>Vista!!<cr>", mode = "n", desc = "Explorer.symbols" },
     },
     config = function()
+      local align = require("common.env").ALIGN
+      if align == "left" then
+        vim.g.vista_sidebar_position = "vertical topleft"
+      else
+        vim.g.vista_sidebar_position = "vertical botright"
+      end
       vim.g.vista_echo_cursor = 0
       vim.g.vista_echo_cursor_strategy = "floating_win"
-      vim.g.vista_sidebar_position = "vertical topleft"
       vim.g.vista_cursor_delay = 1500
       vim.g.vista_sidebar_width = 40
     end,
