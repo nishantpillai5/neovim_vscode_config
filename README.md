@@ -1,22 +1,23 @@
 # Neovim VSCode config
 
-This repository contains my Neovim configuration which also has parallel configuration for the [Neovim Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim). Tried to keep the experience as close as possible for both platforms. Keybinds are meant to be Neovim first, i.e. taking Neovim keybinds to VSCode rather than the other way around.
+This repository contains my Neovim configuration, including parallel settings for the [Neovim Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim). I've aimed to keep the experience as consistent as possible across both platforms, prioritizing Neovim keybinds and bringing them to VSCode, rather than the other way around.
 
 ## Installation
 
+### Linux
+
 ### Windows
 
-- set `HOME` environment variable
-- `choco install git`
+- set environment variables `HOME`,`DIR_NOTES`,`DIR_NVIM`
+- `choco install git zig fd ripgrep`
 - `choco install nodejs-lts --version="20.13.0"`
-- `choco install ripgrep`
-- `choco install zig`
-- `choco install fd`
 - `python -m pip install --user --upgrade pynvim`
-- [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
 - [ctags](https://github.com/universal-ctags/ctags)
+- [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
 
-### VSCode settings
+## VSCode
+
+### Settings
 
 `settings.json`
 
@@ -34,10 +35,11 @@ This repository contains my Neovim configuration which also has parallel configu
 }
 ```
 
-Extensions
-- Todo tree
-- fuzzy search
-- gitlens
+### Extensions
+
+- [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
+- [fuzzy-search (jacobdufault.fuzzy-search)](https://marketplace.visualstudio.com/items?itemName=jacobdufault.fuzzy-search)
+- [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
 
 ## Todo
 
