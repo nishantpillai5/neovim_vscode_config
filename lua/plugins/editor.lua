@@ -42,7 +42,10 @@ return {
     "AllenDang/nvim-expand-expr",
     cond = conds["AllenDang/nvim-expand-expr"] or false,
     keys = {
-      { "<leader>oq", function() require("expand_expr").expand() end, desc = "Tasks.inline_macro" },
+      { "<leader>oq",
+        function() require("expand_expr").expand() end,
+        desc = "Tasks.inline_macro"
+      },
     },
   },
   -- Macros
@@ -72,17 +75,9 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("todo-comments").setup({
-        keywords = { NISH = { icon = "󰬕", color = "info" } },
-      })
-
-      vim.keymap.set("n", "]t", function()
-        require("todo-comments").jump_next()
-      end, { desc = "Next.todo" })
-
-      vim.keymap.set("n", "[t", function()
-        require("todo-comments").jump_prev()
-      end, { desc = "Prev.todo" })
+      local config = require("config.todo_comments")
+      config.setup()
+      config.keymaps()
     end,
   },
   -- Tmux like navigation
@@ -100,8 +95,8 @@ return {
       vim.keymap.set("n", "<C-j>", nvim_tmux_nav.NvimTmuxNavigateDown)
       vim.keymap.set("n", "<C-k>", nvim_tmux_nav.NvimTmuxNavigateUp)
       vim.keymap.set("n", "<C-l>", nvim_tmux_nav.NvimTmuxNavigateRight)
-      vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
-      vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateNext)
+      vim.keymap.set("n", "<C-Space>", nvim_tmux_nav.NvimTmuxNavigateLastActive)
+      vim.keymap.set("n", "<C-\\>", nvim_tmux_nav.NvimTmuxNavigateNext)
     end,
   },
   -- Refactor

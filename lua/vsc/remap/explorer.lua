@@ -1,12 +1,7 @@
 local map = require("vsc.vscode_mapper").map
 
--- Neotree
 map("n", "<leader>ee", "workbench.view.explorer")
-
--- Netrw
-map("n", "<leader>ef", "workbench.view.explorer")
-
--- Oil
+map("n", "<leader>et", "workbench.view.explorer")
 
 -- Vista
-map("n", "<leader>eo", "outline.focus")
+map("n", "<leader>es", "outline.focus")

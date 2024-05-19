@@ -34,14 +34,22 @@ This repository contains my Neovim configuration which also has parallel configu
 }
 ```
 
+Extensions
+- Todo tree
+- fuzzy search
+- gitlens
+
 ## Todo
 
 ### Current
 
-- Update vsc keymaps
 - Add buffer unsaved exceptions for overseer buffers
-- Refactor into config folder
 - Learn folds
+- Move plugin to common
+  - Macro
+  - Dial
+  - Marks
+  - Coerce
 
 ### Backlog
 

@@ -55,7 +55,7 @@ return {
     config = function()
       require("project_nvim").setup()
       vim.keymap.set("n", "<leader>wf", function()
-        require'telescope'.extensions.projects.projects()
+        require("telescope").extensions.projects.projects()
       end, { desc = "Workspace.find" })
     end
   }

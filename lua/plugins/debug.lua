@@ -45,20 +45,14 @@ return {
     cond = conds["rcarriga/nvim-dap-ui"] or false,
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
     keys = {
-      { "<leader>bt", "<cmd>lua require('dapui').toggle()<CR>", desc = "Breakpoint.toggle_view" },
-      -- { "<leader>dK", "<cmd>lua require('dapui').eval()<cr>", desc = "Breakpoint.eval" },
-      -- TODO: make dd toggle the K keymap to dap eval instead of hover
-      {
-        "<leader>bK",
-        "<cmd>lua require('dapui').eval(vim.fn.expand('<cWORD>'))<cr>",
-        mode = "n",
-        desc = "Breakpoint.hover",
-      },
-      -- { "<leader>dK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
-      -- { "<leader>d?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
+      { "<leader>bt", desc = "Breakpoint.toggle_view" },
+      { "<leader>bK", desc = "Breakpoint.hover" },
+      -- { "<leader>bK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
+      -- { "<leader>b?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
     },
     config = function()
-      require("dapui").setup()
+      require("config.dap_ui").setup()
+      require("config.dap_ui").keymaps()
     end,
   },
   {

@@ -23,9 +23,8 @@ M.setup = function ()
     lsp_zero.default_keymaps({
       buffer = bufnr,
       preserve_mappings = false,
-      exclude = { "gs", "gr" },
+      exclude = { "gr" },
     })
-    vim.keymap.set("n", "gh", vim.lsp.buf.signature_help, { buffer = bufnr })
   end)
 
   require("mason").setup({})

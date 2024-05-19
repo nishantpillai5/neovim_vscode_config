@@ -3,9 +3,11 @@ local map = require("vsc.vscode_mapper").map
 -- Basics
 map("n", "<leader>x", "workbench.action.closeActiveEditor")
 map("n", "<leader>s", "workbench.action.files.save")
-map("n", "<leader>:", "workbench.action.showCommands")
 map("n", "<leader>zv", "workbench.action.splitEditorRight")
 map("n", "<leader>zs", "workbench.action.splitEditorDown")
+
+-- Netrw
+map("n", "<leader>ef", "workbench.view.explorer")
 
 -- Resize horizontally with Ctrl-Up and Ctrl-Down
 map("n", "<C-Up>", "workbench.action.increaseViewHeight")

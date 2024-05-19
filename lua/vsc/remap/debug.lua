@@ -9,7 +9,9 @@ map("n", "<F6>", "workbench.action.debug.pause")
 map("n", "<F7>", "workbench.action.debug.stepInto")
 map("n", "<C-F7>", "workbench.action.debug.stepOut")
 map("n", "<F8>", "workbench.action.debug.stepOver")
-map("n", "<leader>db", "editor.debug.action.toggleBreakpoint")
+map("n", "<leader>bb", "editor.debug.action.toggleBreakpoint")
+map("n", "[b", "editor.debug.action.goToPreviousBreakpoint")
+map("n", "]b", "editor.debug.action.goToNextBreakpoint")
 
 -- DAP UI
 -- TODO: add hover

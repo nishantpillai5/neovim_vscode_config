@@ -1,6 +1,6 @@
 local plugins = {
-  "quarto-dev/quarto-nvim",
-  "jmbuhr/otter.nvim",
+  -- "quarto-dev/quarto-nvim",
+  -- "jmbuhr/otter.nvim",
 }
 
 local conds = require("common.lazy").get_conds(plugins)
