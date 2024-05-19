@@ -47,6 +47,7 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 - Add buffer unsaved exceptions for overseer buffers
 - Learn folds
+- Telescope recent files to dashboard mru
 
 ### Backlog
 
