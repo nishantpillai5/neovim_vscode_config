@@ -45,9 +45,12 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
+- Nvim ufo
+- nvim-visual-multi
+- fzf with telescope
 - Add buffer unsaved exceptions for overseer buffers
-- Learn folds
 - Telescope recent files to dashboard mru
+- Statusline not showing up for upper windows
 
 ### Backlog
 

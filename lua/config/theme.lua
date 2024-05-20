@@ -30,6 +30,7 @@ M.setup = function ()
         NvimDapVirtualTextError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },
         NvimDapVirtualTextChanged = { fg = c.vscOrange, bg = c.vscPopupHighlightGray },
         BiscuitColor = { fg = c.vscGreen, bg = c.vscPopupHighlightGray },
+        DashboardHeader =  { fg = c.vscGreen },
       },
     })
 

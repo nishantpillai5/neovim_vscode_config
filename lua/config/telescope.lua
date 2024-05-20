@@ -86,7 +86,7 @@ M.setup = function ()
     follow = true ,
     path_display = { filename_first = { reverse_directories = true } },
     preview = {
-      filesize_limit = 0.1, -- MB
+      filesize_limit = 0.5, -- MB
     },
     mappings = {
       n = {
