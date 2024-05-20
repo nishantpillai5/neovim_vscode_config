@@ -6,7 +6,7 @@
   "cellular-automaton.nvim": { "branch": "main", "commit": "b7d056dab963b5d3f2c560d92937cb51db61cb5b" },
   "cmp-nvim-lsp": { "branch": "main", "commit": "39e2eda76828d88b773cc27a3f61d2ad782c922d" },
   "coerce.nvim": { "branch": "main", "commit": "6364178861ec78065edc42562a229b8288b2ce95" },
-  "colorful-winsep.nvim": { "branch": "alpha", "commit": "bcec76c0cb4264466d2cf272246584a173fd0274" },
+  "colorful-winsep.nvim": { "branch": "alpha", "commit": "b0b76a8b19074920d2cb6878bf356cfb8af617a5" },
   "conform.nvim": { "branch": "master", "commit": "00f9d91391b04b1935e2f15948bd96cc111e7d3a" },
   "copilot.vim": { "branch": "release", "commit": "25feddf8e3aa79f0573c8f43ddb13c44c530cfa5" },
   "dashboard-nvim": { "branch": "master", "commit": "5182c09ac8085dc73b78ad0ea9f5479c9a866fc4" },
