@@ -1,3 +1,3 @@
-local map = require("vsc.vscode_mapper").map
+local map = require('vsc.vscode_mapper').map
 
-map("n", "<leader>zn", "notifications.toggleDoNotDisturbMode")
+map('n', '<leader>zn', 'notifications.toggleDoNotDisturbMode')

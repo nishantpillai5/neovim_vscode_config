@@ -1,3 +1,3 @@
-require("nvim.set")
-require("nvim.remap")
-require("nvim.plugins")
+require 'nvim.set'
+require 'nvim.remap'
+require 'nvim.plugins'

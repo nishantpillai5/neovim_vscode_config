@@ -1,18 +1,18 @@
-local map = require("vsc.vscode_mapper").map
+local map = require('vsc.vscode_mapper').map
 
 -- Basics
-map("n", "<leader>x", "workbench.action.closeActiveEditor")
-map("n", "<leader>s", "workbench.action.files.save")
-map("n", "<leader>zv", "workbench.action.splitEditorRight")
-map("n", "<leader>zs", "workbench.action.splitEditorDown")
+map('n', '<leader>x', 'workbench.action.closeActiveEditor')
+map('n', '<leader>s', 'workbench.action.files.save')
+map('n', '<leader>zv', 'workbench.action.splitEditorRight')
+map('n', '<leader>zs', 'workbench.action.splitEditorDown')
 
 -- Netrw
-map("n", "<leader>ef", "workbench.view.explorer")
+map('n', '<leader>ef', 'workbench.view.explorer')
 
 -- Resize horizontally with Ctrl-Up and Ctrl-Down
-map("n", "<C-Up>", "workbench.action.increaseViewHeight")
-map("n", "<C-Down>", "workbench.action.decreaseViewHeight")
+map('n', '<C-Up>', 'workbench.action.increaseViewHeight')
+map('n', '<C-Down>', 'workbench.action.decreaseViewHeight')
 
 -- Resize vertically with Ctrl-Right and Ctrl-Left
-map("n", "<C-Left>", "workbench.action.decreaseViewWidth")
-map("n", "<C-Right>", "workbench.action.increaseViewWidth")
+map('n', '<C-Left>', 'workbench.action.decreaseViewWidth')
+map('n', '<C-Right>', 'workbench.action.increaseViewWidth')
