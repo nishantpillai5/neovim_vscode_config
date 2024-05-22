@@ -3,6 +3,7 @@ local plugins = {
   'OliverChao/telescope-picker-list.nvim',
   'ThePrimeagen/harpoon',
   'nvim-pack/nvim-spectre',
+  'rgroli/other.nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -15,7 +16,8 @@ return {
     keys = {
       { '<leader>:', desc = 'find_commands' },
       { '<leader>ff', desc = 'Find.git_files' },
-      { '<leader>fa', desc = 'Find.all' },
+      { '<leader>fa', desc = 'Find.alternate' },
+      { '<leader>fA', desc = 'Find.all' },
       { '<leader>fgs', desc = 'Find.Git.status' },
       { '<leader>fgb', desc = 'Find.Git.branch' },
       { '<leader>fgc', desc = 'Find.Git.commits' },
@@ -37,6 +39,8 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       'natecraddock/telescope-zf-native.nvim',
+      -- TODO: switch to fzf
+      -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' },
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
     config = function()
@@ -91,6 +95,21 @@ return {
     config = function()
       local config = require 'config.spectre'
       config.keymaps()
+    end,
+  },
+  {
+    'rgroli/other.nvim',
+    cond = conds['rgroli/other.nvim'] or false,
+    keys = {
+      { '<leader>A', desc = 'alternate_file' },
+    },
+    config = function()
+      require('other-nvim').setup {
+        mappings = {
+          'c',
+        },
+      }
+    vim.api.nvim_set_keymap("n", "<leader>A", "<cmd>Other<CR>", { noremap = true, silent = true })
     end,
   },
 }

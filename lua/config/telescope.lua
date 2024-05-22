@@ -28,7 +28,14 @@ M.keymaps = function()
   local builtin = require 'telescope.builtin'
   vim.keymap.set('n', '<leader>:', builtin.commands, { desc = 'find_commands' })
   vim.keymap.set('n', '<leader>ff', M.project_files, { desc = 'Find.git_files' })
-  vim.keymap.set('n', '<leader>fa', builtin.find_files, { desc = 'Find.all' })
+
+  vim.keymap.set('n', '<leader>fa', function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
+    builtin.git_files { default_text = basename }
+  end, { desc = 'Find.alternate' })
+
+  vim.keymap.set('n', '<leader>fA', builtin.find_files, { desc = 'Find.all' })
 
   vim.keymap.set('n', '<leader>fgs', builtin.git_status, { desc = 'Find.Git.status' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'Find.Git.branches' })
@@ -108,6 +115,12 @@ M.setup = function()
       git_files = default_opts,
     },
     extensions = {
+      -- fzf = {
+      --   fuzzy = true,
+      --   override_generic_sorter = true,
+      --   override_file_sorter = true,
+      --   case_mode = 'smart_case',
+      -- },
       ['zf-native'] = {
         file = {
           enable = true,
@@ -138,6 +151,7 @@ M.setup = function()
 
   _G.loaded_telescope_extension = false
   require('telescope').load_extension 'zf-native'
+  -- require('telescope').load_extension 'fzf'
 end
 
 return M

@@ -18,6 +18,7 @@ local plugins = {
   'vladdoster/remember.nvim',
   -- "sitiom/nvim-numbertoggle", -- WARN: doesn't work with harpoon
   'RRethy/vim-illuminate',
+  'kevinhwang91/nvim-ufo',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -170,5 +171,18 @@ return {
     'RRethy/vim-illuminate',
     cond = conds['RRethy/vim-illuminate'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+  },
+  -- Folds
+  {
+    'kevinhwang91/nvim-ufo',
+    cond = conds['kevinhwang91/nvim-ufo'] or false,
+    event = 'VeryLazy',
+    dependencies = { 'kevinhwang91/promise-async' },
+    init = function()
+      require('config.ufo').init()
+    end,
+    config = function()
+      require('config.ufo').setup()
+    end,
   },
 }

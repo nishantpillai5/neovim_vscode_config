@@ -68,7 +68,7 @@ M.setup = function()
     theme = 'hyper',
     change_to_vcs_root = true,
     config = {
-      header = logo3,
+      header = logo1,
       week_header = { enable = false },
       packages = { enable = false },
       project = { enable = false, limit = 1 },

@@ -43,13 +43,18 @@ M.keymaps = function()
     dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
   end, { desc = 'Breakpoint.toggle_with_log' })
 
-  vim.keymap.set('n', '<leader>[b', function()
+  vim.keymap.set('n', '[b', function()
     require('goto-breakpoints').prev()
   end, { desc = 'Prev.breakpoint' })
 
-  vim.keymap.set('n', '<leader>]b', function()
+  vim.keymap.set('n', ']b', function()
     require('goto-breakpoints').next()
   end, { desc = 'Next.breakpoint' })
+
+  -- https://github.com/theHamsta/nvim-dap-virtual-text/issues/74#issuecomment-2123068019
+  vim.keymap.set('n', '<leader>zb', function()
+    require("nvim-dap-virtual-text.virtual_text").clear_virtual_text()
+  end, { desc = 'Visual.clear_dap' })
 
   -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
   --   require("dap.ui.widgets").preview()

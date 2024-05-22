@@ -45,12 +45,9 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
-- Nvim ufo
-- nvim-visual-multi
-- fzf with telescope
 - Add buffer unsaved exceptions for overseer buffers
 - Telescope recent files to dashboard mru
-- Statusline not showing up for upper windows
+- fzf with telescope
 
 ### Backlog
 
@@ -63,7 +60,6 @@ This repository contains my Neovim configuration, including parallel settings fo
   - termimals with process exited don't toggle
   - lualine, show branch and commit of running build
 - Leetcode: run file in terminal
-- toggle dap virtual text [see GH issue](https://github.com/theHamsta/nvim-dap-virtual-text/issues/74)
 - Save harpoon menu on save workspace
 - loading a saved session from dashboard breaks colors
 - MRU in dashboard in a non git directory, changes cwd

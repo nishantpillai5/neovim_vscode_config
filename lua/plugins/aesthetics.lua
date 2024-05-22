@@ -106,9 +106,10 @@ return {
     event = 'VeryLazy',
     config = function()
       require('notify').setup {
-        stages = 'fade',
-        timeout = 3000,
+        stages = 'static',
+        timeout = 2000,
         render = 'compact',
+        top_down = false,
       }
       vim.notify = require 'notify'
     end,

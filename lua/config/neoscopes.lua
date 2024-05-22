@@ -14,10 +14,21 @@ local replace_telescope_keymaps = function()
       search_dirs = neoscopes.get_current_dirs(),
     }
   end, { desc = 'Find.files(workspace)' })
-  -- remapping fa, f/, fgg not needed
+
+  vim.keymap.set('n', '<leader>fa', function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local basename = vim.fn.fnamemodify(bufname, ":t:r"):lower()
+    require('telescope.builtin').git_files {
+      prompt_prefix = '󱇳 > ',
+      default_text = basename,
+      search_dirs = neoscopes.get_current_dirs(),
+      additional_args = { '--follow' },
+    }
+  end, { desc = 'Find.alternate(workspace)' })
 
   vim.keymap.set('n', '<leader>fl', function()
     require('telescope.builtin').live_grep {
+      prompt_prefix = '󱇳 > ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
@@ -35,6 +46,7 @@ local replace_telescope_keymaps = function()
   vim.keymap.set('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
     require('telescope.builtin').grep_string {
+      prompt_prefix = '󱇳 > ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
@@ -44,6 +56,7 @@ local replace_telescope_keymaps = function()
   vim.keymap.set('n', '<leader>fW', function()
     local word = vim.fn.expand '<cWORD>'
     require('telescope.builtin').grep_string {
+      prompt_prefix = '󱇳 > ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
