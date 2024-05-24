@@ -19,6 +19,7 @@ local plugins = {
   "sitiom/nvim-numbertoggle", -- WARN: doesn't work with harpoon
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
+  "norcalli/nvim-colorizer.lua",
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -184,5 +185,15 @@ return {
     config = function()
       require('config.ufo').setup()
     end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    event = "VeryLazy",
+    cond = conds['norcalli/nvim-colorizer.lua'] or false,
+    config = function ()
+      require 'colorizer'.setup(
+        { 'lua', 'css', 'javascript', html = { mode = 'foreground' } },
+        { mode = 'background' })
+    end
   },
 }

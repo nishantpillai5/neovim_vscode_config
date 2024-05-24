@@ -18,7 +18,9 @@ M.project_files = function()
   end
 
   if is_inside_work_tree[cwd] then
-    builtin.git_files(default_opts)
+    local git_opts = default_opts
+    git_opts["show_untracked"] = true
+    builtin.git_files(git_opts)
   else
     builtin.find_files(default_opts)
   end
@@ -74,7 +76,8 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find.symbols' })
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find.marks' })
-  vim.keymap.set('n', '<leader>fr', builtin.registers, { desc = 'Find.registers' })
+  vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Find.recents' })
+  vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'Find.registers' })
   vim.keymap.set('n', '<leader>fh', builtin.buffers, { desc = 'Find.buffers' })
   -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
   -- TODO: use string instead to prevent loading extensions?

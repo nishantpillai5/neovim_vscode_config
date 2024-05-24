@@ -41,6 +41,8 @@ M.setup = function()
     },
   }
 
+  -- require("neodev").setup({ })
+
   require('mason-lspconfig').setup_handlers {
     -- default handler
     function(server_name)

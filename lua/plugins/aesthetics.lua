@@ -50,9 +50,8 @@ return {
     'kevinhwang91/nvim-hlslens',
     cond = conds['kevinhwang91/nvim-hlslens'] or false,
     config = function()
-      -- require('hlslens').setup() is not required
       require('scrollbar.handlers.search').setup {
-        -- hlslens config overrides
+        override_lens = function() end,
       }
     end,
   },
