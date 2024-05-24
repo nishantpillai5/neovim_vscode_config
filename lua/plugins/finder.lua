@@ -28,7 +28,7 @@ return {
       { '<leader>f?', desc = 'Find.Search.global' },
       { '<leader>fw', desc = 'Find.word' },
       { '<leader>fW', desc = 'Find.whole_word' },
-      { '<leader>F', desc = 'Find.telescope' },
+      { '<leader>FF', desc = 'Find.telescope_builtin' },
       { '<leader>fs', desc = 'Find.symbols' },
       { '<leader>fm', desc = 'Find.marks' },
       { '<leader>fr', desc = 'Find.recents' },
@@ -55,7 +55,7 @@ return {
       'Snikimonkd/telescope-git-conflicts.nvim',
     },
     keys = {
-      { '<leader>ft', desc = 'Find.telescope' },
+      { '<leader>FE', desc = 'Find.telescope_extensions' },
     },
     config = function()
       local config = require 'config.telescope_picker'

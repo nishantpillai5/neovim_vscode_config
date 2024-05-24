@@ -59,6 +59,7 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Backlog
 
+- Fix marp.nvim
 - add window title for overseer, vista
 - cppcheck linting
 - use trouble keybinds for quickfix

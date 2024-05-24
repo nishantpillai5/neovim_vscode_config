@@ -10,9 +10,15 @@ M.keymaps = function()
     todo.jump_prev()
   end, { desc = 'Prev.todo' })
 
-  vim.keymap.set('n', '<leader>gc', function()
+  vim.keymap.set('n', '<leader>ft', function()
+    -- TODO: load telescope if not loaded
     vim.cmd("TodoTelescope")
-  end, { desc = 'Git.todos' })
+  end, { desc = 'Find.todos' })
+
+  vim.keymap.set('n', '<leader>tT', function()
+    -- TODO: load trouble if not loaded
+    vim.cmd("TodoTrouble")
+  end, { desc = 'Trouble.todos' })
 end
 
 M.setup = function()

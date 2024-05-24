@@ -1,7 +1,7 @@
 local M = {}
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>ft', function()
+  vim.keymap.set('n', '<leader>FE', function()
     if not _G.loaded_telescope_extension then
       local dap_status, _ = pcall(require, 'dap')
       if dap_status then
@@ -21,7 +21,7 @@ M.keymaps = function()
       _G.loaded_telescope_extension = true
     end
     require('telescope').extensions.picker_list.picker_list()
-  end, { desc = 'Find.telescope' })
+  end, { desc = 'Find.telescope_extensions' })
 end
 
 return M
