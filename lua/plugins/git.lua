@@ -4,6 +4,7 @@ local plugins = {
   'lewis6991/gitsigns.nvim',
   'sindrets/diffview.nvim',
   'linrongbin16/gitlinker.nvim',
+  'akinsho/git-conflict.nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -68,4 +69,24 @@ return {
     },
     opts = {},
   },
+  {
+    'akinsho/git-conflict.nvim',
+    version = "*",
+    cond = conds['akinsho/git-conflict.nvim'] or false,
+    keys = {
+      { '[x', desc = 'Prev.conflict' },
+      { ']x', desc = 'Next.conflict' },
+    },
+    config = function ()
+      require('git-conflict').setup(
+        {
+          default_mappings = false,
+          default_commands = true,
+          disable_diagnostics = true,
+        }
+      )
+      vim.keymap.set('n', '[x', '<Plug>(git-conflict-next-conflict)', { desc = "Prev.conflict" })
+      vim.keymap.set('n', ']x', '<Plug>(git-conflict-prev-conflict)', { desc = "Next.conflict" })
+    end
+  }
 }

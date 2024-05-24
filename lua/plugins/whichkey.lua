@@ -1,5 +1,6 @@
 local plugins = {
   'folke/which-key.nvim',
+  'tris203/hawtkeys.nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -67,4 +68,23 @@ return {
       }, { mode = 'v' })
     end,
   },
+  {
+    'tris203/hawtkeys.nvim',
+    cond = conds['tris203/hawtkeys.nvim'] or false,
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-treesitter/nvim-treesitter",
+    },
+    cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
+    config = {
+      customMaps = {
+        ["wk.register"] = {
+            method = "which_key",
+        },
+        ["lazy"] = {
+            method = "lazy",
+        },
+      },
+    },
+  }
 }
