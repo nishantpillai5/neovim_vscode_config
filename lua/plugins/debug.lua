@@ -31,8 +31,7 @@ return {
       { 'fbc', desc = 'Find.Breakpoint.configurations' },
       { 'fbv', desc = 'Find.Breakpoint.variables' },
       { 'fbf', desc = 'Find.Breakpoint.frames' },
-      -- { "<leader>bt", desc = "Debug.toggle" },
-      -- { "<leader>zd","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_virtual_toggle" }, -- TODO: doesn't hide, just stops refreshing
+      { "<leader>zb","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_text_toggle" },
     },
     config = function()
       local config = require 'config.dap'

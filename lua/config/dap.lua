@@ -51,10 +51,10 @@ M.keymaps = function()
     require('goto-breakpoints').next()
   end, { desc = 'Next.breakpoint' })
 
-  -- https://github.com/theHamsta/nvim-dap-virtual-text/issues/74#issuecomment-2123068019
   vim.keymap.set('n', '<leader>zb', function()
-    require("nvim-dap-virtual-text.virtual_text").clear_virtual_text()
-  end, { desc = 'Visual.clear_dap' })
+    require("nvim-dap-virtual-text").toggle()
+    -- require("nvim-dap-virtual-text.virtual_text").clear_virtual_text()
+  end, { desc = 'Visual.debug_text_toggle' })
 
   -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
   --   require("dap.ui.widgets").preview()

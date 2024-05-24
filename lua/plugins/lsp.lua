@@ -9,8 +9,6 @@ local plugins = {
   'mfussenegger/nvim-lint',
   -- Fomatter
   'stevearc/conform.nvim',
-  -- Terminal Completion
-  -- "gelguy/wilder.nvim", -- WARN: not tested
   -- Log Highlighting
   'mtdl9/vim-log-highlighting',
 }
@@ -73,6 +71,7 @@ return {
     config = function()
       local config = require 'config.lsp_zero'
       config.setup()
+      config.keymaps()
       config.lualine()
     end,
   },
@@ -103,29 +102,6 @@ return {
       local config = require 'config.formatter'
       config.setup()
       config.keymaps()
-    end,
-  },
-  -- Command completion
-  {
-    'gelguy/wilder.nvim',
-    cond = conds['gelguy/wilder.nvim'] or false,
-    event = 'VeryLazy',
-    config = function()
-      local wilder = require 'wilder'
-      wilder.setup {
-        modes = { ':' },
-      }
-
-      wilder.set_option(
-        'renderer',
-        wilder.popupmenu_renderer(wilder.popupmenu_palette_theme {
-          border = 'rounded',
-          max_height = '20%',
-          min_height = 0,
-          prompt_position = 'bottom',
-          reverse = 1,
-        })
-      )
     end,
   },
   -- Log Highlighting

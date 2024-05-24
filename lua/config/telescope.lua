@@ -115,27 +115,11 @@ M.setup = function()
       git_files = default_opts,
     },
     extensions = {
-      -- fzf = {
-      --   fuzzy = true,
-      --   override_generic_sorter = true,
-      --   override_file_sorter = true,
-      --   case_mode = 'smart_case',
-      -- },
-      ['zf-native'] = {
-        file = {
-          enable = true,
-          highlight_results = true,
-          match_filename = true,
-          initial_sort = nil,
-          smart_case = true,
-        },
-        generic = {
-          enable = true,
-          highlight_results = true,
-          match_filename = false,
-          initial_sort = nil,
-          smart_case = true,
-        },
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = 'smart_case',
       },
       live_grep_args = {
         auto_quoting = true,
@@ -150,8 +134,7 @@ M.setup = function()
   }
 
   _G.loaded_telescope_extension = false
-  require('telescope').load_extension 'zf-native'
-  -- require('telescope').load_extension 'fzf'
+  require('telescope').load_extension 'fzf'
 end
 
 return M

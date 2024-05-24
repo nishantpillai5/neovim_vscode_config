@@ -18,7 +18,7 @@ local replace_telescope_keymaps = function()
   vim.keymap.set('n', '<leader>fa', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ":t:r"):lower()
-    require('telescope.builtin').git_files {
+    require('telescope.builtin').find_files {
       prompt_prefix = '󱇳 > ',
       default_text = basename,
       search_dirs = neoscopes.get_current_dirs(),

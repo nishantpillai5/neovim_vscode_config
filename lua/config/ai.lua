@@ -47,9 +47,13 @@ M.setup = function()
     debug = false,
     disable_extra_info = 'no',
     language = 'English',
+    mappings = {
+      reset = {
+        normal = '<C-r>',
+        insert = '<C-r>',
+      },
+    },
   }
-
-  -- TODO: disable <C-l>
 
   vim.api.nvim_create_autocmd('BufEnter', {
     pattern = 'copilot-*',

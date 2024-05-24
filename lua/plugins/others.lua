@@ -3,6 +3,7 @@ local plugins = {
   'kwakzalver/duckytype.nvim',
   'dstein64/vim-startuptime',
   'subnut/nvim-ghost.nvim',
+  'mpas/marp-nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -38,5 +39,18 @@ return {
     lazy = true,
     cond = conds['subnut/nvim-ghost.nvim'] or false,
     cmd = { 'GhostTextStart' },
+  },
+  {
+    'mpas/marp-nvim',
+    cond = conds['mpas/marp-nvim'] or false,
+    cmd = { 'MarpToggle', 'MarpStatus' },
+    config = function()
+      vim.notify('Marp is enabled')
+      require('marp').setup {
+        port = 8080,
+        wait_for_response_timeout = 30,
+        wait_for_response_delay = 1,
+      }
+    end,
   },
 }

@@ -12,6 +12,7 @@ This repository contains my Neovim configuration, including parallel settings fo
 - `choco install git zig fd ripgrep`
 - `choco install nodejs-lts --version="20.13.0"`
 - `python -m pip install --user --upgrade pynvim`
+- [fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) dependencies
 - [ctags](https://github.com/universal-ctags/ctags)
 - [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
 
@@ -46,19 +47,21 @@ This repository contains my Neovim configuration, including parallel settings fo
 ### Current
 
 - Add buffer unsaved exceptions for overseer buffers
-- Telescope recent files to dashboard mru
-- fzf with telescope
+
+- Overseer
+  - start a custom terminal for builds with ft set to log and autoscroll off
+  - termimals with process exited don't toggle
+  - lualine, show branch and commit of running build
+
+- Nvim doesn't exit properly
+  - searching in git log fails because not disposing running gdb server properly, 
+  - could also be because of plotposition doesn't support keyboard interrupts
 
 ### Backlog
 
 - add window title for overseer, vista
 - cppcheck linting
 - use trouble keybinds for quickfix
-- Overseer
-  - Nvim doesn't exit properly, searching in git log fails because not disposing running gdb server properly
-  - start a custom terminal for builds with ft set to log and autoscroll off
-  - termimals with process exited don't toggle
-  - lualine, show branch and commit of running build
 - Leetcode: run file in terminal
 - Save harpoon menu on save workspace
 - loading a saved session from dashboard breaks colors

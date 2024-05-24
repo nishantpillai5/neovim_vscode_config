@@ -20,7 +20,6 @@ M.setup = function()
   require('vscode').setup {
     italic_comments = true,
     group_overrides = {
-      -- TODO: Add more overrides
       -- https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/theme.lua
       -- https://github.com/Mofiqul/vscode.nvim/blob/main/lua/vscode/colors.lua
       DiagnosticError = { fg = c.vscRed, bg = c.vscPopupHighlightGray },

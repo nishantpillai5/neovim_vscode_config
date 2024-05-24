@@ -11,7 +11,7 @@ local toggle_diagnostics = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zl', toggle_diagnostics, { desc = 'Visual.diagnostics' })
+  vim.keymap.set('n', '<leader>zl', toggle_diagnostics, { desc = 'Visual.lsp' })
 end
 
 M.setup = function()

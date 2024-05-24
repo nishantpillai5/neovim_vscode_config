@@ -81,6 +81,12 @@ M.setup = function()
           key = 'f',
         },
         {
+          desc = ' Recent',
+          group = 'Label',
+          action = 'Telescope oldfiles',
+          key = 'r',
+        },
+        {
           desc = '󰊳 Update',
           group = '@property',
           action = 'Lazy update',

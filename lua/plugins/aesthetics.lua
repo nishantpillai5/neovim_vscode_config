@@ -1,6 +1,7 @@
 local plugins = {
   'Mofiqul/vscode.nvim',
   'petertriho/nvim-scrollbar',
+  'kevinhwang91/nvim-hlslens',
   'nvim-zh/colorful-winsep.nvim',
   'utilyre/barbecue.nvim',
   'nvimdev/dashboard-nvim',
@@ -29,8 +30,30 @@ return {
     cond = conds['petertriho/nvim-scrollbar'] or false,
     event = { 'BufReadPre' },
     config = function()
-      -- TODO: prettier scrollbar
-      require('scrollbar').setup()
+      local c = require('vscode.colors').get_colors()
+      require('scrollbar').setup {
+        handle = {
+          color = c.vscPopupHighlightGray,
+        },
+        marks = {
+            Search = { color = c.vscViolet },
+            -- Error = { color = colors.error },
+            -- Warn = { color = colors.warning },
+            -- Info = { color = colors.info },
+            -- Hint = { color = colors.hint },
+            -- Misc = { color = colors.purple },
+        },
+      }
+    end,
+  },
+  {
+    'kevinhwang91/nvim-hlslens',
+    cond = conds['kevinhwang91/nvim-hlslens'] or false,
+    config = function()
+      -- require('hlslens').setup() is not required
+      require('scrollbar.handlers.search').setup {
+        -- hlslens config overrides
+      }
     end,
   },
   {
