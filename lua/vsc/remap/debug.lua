@@ -15,4 +15,4 @@ map('n', ']b', 'editor.debug.action.goToNextBreakpoint')
 
 -- DAP UI
 -- TODO: add hover
-map('n', '<leader>dd', 'workbench.view.debug')
+map('n', '<leader>bt', 'workbench.view.debug')

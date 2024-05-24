@@ -9,6 +9,10 @@ M.keymaps = function()
   vim.keymap.set('n', '[t', function()
     todo.jump_prev()
   end, { desc = 'Prev.todo' })
+
+  vim.keymap.set('n', '<leader>gc', function()
+    vim.cmd("TodoTelescope")
+  end, { desc = 'Git.todos' })
 end
 
 M.setup = function()

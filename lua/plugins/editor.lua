@@ -16,7 +16,7 @@ local plugins = {
   'folke/zen-mode.nvim',
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
   'vladdoster/remember.nvim',
-  "sitiom/nvim-numbertoggle", -- WARN: doesn't work with harpoon
+  "sitiom/nvim-numbertoggle",
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
   "norcalli/nvim-colorizer.lua",
@@ -138,9 +138,7 @@ return {
       { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'Visual.zen' },
     },
     opts = {
-      window = {
-        width = 0.85,
-      },
+      window = { width = 0.85 },
       plugins = {
         options = { enabled = true, laststatus = 3 },
         gitsigns = { enabled = false },
