@@ -170,6 +170,19 @@ return {
     'RRethy/vim-illuminate',
     cond = conds['RRethy/vim-illuminate'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    config = function ()
+      require('illuminate').configure({
+        providers = {
+          'lsp',
+          'treesitter',
+          'regex',
+        },
+        filetypes_denylist = {
+          'fugitive',
+          'dashboard',
+        },
+      })
+    end
   },
   -- Folds
   {

@@ -72,7 +72,7 @@ M.keymaps = function()
     builtin.grep_string { search = word }
   end, { desc = 'Find.whole_word' })
 
-  vim.keymap.set('n', '<leader>FF', '<cmd>Telescope<cr>', { desc = 'Find.telescope_builtin' })
+  vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'Find.telescope_builtin' })
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find.symbols' })
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find.marks' })

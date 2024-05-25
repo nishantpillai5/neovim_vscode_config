@@ -1,7 +1,7 @@
 local M = {}
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>FE', function()
+  vim.keymap.set('n', '<leader>Fe', function()
     if not _G.loaded_telescope_extension then
       local dap_status, _ = pcall(require, 'dap')
       if dap_status then
@@ -14,6 +14,8 @@ M.keymaps = function()
       end
 
       require('telescope').load_extension 'conflicts'
+      require('telescope').load_extension 'emoji'
+      require('telescope').load_extension 'nerdy'
       -- require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")
       require('telescope').load_extension 'notify'

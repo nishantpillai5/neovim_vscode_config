@@ -18,7 +18,6 @@ return {
       local wk = require 'which-key'
       wk.register {
         ['<leader>'] = {
-          ['<space>'] = 'hop',
           [';'] = 'Terminal',
           r = 'Refactor',
           l = 'LSP',
@@ -50,6 +49,8 @@ return {
         ['[d'] = 'prev.diagnostic',
         [']d'] = 'next.diagnostic',
         K = 'hover',
+        s = 'hop_char',
+        S = 'hop_node',
         d = { m = { name = '+Marks' } },
         m = {
           name = '+Marks',
@@ -72,8 +73,8 @@ return {
     'tris203/hawtkeys.nvim',
     cond = conds['tris203/hawtkeys.nvim'] or false,
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-treesitter/nvim-treesitter",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
     cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
     config = {

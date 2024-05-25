@@ -28,7 +28,7 @@ return {
       { '<leader>f?', desc = 'Find.Search.global' },
       { '<leader>fw', desc = 'Find.word' },
       { '<leader>fW', desc = 'Find.whole_word' },
-      { '<leader>FF', desc = 'Find.telescope_builtin' },
+      { '<leader>Ff', desc = 'Find.telescope_builtin' },
       { '<leader>fs', desc = 'Find.symbols' },
       { '<leader>fm', desc = 'Find.marks' },
       { '<leader>fr', desc = 'Find.recents' },
@@ -53,9 +53,11 @@ return {
     cond = conds['OliverChao/telescope-picker-list.nvim'] or false,
     dependencies = {
       'Snikimonkd/telescope-git-conflicts.nvim',
+      'xiyaowong/telescope-emoji.nvim',
+      '2KAbhishek/nerdy.nvim'
     },
     keys = {
-      { '<leader>FE', desc = 'Find.telescope_extensions' },
+      { '<leader>Fe', desc = 'Find.telescope_extensions' },
     },
     config = function()
       local config = require 'config.telescope_picker'
