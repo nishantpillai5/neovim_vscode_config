@@ -94,15 +94,14 @@ return {
       { '<leader>/w', desc = 'Search.global.word' },
     },
     config = function()
-      local config = require 'config.spectre'
-      config.keymaps()
+      require('config.spectre').keymaps()
     end,
   },
   {
     'rgroli/other.nvim',
     cond = conds['rgroli/other.nvim'] or false,
     keys = {
-      { '<leader>A', desc = 'alternate_file' },
+      { '<leader>A', "<cmd>Other<cr>", desc = 'alternate_file' },
     },
     config = function()
       require('other-nvim').setup {
@@ -110,7 +109,6 @@ return {
           'c',
         },
       }
-    vim.api.nvim_set_keymap("n", "<leader>A", "<cmd>Other<CR>", { noremap = true, silent = true })
     end,
   },
 }

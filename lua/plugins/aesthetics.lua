@@ -30,20 +30,7 @@ return {
     cond = conds['petertriho/nvim-scrollbar'] or false,
     event = { 'BufReadPre' },
     config = function()
-      local c = require('vscode.colors').get_colors()
-      require('scrollbar').setup {
-        handle = {
-          color = c.vscPopupHighlightGray,
-        },
-        marks = {
-            Search = { color = c.vscViolet },
-            -- Error = { color = colors.error },
-            -- Warn = { color = colors.warning },
-            -- Info = { color = colors.info },
-            -- Hint = { color = colors.hint },
-            -- Misc = { color = colors.purple },
-        },
-      }
+      require("config.scrollbar").setup()
     end,
   },
   {
