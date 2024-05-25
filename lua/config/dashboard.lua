@@ -68,23 +68,23 @@ M.setup = function()
     theme = 'hyper',
     change_to_vcs_root = true,
     config = {
-      header = logo1,
+      header = logo3,
       week_header = { enable = false },
       packages = { enable = false },
       project = { enable = false, limit = 1 },
       mru = { cwd_only = true, limit = 5 },
       shortcut = {
         {
-          desc = ' Files',
-          group = 'Label',
-          action = 'Telescope find_files',
-          key = 'f',
-        },
-        {
           desc = ' Recent',
           group = 'Label',
           action = 'Telescope oldfiles',
-          key = 'r',
+          key = 'f',
+        },
+        {
+          desc = ' Files',
+          group = 'Label',
+          action = 'Telescope find_files',
+          key = 'F',
         },
         {
           desc = '󰊳 Update',

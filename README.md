@@ -59,12 +59,10 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Backlog
 
-- Fix marp.nvim
-- add window title for overseer, vista
 - cppcheck linting
-- use trouble keybinds for quickfix
 - Leetcode: run file in terminal
 - Save harpoon menu on save workspace
 - loading a saved session from dashboard breaks colors
 - MRU in dashboard in a non git directory, changes cwd
 - Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
+- Fix marp.nvim

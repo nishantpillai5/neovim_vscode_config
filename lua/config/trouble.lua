@@ -1,5 +1,22 @@
 local M = {}
 
+M.use_trouble = function ()
+  local trouble = require("trouble")
+  -- Check whether we deal with a quickfix or location list buffer, close the window and open the
+  -- corresponding Trouble window instead.
+  if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
+    vim.defer_fn(function()
+        vim.cmd.lclose()
+        trouble.open("loclist")
+    end, 0)
+  else
+    vim.defer_fn(function()
+        vim.cmd.cclose()
+        trouble.open("quickfix")
+    end, 0)
+  end
+end
+
 M.keymaps = function()
   local trouble = require 'trouble'
   vim.keymap.set('n', '<leader>tt', function()
@@ -37,6 +54,13 @@ M.keymaps = function()
   vim.keymap.set('n', 'gr', function()
     trouble.toggle 'lsp_references'
   end, { desc = 'references' })
+end
+
+M.setup = function ()
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"qf"},
+    callback = M.use_trouble
+  })
 end
 
 return M

@@ -12,6 +12,7 @@ return {
     'folke/trouble.nvim',
     cond = conds['folke/trouble.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    ft = {"qf"},
     keys = {
       { '<leader>tt', desc = 'Trouble.toggle' },
       { '<leader>tw', desc = 'Trouble.workspace_diagnostics' },
@@ -25,6 +26,7 @@ return {
     },
     config = function()
       local config = require 'config.trouble'
+      config.setup()
       config.keymaps()
     end,
   },
