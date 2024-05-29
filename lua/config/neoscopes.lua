@@ -83,7 +83,7 @@ M.keymaps = function()
     neoscopes.setup { on_scope_selected = refresh_workspace }
     global_scopes()
     neoscopes.select()
-  end)
+  end, { desc = 'Workspace.select' })
 
   vim.keymap.set('n', '<leader>wx', function()
     neoscopes.clear()

@@ -36,6 +36,7 @@ return {
       { '<leader>fh', desc = 'Find.buffers' },
       -- { "<leader>fp", desc = "Find.yank" },
       { '<leader>fn', desc = 'Find.notes' },
+      { '<leader>wc', desc = 'Workspace.configurations' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim',

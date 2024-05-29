@@ -86,6 +86,15 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fn', function()
     builtin.find_files { cwd = require('common.env').DIR_NOTES }
   end, { desc = 'Find.notes' })
+
+  vim.keymap.set('n', '<leader>wc', function()
+    require('telescope.builtin').find_files {
+      prompt_title = 'Workspace Configuration',
+      hidden = true,
+      search_dirs = { '.vscode' },
+    }
+  end, { desc = 'Workspace.configurations' })
+
 end
 
 M.setup = function()

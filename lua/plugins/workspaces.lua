@@ -3,6 +3,7 @@ local plugins = {
   'stevearc/resession.nvim',
   'aymericbeaumet/vim-symlink',
   'ahmedkhalf/project.nvim',
+  'klen/nvim-config-local',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -18,7 +19,7 @@ return {
     'smartpde/neoscopes',
     cond = conds['smartpde/neoscopes'] or false,
     keys = {
-      { '<leader>ww', desc = 'Find.workspace' },
+      { '<leader>ww', desc = 'Workspace.select' },
       { '<leader>wx', desc = 'Workspace.close' },
     },
     dependencies = { 'nvim-telescope/telescope.nvim' },
@@ -32,11 +33,11 @@ return {
     'stevearc/resession.nvim',
     cond = conds['stevearc/resession.nvim'] or false,
     keys = {
-      { '<leader>ws', desc = 'Workspace.session_save' },
-      { '<leader>wl', desc = 'Workspace.session_load' },
-      { '<leader>wS', desc = 'Workspace.manual_session_save' },
-      { '<leader>wL', desc = 'Workspace.manual_session_load' },
-      { '<leader>wd', desc = 'Workspace.session_delete' },
+      { '<leader>ws', desc = 'Workspace.save_session' },
+      { '<leader>wl', desc = 'Workspace.load_session' },
+      { '<leader>wS', desc = 'Workspace.save_manual_session' },
+      { '<leader>wL', desc = 'Workspace.load_manual_session' },
+      { '<leader>wd', desc = 'Workspace.delete_session' },
     },
 
     config = function()
@@ -50,13 +51,25 @@ return {
     cond = conds['ahmedkhalf/project.nvim'] or false,
     dependencies = { 'nvim-telescope/telescope.nvim' },
     keys = {
-      { '<leader>wf', desc = 'Workspace.find' },
+      { '<leader>wf', desc = 'Workspace.find_project' },
     },
     config = function()
       require('project_nvim').setup()
       vim.keymap.set('n', '<leader>wf', function()
         require('telescope').extensions.projects.projects()
-      end, { desc = 'Workspace.find' })
+      end, { desc = 'Workspace.find_project' })
     end,
+  },
+  {
+    'klen/nvim-config-local',
+    cond = conds['klen/nvim-config-local'] or false,
+    -- event = '',
+    -- TODO: late sourcing, load after loading all plugins so that lsp can be configured
+    config = function()
+      require('config-local').setup {
+        config_files = { ".vscode/.nvim.lua", ".nvim.lua", ".nvimrc", ".exrc" },
+        silent = false,
+      }
+    end
   },
 }

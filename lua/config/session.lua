@@ -23,23 +23,23 @@ M.keymaps = function()
   local recession = require 'resession'
   vim.keymap.set('n', '<leader>ws', function()
     workspace_session(recession.save)
-  end, { desc = 'Workspace.session_save' })
+  end, { desc = 'Workspace.save_session' })
 
   vim.keymap.set('n', '<leader>wl', function()
     workspace_session(recession.load)
-  end, { desc = 'Workspace.session_load' })
+  end, { desc = 'Workspace.load_session' })
 
   vim.keymap.set('n', '<leader>wS', function()
     recession.save()
-  end, { desc = 'Workspace.manual_session_save' })
+  end, { desc = 'Workspace.save_manual_session' })
 
   vim.keymap.set('n', '<leader>wL', function()
     recession.load()
-  end, { desc = 'Workspace.manual_session_load' })
+  end, { desc = 'Workspace.load_manual_session' })
 
   vim.keymap.set('n', '<leader>wd', function()
     recession.delete()
-  end, { desc = 'Workspace.session_delete' })
+  end, { desc = 'Workspace.delete_session' })
 end
 
 return M
