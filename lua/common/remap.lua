@@ -33,3 +33,6 @@ vim.keymap.set('n', '<leader>H', ':b#<CR>', { desc = 'buffer_prev', silent = tru
 
 -- Netrw
 vim.keymap.set('n', '<leader>ef', vim.cmd.Ex, { desc = 'Explorer.netrw' })
+
+-- Spaceless join
+vim.api.nvim_set_keymap('n', 'J', 'gJ', {noremap = true})

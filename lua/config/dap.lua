@@ -65,7 +65,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>fbc', function()
     require('telescope').extensions.dap.configurations()
-  end, { desc = 'Find.Breakpoint' })
+  end, { desc = 'Find.Breakpoint.configurations' })
 
   vim.keymap.set('n', '<leader>fbv', function()
     require('telescope').extensions.dap.variables()

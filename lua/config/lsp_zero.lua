@@ -108,6 +108,7 @@ local get_logo = function(name)
     ['GitHub Copilot'] = '',
     ['clangd'] = '󰙱',
     ['pyright'] = '',
+    ['jsonls'] = '',
   }
   local icon = logo_dict[name]
   if icon == nil then
