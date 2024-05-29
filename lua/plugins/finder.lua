@@ -90,7 +90,7 @@ return {
     cond = conds['nvim-pack/nvim-spectre'] or false,
     keys = {
       { '<leader>//', desc = 'Search.local' },
-      { '<leader>/', desc = 'Search.global' },
+      { '<leader>/?', desc = 'Search.global' },
       { '<leader>/w', desc = 'Search.global.word' },
     },
     config = function()

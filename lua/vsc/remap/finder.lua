@@ -23,4 +23,4 @@ map('n', '<leader>h', 'workbench.action.showAllEditors')
 
 -- Spectre
 map('n', '<leader>//', 'search.action.replaceAllInFile')
-map('n', '<leader>/', 'workbench.action.replaceInFiles')
+map('n', '<leader>/?', 'workbench.action.replaceInFiles')

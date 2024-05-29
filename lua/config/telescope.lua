@@ -44,23 +44,21 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'Find.Git.commits' })
   vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'Find.Git.stash' })
 
-  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'Find.Live_grep.global' })
+  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'Find.Live_grep_global' })
   vim.keymap.set(
     'n',
     '<leader>fL',
     "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
-    { desc = 'Find.Live_grep.global_with_args' }
+    { desc = 'Find.Live_grep_global_with_args' }
   )
 
   vim.keymap.set('n', '<leader>f/', function()
-    builtin.live_grep {
-      grep_open_files = true,
-    }
-  end, { desc = 'Find.Search.in_buffers' })
+        vim.cmd("Telescope current_buffer_fuzzy_find")
+  end, { desc = 'Find.local_fuzzy' })
 
   vim.keymap.set('n', '<leader>f?', function()
     builtin.grep_string { search = vim.fn.input 'Search > ' }
-  end, { desc = 'Find.Search.global' })
+  end, { desc = 'Find.global' })
 
   vim.keymap.set('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
