@@ -68,7 +68,7 @@ return {
     config = function()
       require('config-local').setup {
         config_files = { ".vscode/.nvim.lua", ".nvim.lua", ".nvimrc", ".exrc" },
-        silent = false,
+        silent = true,
       }
     end
   },

@@ -4,9 +4,9 @@ local plugins = {
   'chentoast/marks.nvim',
   'gregorias/coerce.nvim',
   'monaqa/dial.nvim',
-  -- Macros
   'chrisgrieser/nvim-recorder',
   'AllenDang/nvim-expand-expr',
+  'echasnovski/mini.align',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -68,7 +68,6 @@ return {
       }
     end,
   },
-  -- Macros
   {
     'chrisgrieser/nvim-recorder',
     cond = conds['chrisgrieser/nvim-recorder'] or false,
@@ -97,4 +96,11 @@ return {
       },
     },
   },
+  {
+    'echasnovski/mini.align',
+    cond = conds['echasnovski/mini.align'] or false,
+    config = function ()
+       require('mini.align').setup()
+    end
+  }
 }
