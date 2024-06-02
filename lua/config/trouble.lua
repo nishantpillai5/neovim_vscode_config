@@ -48,7 +48,7 @@ M.keymaps = function()
   end, { desc = 'Next.trouble' })
 
   vim.keymap.set('n', '<leader>k', function()
-    trouble.previous { skip_groups = true, jump = true }
+    trouble.prev { skip_groups = true, jump = true }
   end, { desc = 'Prev.trouble' })
 
   vim.keymap.set('n', 'gr', function()

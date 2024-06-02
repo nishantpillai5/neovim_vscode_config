@@ -49,15 +49,14 @@ M.setup = function()
       require('lspconfig')[server_name].setup {}
     end,
 
-    -- TODO: Clangd arguments from local config
     -- clangd
     ['clangd'] = function()
       require('lspconfig').clangd.setup {
-        -- on_attach = on_attach,
         capabilities = cmp_nvim_lsp.default_capabilities(),
         cmd = {
           'clangd',
           '--offset-encoding=utf-16',
+          '--background-index'
         },
       }
     end,

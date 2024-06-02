@@ -5,6 +5,7 @@ M.setup = function()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
       'c',
+      'cpp',
       'lua',
       'vim',
       'vimdoc',

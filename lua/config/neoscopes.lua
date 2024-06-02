@@ -72,8 +72,12 @@ local refresh_workspace = function()
     vim.notify '󱇳 No scope selected'
     require('config.telescope').keymaps()
   else
-    vim.notify('Scope selected: 󱇳 ' .. neoscopes.get_current_scope().name)
+    local scope_name = neoscopes.get_current_scope().name
+    vim.notify('Scope selected: 󱇳 ' .. scope_name)
     replace_telescope_keymaps()
+    if _G.onSelectWorkspace ~= nil then
+        _G.onSelectWorkspace(scope_name)
+    end
   end
 end
 
