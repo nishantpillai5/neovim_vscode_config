@@ -78,13 +78,13 @@ M.setup = function()
           desc = ' Recent',
           group = 'Label',
           action = 'Telescope oldfiles',
-          key = 'f',
+          key = 'r',
         },
         {
           desc = ' Files',
           group = 'Label',
           action = 'Telescope find_files',
-          key = 'F',
+          key = 'f',
         },
         {
           desc = '󰊳 Update',
