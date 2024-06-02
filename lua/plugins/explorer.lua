@@ -16,6 +16,7 @@ return {
       { '<leader>et', desc = 'Explorer.neotree' },
     },
     config = function()
+      require('config.neotree').setup()
       require('config.neotree').keymaps()
     end,
   },

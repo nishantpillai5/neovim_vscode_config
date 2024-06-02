@@ -23,7 +23,7 @@ return {
           l = 'LSP',
           c = { name = 'Chat', t = 'Terminal' },
           f = { name = 'Find', g = 'Git' },
-          e = 'Explorer',
+          e = { name = 'Explorer', y = 'Yank' },
           w = 'Workspace/Session',
           t = 'Trouble',
           b = 'Breakpoint',

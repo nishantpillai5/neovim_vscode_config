@@ -5,6 +5,7 @@ map('n', '<leader>x', 'workbench.action.closeActiveEditor')
 map('n', '<leader>s', 'workbench.action.files.save')
 map('n', '<leader>zv', 'workbench.action.splitEditorRight')
 map('n', '<leader>zs', 'workbench.action.splitEditorDown')
+map('n', '<leader>H', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
 
 -- Netrw
 map('n', '<leader>ef', 'workbench.view.explorer')

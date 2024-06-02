@@ -18,3 +18,20 @@ vim.keymap.set('n', '<C-Down>', ':resize +2<cr>', { silent = true, desc = 'horiz
 
 -- Exit terminal mode with Esc
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, desc = 'exit_terminal' })
+
+-- Yank filepaths
+local names = {
+    eyp = { expand = "%", desc = "Explorer.Yank.relative_path" },
+    eyP = { expand = "%:p", desc = "Explorer.Yank.absolute_path" },
+    eyf = { expand = "%:t", desc = "Explorer.Yank.filename" },
+    eyF = { expand = "%:p:h", desc = "Explorer.Yank.folder" },
+}
+
+for key, lookup in pairs(names) do
+    vim.keymap.set("n", "<leader>" .. key, function()
+        local value = vim.fn.expand(lookup.expand)
+        vim.fn.setreg("*", value)
+        vim.fn.setreg("+", value)
+        vim.notify("Yanked: "..value)
+    end, { desc = lookup.desc })
+end
