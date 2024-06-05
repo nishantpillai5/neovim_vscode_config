@@ -99,10 +99,14 @@ end
 
 M.setup = function()
   local action_layout = require 'telescope.actions.layout'
-  local open_with_trouble = require("trouble.sources.telescope").open
 
-  -- Use this to add more results without clearing the trouble list
-  local add_to_trouble = require("trouble.sources.telescope").add
+  local open_with_trouble = function(opts)
+    require("trouble.sources.telescope").open(opts)
+  end
+
+  local add_to_trouble =function (opts)
+    require("trouble.sources.telescope").add(opts)
+  end
 
   default_opts = {
     follow = true,

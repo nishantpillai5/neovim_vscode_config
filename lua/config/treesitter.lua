@@ -19,6 +19,9 @@ M.setup = function()
       'json',
       'gitignore',
       'properties',
+      "xml",
+      "http",
+      "graphql"
     },
     sync_install = false,
     highlight = { enable = true },

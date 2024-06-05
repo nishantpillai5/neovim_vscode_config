@@ -15,6 +15,7 @@ This repository contains my Neovim configuration, including parallel settings fo
 - [fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) dependencies
 - [ctags](https://github.com/universal-ctags/ctags)
 - [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
+- Lua 5.1 or LuaJIT installed & available in your system's PATH
 
 ## VSCode
 
