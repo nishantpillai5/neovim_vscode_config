@@ -21,6 +21,7 @@ M.setup = function()
       'properties',
       "xml",
       "http",
+      "diff",
       "graphql"
     },
     sync_install = false,

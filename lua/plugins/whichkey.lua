@@ -77,7 +77,7 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
-    config = {
+    opts = {
       customMaps = {
         ["wk.register"] = {
             method = "which_key",
