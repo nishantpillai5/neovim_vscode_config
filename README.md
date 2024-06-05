@@ -47,11 +47,6 @@ This repository contains my Neovim configuration, including parallel settings fo
 ### Current
 
 - set minimum cols for dap views
-- status line disappears for vertical splits, might be dap ui lualine hiding the vertical split status line
-- fzf prefer filename over path
-- quickfix for files doesn't work
-- trouble use widescreen
-- gd prefers buffer over lsp
 - debug config duplicates
 
 ### Backlog
@@ -60,6 +55,7 @@ This repository contains my Neovim configuration, including parallel settings fo
   - start a custom terminal for builds with ft set to log and autoscroll off
   - termimals with process exited don't toggle
   - lualine, show branch and commit of running build
+  - Custom problem matcher
 
 - Nvim doesn't exit properly
   - searching in git log fails because not disposing running gdb server properly, 
@@ -71,4 +67,4 @@ This repository contains my Neovim configuration, including parallel settings fo
 - loading a saved session from dashboard breaks colors
 - MRU in dashboard in a non git directory, changes cwd
 - Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
-- Fix marp.nvim
+- gd prefers buffer over lsp

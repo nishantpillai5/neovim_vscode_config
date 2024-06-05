@@ -33,6 +33,8 @@ M.setup = function()
         ['H'] = 'DecreaseDetail',
         ['<C-l>'] = false,
         ['<C-h>'] = false,
+        ["v"] = "OpenVsplit",
+        ["s"] = "OpenSplit",
       },
     },
   }

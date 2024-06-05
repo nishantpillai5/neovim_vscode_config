@@ -15,11 +15,11 @@ local plugins = {
   'Wansmer/treesj',
   'folke/zen-mode.nvim',
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
-  'vladdoster/remember.nvim',
-  "sitiom/nvim-numbertoggle",
+  -- 'vladdoster/remember.nvim', --TODO: doesn't work with dap
+  'sitiom/nvim-numbertoggle',
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
-  "norcalli/nvim-colorizer.lua",
+  'norcalli/nvim-colorizer.lua',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -158,6 +158,18 @@ return {
     cond = conds['vladdoster/remember.nvim'] or false,
     event = 'VeryLazy',
     config = function()
+      vim.g.remember_ignore_filetype = {
+        'gitcommit',
+        'gitrebase',
+        'hgcommit',
+        'svn',
+        'dapui_scopes',
+        'dapui_breakpoints',
+        'dapui_stacks',
+        'dapui_watches',
+        'dap-repl',
+        'dapui_console',
+      }
       require('remember').setup {}
     end,
   },
@@ -170,8 +182,8 @@ return {
     'RRethy/vim-illuminate',
     cond = conds['RRethy/vim-illuminate'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
-    config = function ()
-      require('illuminate').configure({
+    config = function()
+      require('illuminate').configure {
         providers = {
           'lsp',
           'treesitter',
@@ -181,8 +193,8 @@ return {
           'fugitive',
           'dashboard',
         },
-      })
-    end
+      }
+    end,
   },
   -- Folds
   {
@@ -198,13 +210,14 @@ return {
     end,
   },
   {
-    "norcalli/nvim-colorizer.lua",
-    event = "VeryLazy",
+    'norcalli/nvim-colorizer.lua',
+    event = 'VeryLazy',
     cond = conds['norcalli/nvim-colorizer.lua'] or false,
-    config = function ()
-      require 'colorizer'.setup(
+    config = function()
+      require('colorizer').setup(
         { 'lua', 'css', 'javascript', html = { mode = 'foreground' } },
-        { mode = 'background' })
-    end
+        { mode = 'background' }
+      )
+    end,
   },
 }

@@ -75,22 +75,28 @@ M.setup = function()
       mru = { cwd_only = true, limit = 5 },
       shortcut = {
         {
-          desc = ' Recent',
-          group = 'Label',
-          action = 'Telescope oldfiles',
-          key = 'r',
-        },
-        {
           desc = ' Files',
           group = 'Label',
           action = 'Telescope find_files',
           key = 'f',
         },
         {
-          desc = '󰊳 Update',
+          desc = ' Recent',
+          group = 'Label',
+          action = 'Telescope oldfiles',
+          key = 'r',
+        },
+        {
+          desc = ' Workspace',
+          group = 'Label',
+          action = 'Telescope projects',
+          key = 'w',
+        },
+        {
+          desc = '󰒲 Lazy',
           group = '@property',
-          action = 'Lazy update',
-          key = 'u',
+          action = 'Lazy',
+          key = 'l',
         },
       },
       footer = { get_datetime() },

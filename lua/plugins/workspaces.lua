@@ -50,9 +50,7 @@ return {
     'ahmedkhalf/project.nvim',
     cond = conds['ahmedkhalf/project.nvim'] or false,
     dependencies = { 'nvim-telescope/telescope.nvim' },
-    keys = {
-      { '<leader>wf', desc = 'Workspace.find_project' },
-    },
+    lazy = false,
     config = function()
       require('project_nvim').setup()
       vim.keymap.set('n', '<leader>wf', function()
@@ -63,7 +61,7 @@ return {
   {
     'klen/nvim-config-local',
     cond = conds['klen/nvim-config-local'] or false,
-    -- event = '',
+    lazy = false,
     -- TODO: late sourcing, load after loading all plugins so that lsp can be configured
     config = function()
       require('config-local').setup {
