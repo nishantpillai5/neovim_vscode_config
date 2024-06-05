@@ -13,6 +13,11 @@ M.keymaps = function()
         require('telescope').load_extension 'projects'
       end
 
+      local worktree_status, _ = pcall(require, 'git-worktree')
+      if worktree_status then
+        require('telescope').load_extension 'git_worktree'
+      end
+
       require('telescope').load_extension 'conflicts'
       require('telescope').load_extension 'emoji'
       require('telescope').load_extension 'nerdy'

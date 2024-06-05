@@ -23,7 +23,7 @@ M.setup = function()
   require('overseer').setup {
     strategy = {
       'toggleterm',
-      open_on_start = true,
+      open_on_start = false,
     },
     dap = false,
     task_list = {

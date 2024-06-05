@@ -22,7 +22,7 @@ return {
       { '<leader>ww', desc = 'Workspace.select' },
       { '<leader>wx', desc = 'Workspace.close' },
     },
-    dependencies = { 'nvim-telescope/telescope.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
     config = function()
       local config = require 'config.neoscopes'
       config.keymaps()
@@ -67,9 +67,9 @@ return {
     -- TODO: late sourcing, load after loading all plugins so that lsp can be configured
     config = function()
       require('config-local').setup {
-        config_files = { ".vscode/.nvim.lua", ".nvim.lua", ".nvimrc", ".exrc" },
+        config_files = { '.vscode/.nvim.lua', '.nvim.lua', '.nvimrc', '.exrc' },
         silent = true,
       }
-    end
+    end,
   },
 }

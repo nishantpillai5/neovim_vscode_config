@@ -1,18 +1,18 @@
 local M = {}
 
-M.use_trouble = function ()
-  local trouble = require("trouble")
+M.use_trouble = function()
+  local trouble = require 'trouble'
   -- Check whether we deal with a quickfix or location list buffer, close the window and open the
   -- corresponding Trouble window instead.
   if vim.fn.getloclist(0, { filewinid = 1 }).filewinid ~= 0 then
     vim.defer_fn(function()
-        vim.cmd.lclose()
-        trouble.open("loclist")
+      vim.cmd.lclose()
+      trouble.open 'loclist'
     end, 0)
   else
     vim.defer_fn(function()
-        vim.cmd.cclose()
-        trouble.open("quickfix")
+      vim.cmd.cclose()
+      trouble.open 'quickfix'
     end, 0)
   end
 end
@@ -56,10 +56,23 @@ M.keymaps = function()
   end, { desc = 'references' })
 end
 
-M.setup = function ()
-  vim.api.nvim_create_autocmd("FileType", {
-    pattern = {"qf"},
-    callback = M.use_trouble
+M.setup = function()
+  require('trouble').setup {}
+
+  -- vim.api.nvim_create_autocmd("FileType", {
+  --   pattern = {"qf"},
+  --   callback = M.use_trouble
+  -- })
+
+  vim.api.nvim_create_autocmd('BufRead', {
+    callback = function(ev)
+      if vim.bo[ev.buf].buftype == 'quickfix' then
+        vim.schedule(function()
+          vim.cmd [[cclose]]
+          vim.cmd [[Trouble qflist open]]
+        end)
+      end
+    end,
   })
 end
 

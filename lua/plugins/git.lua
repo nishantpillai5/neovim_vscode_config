@@ -5,6 +5,7 @@ local plugins = {
   'sindrets/diffview.nvim',
   'linrongbin16/gitlinker.nvim',
   'akinsho/git-conflict.nvim',
+  'ThePrimeagen/git-worktree.nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -88,5 +89,22 @@ return {
       vim.keymap.set('n', '[x', '<Plug>(git-conflict-next-conflict)', { desc = "Prev.conflict" })
       vim.keymap.set('n', ']x', '<Plug>(git-conflict-prev-conflict)', { desc = "Next.conflict" })
     end
-  }
+  },
+  {
+    'ThePrimeagen/git-worktree.nvim',
+    cond = conds['ThePrimeagen/git-worktree.nvim'] or false,
+    keys = {
+      { '<leader>fgw', desc = 'Find.Git.worktree_switch' },
+      { '<leader>fgW', desc = 'Find.Git.worktree_create' },
+    },
+    config = function()
+      vim.keymap.set('n', '<leader>fgw', function()
+        require('telescope').extensions.git_worktree.git_worktrees()
+      end, { desc = 'Find.Git.worktree_switch' })
+
+      vim.keymap.set('n', '<leader>fgW', function()
+        require('telescope').extensions.git_worktree.create_git_worktree()
+      end, { desc = 'Find.Git.worktree_create' })
+    end,
+  },
 }

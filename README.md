@@ -46,7 +46,15 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
-- Add buffer unsaved exceptions for overseer buffers
+- set minimum cols for dap views
+- status line disappears for vertical splits, might be dap ui lualine hiding the vertical split status line
+- fzf prefer filename over path
+- quickfix for files doesn't work
+- trouble use widescreen
+- gd prefers buffer over lsp
+- debug config duplicates
+
+### Backlog
 
 - Overseer
   - start a custom terminal for builds with ft set to log and autoscroll off
@@ -56,8 +64,6 @@ This repository contains my Neovim configuration, including parallel settings fo
 - Nvim doesn't exit properly
   - searching in git log fails because not disposing running gdb server properly, 
   - could also be because of plotposition doesn't support keyboard interrupts
-
-### Backlog
 
 - cppcheck linting
 - Leetcode: run file in terminal

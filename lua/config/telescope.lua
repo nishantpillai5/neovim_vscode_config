@@ -99,6 +99,11 @@ end
 
 M.setup = function()
   local action_layout = require 'telescope.actions.layout'
+  local open_with_trouble = require("trouble.sources.telescope").open
+
+  -- Use this to add more results without clearing the trouble list
+  local add_to_trouble = require("trouble.sources.telescope").add
+
   default_opts = {
     follow = true,
     path_display = { filename_first = { reverse_directories = true } },
@@ -108,9 +113,13 @@ M.setup = function()
     mappings = {
       n = {
         ['<M-p>'] = action_layout.toggle_preview,
+        ["<C-q>"] = open_with_trouble,
+        ["<M-q>"] = add_to_trouble
       },
       i = {
         ['<M-p>'] = action_layout.toggle_preview,
+        ["<C-q>"] = open_with_trouble,
+        ["<M-q>"] = add_to_trouble
       },
     },
   }
