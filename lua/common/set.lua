@@ -60,6 +60,3 @@ vim.o.showtabline = 2
 
 -- Disable browser input plugin autostart
 vim.g.nvim_ghost_autostart = 0
-
--- Do not draw macros
-vim.o.lazyredraw = true
