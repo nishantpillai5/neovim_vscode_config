@@ -87,10 +87,16 @@ M.setup = function()
           key = 'r',
         },
         {
+          desc = '󱇳 Scope',
+          group = 'Label',
+          action = require('config.neoscopes').select_scope,
+          key = 'w',
+        },
+        {
           desc = ' Workspace',
           group = 'Label',
           action = 'Telescope projects',
-          key = 'w',
+          key = 'W',
         },
         {
           desc = '󰒲 Lazy',

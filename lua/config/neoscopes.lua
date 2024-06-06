@@ -17,7 +17,7 @@ local replace_telescope_keymaps = function()
 
   vim.keymap.set('n', '<leader>fa', function()
     local bufname = vim.api.nvim_buf_get_name(0)
-    local basename = vim.fn.fnamemodify(bufname, ":t:r"):lower()
+    local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
     require('telescope.builtin').find_files {
       prompt_prefix = '󱇳 > ',
       default_text = basename,
@@ -76,18 +76,21 @@ local refresh_workspace = function()
     vim.notify('Scope selected: 󱇳 ' .. scope_name)
     replace_telescope_keymaps()
     if _G.onSelectWorkspace ~= nil then
-        _G.onSelectWorkspace(scope_name)
+      _G.onSelectWorkspace(scope_name)
     end
   end
 end
 
+M.select_scope = function()
+  local neoscopes = require 'neoscopes'
+  neoscopes.setup { on_scope_selected = refresh_workspace }
+  global_scopes()
+  neoscopes.select()
+end
+
 M.keymaps = function()
   local neoscopes = require 'neoscopes'
-  vim.keymap.set('n', '<leader>ww', function()
-    neoscopes.setup { on_scope_selected = refresh_workspace }
-    global_scopes()
-    neoscopes.select()
-  end, { desc = 'Workspace.select' })
+  vim.keymap.set('n', '<leader>ww', M.select_scope, { desc = 'Workspace.select' })
 
   vim.keymap.set('n', '<leader>wx', function()
     neoscopes.clear()
