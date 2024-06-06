@@ -3,7 +3,7 @@ local M = {}
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zn', function()
     require('noice').cmd 'disable'
-  end, { desc = 'Visual.notifications_disable' })
+  end, { desc = 'Visual.noice_disable' })
 end
 
 M.setup = function()

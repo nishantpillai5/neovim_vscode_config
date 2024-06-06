@@ -4,13 +4,9 @@ local excluded_fts = { 'toggleterm', 'harpoon' }
 
 local unsaved_buffer_alert = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-    if vim.api.nvim_buf_get_option(buf, 'buflisted') then
-      local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
-      if vim.api.nvim_buf_get_option(buf, 'modified') then
-        if not vim.tbl_contains(excluded_fts, ft) then
-          return '󰽂 '
-        end
-      end
+    local ft = vim.bo[buf].filetype
+    if vim.bo[buf].buflisted and vim.bo[buf].modified and not vim.tbl_contains(excluded_fts, ft) then
+      return '󰽂 '
     end
   end
   return ''

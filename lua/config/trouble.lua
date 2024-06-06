@@ -20,16 +20,12 @@ end
 M.keymaps = function()
   local trouble = require 'trouble'
   vim.keymap.set('n', '<leader>tt', function()
-    trouble.toggle()
+    trouble.toggle 'last'
   end, { desc = 'Trouble.toggle' })
 
-  vim.keymap.set('n', '<leader>tw', function()
-    trouble.toggle 'workspace_diagnostics'
-  end, { desc = 'Trouble.workspace_diagnostics' })
-
   vim.keymap.set('n', '<leader>td', function()
-    trouble.toggle 'document_diagnostics'
-  end, { desc = 'Trouble.document_diagnostics' })
+    trouble.toggle 'diagnostics'
+  end, { desc = 'Trouble.diagnostics' })
 
   vim.keymap.set('n', '<leader>tq', function()
     trouble.toggle 'quickfix'
@@ -42,6 +38,14 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>tg', function()
     vim.cmd 'Gitsigns setloclist'
   end, { desc = 'Trouble.git' })
+
+  vim.keymap.set('n', '<leader>tL', function()
+    trouble.toggle 'lsp'
+  end, { desc = 'Trouble.loclist' })
+
+  vim.keymap.set('n', '<leader>tf', function()
+    trouble.toggle 'telescope'
+  end, { desc = 'Trouble.finder' })
 
   vim.keymap.set('n', '<leader>j', function()
     trouble.next { skip_groups = true, jump = true }
