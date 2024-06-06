@@ -8,7 +8,6 @@ local conds = require('common.lazy').get_conds(plugins)
 return {
   {
     'github/copilot.vim',
-    tag = "v1.31.0", -- TODO: update when new version if fixed
     cond = conds['github/copilot.vim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
   },

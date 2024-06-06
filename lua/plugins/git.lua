@@ -11,6 +11,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Git
   {
     'tpope/vim-fugitive',
     cond = conds['tpope/vim-fugitive'] or false,
@@ -24,6 +25,7 @@ return {
       require('config.fugitive').keymaps()
     end,
   },
+  -- Visual Git
   {
     'kdheepak/lazygit.nvim',
     cond = conds['kdheepak/lazygit.nvim'] or false,
@@ -41,6 +43,7 @@ return {
       'LazyGitFilterCurrentFile',
     },
   },
+  -- Diff
   {
     'sindrets/diffview.nvim',
     cond = conds['sindrets/diffview.nvim'] or false,
@@ -52,6 +55,7 @@ return {
       require('config.diffview').keymaps()
     end,
   },
+  -- git sign column
   {
     'lewis6991/gitsigns.nvim',
     cond = conds['lewis6991/gitsigns.nvim'] or false,
@@ -60,6 +64,7 @@ return {
       require('config.gitsigns').setup()
     end,
   },
+  -- open git link
   {
     'linrongbin16/gitlinker.nvim',
     cond = conds['linrongbin16/gitlinker.nvim'] or false,
@@ -70,6 +75,7 @@ return {
     },
     opts = {},
   },
+  -- Conflict
   {
     'akinsho/git-conflict.nvim',
     version = "*",
@@ -90,6 +96,7 @@ return {
       vim.keymap.set('n', ']x', '<Plug>(git-conflict-prev-conflict)', { desc = "Next.conflict" })
     end
   },
+  -- Worktree
   {
     'ThePrimeagen/git-worktree.nvim',
     cond = conds['ThePrimeagen/git-worktree.nvim'] or false,

@@ -16,6 +16,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Colorscheme
   {
     'Mofiqul/vscode.nvim',
     cond = conds['Mofiqul/vscode.nvim'] or false,
@@ -25,6 +26,7 @@ return {
       require('config.theme').setup()
     end,
   },
+  -- Scrollbar
   {
     'petertriho/nvim-scrollbar',
     cond = conds['petertriho/nvim-scrollbar'] or false,
@@ -33,15 +35,18 @@ return {
       require("config.scrollbar").setup()
     end,
   },
+  -- Scrollbar search indicators
   {
     'kevinhwang91/nvim-hlslens',
     cond = conds['kevinhwang91/nvim-hlslens'] or false,
+    event = { 'BufReadPre' },
     config = function()
       require('scrollbar.handlers.search').setup {
         override_lens = function() end,
       }
     end,
   },
+  -- Windows Separator
   {
     'nvim-zh/colorful-winsep.nvim',
     cond = conds['nvim-zh/colorful-winsep.nvim'] or false,
@@ -51,6 +56,7 @@ return {
       require('config.theme').highlightSeparator 'n'
     end,
   },
+  -- Context breadcrumbs
   {
     'utilyre/barbecue.nvim',
     cond = conds['utilyre/barbecue.nvim'] or false,
@@ -69,6 +75,7 @@ return {
       show_dirname = false,
     },
   },
+  -- Dashboard
   {
     'nvimdev/dashboard-nvim',
     cond = conds['nvimdev/dashboard-nvim'] or false,
@@ -79,6 +86,7 @@ return {
       require('config.dashboard').setup()
     end,
   },
+  -- Statusline
   {
     'nvim-lualine/lualine.nvim',
     cond = conds['nvim-lualine/lualine.nvim'] or false,
@@ -109,6 +117,7 @@ return {
       require('config.indent_blankline').setup()
     end,
   },
+  -- Better UI
   {
     'rcarriga/nvim-notify',
     cond = conds['rcarriga/nvim-notify'] or false,

@@ -8,6 +8,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Diagnostic panel
   {
     'folke/trouble.nvim',
     cond = conds['folke/trouble.nvim'] or false,
@@ -30,6 +31,7 @@ return {
       config.keymaps()
     end,
   },
+  -- Terminal panel
   {
     'akinsho/nvim-toggleterm.lua',
     cond = conds['akinsho/nvim-toggleterm.lua'] or false,
@@ -42,6 +44,7 @@ return {
       config.keymaps()
     end,
   },
+  -- Terminal manager
   {
     'ryanmsnyder/toggleterm-manager.nvim',
     cond = conds['ryanmsnyder/toggleterm-manager.nvim'] or false,
@@ -59,6 +62,7 @@ return {
       config.keymaps()
     end,
   },
+  -- Task manager
   {
     'stevearc/overseer.nvim',
     cond = conds['stevearc/overseer.nvim'] or false,

@@ -6,6 +6,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- for installing Luarocks dependencies
   {
     'vhyrro/luarocks.nvim',
     cond = conds['vhyrro/luarocks.nvim'] or false,
@@ -15,6 +16,7 @@ return {
       rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" }
     }
   },
+  -- Test REST APIs on nvim
   {
     "rest-nvim/rest.nvim",
     cond = conds['rest-nvim/rest.nvim'] or false,

@@ -1,21 +1,13 @@
 local plugins = {
-  -- Autoclose
   'windwp/nvim-autopairs',
-  -- Comments
-  'numToStr/Comment.nvim',
   'folke/todo-comments.nvim',
-  -- Tmux like navigation
   'alexghergh/nvim-tmux-navigation',
-  -- Refactor
   'smjonas/inc-rename.nvim',
-  -- "ThePrimeagen/refactoring.nvim", -- WARN: not tested, slow startup
-  -- Misc
   'mbbill/undotree',
   -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
   'Wansmer/treesj',
   'folke/zen-mode.nvim',
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
-  -- 'vladdoster/remember.nvim', --TODO: doesn't work with dap
   'sitiom/nvim-numbertoggle',
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
@@ -33,12 +25,6 @@ return {
     config = true,
   },
   -- Comments
-  {
-    'numToStr/Comment.nvim',
-    cond = conds['numToStr/Comment.nvim'] or false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {},
-  },
   {
     'folke/todo-comments.nvim',
     cond = conds['folke/todo-comments.nvim'] or false,
@@ -91,7 +77,7 @@ return {
     },
     opts = {},
   },
-  -- Misc
+  -- Better undo
   {
     'mbbill/undotree',
     cond = conds['mbbill/undotree'] or false,
@@ -99,6 +85,7 @@ return {
       { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'undotree_toggle' },
     },
   },
+  -- Better yank
   {
     'gbprod/yanky.nvim',
     cond = conds['gbprod/yanky.nvim'] or false,
@@ -118,6 +105,7 @@ return {
       vim.keymap.set('n', '<c-n>', '<Plug>(YankyNextEntry)')
     end,
   },
+  -- Better join
   {
     'Wansmer/treesj',
     cond = conds['Wansmer/treesj'] or false,
@@ -131,6 +119,7 @@ return {
     },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
   },
+  -- Focus window
   {
     'folke/zen-mode.nvim',
     cond = conds['folke/zen-mode.nvim'] or false,
@@ -153,31 +142,13 @@ return {
       { '<leader>zz', ':NoNeckPain<cr>', desc = 'Visual.zen', silent = true },
     },
   },
-  {
-    'vladdoster/remember.nvim',
-    cond = conds['vladdoster/remember.nvim'] or false,
-    event = 'VeryLazy',
-    config = function()
-      vim.g.remember_ignore_filetype = {
-        'gitcommit',
-        'gitrebase',
-        'hgcommit',
-        'svn',
-        'dapui_scopes',
-        'dapui_breakpoints',
-        'dapui_stacks',
-        'dapui_watches',
-        'dap-repl',
-        'dapui_console',
-      }
-      require('remember').setup {}
-    end,
-  },
+  -- Absolute line numbers when not focused
   {
     'sitiom/nvim-numbertoggle',
     cond = conds['sitiom/nvim-numbertoggle'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
   },
+  -- Highlight under cursor
   {
     'RRethy/vim-illuminate',
     cond = conds['RRethy/vim-illuminate'] or false,
@@ -209,6 +180,7 @@ return {
       require('config.ufo').setup()
     end,
   },
+  -- Highlight color info inline
   {
     'norcalli/nvim-colorizer.lua',
     event = 'VeryLazy',

@@ -6,6 +6,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Shortcut helper
   {
     'folke/which-key.nvim',
     cond = conds['folke/which-key.nvim'] or false,
@@ -69,6 +70,7 @@ return {
       }, { mode = 'v' })
     end,
   },
+  -- Find shortcut conflicts
   {
     'tris203/hawtkeys.nvim',
     cond = conds['tris203/hawtkeys.nvim'] or false,

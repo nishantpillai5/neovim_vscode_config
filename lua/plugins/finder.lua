@@ -9,6 +9,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Finder
   {
     'nvim-telescope/telescope.nvim',
     cond = conds['nvim-telescope/telescope.nvim'] or false,
@@ -49,6 +50,7 @@ return {
       config.keymaps()
     end,
   },
+  -- Finder extensions
   {
     'OliverChao/telescope-picker-list.nvim',
     cond = conds['OliverChao/telescope-picker-list.nvim'] or false,
@@ -65,6 +67,7 @@ return {
       config.keymaps()
     end,
   },
+  -- Buffer navigation
   {
     'ThePrimeagen/harpoon',
     cond = conds['ThePrimeagen/harpoon'] or false,
@@ -86,6 +89,7 @@ return {
       config.lualine()
     end,
   },
+  -- Find and replace
   {
     'nvim-pack/nvim-spectre',
     cond = conds['nvim-pack/nvim-spectre'] or false,
@@ -98,6 +102,7 @@ return {
       require('config.spectre').keymaps()
     end,
   },
+  -- Change to alternate file
   {
     'rgroli/other.nvim',
     cond = conds['rgroli/other.nvim'] or false,

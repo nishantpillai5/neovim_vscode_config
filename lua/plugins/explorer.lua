@@ -7,6 +7,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Explorer
   {
     'nvim-neo-tree/neo-tree.nvim',
     cond = conds['nvim-neo-tree/neo-tree.nvim'] or false,
@@ -20,6 +21,7 @@ return {
       require('config.neotree').keymaps()
     end,
   },
+  -- Edit files as buffer
   {
     'stevearc/oil.nvim',
     cond = conds['stevearc/oil.nvim'] or false,
@@ -34,6 +36,7 @@ return {
       }
     end,
   },
+  -- Symbol explorer
   {
     'liuchengxu/vista.vim',
     cond = conds['liuchengxu/vista.vim'] or false,

@@ -1,7 +1,7 @@
 local plugins = {
+  'aymericbeaumet/vim-symlink',
   'smartpde/neoscopes',
   'stevearc/resession.nvim',
-  'aymericbeaumet/vim-symlink',
   'ahmedkhalf/project.nvim',
   'klen/nvim-config-local',
 }
@@ -9,12 +9,14 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Follow symlinks
   {
     'aymericbeaumet/vim-symlink',
     cond = conds['aymericbeaumet/vim-symlink'] or false,
     dependencies = { 'moll/vim-bbye' },
     event = 'VeryLazy',
   },
+  -- Scoped finder
   {
     'smartpde/neoscopes',
     cond = conds['smartpde/neoscopes'] or false,
@@ -29,6 +31,7 @@ return {
       config.lualine()
     end,
   },
+  -- Session manager
   {
     'stevearc/resession.nvim',
     cond = conds['stevearc/resession.nvim'] or false,
@@ -46,6 +49,7 @@ return {
       config.keymaps()
     end,
   },
+  -- Find other projects directories
   {
     'ahmedkhalf/project.nvim',
     cond = conds['ahmedkhalf/project.nvim'] or false,
@@ -58,6 +62,7 @@ return {
       end, { desc = 'Workspace.find_project' })
     end,
   },
+  -- Local config
   {
     'klen/nvim-config-local',
     cond = conds['klen/nvim-config-local'] or false,

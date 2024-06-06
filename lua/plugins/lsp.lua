@@ -1,21 +1,17 @@
 local plugins = {
   'nvim-treesitter/nvim-treesitter',
-  -- Context
   'nvim-treesitter/nvim-treesitter-context',
   'code-biscuits/nvim-biscuits',
-  -- LSP
   'VonHeikemen/lsp-zero.nvim',
-  -- Lint
   'mfussenegger/nvim-lint',
-  -- Fomatter
   'stevearc/conform.nvim',
-  -- Log Highlighting
   'mtdl9/vim-log-highlighting',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
     cond = conds['nvim-treesitter/nvim-treesitter'] or false,
@@ -25,13 +21,14 @@ return {
       require('config.treesitter').setup()
     end,
   },
-  -- Context
+  -- Code context
   {
     'nvim-treesitter/nvim-treesitter-context',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     cond = conds['nvim-treesitter/nvim-treesitter-context'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
   },
+  -- Virtual context brackets
   {
     'code-biscuits/nvim-biscuits',
     cond = conds['code-biscuits/nvim-biscuits'] or false,
@@ -76,7 +73,7 @@ return {
       config.lualine()
     end,
   },
-  -- Lint
+  -- Linter
   {
     'mfussenegger/nvim-lint',
     cond = conds['mfussenegger/nvim-lint'] or false,

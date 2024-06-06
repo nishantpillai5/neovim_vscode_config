@@ -12,6 +12,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
+  -- Hop around text
   {
     'smoka7/hop.nvim',
     cond = conds['smoka7/hop.nvim'] or false,
@@ -25,6 +26,7 @@ return {
       jump_on_sole_occurrence = false,
     },
   },
+  -- Surround
   {
     'kylechui/nvim-surround',
     cond = conds['kylechui/nvim-surround'] or false,
@@ -34,12 +36,14 @@ return {
       require('nvim-surround').setup {}
     end,
   },
+  -- Marks
   {
     'chentoast/marks.nvim',
     cond = conds['chentoast/marks.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     opts = {},
   },
+  -- Change variable case format
   {
     'gregorias/coerce.nvim',
     cond = conds['gregorias/coerce.nvim'] or false,
@@ -49,6 +53,7 @@ return {
     tag = 'v1.0',
     opts = {},
   },
+  -- Better increment
   {
     'monaqa/dial.nvim',
     cond = conds['monaqa/dial.nvim'] or false,
@@ -68,6 +73,7 @@ return {
       }
     end,
   },
+  -- Better macros
   {
     'chrisgrieser/nvim-recorder',
     cond = conds['chrisgrieser/nvim-recorder'] or false,
@@ -83,6 +89,7 @@ return {
       end
     end,
   },
+  -- Inline macros
   {
     'AllenDang/nvim-expand-expr',
     cond = conds['AllenDang/nvim-expand-expr'] or false,
@@ -96,6 +103,7 @@ return {
       },
     },
   },
+  -- Align expressions
   {
     'echasnovski/mini.align',
     cond = conds['echasnovski/mini.align'] or false,
