@@ -6,6 +6,11 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Linux
 
+- `sudo snap install neovim --classic`
+- `sudo snap install zig --classic --beta`
+- `sudo apt install fd-find ripgrep clang gcc make python3 python-is-python3 lua5.1 unzip`
+- [Nodejs](https://nodejs.org/en/download/package-manager)
+
 ### Windows
 
 - set environment variables `HOME`,`DIR_NOTES`,`DIR_NVIM`

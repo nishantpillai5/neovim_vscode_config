@@ -18,7 +18,7 @@ return {
     cond = conds['smoka7/hop.nvim'] or false,
     keys = {
       { 's', '<cmd>HopChar2<cr>', mode = {'n','x'}, desc = 'hop_char' },
-      { 'S', '<cmd>HopNodes<cr>', mode = {'n','x'}, desc = 'hop_node' },
+      -- { 'S', '<cmd>HopNodes<cr>', mode = {'n','x'}, desc = 'hop_node' },
     },
     opts = {
       multi_windows = true,
