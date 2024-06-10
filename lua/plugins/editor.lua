@@ -1,6 +1,5 @@
 local plugins = {
   'windwp/nvim-autopairs',
-  'folke/todo-comments.nvim',
   'alexghergh/nvim-tmux-navigation',
   'smjonas/inc-rename.nvim',
   'mbbill/undotree',
@@ -23,18 +22,6 @@ return {
     cond = conds['windwp/nvim-autopairs'] or false,
     event = 'InsertEnter',
     config = true,
-  },
-  -- Comments
-  {
-    'folke/todo-comments.nvim',
-    cond = conds['folke/todo-comments.nvim'] or false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local config = require 'config.todo_comments'
-      config.setup()
-      config.keymaps()
-    end,
   },
   -- Tmux like navigation
   {

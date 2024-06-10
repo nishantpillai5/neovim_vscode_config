@@ -26,6 +26,7 @@ M.keymaps = function()
       require('telescope').load_extension 'conflicts'
       require('telescope').load_extension 'emoji'
       require('telescope').load_extension 'nerdy'
+      require("telescope").load_extension 'diff'
       -- require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")
       require('telescope').load_extension 'notify'

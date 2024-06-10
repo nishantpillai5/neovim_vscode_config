@@ -55,9 +55,11 @@ return {
     'OliverChao/telescope-picker-list.nvim',
     cond = conds['OliverChao/telescope-picker-list.nvim'] or false,
     dependencies = {
+      'nvim-telescope/telescope.nvim',
       'Snikimonkd/telescope-git-conflicts.nvim',
       'xiyaowong/telescope-emoji.nvim',
-      '2KAbhishek/nerdy.nvim'
+      '2KAbhishek/nerdy.nvim',
+      "jemag/telescope-diff.nvim",
     },
     keys = {
       { '<leader>Fe', desc = 'Find.telescope_extensions' },
