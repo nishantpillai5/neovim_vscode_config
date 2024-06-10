@@ -79,7 +79,7 @@ end
 M.setup = function()
   local dap = require 'dap'
   require('dap.ext.vscode').json_decode = require('overseer.json').decode
-  require('dap.ext.vscode').load_launchjs()
+  -- require('dap.ext.vscode').load_launchjs()
   require('overseer').patch_dap(true)
   require('nvim-dap-virtual-text').setup {
     only_first_definition = false,

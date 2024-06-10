@@ -35,6 +35,9 @@ M.setup = function()
         ['<C-h>'] = false,
         ["v"] = "OpenVsplit",
         ["s"] = "OpenSplit",
+        ["c"] = "RunAction",
+        ["<CR>"] = "OpenVsplit",
+        ["d"] = "Dispose",
       },
     },
   }
