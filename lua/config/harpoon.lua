@@ -9,10 +9,10 @@ M.keymaps = function()
     harpoon.ui:toggle_quick_menu(harpoon:list())
   end, { desc = 'harpoon_list' })
   vim.keymap.set('n', '<C-PageUp>', function()
-    harpoon:list():prev()
+    harpoon:list():prev { ui_nav_wrap = true }
   end, { desc = 'harpoon_prev' })
   vim.keymap.set('n', '<C-PageDown>', function()
-    harpoon:list():next()
+    harpoon:list():next { ui_nav_wrap = true }
   end, { desc = 'harpoon_next' })
 end
 
@@ -20,9 +20,7 @@ M.lualine = function()
   local lualineC = require('lualine').get_config().sections.lualine_c or {}
   table.insert(lualineC, { 'harpoon2' })
 
-  require('lualine').setup {
-    sections = { lualine_c = lualineC },
-  }
+  require('lualine').setup { sections = { lualine_c = lualineC } }
 end
 
 M.setup = function()

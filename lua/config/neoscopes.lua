@@ -111,9 +111,7 @@ M.lualine = function()
   local lualineZ = require('lualine').get_config().tabline.lualine_z or {}
   table.insert(lualineZ, { lualine_status })
 
-  require('lualine').setup {
-    tabline = { lualine_z = lualineZ },
-  }
+  require('lualine').setup { tabline = { lualine_z = lualineZ } }
 end
 
 return M
