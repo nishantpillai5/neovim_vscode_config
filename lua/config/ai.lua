@@ -52,6 +52,9 @@ M.setup = function()
         normal = '<C-r>',
         insert = '<C-r>',
       },
+      complete = {
+        insert = '<S-Tab>'
+      }
     },
   }
 

@@ -67,7 +67,6 @@ return {
     'klen/nvim-config-local',
     cond = conds['klen/nvim-config-local'] or false,
     lazy = false,
-    -- TODO: late sourcing, load after loading all plugins so that lsp can be configured
     config = function()
       require('config-local').setup {
         config_files = { '.vscode/.nvim.lua', '.nvim.lua', '.nvimrc', '.exrc' },
