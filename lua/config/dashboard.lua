@@ -70,7 +70,7 @@ M.setup = function()
     config = {
       header = logo3,
       week_header = { enable = false },
-      packages = { enable = false },
+      packages = { enable = true },
       project = { enable = false, limit = 1 },
       mru = { cwd_only = true, limit = 5 },
       shortcut = {
@@ -83,7 +83,7 @@ M.setup = function()
         {
           desc = ' Recent',
           group = 'Label',
-          action = 'Telescope oldfiles',
+          action = 'Telescope oldfiles only_cwd=true',
           key = 'r',
         },
         {

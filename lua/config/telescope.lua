@@ -19,7 +19,7 @@ M.project_files = function()
 
   if is_inside_work_tree[cwd] then
     local git_opts = default_opts
-    git_opts["show_untracked"] = true
+    git_opts['show_untracked'] = true
     builtin.git_files(git_opts)
   else
     builtin.find_files(default_opts)
@@ -53,7 +53,7 @@ M.keymaps = function()
   )
 
   vim.keymap.set('n', '<leader>f/', function()
-        vim.cmd("Telescope current_buffer_fuzzy_find")
+    vim.cmd 'Telescope current_buffer_fuzzy_find'
   end, { desc = 'Find.local_fuzzy' })
 
   vim.keymap.set('n', '<leader>f?', function()
@@ -74,7 +74,11 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find.symbols' })
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find.marks' })
-  vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = 'Find.recents' })
+
+  vim.keymap.set('n', '<leader>fr', function()
+    builtin.oldfiles { only_cwd = true }
+  end, { desc = 'Find.recents' })
+
   vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'Find.registers' })
   vim.keymap.set('n', '<leader>fh', builtin.buffers, { desc = 'Find.buffers' })
   -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
@@ -94,18 +98,17 @@ M.keymaps = function()
       search_dirs = { '.vscode' },
     }
   end, { desc = 'Workspace.configurations' })
-
 end
 
 M.setup = function()
   local action_layout = require 'telescope.actions.layout'
 
   local open_with_trouble = function(opts)
-    require("trouble.sources.telescope").open(opts)
+    require('trouble.sources.telescope').open(opts)
   end
 
-  local add_to_trouble =function (opts)
-    require("trouble.sources.telescope").add(opts)
+  local add_to_trouble = function(opts)
+    require('trouble.sources.telescope').add(opts)
   end
 
   default_opts = {
@@ -117,13 +120,13 @@ M.setup = function()
     mappings = {
       n = {
         ['<M-p>'] = action_layout.toggle_preview,
-        ["<C-q>"] = open_with_trouble,
-        ["<M-q>"] = add_to_trouble
+        ['<C-q>'] = open_with_trouble,
+        ['<M-q>'] = add_to_trouble,
       },
       i = {
         ['<M-p>'] = action_layout.toggle_preview,
-        ["<C-q>"] = open_with_trouble,
-        ["<M-q>"] = add_to_trouble
+        ['<C-q>'] = open_with_trouble,
+        ['<M-q>'] = add_to_trouble,
       },
     },
   }
