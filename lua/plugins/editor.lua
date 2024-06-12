@@ -127,7 +127,7 @@ return {
       { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'Visual.zen' },
     },
     opts = {
-      window = { width = 0.85 },
+      window = { width = 0.95 },
       plugins = {
         options = { enabled = true, laststatus = 3 },
         gitsigns = { enabled = false },

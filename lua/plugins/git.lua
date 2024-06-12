@@ -55,7 +55,7 @@ return {
       require('config.diffview').keymaps()
     end,
   },
-  -- git sign column
+  -- Git sign column
   {
     'lewis6991/gitsigns.nvim',
     cond = conds['lewis6991/gitsigns.nvim'] or false,
@@ -64,7 +64,7 @@ return {
       require('config.gitsigns').setup()
     end,
   },
-  -- open git link
+  -- Open git link
   {
     'linrongbin16/gitlinker.nvim',
     cond = conds['linrongbin16/gitlinker.nvim'] or false,
@@ -73,28 +73,33 @@ return {
       { '<leader>gy', '<cmd>GitLink blame<cr>', mode = { 'n', 'v' }, desc = 'Git.yank_link' },
       { '<leader>gY', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'Git.open_link' },
     },
-    opts = {},
+    config = function()
+      require('gitlinker').setup {
+        callbacks = {
+          -- TODO: implement
+          ['dev.azure.com'] = function(url_data) end,
+        },
+      }
+    end,
   },
   -- Conflict
   {
     'akinsho/git-conflict.nvim',
-    version = "*",
+    version = '*',
     cond = conds['akinsho/git-conflict.nvim'] or false,
     keys = {
       { '[x', desc = 'Prev.conflict' },
       { ']x', desc = 'Next.conflict' },
     },
-    config = function ()
-      require('git-conflict').setup(
-        {
-          default_mappings = false,
-          default_commands = true,
-          disable_diagnostics = true,
-        }
-      )
-      vim.keymap.set('n', '[x', '<Plug>(git-conflict-next-conflict)', { desc = "Prev.conflict" })
-      vim.keymap.set('n', ']x', '<Plug>(git-conflict-prev-conflict)', { desc = "Next.conflict" })
-    end
+    config = function()
+      require('git-conflict').setup {
+        default_mappings = false,
+        default_commands = true,
+        disable_diagnostics = true,
+      }
+      vim.keymap.set('n', '[x', '<Plug>(git-conflict-next-conflict)', { desc = 'Prev.conflict' })
+      vim.keymap.set('n', ']x', '<Plug>(git-conflict-prev-conflict)', { desc = 'Next.conflict' })
+    end,
   },
   -- Worktree
   {

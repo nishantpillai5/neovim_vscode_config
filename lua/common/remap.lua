@@ -16,7 +16,7 @@ vim.keymap.set('n', '*', '*zz', { silent = true, desc = 'next' })
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'yank_to_clipboard' })
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["+d]], { desc = 'delete_to_clipboard' })
 vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'yank_to_clipboard' })
-vim.keymap.set("x", "<leader>P", [["+dP]], { desc = "paste_from_clipboard" })
+vim.keymap.set('x', '<leader>P', [["+dP]], { desc = 'paste_from_clipboard' })
 vim.keymap.set('x', '<leader>p', [["+p]], { desc = 'paste_from_clipboard' })
 
 -- Line wrap
@@ -35,8 +35,7 @@ vim.keymap.set('n', '<leader>H', ':b#<CR>', { desc = 'buffer_prev', silent = tru
 vim.keymap.set('n', '<leader>ef', vim.cmd.Ex, { desc = 'Explorer.netrw' })
 
 -- Spaceless join
-vim.api.nvim_set_keymap('n', 'J', 'gJ', {noremap = true})
+vim.api.nvim_set_keymap('n', 'J', 'gJ', { noremap = true, desc = 'join_next_line' })
 
 -- Do not draw macros
 vim.keymap.set('n', '<leader>zq', ':set lazyredraw!<cr>', { desc = 'Visual.lazyredraw_toggle' })
-

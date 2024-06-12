@@ -19,6 +19,7 @@ return {
       local wk = require 'which-key'
       wk.register {
         ['<leader>'] = {
+          name = "Shortcuts",
           [';'] = 'Terminal',
           r = 'Refactor',
           l = 'LSP',
@@ -47,17 +48,20 @@ return {
         ['<F2>'] = 'rename',
         ['<F3>'] = 'format(lsp)',
         ['<F4>'] = 'code_action',
-        ['[d'] = 'prev.diagnostic',
-        [']d'] = 'next.diagnostic',
+        [']'] = { name = 'Next' , d = 'Next.diagnostic' },
+        ['['] = { name = 'Prev' , d = 'Prev.diagnostic' },
         K = 'hover',
         s = 'hop_char',
-        S = 'hop_node',
         d = { m = { name = '+Marks' } },
         m = {
           name = '+Marks',
           [';'] = 'Marks.mark_toggle',
           [','] = 'Marks.mark_set',
         },
+        ['<C-h>'] = 'move_focus_left',
+        ['<C-j>'] = 'move_focus_down',
+        ['<C-k>'] = 'move_focus_up',
+        ['<C-l>'] = 'move_focus_right',
       }
 
       wk.register({
