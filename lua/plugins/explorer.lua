@@ -14,7 +14,9 @@ return {
     branch = 'v3.x',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' },
     keys = {
-      { '<leader>et', desc = 'Explorer.neotree' },
+      { '<leader>ee', desc = 'Explorer.neotree' },
+      { '<leader>eb', desc = 'Explorer.neotree_buffers' },
+      { '<leader>eg', desc = 'Explorer.neotree_git' },
     },
     config = function()
       require('config.neotree').setup()
@@ -27,7 +29,7 @@ return {
     cond = conds['stevearc/oil.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
-      { '<leader>ee', '<cmd>Oil<cr>', desc = 'Explorer.oil' },
+      { '<leader>et', '<cmd>Oil<cr>', desc = 'Explorer.oil' },
     },
     config = function()
       require('oil').setup {

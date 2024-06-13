@@ -2,33 +2,25 @@ local M = {}
 
 M.keymaps = function()
   local align = require('common.env').ALIGN
-  vim.keymap.set('n', '<leader>et', function()
+
+  vim.keymap.set('n', '<leader>ee', function()
     vim.cmd('Neotree reveal focus toggle ' .. align)
   end, { desc = 'Explorer.neotree' })
+
+  vim.keymap.set('n', '<leader>eb', function()
+    vim.cmd('Neotree reveal focus buffers toggle ' .. align)
+  end, { desc = 'Explorer.neotree_buffers' })
+
+  vim.keymap.set('n', '<leader>eg', function()
+    vim.cmd('Neotree reveal focus git_status toggle ' .. align)
+  end, { desc = 'Explorer.neotree_git' })
 end
 
 M.setup = function()
   require('neo-tree').setup {
-    window = {
-      mappings = {
-        ['<leader>E'] = function()
-          vim.api.nvim_exec('Neotree focus filesystem left', true)
-        end,
-        ['<leader>B'] = function()
-          vim.api.nvim_exec('Neotree focus buffers left', true)
-        end,
-        ['<leader>G'] = function()
-          vim.api.nvim_exec('Neotree focus git_status left', true)
-        end,
-        ['o'] = 'system_open',
-      },
-    },
+    window = { mappings = { ['o'] = 'system_open' } },
     filesystem = {
-      window = {
-        mappings = {
-          ['o'] = 'system_open',
-        },
-      },
+      window = { mappings = { ['o'] = 'system_open' } },
     },
     commands = {
       system_open = function(state)
@@ -55,8 +47,6 @@ M.setup = function()
           end
           vim.cmd('silent !start explorer ' .. p)
         end
-
-
       end,
     },
   }

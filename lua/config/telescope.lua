@@ -52,13 +52,14 @@ M.keymaps = function()
     { desc = 'Find.Live_grep_global_with_args' }
   )
 
-  vim.keymap.set('n', '<leader>f/', function()
+  vim.keymap.set('n', '<leader>/', function()
     vim.cmd 'Telescope current_buffer_fuzzy_find'
-  end, { desc = 'Find.local_fuzzy' })
+  end, { desc = 'find_local' })
 
-  vim.keymap.set('n', '<leader>f?', function()
+  -- TODO: make centered input
+  vim.keymap.set('n', '<leader>?', function()
     builtin.grep_string { search = vim.fn.input 'Search > ' }
-  end, { desc = 'Find.global' })
+  end, { desc = 'find_global' })
 
   vim.keymap.set('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'

@@ -34,7 +34,6 @@ return {
           q = 'Quarto',
           z = { name = 'Visual', c = 'Context', g = 'Git' },
           g = { name = 'Git', h = 'Hunk' },
-          ['/'] = 'Search',
         },
         g = {
           d = 'definition',

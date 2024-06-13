@@ -52,6 +52,14 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
+- open task side bar when a task is ran
+- gitlinker router azure dev, open commit, open PR
+- lsp virtual disable comes back
+- complete which key descriptions
+- fugitive git blame buffer print useful info
+- edit neotree git mappings, use fugitive mappings
+- cmp doesn't update with new suggestions
+- toggling toggle-term doesn't work when terminal is exited
 - set minimum cols for dap views
 - debug config duplicates
 

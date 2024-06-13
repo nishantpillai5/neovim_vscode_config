@@ -2,7 +2,6 @@ local plugins = {
   'nvim-telescope/telescope.nvim',
   'OliverChao/telescope-picker-list.nvim',
   'ThePrimeagen/harpoon',
-  'nvim-pack/nvim-spectre',
   'rgroli/other.nvim',
 }
 
@@ -25,8 +24,8 @@ return {
       { '<leader>fgz', desc = 'Find.Git.stash' },
       { '<leader>fl', desc = 'Find.Live_grep.global' },
       { '<leader>fL', desc = 'Find.Live_grep.global_with_args' },
-      { '<leader>f/', desc = 'Find.Search.in_buffers' },
-      { '<leader>f?', desc = 'Find.Search.global' },
+      { '<leader>/', desc = 'find_local' },
+      { '<leader>?', desc = 'find_global' },
       { '<leader>fw', desc = 'Find.word' },
       { '<leader>fW', desc = 'Find.whole_word' },
       { '<leader>Ff', desc = 'Find.telescope_builtin' },
@@ -89,19 +88,6 @@ return {
       config.setup()
       config.keymaps()
       config.lualine()
-    end,
-  },
-  -- Find and replace
-  {
-    'nvim-pack/nvim-spectre',
-    cond = conds['nvim-pack/nvim-spectre'] or false,
-    keys = {
-      { '<leader>//', desc = 'Search.local' },
-      { '<leader>/?', desc = 'Search.global' },
-      { '<leader>/w', desc = 'Search.global.word' },
-    },
-    config = function()
-      require('config.spectre').keymaps()
     end,
   },
   -- Change to alternate file

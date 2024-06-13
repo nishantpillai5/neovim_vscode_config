@@ -2,7 +2,6 @@ local plugins = {
   'windwp/nvim-autopairs',
   'folke/todo-comments.nvim',
   'alexghergh/nvim-tmux-navigation',
-  'smjonas/inc-rename.nvim',
   'mbbill/undotree',
   -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
   'Wansmer/treesj',
@@ -54,28 +53,6 @@ return {
       vim.keymap.set('n', '<C-Space>', nvim_tmux_nav.NvimTmuxNavigateLastActive)
       vim.keymap.set('n', '<C-\\>', nvim_tmux_nav.NvimTmuxNavigateNext)
     end,
-  },
-  -- Refactor
-  {
-    'smjonas/inc-rename.nvim',
-    cond = conds['smjonas/inc-rename.nvim'] or false,
-    keys = {
-      { '<leader>rn', desc = 'Refactor.rename' },
-    },
-    config = function()
-      require('inc_rename').setup()
-      vim.keymap.set('n', '<leader>rn', function()
-        return ':IncRename ' .. vim.fn.expand '<cword>'
-      end, { expr = true })
-    end,
-  },
-  {
-    'ThePrimeagen/refactoring.nvim',
-    cond = conds['ThePrimeagen/refactoring.nvim'] or false,
-    keys = {
-      { '<leader>rr', desc = 'Refactor.refactor' },
-    },
-    opts = {},
   },
   -- Better undo
   {

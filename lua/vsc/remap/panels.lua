@@ -11,6 +11,7 @@ map('n', 'gr', 'editor.action.goToReferences')
 
 -- Terminal
 map('n', '<leader>;;', 'workbench.action.terminal.toggleTerminal')
+map('n', '<leader>;f', 'workbench.action.terminal.toggleTerminal')
 map('n', '<leader>f;', 'workbench.action.terminal.toggleTerminal')
 
 -- Build

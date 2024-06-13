@@ -56,6 +56,7 @@ return {
     },
     keys = {
       { '<leader>f;', desc = 'Find.terminal' },
+      { '<leader>;f', desc = 'Terminal.find' },
     },
     config = function()
       local config = require 'config.toggleterm_manager'
