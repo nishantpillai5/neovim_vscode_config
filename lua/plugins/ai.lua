@@ -28,7 +28,7 @@ return {
       { '<leader>cc', mode = 'v', desc = 'Chat.selection' },
     },
     config = function()
-      local config = require 'config.ai'
+      local config = require 'config.copilot_chat'
       config.setup()
       config.keymaps()
     end,
