@@ -83,7 +83,10 @@ end
 
 M.select_scope = function()
   local neoscopes = require 'neoscopes'
-  neoscopes.setup { on_scope_selected = refresh_workspace }
+  neoscopes.setup {
+    neoscopes_config_filename = _G.scope_config,
+    on_scope_selected = refresh_workspace,
+  }
   global_scopes()
   neoscopes.select()
 end
