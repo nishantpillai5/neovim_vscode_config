@@ -88,3 +88,4 @@ This repository contains my Neovim configuration, including parallel settings fo
 - MRU in dashboard in a non git directory, changes cwd
 - Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
 - gd prefers buffer over lsp
+- diff between branch and master, neoscope scope for changed files
