@@ -24,4 +24,10 @@ M.keymaps = function()
   end, { desc = 'Refactor.global_word' })
 end
 
+M.config = function()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

@@ -20,10 +20,7 @@ return {
       { '<leader>gl', desc = 'Git.log' },
       { '<leader>gB', desc = 'Git.blame_buffer' },
     },
-    config = function()
-      require('config.fugitive').setup()
-      require('config.fugitive').keymaps()
-    end,
+    config = require('config.fugitive').config,
   },
   -- Visual Git
   {
@@ -51,18 +48,14 @@ return {
       { '<leader>gd', desc = 'Git.diff' },
       { '<leader>gF', desc = 'Git.file_history' },
     },
-    config = function()
-      require('config.diffview').keymaps()
-    end,
+    config = require('config.diffview').config,
   },
   -- Git sign column
   {
     'lewis6991/gitsigns.nvim',
     cond = conds['lewis6991/gitsigns.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      require('config.gitsigns').setup()
-    end,
+    config = require('config.gitsigns').config,
   },
   -- Open git link
   {
@@ -73,21 +66,7 @@ return {
       { '<leader>gy', '<cmd>GitLink blame<cr>', mode = { 'n', 'v' }, desc = 'Git.yank_link' },
       { '<leader>go', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'Git.open_link' },
     },
-    config = function()
-      require('gitlinker').setup {
-        router = {
-          browse = {
-            ['^dev%.azure%.com'] = 'https://dev.azure.com/'
-              .. '{_A.ORG}/'
-              .. '{_A.REPO}/blob/'
-              .. '{_A.REV}/'
-              .. '{_A.FILE}?plain=1' -- '?plain=1'
-              .. '#L{_A.LSTART}'
-              .. "{(_A.LEND > _A.LSTART and ('-L' .. _A.LEND) or '')}",
-          },
-        },
-      }
-    end,
+    config = require('config.gitlinker').config,
   },
   -- Conflict
   {

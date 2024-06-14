@@ -43,11 +43,7 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       'nvim-telescope/telescope-live-grep-args.nvim',
     },
-    config = function()
-      local config = require 'config.telescope'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.telescope').config,
   },
   -- Finder extensions
   {
@@ -63,10 +59,7 @@ return {
     keys = {
       { '<leader>Fe', desc = 'Find_Telescope.extensions' },
     },
-    config = function()
-      local config = require 'config.telescope_picker'
-      config.keymaps()
-    end,
+    config = require('config.telescope_picker').config,
   },
   -- Buffer navigation
   {
@@ -83,12 +76,7 @@ return {
       { '<C-PageUp>', desc = 'harpoon_prev' },
       { '<C-PageDown>', desc = 'harpoon_next' },
     },
-    config = function()
-      local config = require 'config.harpoon'
-      config.setup()
-      config.keymaps()
-      config.lualine()
-    end,
+    config = require('config.harpoon').config,
   },
   -- Change to alternate file
   {

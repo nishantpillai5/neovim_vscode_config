@@ -164,4 +164,11 @@ M.setup = function()
   require('telescope').load_extension 'fzf'
 end
 
+M.config = function()
+  M.setup()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

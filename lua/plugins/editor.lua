@@ -29,11 +29,7 @@ return {
     cond = conds['folke/todo-comments.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local config = require 'config.todo_comments'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.todo_comments').config,
   },
   -- Tmux like navigation
   {
@@ -153,9 +149,7 @@ return {
     init = function()
       require('config.ufo').init()
     end,
-    config = function()
-      require('config.ufo').setup()
-    end,
+    config = require('config.ufo').config,
   },
   -- Highlight color info inline
   {

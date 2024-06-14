@@ -37,4 +37,10 @@ M.keymaps = function()
   end, { desc = 'Find_Telescope.extensions' })
 end
 
+M.config = function()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

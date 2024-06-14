@@ -114,4 +114,11 @@ M.lualine = function()
   require('lualine').setup { tabline = { lualine_z = lualineZ } }
 end
 
+M.config = function()
+  M.keymaps()
+  M.lualine()
+end
+
+-- M.config()
+
 return M

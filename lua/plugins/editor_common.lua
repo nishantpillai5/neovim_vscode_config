@@ -81,13 +81,7 @@ return {
       { 'q', desc = 'macro_record' },
       { 'Q', desc = 'macro_play' },
     },
-    config = function()
-      local config = require 'config.recorder'
-      config.setup()
-      if not vim.g.vscode then
-        config.lualine()
-      end
-    end,
+    config = require('config.recorder').config,
   },
   -- Inline macros
   {

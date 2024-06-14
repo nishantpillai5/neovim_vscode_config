@@ -17,4 +17,11 @@ M.setup = function()
   require('dapui').setup()
 end
 
+M.config = function ()
+  M.setup()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

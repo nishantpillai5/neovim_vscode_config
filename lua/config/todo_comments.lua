@@ -26,4 +26,12 @@ M.setup = function()
     keywords = { NISH = { icon = '󰬕', color = 'info' } },
   }
 end
+
+M.config = function()
+  M.setup()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

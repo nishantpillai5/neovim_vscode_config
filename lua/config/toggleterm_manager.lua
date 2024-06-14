@@ -25,4 +25,11 @@ M.setup = function()
   }
 end
 
+M.config = function()
+  M.setup()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

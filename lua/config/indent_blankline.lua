@@ -34,4 +34,10 @@ M.setup = function()
   hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
 end
 
+M.config = function()
+  M.setup()
+end
+
+-- M.config()
+
 return M

@@ -5,6 +5,7 @@ local plugins = {
 }
 
 local conds = require('common.lazy').get_conds(plugins)
+local HOME = require('common.env').HOME
 
 return {
   {
@@ -33,11 +34,7 @@ return {
       { '<leader>fbf', desc = 'Find.Breakpoint.frames' },
       { '<leader>zb', '<cmd>DapVirualTextToggle<cr>', desc = 'Visual.debug_text_toggle' },
     },
-    config = function()
-      local config = require 'config.dap'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.dap').config,
   },
   {
     'rcarriga/nvim-dap-ui',
@@ -49,10 +46,7 @@ return {
       -- { "<leader>bK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
       -- { "<leader>b?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
     },
-    config = function()
-      require('config.dap_ui').setup()
-      require('config.dap_ui').keymaps()
-    end,
+    config = require('config.dap_ui').config,
   },
   {
     'mfussenegger/nvim-dap-python',
@@ -61,7 +55,7 @@ return {
     -- FIXME: load it on f5 on a python file
     -- event = 'BufEnter *.py',
     config = function()
-      require('dap-python').setup(os.getenv 'HOME' .. '/.virtualenvs/debugpy/Scripts/python')
+      require('dap-python').setup(HOME .. '/.virtualenvs/debugpy/Scripts/python')
     end,
   },
 }

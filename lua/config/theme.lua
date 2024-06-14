@@ -44,4 +44,10 @@ M.setup = function()
   vim.cmd.colorscheme 'vscode'
 end
 
+M.config = function()
+  M.setup()
+end
+
+-- M.config()
+
 return M

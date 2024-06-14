@@ -18,9 +18,7 @@ return {
     cond = conds['nvim-treesitter/nvim-treesitter'] or false,
     event = 'VeryLazy',
     build = ':TSUpdate',
-    config = function()
-      require('config.treesitter').setup()
-    end,
+    config = require('config.treesitter').config,
   },
   -- Code context
   {
@@ -67,12 +65,7 @@ return {
       'L3MON4D3/LuaSnip',
       'folke/neodev.nvim',
     },
-    config = function()
-      local config = require 'config.lsp_zero'
-      config.setup()
-      config.keymaps()
-      config.lualine()
-    end,
+    config = require('config.lsp_zero').config,
   },
   -- Linter
   {
@@ -80,11 +73,7 @@ return {
     cond = conds['mfussenegger/nvim-lint'] or false,
     event = 'VeryLazy',
     dependencies = { 'VonHeikemen/lsp-zero.nvim' },
-    config = function()
-      local config = require 'config.lint'
-      config.setup()
-      config.lualine()
-    end,
+    config = require('config.lint').config,
   },
   -- Formatter
   {
@@ -97,11 +86,7 @@ return {
     keys = {
       { '<leader>ls', mode = { 'n', 'v' }, desc = 'LSP.format' },
     },
-    config = function()
-      local config = require 'config.formatter'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.conform').config,
   },
   -- Diagnostic panel
   {
@@ -121,11 +106,7 @@ return {
       { '<leader>k', desc = 'trouble_prev' },
       { 'gr', desc = 'references' },
     },
-    config = function()
-      local config = require 'config.trouble'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.trouble').config,
   },
   -- Log Highlighting
   {

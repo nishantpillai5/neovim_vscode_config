@@ -25,4 +25,11 @@ M.setup = function()
   require('mason-conform').setup()
 end
 
+M.config = function()
+  M.setup()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

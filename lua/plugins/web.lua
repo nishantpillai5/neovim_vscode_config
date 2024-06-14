@@ -22,10 +22,6 @@ return {
     cond = conds['rest-nvim/rest.nvim'] or false,
     ft = 'http',
     dependencies = { 'luarocks.nvim' },
-    config = function()
-      local config = require 'config.rest'
-      config.setup()
-      config.lualine()
-    end,
+    config = require('config.rest').config,
   },
 }

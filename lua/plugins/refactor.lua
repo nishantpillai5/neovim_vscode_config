@@ -38,8 +38,6 @@ return {
       { '<leader>r?', desc = 'Refactor.global' },
       { '<leader>rw', desc = 'Refactor.global_word' },
     },
-    config = function()
-      require('config.spectre').keymaps()
-    end,
+    config = require('config.spectre').config,
   },
 }

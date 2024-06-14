@@ -22,18 +22,14 @@ return {
     cond = conds['Mofiqul/vscode.nvim'] or false,
     lazy = false,
     priority = 1000,
-    config = function()
-      require('config.theme').setup()
-    end,
+    config = require('config.theme').config,
   },
   -- Scrollbar
   {
     'petertriho/nvim-scrollbar',
     cond = conds['petertriho/nvim-scrollbar'] or false,
     event = { 'BufReadPre' },
-    config = function()
-      require('config.scrollbar').setup()
-    end,
+    config = require('config.scrollbar').config,
   },
   -- Scrollbar search indicators
   {
@@ -82,9 +78,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
     priority = 900,
-    config = function()
-      require('config.dashboard').setup()
-    end,
+    config = require('config.dashboard').config,
   },
   -- Statusline
   {
@@ -92,9 +86,7 @@ return {
     cond = conds['nvim-lualine/lualine.nvim'] or false,
     event = 'VeryLazy',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = function()
-      require('config.lualine').setup()
-    end,
+    config = require('config.lualine').config,
   },
   {
     'letieu/harpoon-lualine',
@@ -113,9 +105,7 @@ return {
     cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'HiPhish/rainbow-delimiters.nvim' },
-    config = function()
-      require('config.indent_blankline').setup()
-    end,
+    config = require('config.indent_blankline').config,
   },
   -- Better UI
   {
@@ -141,11 +131,7 @@ return {
       'rcarriga/nvim-notify',
       'VonHeikemen/lsp-zero.nvim',
     },
-    config = function()
-      local config = require 'config.noice'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.noice').config,
   },
   {
     'stevearc/dressing.nvim',

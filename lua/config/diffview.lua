@@ -25,4 +25,10 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>gF', history_toggle, { desc = 'Git.file_history' })
 end
 
+M.config = function()
+  M.keymaps()
+end
+
+-- M.config()
+
 return M

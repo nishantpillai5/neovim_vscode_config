@@ -28,4 +28,12 @@ M.setup = function()
   harpoon:setup()
 end
 
+M.config = function()
+  M.setup()
+  M.keymaps()
+  M.lualine()
+end
+
+-- M.config()
+
 return M

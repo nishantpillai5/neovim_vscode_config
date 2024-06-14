@@ -165,4 +165,12 @@ M.lualine = function()
   require('lualine').setup { sections = { lualine_x = lualineX } }
 end
 
+M.config = function()
+  M.setup()
+  M.keymaps()
+  M.lualine()
+end
+
+-- M.config()
+
 return M

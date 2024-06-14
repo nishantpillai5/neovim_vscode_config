@@ -18,10 +18,7 @@ return {
       { '<leader>eb', desc = 'Explorer.neotree_buffers' },
       { '<leader>eg', desc = 'Explorer.neotree_git' },
     },
-    config = function()
-      require('config.neotree').setup()
-      require('config.neotree').keymaps()
-    end,
+    config = require('config.neotree').config,
   },
   -- Edit files as buffer
   {
@@ -45,8 +42,6 @@ return {
     keys = {
       { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'Explorer.symbols' },
     },
-    config = function()
-      require('config.vista').setup()
-    end,
+    config = require('config.vista').config,
   },
 }

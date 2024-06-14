@@ -11,4 +11,11 @@ M.setup = function()
   require('rest-nvim').setup()
 end
 
+M.config = function()
+  M.setup()
+  M.lualine()
+end
+
+-- M.config()
+
 return M

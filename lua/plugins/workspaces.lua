@@ -25,11 +25,7 @@ return {
       { '<leader>wx', desc = 'Workspace.close' },
     },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
-    config = function()
-      local config = require 'config.neoscopes'
-      config.keymaps()
-      config.lualine()
-    end,
+    config = require('config.neoscopes').config,
   },
   -- Session manager
   {
@@ -43,11 +39,7 @@ return {
       { '<leader>wd', desc = 'Workspace.delete_session' },
     },
 
-    config = function()
-      local config = require 'config.session'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.session').config,
   },
   -- Find other projects directories
   {

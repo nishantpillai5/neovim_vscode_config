@@ -14,11 +14,7 @@ return {
     keys = {
       { '<leader>;;', desc = 'Terminal.toggle' },
     },
-    config = function()
-      local config = require 'config.toggleterm'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.toggleterm').config,
   },
   -- Manager
   {
@@ -33,11 +29,7 @@ return {
       { '<leader>f;', desc = 'Find.terminal' },
       { '<leader>;f', desc = 'Terminal.find' },
     },
-    config = function()
-      local config = require 'config.toggleterm_manager'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require('config.toggleterm_manager').config,
   },
   -- Tasks
   {
@@ -56,11 +48,6 @@ return {
       { '<leader>or', desc = 'Tasks.run' },
       { '<leader>ob', desc = 'Tasks.build' },
     },
-    config = function()
-      local config = require 'config.overseer'
-      config.setup()
-      config.keymaps()
-      config.lualine()
-    end,
+    config = require('config.overseer').config,
   },
 }

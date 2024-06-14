@@ -63,4 +63,10 @@ M.setup = function()
   }
 end
 
+M.config = function()
+  M.setup()
+end
+
+-- M.config()
+
 return M

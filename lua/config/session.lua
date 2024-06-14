@@ -14,11 +14,6 @@ local workspace_session = function(action)
   end
 end
 
-M.setup = function()
-  local recession = require 'resession'
-  recession.setup {}
-end
-
 M.keymaps = function()
   local recession = require 'resession'
   vim.keymap.set('n', '<leader>ws', function()
@@ -41,5 +36,17 @@ M.keymaps = function()
     recession.delete()
   end, { desc = 'Workspace.delete_session' })
 end
+
+M.setup = function()
+  local recession = require 'resession'
+  recession.setup {}
+end
+
+M.config = function()
+  M.setup()
+  M.keymaps()
+end
+
+-- M.config()
 
 return M

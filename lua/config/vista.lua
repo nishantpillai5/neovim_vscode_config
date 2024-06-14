@@ -13,4 +13,10 @@ M.setup = function()
   vim.g.vista_sidebar_width = 40
 end
 
+M.config = function()
+  M.setup()
+end
+
+-- M.config()
+
 return M

@@ -27,10 +27,6 @@ return {
       { '<leader>cb', desc = 'Chat.buffer' },
       { '<leader>cc', mode = 'v', desc = 'Chat.selection' },
     },
-    config = function()
-      local config = require 'config.copilot_chat'
-      config.setup()
-      config.keymaps()
-    end,
+    config = require 'config.copilot_chat'.config,
   },
 }
