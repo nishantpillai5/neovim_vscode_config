@@ -31,6 +31,11 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>:', builtin.commands, { desc = 'find_commands' })
   vim.keymap.set('n', '<leader>ff', M.project_files, { desc = 'Find.git_files' })
 
+  vim.keymap.set('n', '<leader>fi', function()
+    local prefix = require('common.env').GITIGNORE_PREFIX
+    builtin.find_files { default_text = prefix, no_ignore = true }
+  end, { desc = 'Find.ignored' })
+
   vim.keymap.set('n', '<leader>fa', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
