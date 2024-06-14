@@ -52,7 +52,13 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
+- dap lualine messing up horizontal splits
+- disable notifications for noice notify
 - cyclic trouble next/prev
+- nvim local config for each machine, e.g. store align env variable without making an actual env var
+- python lsp gotodefinition stops working sometimes
+- ^M line endings with trouble preview
+- don't load python dap at BufEnter, load it when needed
 - centered global search noice
 - open task side bar when a task is ran
 - gitlinker router azure dev, open commit, open PR
@@ -72,11 +78,9 @@ This repository contains my Neovim configuration, including parallel settings fo
   - termimals with process exited don't toggle
   - lualine, show branch and commit of running build
   - Custom problem matcher
-
 - Nvim doesn't exit properly
   - searching in git log fails because not disposing running gdb server properly, 
   - could also be because of plotposition doesn't support keyboard interrupts
-
 - cppcheck linting
 - Leetcode: run file in terminal
 - Save harpoon menu on save workspace
