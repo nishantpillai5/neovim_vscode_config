@@ -16,7 +16,7 @@ return {
     keys = {
       { '<leader>:', desc = 'find_commands' },
       { '<leader>ff', desc = 'Find.git_files' },
-      { '<leader>fi', desc = 'Find.ignored' },
+      { '<leader>fF', desc = 'Find.ignored_files' },
       { '<leader>fa', desc = 'Find.alternate' },
       { '<leader>fA', desc = 'Find.all' },
       { '<leader>fgs', desc = 'Find.Git.status' },
