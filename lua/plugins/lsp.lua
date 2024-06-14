@@ -5,6 +5,7 @@ local plugins = {
   'VonHeikemen/lsp-zero.nvim',
   'mfussenegger/nvim-lint',
   'stevearc/conform.nvim',
+  'folke/trouble.nvim',
   'mtdl9/vim-log-highlighting',
 }
 
@@ -85,7 +86,7 @@ return {
       config.lualine()
     end,
   },
-  -- Fomatter
+  -- Formatter
   {
     'zapling/mason-conform.nvim',
     cond = conds['stevearc/conform.nvim'] or false,
@@ -98,6 +99,30 @@ return {
     },
     config = function()
       local config = require 'config.formatter'
+      config.setup()
+      config.keymaps()
+    end,
+  },
+  -- Diagnostic panel
+  {
+    'folke/trouble.nvim',
+    cond = conds['folke/trouble.nvim'] or false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    ft = { 'qf' },
+    keys = {
+      { '<leader>tt', desc = 'Trouble.toggle' },
+      { '<leader>td', desc = 'Trouble.diagnostics' },
+      { '<leader>tq', desc = 'Trouble.quickfix' },
+      { '<leader>tl', desc = 'Trouble.loclist' },
+      { '<leader>tg', desc = 'Trouble.git' },
+      { '<leader>tL', desc = 'Trouble.lsp' },
+      { '<leader>tf', desc = 'Trouble.finder' },
+      { '<leader>j', desc = 'trouble_next' },
+      { '<leader>k', desc = 'trouble_prev' },
+      { 'gr', desc = 'references' },
+    },
+    config = function()
+      local config = require 'config.trouble'
       config.setup()
       config.keymaps()
     end,

@@ -6,7 +6,7 @@ require 'vsc.remap.finder'
 require 'vsc.remap.refactor'
 require 'vsc.remap.git'
 require 'vsc.remap.lsp'
-require 'vsc.remap.panels'
+require 'vsc.remap.terminal'
 require 'vsc.remap.debug'
 
 require 'vsc.plugins'

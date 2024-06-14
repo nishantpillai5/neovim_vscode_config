@@ -1,5 +1,4 @@
 local plugins = {
-  'folke/trouble.nvim',
   'akinsho/nvim-toggleterm.lua',
   'ryanmsnyder/toggleterm-manager.nvim',
   'stevearc/overseer.nvim',
@@ -8,31 +7,7 @@ local plugins = {
 local conds = require('common.lazy').get_conds(plugins)
 
 return {
-  -- Diagnostic panel
-  {
-    'folke/trouble.nvim',
-    cond = conds['folke/trouble.nvim'] or false,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    ft = { 'qf' },
-    keys = {
-      { '<leader>tt', desc = 'Trouble.toggle' },
-      { '<leader>td', desc = 'Trouble.diagnostics' },
-      { '<leader>tq', desc = 'Trouble.quickfix' },
-      { '<leader>tl', desc = 'Trouble.loclist' },
-      { '<leader>tg', desc = 'Trouble.git' },
-      { '<leader>tL', desc = 'Trouble.lsp' },
-      { '<leader>tf', desc = 'Trouble.finder' },
-      { '<leader>j', desc = 'trouble_next' },
-      { '<leader>k', desc = 'trouble_prev' },
-      { 'gr', desc = 'references' },
-    },
-    config = function()
-      local config = require 'config.trouble'
-      config.setup()
-      config.keymaps()
-    end,
-  },
-  -- Terminal panel
+  -- Panel
   {
     'akinsho/nvim-toggleterm.lua',
     cond = conds['akinsho/nvim-toggleterm.lua'] or false,
@@ -45,7 +20,7 @@ return {
       config.keymaps()
     end,
   },
-  -- Terminal manager
+  -- Manager
   {
     'ryanmsnyder/toggleterm-manager.nvim',
     cond = conds['ryanmsnyder/toggleterm-manager.nvim'] or false,
@@ -64,7 +39,7 @@ return {
       config.keymaps()
     end,
   },
-  -- Task manager
+  -- Tasks
   {
     'stevearc/overseer.nvim',
     cond = conds['stevearc/overseer.nvim'] or false,
