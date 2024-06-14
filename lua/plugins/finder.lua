@@ -22,13 +22,13 @@ return {
       { '<leader>fgb', desc = 'Find.Git.branch' },
       { '<leader>fgc', desc = 'Find.Git.commits' },
       { '<leader>fgz', desc = 'Find.Git.stash' },
-      { '<leader>fl', desc = 'Find.Live_grep.global' },
-      { '<leader>fL', desc = 'Find.Live_grep.global_with_args' },
+      { '<leader>fl', desc = 'Find.live_grep.global' },
+      { '<leader>fL', desc = 'Find.live_grep.global_with_args' },
       { '<leader>/', desc = 'find_local' },
       { '<leader>?', desc = 'find_global' },
       { '<leader>fw', desc = 'Find.word' },
       { '<leader>fW', desc = 'Find.whole_word' },
-      { '<leader>Ff', desc = 'Find.telescope_builtin' },
+      { '<leader>Ff', desc = 'Find_Telescope.builtin' },
       { '<leader>fs', desc = 'Find.symbols' },
       { '<leader>fm', desc = 'Find.marks' },
       { '<leader>fr', desc = 'Find.recents' },
@@ -61,7 +61,7 @@ return {
       "jemag/telescope-diff.nvim",
     },
     keys = {
-      { '<leader>Fe', desc = 'Find.telescope_extensions' },
+      { '<leader>Fe', desc = 'Find_Telescope.extensions' },
     },
     config = function()
       local config = require 'config.telescope_picker'

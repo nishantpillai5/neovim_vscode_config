@@ -49,11 +49,11 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>j', function()
     trouble.next { skip_groups = true, jump = true }
-  end, { desc = 'Next.trouble' })
+  end, { desc = 'trouble_next' })
 
   vim.keymap.set('n', '<leader>k', function()
     trouble.prev { skip_groups = true, jump = true }
-  end, { desc = 'Prev.trouble' })
+  end, { desc = 'trouble_prev' })
 
   vim.keymap.set('n', 'gr', function()
     trouble.toggle 'lsp_references'

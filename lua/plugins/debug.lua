@@ -1,7 +1,7 @@
 local plugins = {
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
-  'mfussenegger/nvim-dap-python',
+  -- 'mfussenegger/nvim-dap-python',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -58,7 +58,8 @@ return {
     'mfussenegger/nvim-dap-python',
     cond = conds['mfussenegger/nvim-dap-python'] or false,
     dependencies = { 'mfussenegger/nvim-dap' },
-    event = 'BufEnter *.py',
+    -- FIXME: load it on f5 on a python file
+    -- event = 'BufEnter *.py',
     config = function()
       require('dap-python').setup(os.getenv 'HOME' .. '/.virtualenvs/debugpy/Scripts/python')
     end,

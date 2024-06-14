@@ -1,5 +1,6 @@
 local M = {}
 
+-- FIXME: lsp virtual text comes back after insert mode
 local diagnostics_active = true
 local toggle_diagnostics = function()
   diagnostics_active = not diagnostics_active

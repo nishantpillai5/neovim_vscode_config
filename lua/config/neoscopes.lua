@@ -32,7 +32,7 @@ local replace_telescope_keymaps = function()
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
-  end, { desc = 'Find.Live_grep_global(workspace)' })
+  end, { desc = 'Find.live_grep_global(workspace)' })
   -- TODO: remap fL forworkspaces
 
   vim.keymap.set('n', '<leader>f?', function()

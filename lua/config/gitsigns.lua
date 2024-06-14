@@ -51,7 +51,7 @@ M.setup = function()
       map('n', '<leader>ghb', function()
         gitsigns.blame_line { full = true }
       end, { desc = 'Git.Hunk.blame' })
-      map('n', '<leader>gD', gitsigns.diffthis, { desc = 'Git.diff_file' })
+      map('n', '<leader>gf', gitsigns.diffthis, { desc = 'Git.file_diff' })
       map('n', '<leader>zgd', gitsigns.toggle_deleted, { desc = 'Visual.Git.deleted' })
       map('n', '<leader>zgb', gitsigns.toggle_current_line_blame, { desc = 'Visual.Git.blame' })
 

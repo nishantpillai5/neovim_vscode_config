@@ -44,12 +44,12 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'Find.Git.commits' })
   vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'Find.Git.stash' })
 
-  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'Find.Live_grep_global' })
+  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'Find.live_grep_global' })
   vim.keymap.set(
     'n',
     '<leader>fL',
     "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
-    { desc = 'Find.Live_grep_global_with_args' }
+    { desc = 'Find.live_grep_global_with_args' }
   )
 
   vim.keymap.set('n', '<leader>/', function()
@@ -71,7 +71,7 @@ M.keymaps = function()
     builtin.grep_string { search = word }
   end, { desc = 'Find.whole_word' })
 
-  vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'Find.telescope_builtin' })
+  vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'Find_Telescope.builtin' })
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find.symbols' })
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find.marks' })

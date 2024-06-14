@@ -74,10 +74,12 @@ return {
       'stevearc/dressing.nvim',
     },
     keys = {
-      { '<leader>oo', desc = 'Tasks.run' },
+      { '<leader>oo', desc = 'Tasks.run_from_list' },
       { '<leader>eo', desc = 'Explorer.tasks' },
       { '<leader>ot', desc = 'Tasks.toggle' },
-      { '<leader>ol', desc = 'Tasks.restart_last' },
+      { '<leader>ol', desc = 'Tasks.last_restart' },
+      { '<leader>or', desc = 'Tasks.run' },
+      { '<leader>ob', desc = 'Tasks.build' },
     },
     config = function()
       local config = require 'config.overseer'

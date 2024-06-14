@@ -52,9 +52,11 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
+- cyclic trouble next/prev
+- centered global search noice
 - open task side bar when a task is ran
 - gitlinker router azure dev, open commit, open PR
-- lsp virtual disable comes back
+- lsp virtual text comes back after insert mode
 - complete which key descriptions
 - fugitive git blame buffer print useful info
 - edit neotree git mappings, use fugitive mappings

@@ -4,7 +4,7 @@ M.keymaps = function()
   local align = require('common.env').ALIGN
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
-  end, { desc = 'Tasks.run' })
+  end, { desc = 'Tasks.run_from_list' })
 
   vim.keymap.set('n', '<leader>eo', function()
     vim.cmd('OverseerToggle ' .. align)
@@ -16,7 +16,23 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>ol', function()
     vim.cmd 'OverseerRestartLast'
-  end, { desc = 'Tasks.restart_last' })
+  end, { desc = 'Tasks.last_restart' })
+
+  vim.keymap.set('n', '<leader>or', function()
+    if _G.run_cmd == nil then
+      vim.notify('Run Command not set', vim.log.levels.ERROR)
+    else
+      vim.cmd('OverseerRunCmd ' .. _G.run_cmd)
+    end
+  end, { desc = 'Tasks.run' })
+
+  vim.keymap.set('n', '<leader>ob', function()
+    if _G.build_cmd == nil then
+      vim.notify('Build Command not set', vim.log.levels.ERROR)
+    else
+      vim.cmd('OverseerRunCmd ' .. _G.build_cmd)
+    end
+  end, { desc = 'Tasks.build' })
 end
 
 M.setup = function()
@@ -35,11 +51,12 @@ M.setup = function()
         ['<C-j>'] = false,
         ['<C-k>'] = false,
         ['<C-l>'] = false,
-        ["v"] = "OpenVsplit",
-        ["s"] = "OpenSplit",
-        ["c"] = "RunAction",
-        ["<CR>"] = "OpenVsplit",
-        ["d"] = "Dispose",
+        ['v'] = 'OpenVsplit',
+        ['s'] = 'OpenSplit',
+        ['c'] = 'RunAction',
+        ['<CR>'] = 'OpenVsplit',
+        ['d'] = 'Dispose',
+        -- ['x'] = 'Stop', --FIXME: doesn't work
       },
     },
   }

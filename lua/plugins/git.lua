@@ -48,8 +48,8 @@ return {
     'sindrets/diffview.nvim',
     cond = conds['sindrets/diffview.nvim'] or false,
     keys = {
-      { '<leader>gd', desc = 'Git.diff_global' },
-      { '<leader>gf', desc = 'Git.file_history' },
+      { '<leader>gd', desc = 'Git.diff' },
+      { '<leader>gF', desc = 'Git.file_history' },
     },
     config = function()
       require('config.diffview').keymaps()
@@ -71,13 +71,20 @@ return {
     cmd = 'GitLink',
     keys = {
       { '<leader>gy', '<cmd>GitLink blame<cr>', mode = { 'n', 'v' }, desc = 'Git.yank_link' },
-      { '<leader>gY', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'Git.open_link' },
+      { '<leader>go', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'Git.open_link' },
     },
     config = function()
       require('gitlinker').setup {
-        callbacks = {
-          -- TODO: implement
-          ['dev.azure.com'] = function(url_data) end,
+        router = {
+          browse = {
+            ['^dev%.azure%.com'] = 'https://dev.azure.com/'
+              .. '{_A.ORG}/'
+              .. '{_A.REPO}/blob/'
+              .. '{_A.REV}/'
+              .. '{_A.FILE}?plain=1' -- '?plain=1'
+              .. '#L{_A.LSTART}'
+              .. "{(_A.LEND > _A.LSTART and ('-L' .. _A.LEND) or '')}",
+          },
         },
       }
     end,

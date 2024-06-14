@@ -21,8 +21,8 @@ local history_toggle = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>gd', diffview_toggle, { desc = 'Git.diff_global' })
-  vim.keymap.set('n', '<leader>gf', history_toggle, { desc = 'Git.file_history' })
+  vim.keymap.set('n', '<leader>gd', diffview_toggle, { desc = 'Git.diff' })
+  vim.keymap.set('n', '<leader>gF', history_toggle, { desc = 'Git.file_history' })
 end
 
 return M

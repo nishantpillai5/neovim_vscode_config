@@ -21,8 +21,8 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, desc = 'exit_termin
 
 -- Yank filepaths
 local names = {
-    eyp = { expand = "%", desc = "Explorer.Yank.relative_path" },
-    eyP = { expand = "%:p", desc = "Explorer.Yank.absolute_path" },
+    eyy = { expand = "%:p", desc = "Explorer.Yank.absolute_path" },
+    eyY = { expand = "%", desc = "Explorer.Yank.relative_path" },
     eyf = { expand = "%:t", desc = "Explorer.Yank.filename" },
     eyF = { expand = "%:p:h", desc = "Explorer.Yank.folder" },
 }
