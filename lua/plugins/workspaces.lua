@@ -38,8 +38,7 @@ return {
       { '<leader>wL', desc = 'Workspace.load_manual_session' },
       { '<leader>wd', desc = 'Workspace.delete_session' },
     },
-
-    config = require('config.session').config,
+    config = require('config.recession').config,
   },
   -- Find other projects directories
   {
