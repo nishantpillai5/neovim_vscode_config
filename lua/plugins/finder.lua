@@ -58,7 +58,7 @@ return {
       'Snikimonkd/telescope-git-conflicts.nvim',
       'xiyaowong/telescope-emoji.nvim',
       '2KAbhishek/nerdy.nvim',
-      "jemag/telescope-diff.nvim",
+      'jemag/telescope-diff.nvim',
     },
     keys = {
       { '<leader>Fe', desc = 'Find_Telescope.extensions' },
@@ -95,7 +95,7 @@ return {
     'rgroli/other.nvim',
     cond = conds['rgroli/other.nvim'] or false,
     keys = {
-      { '<leader>A', "<cmd>Other<cr>", desc = 'alternate_file' },
+      { '<leader>A', '<cmd>Other<cr>', desc = 'alternate_file' },
     },
     config = function()
       require('other-nvim').setup {

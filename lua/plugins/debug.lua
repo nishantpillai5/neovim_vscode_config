@@ -31,7 +31,7 @@ return {
       { '<leader>fbc', desc = 'Find.Breakpoint.configurations' },
       { '<leader>fbv', desc = 'Find.Breakpoint.variables' },
       { '<leader>fbf', desc = 'Find.Breakpoint.frames' },
-      { "<leader>zb","<cmd>DapVirualTextToggle<cr>", desc = "Visual.debug_text_toggle" },
+      { '<leader>zb', '<cmd>DapVirualTextToggle<cr>', desc = 'Visual.debug_text_toggle' },
     },
     config = function()
       local config = require 'config.dap'

@@ -23,18 +23,18 @@ return {
     event = 'InsertEnter',
     config = true,
   },
-    -- Todo comments
-    {
-      'folke/todo-comments.nvim',
-      cond = conds['folke/todo-comments.nvim'] or false,
-      event = { 'BufReadPre', 'BufNewFile' },
-      dependencies = { 'nvim-lua/plenary.nvim' },
-      config = function()
-        local config = require 'config.todo_comments'
-        config.setup()
-        config.keymaps()
-      end,
-    },  
+  -- Todo comments
+  {
+    'folke/todo-comments.nvim',
+    cond = conds['folke/todo-comments.nvim'] or false,
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local config = require 'config.todo_comments'
+      config.setup()
+      config.keymaps()
+    end,
+  },
   -- Tmux like navigation
   {
     'alexghergh/nvim-tmux-navigation',

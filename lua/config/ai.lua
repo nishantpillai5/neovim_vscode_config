@@ -53,8 +53,8 @@ M.setup = function()
         insert = '<C-r>',
       },
       complete = {
-        insert = '<S-Tab>'
-      }
+        insert = '<S-Tab>',
+      },
     },
   }
 

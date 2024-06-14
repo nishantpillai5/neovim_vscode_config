@@ -12,12 +12,12 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>ft', function()
     -- TODO: load telescope if not loaded
-    vim.cmd("TodoTelescope")
+    vim.cmd 'TodoTelescope'
   end, { desc = 'Find.todos' })
 
   vim.keymap.set('n', '<leader>tT', function()
     -- TODO: load trouble if not loaded
-    vim.cmd("TodoTrouble")
+    vim.cmd 'TodoTrouble'
   end, { desc = 'Trouble.todos' })
 end
 

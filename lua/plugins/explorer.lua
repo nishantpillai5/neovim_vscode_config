@@ -46,7 +46,7 @@ return {
       { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'Explorer.symbols' },
     },
     config = function()
-      require("config.vista").setup()
+      require('config.vista').setup()
     end,
   },
 }

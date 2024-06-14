@@ -52,7 +52,7 @@ M.keymaps = function()
   end, { desc = 'Next.breakpoint' })
 
   vim.keymap.set('n', '<leader>zb', function()
-    require("nvim-dap-virtual-text").toggle()
+    require('nvim-dap-virtual-text').toggle()
     -- require("nvim-dap-virtual-text.virtual_text").clear_virtual_text()
   end, { desc = 'Visual.debug_text_toggle' })
 

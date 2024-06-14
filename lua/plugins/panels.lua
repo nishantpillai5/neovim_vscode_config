@@ -13,7 +13,7 @@ return {
     'folke/trouble.nvim',
     cond = conds['folke/trouble.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    ft = {"qf"},
+    ft = { 'qf' },
     keys = {
       { '<leader>tt', desc = 'Trouble.toggle' },
       { '<leader>td', desc = 'Trouble.diagnostics' },

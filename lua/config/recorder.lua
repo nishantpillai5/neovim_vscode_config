@@ -14,7 +14,7 @@ M.setup = function()
     lessNotifications = true,
     logLevel = vim.log.levels.DEBUG,
     mapping = {
-      addBreakPoint = '|NX2J0CdIE',
+      addBreakPoint = '|NX2J0CdIE', -- adding false doesn't work
     },
   }
 end

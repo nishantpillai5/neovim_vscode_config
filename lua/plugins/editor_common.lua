@@ -17,7 +17,7 @@ return {
     'smoka7/hop.nvim',
     cond = conds['smoka7/hop.nvim'] or false,
     keys = {
-      { 's', '<cmd>HopChar2<cr>', mode = {'n','x'}, desc = 'hop_char' },
+      { 's', '<cmd>HopChar2<cr>', mode = { 'n', 'x' }, desc = 'hop_char' },
       -- { 'S', '<cmd>HopNodes<cr>', mode = {'n','x'}, desc = 'hop_node' },
     },
     opts = {
@@ -107,8 +107,8 @@ return {
   {
     'echasnovski/mini.align',
     cond = conds['echasnovski/mini.align'] or false,
-    config = function ()
-       require('mini.align').setup()
-    end
-  }
+    config = function()
+      require('mini.align').setup()
+    end,
+  },
 }

@@ -20,13 +20,13 @@ M.keymaps = function()
 
       local rest_status, _ = pcall(require, 'rest-nvim')
       if rest_status then
-        require("telescope").load_extension("rest")
+        require('telescope').load_extension 'rest'
       end
 
       require('telescope').load_extension 'conflicts'
       require('telescope').load_extension 'emoji'
       require('telescope').load_extension 'nerdy'
-      require("telescope").load_extension 'diff'
+      require('telescope').load_extension 'diff'
       -- require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")
       require('telescope').load_extension 'notify'

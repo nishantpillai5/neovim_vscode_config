@@ -7,8 +7,8 @@ M.lualine = function()
   require('lualine').setup { tabline = { lualine_x = lualineX } }
 end
 
-M.setup = function ()
-  require("rest-nvim").setup()
+M.setup = function()
+  require('rest-nvim').setup()
 end
 
 return M

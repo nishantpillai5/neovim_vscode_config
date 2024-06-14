@@ -21,17 +21,17 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, desc = 'exit_termin
 
 -- Yank filepaths
 local names = {
-    eyy = { expand = "%:p", desc = "Explorer.Yank.absolute_path" },
-    eyY = { expand = "%", desc = "Explorer.Yank.relative_path" },
-    eyf = { expand = "%:t", desc = "Explorer.Yank.filename" },
-    eyF = { expand = "%:p:h", desc = "Explorer.Yank.folder" },
+  eyy = { expand = '%:p', desc = 'Explorer.Yank.absolute_path' },
+  eyY = { expand = '%', desc = 'Explorer.Yank.relative_path' },
+  eyf = { expand = '%:t', desc = 'Explorer.Yank.filename' },
+  eyF = { expand = '%:p:h', desc = 'Explorer.Yank.folder' },
 }
 
 for key, lookup in pairs(names) do
-    vim.keymap.set("n", "<leader>" .. key, function()
-        local value = vim.fn.expand(lookup.expand)
-        vim.fn.setreg("*", value)
-        vim.fn.setreg("+", value)
-        vim.notify("Yanked: "..value)
-    end, { desc = lookup.desc })
+  vim.keymap.set('n', '<leader>' .. key, function()
+    local value = vim.fn.expand(lookup.expand)
+    vim.fn.setreg('*', value)
+    vim.fn.setreg('+', value)
+    vim.notify('Yanked: ' .. value)
+  end, { desc = lookup.desc })
 end

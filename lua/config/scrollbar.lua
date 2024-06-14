@@ -1,6 +1,6 @@
 local M = {}
 
-M.setup = function ()
+M.setup = function()
   local c = require('vscode.colors').get_colors()
   require('scrollbar').setup {
     handle = {

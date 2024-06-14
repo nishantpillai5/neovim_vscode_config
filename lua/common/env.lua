@@ -2,9 +2,9 @@ local M = {}
 
 local os_from_env = os.getenv 'OS'
 if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
-    M.OS = 'windows'
+  M.OS = 'windows'
 else
-    M.OS = 'linux'
+  M.OS = 'linux'
 end
 
 M.HOME = os.getenv 'HOME'

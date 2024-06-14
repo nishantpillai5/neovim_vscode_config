@@ -32,7 +32,7 @@ return {
     cond = conds['petertriho/nvim-scrollbar'] or false,
     event = { 'BufReadPre' },
     config = function()
-      require("config.scrollbar").setup()
+      require('config.scrollbar').setup()
     end,
   },
   -- Scrollbar search indicators

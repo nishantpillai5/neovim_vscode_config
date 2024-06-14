@@ -81,7 +81,7 @@ return {
     cond = conds['mpas/marp-nvim'] or false,
     cmd = { 'MarpToggle', 'MarpStatus' },
     config = function()
-      vim.notify('Marp is enabled')
+      vim.notify 'Marp is enabled'
       require('marp').setup {
         port = 8080,
         wait_for_response_timeout = 30,

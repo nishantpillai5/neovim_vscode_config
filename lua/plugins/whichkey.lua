@@ -19,12 +19,12 @@ return {
       local wk = require 'which-key'
       wk.register {
         ['<leader>'] = {
-          name = "Shortcuts",
+          name = 'Shortcuts',
           [';'] = 'Terminal',
           r = 'Refactor',
           l = 'LSP',
           c = { name = 'Chat' },
-          f = { name = 'Find', g = 'Git', b='Breakpoint' },
+          f = { name = 'Find', g = 'Git', b = 'Breakpoint' },
           F = { name = 'Find_Telescope' },
           e = { name = 'Explorer', y = 'Yank' },
           w = 'Workspace',
@@ -48,8 +48,8 @@ return {
         ['<F2>'] = 'rename',
         ['<F3>'] = 'format(lsp)',
         ['<F4>'] = 'code_action',
-        [']'] = { name = 'Next' , d = 'Next.diagnostic' },
-        ['['] = { name = 'Prev' , d = 'Prev.diagnostic' },
+        [']'] = { name = 'Next', d = 'Next.diagnostic' },
+        ['['] = { name = 'Prev', d = 'Prev.diagnostic' },
         K = 'hover',
         s = 'hop_char',
         d = { m = { name = '+Marks' } },
@@ -79,19 +79,19 @@ return {
     'tris203/hawtkeys.nvim',
     cond = conds['tris203/hawtkeys.nvim'] or false,
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
-    cmd = { "Hawtkeys", "HawtkeysAll", "HawtkeysDupes" },
+    cmd = { 'Hawtkeys', 'HawtkeysAll', 'HawtkeysDupes' },
     opts = {
       customMaps = {
-        ["wk.register"] = {
-            method = "which_key",
+        ['wk.register'] = {
+          method = 'which_key',
         },
-        ["lazy"] = {
-            method = "lazy",
+        ['lazy'] = {
+          method = 'lazy',
         },
       },
     },
-  }
+  },
 }
