@@ -52,24 +52,24 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
-- dap lualine messing up horizontal splits
+- centered global search noice
+- sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
 - disable notifications for noice notify
 - cyclic trouble next/prev
+- open task side bar when a task is ran
+- lsp virtual text comes back after insert mode
 - nvim local config for each machine, e.g. store align env variable without making an actual env var
 - python lsp gotodefinition stops working sometimes
 - ^M line endings with trouble preview
 - don't load python dap at BufEnter, load it when needed
-- centered global search noice
-- open task side bar when a task is ran
 - gitlinker router azure dev, open commit, open PR
-- lsp virtual text comes back after insert mode
-- complete which key descriptions
 - fugitive git blame buffer print useful info
 - edit neotree git mappings, use fugitive mappings
 - cmp doesn't update with new suggestions
 - toggling toggle-term doesn't work when terminal is exited
 - set minimum cols for dap views
 - debug config duplicates
+- complete which key descriptions
 
 ### Backlog
 
@@ -88,4 +88,3 @@ This repository contains my Neovim configuration, including parallel settings fo
 - MRU in dashboard in a non git directory, changes cwd
 - Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
 - gd prefers buffer over lsp
-- diff between branch and master, neoscope scope for changed files

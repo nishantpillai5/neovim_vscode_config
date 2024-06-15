@@ -1,11 +1,12 @@
 local M = {}
 
-local excluded_fts = { 'toggleterm', 'harpoon' }
+local EXCLUDED_FTS = { 'toggleterm', 'harpoon' }
+local GLOBAL_STATUS = false
 
 local unsaved_buffer_alert = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     local ft = vim.bo[buf].filetype
-    if vim.bo[buf].buflisted and vim.bo[buf].modified and not vim.tbl_contains(excluded_fts, ft) then
+    if vim.bo[buf].buflisted and vim.bo[buf].modified and not vim.tbl_contains(EXCLUDED_FTS, ft) then
       return '󰽂 '
     end
   end
@@ -20,11 +21,17 @@ local function readonly_alert()
   return ''
 end
 
+M.init = function()
+  if GLOBAL_STATUS then
+    vim.opt.laststatus = 3
+  end
+end
+
 M.setup = function()
   require('lualine').setup {
     extensions = { 'nvim-dap-ui' },
     options = {
-      globalstatus = false,
+      globalstatus = GLOBAL_STATUS,
       theme = 'vscode',
       section_separators = { left = '', right = ' ' },
       component_separators = { left = '', right = '' },

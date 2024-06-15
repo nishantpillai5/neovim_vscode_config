@@ -86,6 +86,7 @@ return {
     cond = conds['nvim-lualine/lualine.nvim'] or false,
     event = 'VeryLazy',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    init = require('config.lualine').init,
     config = require('config.lualine').config,
   },
   {
