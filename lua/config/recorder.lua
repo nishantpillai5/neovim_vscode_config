@@ -2,8 +2,8 @@ local M = {}
 
 M.lualine = function()
   local lualineY = require('lualine').get_config().tabline.lualine_y or {}
-  table.insert(lualineY, { require('recorder').recordingStatus })
-  table.insert(lualineY, { require('recorder').displaySlots })
+  table.insert(lualineY, 1, { require('recorder').recordingStatus })
+  table.insert(lualineY, 1,{ require('recorder').displaySlots })
 
   require('lualine').setup { tabline = { lualine_y = lualineY } }
 end

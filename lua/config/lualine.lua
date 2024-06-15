@@ -46,17 +46,17 @@ M.setup = function()
         'mode',
         'selectioncount',
       },
-      lualine_b = {
-        'diff',
+      lualine_b = {},
+      lualine_c = {
+        { 'filename', path = 0 },
       },
-      -- lualine_c = {},
       lualine_x = {
         'diagnostics',
       },
       lualine_y = {
+        'filetype',
         'encoding',
         'fileformat',
-        'filetype',
       },
       lualine_z = {
         'progress',
@@ -69,6 +69,7 @@ M.setup = function()
         { 'filename', path = 1 },
       },
       lualine_c = {
+        'diff',
         readonly_alert,
         unsaved_buffer_alert,
       },

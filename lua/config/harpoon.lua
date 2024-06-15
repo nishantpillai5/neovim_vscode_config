@@ -17,10 +17,10 @@ M.keymaps = function()
 end
 
 M.lualine = function()
-  local lualineC = require('lualine').get_config().sections.lualine_c or {}
-  table.insert(lualineC, { 'harpoon2' })
+  local lualineB = require('lualine').get_config().sections.lualine_b or {}
+  table.insert(lualineB, { 'harpoon2' })
 
-  require('lualine').setup { sections = { lualine_c = lualineC } }
+  require('lualine').setup { sections = { lualine_b = lualineB } }
 end
 
 M.setup = function()

@@ -1,5 +1,15 @@
 local M = {}
 
+M.lualine = function()
+  local lualineY = require('lualine').get_config().tabline.lualine_y or {}
+  table.insert(lualineY, {
+     require("noice").api.statusline.command.get,
+     cond = require("noice").api.statusline.command.has,
+   })
+
+  require('lualine').setup { tabline = { lualine_y = lualineY } }
+end
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zn', function()
     require('noice').cmd 'disable'
@@ -27,6 +37,7 @@ end
 M.config = function()
   M.setup()
   M.keymaps()
+  M.lualine()
 end
 
 -- M.config()
