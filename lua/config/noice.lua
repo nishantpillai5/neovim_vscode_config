@@ -27,9 +27,32 @@ M.setup = function()
     },
     presets = {
       bottom_search = false,
+      command_palette = false,
       long_message_to_split = true,
       inc_rename = true,
       lsp_doc_border = true,
+    },
+    views = {
+      cmdline_popup = {
+        border = {
+          style = "single",
+          padding = { 0, 1 },
+        },
+        filter_options = {},
+        win_options = {
+          winhighlight = "NormalFloat:NormalFloat",
+        },
+      },
+    },
+    routes = {
+      {
+        filter = {
+          event = "msg_show",
+          kind = "",
+          find = "written",
+        },
+        opts = { skip = true },
+      },
     },
   }
 end

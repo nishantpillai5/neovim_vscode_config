@@ -118,7 +118,7 @@ return {
         stages = 'static',
         timeout = 2000,
         render = 'compact',
-        top_down = false,
+        top_down = true,
       }
       vim.notify = require 'notify'
     end,

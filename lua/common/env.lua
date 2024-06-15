@@ -12,7 +12,7 @@ M.DIR_NOTES = os.getenv 'DIR_NOTES'
 M.DIR_NVIM = os.getenv 'DIR_NVIM'
 M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
 
-M.ALIGN = 'left'
-M.GLOBAL_STATUS = false
+M.ALIGN = 'right'
+M.GLOBAL_STATUS = true
 
 return M

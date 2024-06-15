@@ -29,7 +29,11 @@ M.keymaps = function()
       require('telescope').load_extension 'diff'
       -- require("telescope").load_extension("yank_history")
       -- require("telescope").load_extension("refactoring")
-      require('telescope').load_extension 'notify'
+
+      local notify_status, _ = pcall(require, 'notify')
+      if notify_status then
+        require('telescope').load_extension 'notify'
+      end
       require('telescope').load_extension 'picker_list'
       _G.loaded_telescope_extension = true
     end
