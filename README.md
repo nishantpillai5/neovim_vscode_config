@@ -58,7 +58,6 @@ This repository contains my Neovim configuration, including parallel settings fo
 - cyclic trouble next/prev
 - open task side bar when a task is ran
 - lsp virtual text comes back after insert mode
-- nvim local config for each machine, e.g. store align env variable without making an actual env var
 - python lsp gotodefinition stops working sometimes
 - ^M line endings with trouble preview
 - don't load python dap at BufEnter, load it when needed

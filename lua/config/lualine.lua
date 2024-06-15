@@ -1,7 +1,7 @@
 local M = {}
 
 local EXCLUDED_FTS = { 'toggleterm', 'harpoon' }
-local GLOBAL_STATUS = false
+local GLOBAL_STATUS = require('common.env').GLOBAL_STATUS
 
 local unsaved_buffer_alert = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
