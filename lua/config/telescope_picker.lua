@@ -34,6 +34,12 @@ M.keymaps = function()
       if notify_status then
         require('telescope').load_extension 'notify'
       end
+
+      local noice_status, _ = pcall(require, 'noice')
+      if noice_status then
+        require('telescope').load_extension 'noice'
+      end
+
       require('telescope').load_extension 'picker_list'
       _G.loaded_telescope_extension = true
     end

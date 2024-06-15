@@ -52,16 +52,11 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Current
 
-- centered global search noice
-- sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
-- disable notifications for noice notify
-- cyclic trouble next/prev
-- open task side bar when a task is ran
 - lsp virtual text comes back after insert mode
-- python lsp gotodefinition stops working sometimes
+- gitlinker router azure dev, open commit, open PR
+- open task side bar when a task is ran
 - ^M line endings with trouble preview
 - don't load python dap at BufEnter, load it when needed
-- gitlinker router azure dev, open commit, open PR
 - fugitive git blame buffer print useful info
 - edit neotree git mappings, use fugitive mappings
 - cmp doesn't update with new suggestions
@@ -69,6 +64,10 @@ This repository contains my Neovim configuration, including parallel settings fo
 - set minimum cols for dap views
 - debug config duplicates
 - complete which key descriptions
+- python lsp gotodefinition stops working sometimes
+- cyclic trouble next/prev
+- sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
+- disable notifications for noice notify
 
 ### Backlog
 
