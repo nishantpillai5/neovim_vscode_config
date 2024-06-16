@@ -33,5 +33,10 @@
         "key": "ctrl+k",
         "when": "problemFocus",
         "command": "workbench.action.focusFirstEditorGroup"
-      }
+      },
+      // If you don't want to switch to neovim start away, you can uncomment out the following keybinding
+      // {
+      //   "key": "ctrl+g",
+      //   "command": "whichkey.show"
+      // }
 ]
