@@ -7,46 +7,28 @@ This repository contains my Neovim configuration, including parallel settings fo
 ### Linux
 
 - `sudo snap install neovim --classic`
-- `sudo snap install zig --classic --beta`
 - `sudo apt install fd-find ripgrep clang gcc make python3 python-is-python3 lua5.1 unzip`
 - [Nodejs](https://nodejs.org/en/download/package-manager)
 
 ### Windows
 
-- set environment variables `HOME`,`DIR_NOTES`,`DIR_NVIM`
-- `choco install git zig fd ripgrep`
+- `choco install git fd ripgrep`
 - `choco install nodejs-lts --version="20.13.0"`
 - `python -m pip install --user --upgrade pynvim`
 - [fzf-native](https://github.com/nvim-telescope/telescope-fzf-native.nvim) dependencies
 - [ctags](https://github.com/universal-ctags/ctags)
 - [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
-- Lua 5.1 or LuaJIT installed & available in your system's PATH
+- Lua 5.1 or LuaJIT ( should be available in system's PATH )
+- MinGW (gcc and make should be available in system's PATH)
 
-## VSCode
+## VSCode Configuration
 
-### Settings
-
-`settings.json`
-
-```jsonc
-{
-  // Neovim
-  "vscode-neovim.compositeKeys": {
-    "jk": {
-      "command": "vscode-neovim.escape"
-    }
-  },
-  "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
-  }
-}
-```
-
-### Extensions
-
-- [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
-- [fuzzy-search (jacobdufault.fuzzy-search)](https://marketplace.visualstudio.com/items?itemName=jacobdufault.fuzzy-search)
-- [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+- Use the json files from `vscode_config` to configure VSCode settings
+- Install following extensions:
+  - [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
+  - [fuzzy-search (jacobdufault.fuzzy-search)](https://marketplace.visualstudio.com/items?itemName=jacobdufault.fuzzy-search)
+  - [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+  - [Whichkey (vspacecode.whichkey)](https://marketplace.visualstudio.com/items?itemName=vspacecode.whichkey)
 
 ## Todo
 
@@ -54,6 +36,7 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 - lsp virtual text comes back after insert mode
 - gitlinker router azure dev, open commit, open PR
+- add vsc whichkey config json and complete key descriptions
 - open task side bar when a task is ran
 - ^M line endings with trouble preview
 - don't load python dap at BufEnter, load it when needed
@@ -63,7 +46,6 @@ This repository contains my Neovim configuration, including parallel settings fo
 - toggling toggle-term doesn't work when terminal is exited
 - set minimum cols for dap views
 - debug config duplicates
-- complete which key descriptions
 - python lsp gotodefinition stops working sometimes
 - cyclic trouble next/prev
 - sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)

@@ -1,0 +1,37 @@
+[
+    {
+        "key": "h",
+        "when": "!inputFocus && filesExplorerFocus",
+        "command": "list.collapse"
+      },
+      {
+        "key": "j",
+        "when": "!inputFocus && listFocus",
+        "command": "list.focusDown"
+      },
+      {
+        "key": "k",
+        "when": "!inputFocus && listFocus",
+        "command": "list.focusUp"
+      },
+      {
+        "key": "l",
+        "when": "!inputFocus && filesExplorerFocus",
+        "command": "list.select"
+      },
+      {
+        "key": "ctrl+l",
+        "when": "!inputFocus && filesExplorerFocus",
+        "command": "workbench.action.focusFirstEditorGroup"
+      },
+      {
+        "key": "ctrl+k",
+        "when": "!editorTextFocus",
+        "command": "workbench.action.focusFirstEditorGroup"
+      },
+      {
+        "key": "ctrl+k",
+        "when": "problemFocus",
+        "command": "workbench.action.focusFirstEditorGroup"
+      }
+]

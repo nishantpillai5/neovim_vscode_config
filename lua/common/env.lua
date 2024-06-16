@@ -7,6 +7,7 @@ else
   M.OS = 'linux'
 end
 
+-- TODO: add defaults
 M.HOME = os.getenv 'HOME'
 M.DIR_NOTES = os.getenv 'DIR_NOTES'
 M.DIR_NVIM = os.getenv 'DIR_NVIM'

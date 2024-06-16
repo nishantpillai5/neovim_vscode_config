@@ -1,0 +1,32 @@
+{
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.compositeKeys": {
+        "jk": {
+            "command": "vscode-neovim.escape"
+        }
+    },
+    "whichkey.delay": 200,
+    "whichkey.bindings": [
+        {
+            "key": "s",
+            "name": "save",
+            "type": "command",
+            "command": "workbench.action.files.save"
+        },
+        {
+            "key": "f",
+            "name": "+File",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "f",
+                    "name": "Find.files",
+                    "type": "command",
+                    "command": "workbench.action.quickOpen"
+                }
+            ]
+        },
+    ]
+}

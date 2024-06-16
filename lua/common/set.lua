@@ -60,3 +60,7 @@ vim.o.showtabline = 2
 
 -- Disable browser input plugin autostart
 vim.g.nvim_ghost_autostart = 0
+
+-- cmd in statusline
+vim.o.showcmd = true
+vim.o.showcmdloc = "last"
