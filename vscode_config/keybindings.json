@@ -1,42 +1,60 @@
 [
-    {
-        "key": "h",
-        "when": "!inputFocus && filesExplorerFocus",
-        "command": "list.collapse"
-      },
-      {
-        "key": "j",
-        "when": "!inputFocus && listFocus",
-        "command": "list.focusDown"
-      },
-      {
-        "key": "k",
-        "when": "!inputFocus && listFocus",
-        "command": "list.focusUp"
-      },
-      {
-        "key": "l",
-        "when": "!inputFocus && filesExplorerFocus",
-        "command": "list.select"
-      },
-      {
-        "key": "ctrl+l",
-        "when": "!inputFocus && filesExplorerFocus",
-        "command": "workbench.action.focusFirstEditorGroup"
-      },
-      {
-        "key": "ctrl+k",
-        "when": "!editorTextFocus",
-        "command": "workbench.action.focusFirstEditorGroup"
-      },
-      {
-        "key": "ctrl+k",
-        "when": "problemFocus",
-        "command": "workbench.action.focusFirstEditorGroup"
-      },
-      // If you don't want to switch to neovim start away, you can uncomment out the following keybinding
-      // {
-      //   "key": "ctrl+g",
-      //   "command": "whichkey.show"
-      // }
+  // Explorer hjkl
+  {
+    "key": "h",
+    "when": "!inputFocus && filesExplorerFocus",
+    "command": "list.collapse"
+  },
+  {
+    "key": "j",
+    "when": "!inputFocus && listFocus",
+    "command": "list.focusDown"
+  },
+  {
+    "key": "k",
+    "when": "!inputFocus && listFocus",
+    "command": "list.focusUp"
+  },
+  {
+    "key": "l",
+    "when": "!inputFocus && filesExplorerFocus",
+    "command": "list.select"
+  },
+  // Tmux like navigation
+  {
+    "key": "ctrl+l",
+    "when": "sideBarFocus",
+    "command": "workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "ctrl+h",
+    "when": "filesExplorerFocus || sideBarFocus",
+    "command": "workbench.action.focusActivityBar"
+  },
+  {
+    "key": "ctrl+k",
+    "when": "!editorTextFocus",
+    "command": "workbench.action.focusFirstEditorGroup"
+  },
+  {
+    "key": "ctrl+l",
+    "when": "!inputFocus && !sideBarFocus && !editorTextFocus",
+    "command": "workbench.action.focusSideBar"
+  },
+  // Cycle through panels like tabs
+  {
+    "key": "ctrl+pageDown",
+    "when": "panelFocus",
+    "command": "workbench.action.nextPanelView"
+  },
+  {
+    "key": "ctrl+pageUp",
+    "when": "panelFocus",
+    "command": "workbench.action.previousPanelView"
+  }
+  // To use whichkey without neovim, use this keybinding
+  // {
+  //   "key": "ctrl+g",
+  //   "command": "whichkey.show"
+  // }
 ]
