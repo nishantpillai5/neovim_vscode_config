@@ -10,23 +10,389 @@
     "whichkey.delay": 200,
     "whichkey.bindings": [
         {
+            "key": "x",
+            "name": "quit",
+            "type": "command",
+            "command": "workbench.action.closeActiveEditor"
+        },
+        {
+            "key": "X",
+            "name": "quit_force",
+            "type": "command",
+            "command": "workbench.action.closeActiveEditor"
+        },
+        {
             "key": "s",
             "name": "save",
             "type": "command",
             "command": "workbench.action.files.save"
         },
         {
+            "key": "S",
+            "name": "save_quit",
+            "type": "command",
+            "command": "workbench.action.files.save"
+        },
+        {
+            "key": "H",
+            "name": "buffer_prev",
+            "type": "command",
+            "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+        },
+        {
+            "key": "z",
+            "name": "+Visual",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "v",
+                    "name": "vertical_split",
+                    "type": "command",
+                    "command": "workbench.action.splitEditorRight"
+                },
+                {
+                    "key": "s",
+                    "name": "horizontal_split",
+                    "type": "command",
+                    "command": "workbench.action.splitEditorDown"
+                },
+                {
+                    "key": "n",
+                    "name": "notifications_toggle",
+                    "type": "command",
+                    "command": "notifications.toggleDoNotDisturbMode"
+                },
+                {
+                    "key": "z",
+                    "name": "zen",
+                    "type": "command",
+                    "command": "workbench.action.toggleMaximizeEditorGroup"
+                },
+                {
+                    "key": "g",
+                    "name": "+Git",
+                    "type": "bindings",
+                    "command": [
+                        {
+                            "key": "b",
+                            "name": "blame",
+                            "type": "command",
+                            "command": "gitlens.toggleLineBlame"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "b",
+            "name": "+Breakpoint",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "b",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "editor.debug.action.toggleBreakpoint"
+                },
+                {
+                    "key": "t",
+                    "name": "toggle_view",
+                    "type": "command",
+                    "command": "workbench.view.debug"
+                }
+            ]
+        },
+        {
+            "key": "[",
+            "name": "+Prev",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "b",
+                    "name": "breakpoint",
+                    "type": "command",
+                    "command": "editor.debug.action.goToPreviousBreakpoint"
+                },
+                {
+                    "key": "t",
+                    "name": "todo",
+                    "type": "command",
+                    "command": "todo-tree.goToPrevious"
+                },
+                {
+                    "key": "c",
+                    "name": "chunk",
+                    "type": "command",
+                    "command": "workbench.action.editor.previousChange"
+                }
+            ]
+        },
+        {
+            "key": "]",
+            "name": "+Next",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "b",
+                    "name": "breakpoint",
+                    "type": "command",
+                    "command": "editor.debug.action.goToNextBreakpoint"
+                },
+                {
+                    "key": "t",
+                    "name": "todo",
+                    "type": "command",
+                    "command": "todo-tree.goToNext"
+                },
+                {
+                    "key": "c",
+                    "name": "chunk",
+                    "type": "command",
+                    "command": "workbench.action.editor.nextChange"
+                }
+            ]
+        },
+        {
+            "key": "e",
+            "name": "+Explorer",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "e",
+                    "name": "tree",
+                    "type": "command",
+                    "command": "editor.debug.action.toggleBreakpoint"
+                },
+                {
+                    "key": "t",
+                    "name": "tree",
+                    "type": "command",
+                    "command": "workbench.view.debug"
+                },
+                {
+                    "key": "s",
+                    "name": "symbols",
+                    "type": "command",
+                    "command": "outline.focus"
+                }
+            ]
+        },
+        {
+            "key": ":",
+            "name": "find_commands",
+            "type": "command",
+            "command": "workbench.action.showCommands"
+        },
+        {
             "key": "f",
-            "name": "+File",
+            "name": "+Find",
             "type": "bindings",
             "bindings": [
                 {
                     "key": "f",
-                    "name": "Find.files",
+                    "name": "git_files",
                     "type": "command",
                     "command": "workbench.action.quickOpen"
+                },
+                {
+                    "key": "a",
+                    "name": "git_files",
+                    "type": "command",
+                    "command": "workbench.action.quickOpen"
+                },
+                {
+                    "key": "A",
+                    "name": "git_files",
+                    "type": "command",
+                    "command": "workbench.action.quickOpen"
+                },
+                {
+                    "key": "g",
+                    "name": "+Git",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "s",
+                            "name": "status",
+                            "type": "command",
+                            "command": "gitlens.gitCommands.status"
+                        },
+                        {
+                            "key": "b",
+                            "name": "branches",
+                            "type": "command",
+                            "command": "git.checkout"
+                        },
+                        {
+                            "key": "c",
+                            "name": "commits",
+                            "type": "command",
+                            "command": "gitlens.showCommitSearch"
+                        },
+                        {
+                            "key": "z",
+                            "name": "stashes",
+                            "type": "command",
+                            "command": "gitlens.gitCommands.stash.list"
+                        }
+                    ]
+                },
+                {
+                    "key": "l",
+                    "name": "live_grep",
+                    "type": "command",
+                    "command": "workbench.action.findInFiles"
+                },
+                {
+                    "key": "L",
+                    "name": "live_grep",
+                    "type": "command",
+                    "command": "workbench.action.findInFiles"
+                },
+                {
+                    "key": "s",
+                    "name": "symbols",
+                    "type": "command",
+                    "command": "workbench.action.gotoSymbol"
+                },
+                {
+                    "key": "r",
+                    "name": "recents",
+                    "type": "command",
+                    "command": "workbench.action.openRecent"
+                },
+                {
+                    "key": "h",
+                    "name": "symbols",
+                    "type": "command",
+                    "command": "workbench.action.showAllEditors"
+                },
+                {
+                    "key": ";",
+                    "name": "terminal",
+                    "type": "command",
+                    "command": "workbench.action.terminal.toggleTerminal"
                 }
             ]
         },
+        {
+            "key": "/",
+            "name": "find_local",
+            "type": "command",
+            "command": "fuzzySearch.activeTextEditor"
+        },
+        {
+            "key": "?",
+            "name": "find_global",
+            "type": "command",
+            "command": "fuzzySearch.activeTextEditor"
+        },
+        {
+            "key": "h",
+            "name": "harpoon",
+            "type": "command",
+            "command": "workbench.action.showAllEditors"
+        },
+        {
+            "key": "g",
+            "name": "+Git",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "s",
+                    "name": "status",
+                    "type": "command",
+                    "command": "workbench.view.scm"
+                },
+                {
+                    "key": "l",
+                    "name": "log",
+                    "type": "command",
+                    "command": "git.viewHistory"
+                },
+                {
+                    "key": "B",
+                    "name": "blame_buffer",
+                    "type": "command",
+                    "command": "gitlens.toggleFileBlame"
+                }
+            ]
+        },
+        {
+            "key": "l",
+            "name": "+LSP",
+            "type": "bindings",
+            "command": [
+                {
+                    "key": "s",
+                    "name": "format",
+                    "type": "command",
+                    "command": "editor.action.formatDocument"
+                }
+            ]
+        },
+        {
+            "key": "r",
+            "name": "+Refactor",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "/",
+                    "name": "local",
+                    "type": "command",
+                    "command": "search.action.replaceAllInFile"
+                },
+                {
+                    "key": "?",
+                    "name": "global",
+                    "type": "command",
+                    "command": "workbench.action.replaceInFiles"
+                },
+                {
+                    "key": "n",
+                    "name": "rename",
+                    "type": "command",
+                    "command": "editor.action.refactor"
+                },
+                {
+                    "key": "r",
+                    "name": "refactor",
+                    "type": "command",
+                    "command": "editor.action.refactor"
+                }
+            ]
+        },
+        {
+            "key": ";",
+            "name": "+Terminal",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": ";",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.terminal.toggleTerminal"
+                },
+                {
+                    "key": "f",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.terminal.toggleTerminal"
+                }
+            ]
+        },
+        {
+            "key": "o",
+            "name": "+Build",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "o",
+                    "name": "run_front_list",
+                    "type": "command",
+                    "command": "workbench.action.tasks.build"
+                }
+            ]
+        }
     ]
 }

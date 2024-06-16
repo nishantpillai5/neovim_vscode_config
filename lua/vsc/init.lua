@@ -1,2 +1,2 @@
-require 'vsc.vscode_mapper'
+require 'vsc.remap'
 require 'vsc.plugins'
