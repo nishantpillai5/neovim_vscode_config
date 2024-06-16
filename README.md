@@ -50,6 +50,8 @@ This repository contains my Neovim configuration, including parallel settings fo
 - cyclic trouble next/prev
 - sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
 - disable notifications for noice notify
+- zp and zP to toggle sidebar and panel positions
+  `workbench.action.positionPanelRight`
 
 ### Backlog
 
