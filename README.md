@@ -52,6 +52,7 @@ This repository contains my Neovim configuration, including parallel settings fo
 - disable notifications for noice notify
 - zp and zP to toggle sidebar and panel positions
   `workbench.action.positionPanelRight`
+- terminal toggle doesn't work when no terminal exists
 
 ### Backlog
 
