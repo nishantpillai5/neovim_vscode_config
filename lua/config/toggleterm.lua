@@ -23,9 +23,17 @@ M.keymaps = function()
 end
 
 M.setup = function()
+  local align = require('common.env').PANEL_POSITION
+
   require('toggleterm').setup {
-    size = vim.o.columns * 0.35,
-    direction = 'vertical',
+    size = function (term)
+      if term.direction == 'horizontal' then
+        return vim.o.lines * 0.30
+      elseif term.direction == 'vertical' then
+        return vim.o.columns * 0.35
+      end
+    end,
+    direction = align,
     close_on_exit = true,
     start_in_insert = false,
     hide_numbers = true,

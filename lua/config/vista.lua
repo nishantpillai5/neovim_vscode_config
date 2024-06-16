@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
-  local align = require('common.env').ALIGN
+  local align = require('common.env').SIDEBAR_POSITION
   if align == 'left' then
     vim.g.vista_sidebar_position = 'vertical topleft'
   else

@@ -1,7 +1,7 @@
 local M = {}
 
 M.keymaps = function()
-  local align = require('common.env').ALIGN
+  local align = require('common.env').SIDEBAR_POSITION
 
   vim.keymap.set('n', '<leader>ee', function()
     vim.cmd('Neotree reveal focus toggle ' .. align)

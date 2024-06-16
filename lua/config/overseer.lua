@@ -1,7 +1,7 @@
 local M = {}
 
 M.keymaps = function()
-  local align = require('common.env').ALIGN
+  local align = require('common.env').SIDEBAR_POSITION
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
   end, { desc = 'Tasks.run_from_list' })
