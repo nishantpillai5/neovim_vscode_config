@@ -109,19 +109,17 @@ map('n', '<leader>gB', 'gitlens.toggleFileBlame')
 --LazyGit
 
 -- Diffview
-map('n', '<leader>gd', '')
-map('n', '<leader>gF', '')
+map('n', '<leader>gd', 'workbench.view.scm')
+map('n', '<leader>gD', 'git.viewFileHistory')
 
 -- Gitlinker
-map('n', '<leader>gy', '')
-map('n', '<leader>gY', '')
+map('n', '<leader>goc', 'gitlens.openCommitOnRemote')
+map('n', '<leader>gop', 'gitlens.openAssociatedPullRequestOnRemote')
 
 -- Gitsigns
 map('n', '[c', 'workbench.action.editor.previousChange')
 map('n', ']c', 'workbench.action.editor.nextChange')
 map('n', '<leader>zgb', 'gitlens.toggleLineBlame')
-
-map('n', '<leader>gf', '')
 
 -- Hunk maps
 

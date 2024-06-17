@@ -12,7 +12,7 @@ return {
     'smjonas/inc-rename.nvim',
     cond = conds['smjonas/inc-rename.nvim'] or false,
     keys = {
-      { '<leader>rn', desc = 'Refactor.rename' },
+      { '<leader>rn', desc = 'rename' },
     },
     config = function()
       require('inc_rename').setup()
@@ -25,7 +25,7 @@ return {
     'ThePrimeagen/refactoring.nvim',
     cond = conds['ThePrimeagen/refactoring.nvim'] or false,
     keys = {
-      { '<leader>rr', desc = 'Refactor.refactor' },
+      { '<leader>rr', desc = 'refactor' },
     },
     opts = {},
   },
@@ -34,9 +34,9 @@ return {
     'nvim-pack/nvim-spectre',
     cond = conds['nvim-pack/nvim-spectre'] or false,
     keys = {
-      { '<leader>r/', desc = 'Refactor.local' },
-      { '<leader>r?', desc = 'Refactor.global' },
-      { '<leader>rw', desc = 'Refactor.global_word' },
+      { '<leader>r/', desc = 'local' },
+      { '<leader>r?', desc = 'global' },
+      { '<leader>rw', desc = 'global_word' },
     },
     config = require('config.spectre').config,
   },

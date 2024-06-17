@@ -19,7 +19,7 @@ local init_or_toggle = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>;;', init_or_toggle, { desc = 'Terminal.toggle', silent = true })
+  vim.keymap.set('n', '<leader>;;', init_or_toggle, { desc = 'toggle', silent = true })
 end
 
 M.setup = function()

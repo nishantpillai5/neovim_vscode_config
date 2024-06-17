@@ -5,23 +5,23 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>r/', function()
     spectre.open_file_search()
-  end, { desc = 'Refactor.local' })
+  end, { desc = 'local' })
 
   vim.keymap.set('v', '<leader>r/', function()
     spectre.open_file_search { select_word = true }
-  end, { desc = 'Refactor.local' })
+  end, { desc = 'local' })
 
   vim.keymap.set('n', '<leader>r?', function()
     spectre.toggle()
-  end, { desc = 'Refactor.global' })
+  end, { desc = 'global' })
 
   vim.keymap.set('n', '<leader>rw', function()
     spectre.open_visual { select_word = true }
-  end, { desc = 'Refactor.global_word' })
+  end, { desc = 'global_word' })
 
   vim.keymap.set('v', '<leader>rw', function()
     spectre.open_visual()
-  end, { desc = 'Refactor.global_word' })
+  end, { desc = 'global_word' })
 end
 
 M.config = function()

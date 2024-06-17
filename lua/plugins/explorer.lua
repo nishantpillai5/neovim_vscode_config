@@ -14,9 +14,9 @@ return {
     branch = 'v3.x',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' },
     keys = {
-      { '<leader>ee', desc = 'Explorer.neotree' },
-      { '<leader>eb', desc = 'Explorer.neotree_buffers' },
-      { '<leader>eg', desc = 'Explorer.neotree_git' },
+      { '<leader>ee', desc = 'neotree' },
+      { '<leader>eb', desc = 'buffers' },
+      { '<leader>eg', desc = 'git' },
     },
     config = require('config.neotree').config,
   },
@@ -26,7 +26,7 @@ return {
     cond = conds['stevearc/oil.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
-      { '<leader>et', '<cmd>Oil<cr>', desc = 'Explorer.oil' },
+      { '<leader>et', '<cmd>Oil<cr>', desc = 'oil' },
     },
     config = function()
       require('oil').setup {
@@ -40,7 +40,7 @@ return {
     'liuchengxu/vista.vim',
     cond = conds['liuchengxu/vista.vim'] or false,
     keys = {
-      { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'Explorer.symbols' },
+      { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols' },
     },
     config = require('config.vista').config,
   },

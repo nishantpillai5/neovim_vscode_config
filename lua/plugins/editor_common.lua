@@ -101,6 +101,7 @@ return {
   {
     'echasnovski/mini.align',
     cond = conds['echasnovski/mini.align'] or false,
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('mini.align').setup()
     end,

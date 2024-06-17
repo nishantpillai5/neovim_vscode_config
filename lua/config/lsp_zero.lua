@@ -12,7 +12,7 @@ local toggle_diagnostics = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zl', toggle_diagnostics, { desc = 'Visual.lsp' })
+  vim.keymap.set('n', '<leader>zl', toggle_diagnostics, { desc = 'toggle_diagnostics' })
 end
 
 M.setup = function()
@@ -137,11 +137,11 @@ local get_logo = function(name)
     ['jsonls'] = '',
   }
   local icon = logo_dict[name]
-  if icon == nil then
-    return name
+  if icon then
+    return icon
   end
 
-  return icon
+  return name
 end
 
 local lsp_clients = function()

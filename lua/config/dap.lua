@@ -37,43 +37,43 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>bb', function()
     dap.toggle_breakpoint()
-  end, { desc = 'Breakpoint.toggle' })
+  end, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>bl', function()
     dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
-  end, { desc = 'Breakpoint.toggle_with_log' })
+  end, { desc = 'toggle_with_log' })
 
   vim.keymap.set('n', '[b', function()
     require('goto-breakpoints').prev()
-  end, { desc = 'Prev.breakpoint' })
+  end, { desc = 'breakpoint' })
 
   vim.keymap.set('n', ']b', function()
     require('goto-breakpoints').next()
-  end, { desc = 'Next.breakpoint' })
+  end, { desc = 'breakpoint' })
 
   vim.keymap.set('n', '<leader>zb', function()
     require('nvim-dap-virtual-text').toggle()
     -- require("nvim-dap-virtual-text.virtual_text").clear_virtual_text()
-  end, { desc = 'Visual.debug_text_toggle' })
+  end, { desc = 'debug_text_toggle' })
 
   -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
   --   require("dap.ui.widgets").preview()
   -- end)
   vim.keymap.set('n', '<leader>fbb', function()
     require('telescope').extensions.dap.list_breakpoints()
-  end, { desc = 'Find.Breakpoint' })
+  end, { desc = 'Breakpoint' })
 
   vim.keymap.set('n', '<leader>fbc', function()
     require('telescope').extensions.dap.configurations()
-  end, { desc = 'Find.Breakpoint.configurations' })
+  end, { desc = 'configurations' })
 
   vim.keymap.set('n', '<leader>fbv', function()
     require('telescope').extensions.dap.variables()
-  end, { desc = 'Find.Breakpoint.variables' })
+  end, { desc = 'variables' })
 
   vim.keymap.set('n', '<leader>fbf', function()
     require('telescope').extensions.dap.frames()
-  end, { desc = 'Find.Breakpoint.frames' })
+  end, { desc = 'frames' })
 end
 
 M.setup = function()

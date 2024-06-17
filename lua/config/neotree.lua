@@ -5,15 +5,15 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>ee', function()
     vim.cmd('Neotree reveal focus toggle ' .. align)
-  end, { desc = 'Explorer.neotree' })
+  end, { desc = 'neotree' })
 
   vim.keymap.set('n', '<leader>eb', function()
     vim.cmd('Neotree reveal focus buffers toggle ' .. align)
-  end, { desc = 'Explorer.neotree_buffers' })
+  end, { desc = 'buffers' })
 
   vim.keymap.set('n', '<leader>eg', function()
     vim.cmd('Neotree reveal focus git_status toggle ' .. align)
-  end, { desc = 'Explorer.neotree_git' })
+  end, { desc = 'git' })
 end
 
 M.setup = function()

@@ -41,7 +41,7 @@ return {
           nvim_biscuits.toggle_biscuits()
         end,
         mode = 'n',
-        desc = 'Visual.context_virtual_toggle',
+        desc = 'context_virtual_toggle',
       },
     },
     opts = {
@@ -84,7 +84,7 @@ return {
       'stevearc/conform.nvim',
     },
     keys = {
-      { '<leader>ls', mode = { 'n', 'v' }, desc = 'LSP.format' },
+      { '<leader>ls', mode = { 'n', 'v' }, desc = 'format' },
     },
     config = require('config.conform').config,
   },
@@ -95,13 +95,13 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     ft = { 'qf' },
     keys = {
-      { '<leader>tt', desc = 'Trouble.toggle' },
-      { '<leader>td', desc = 'Trouble.diagnostics' },
-      { '<leader>tq', desc = 'Trouble.quickfix' },
-      { '<leader>tl', desc = 'Trouble.loclist' },
-      { '<leader>tg', desc = 'Trouble.git' },
-      { '<leader>tL', desc = 'Trouble.lsp' },
-      { '<leader>tf', desc = 'Trouble.finder' },
+      { '<leader>tt', desc = 'toggle' },
+      { '<leader>td', desc = 'diagnostics' },
+      { '<leader>tq', desc = 'quickfix' },
+      { '<leader>tl', desc = 'loclist' },
+      { '<leader>tg', desc = 'git' },
+      { '<leader>tL', desc = 'lsp' },
+      { '<leader>tf', desc = 'finder' },
       { '<leader>j', desc = 'trouble_next' },
       { '<leader>k', desc = 'trouble_prev' },
       { 'gr', desc = 'references' },

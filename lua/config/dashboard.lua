@@ -1,6 +1,6 @@
 local M = {}
 
-local logo1 = {
+local LOGO1 = {
   ' ███▄    █ ▓█████  ▒█████   ██▒   █▓ ██▓ ███▄ ▄███▓',
   ' ██ ▀█   █ ▓█   ▀ ▒██▒  ██▒▓██░   █▒▓██▒▓██▒▀█▀ ██▒',
   '▓██  ▀█ ██▒▒███   ▒██░  ██▒ ▓██  █▒░▒██▒▓██    ▓██░',
@@ -13,30 +13,7 @@ local logo1 = {
   '                                 ░                 ',
 }
 
-local logo2 = {
-  '                  .^. .  –                  ',
-  '                 /: ||`/ ~  ,               ',
-  "               , [   &    /  y'             ",
-  "              {v':   `   / `&~-,            ",
-  "             'y. '    |`   ˙  ' /           ",
-  "                 '  .       , y             ",
-  '              v .              v            ',
-  '              V  .~.      .~.  V            ',
-  '              : (  0)    (  0) :            ',
-  "               i `'`      `'` j             ",
-  '                i     __    ,j              ',
-  "                 `%`~....~'&                ",
-  "                <~o' /  /` -S,              ",
-  "               o.~'.  )(  r  .o ,.          ",
-  "              o',  %``/``& : 'bF            ",
-  "             d', ,ri.~~-~.ri , +h           ",
-  "             `oso' d`~..~`b 'sos`           ",
-  '                  d`+ II +`b                ',
-  '                  i_:_yi_;y                 ',
-  '                                            ',
-}
-
-local logo3 = {
+local LOGO2 = {
   '      .^. .  –                                                         ',
   '     /: ||`/ ~  ,                                                      ',
   "   , [   &    /  y'                                                    ",
@@ -59,6 +36,15 @@ local logo3 = {
   '                                                                       ',
 }
 
+local function get_logo()
+    local context = require('common.env').CONTEXT
+    if context == 'work' then
+        return LOGO2
+    else
+        return LOGO1
+    end
+end
+
 local function get_datetime()
   return os.date '%A == %B %d == %H:%M'
 end
@@ -68,7 +54,7 @@ M.setup = function()
     theme = 'hyper',
     change_to_vcs_root = true,
     config = {
-      header = logo3,
+      header = get_logo(),
       week_header = { enable = false },
       packages = { enable = true },
       project = { enable = false, limit = 1 },

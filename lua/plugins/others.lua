@@ -13,7 +13,7 @@ return {
     'eandrju/cellular-automaton.nvim',
     cond = conds['eandrju/cellular-automaton.nvim'] or false,
     keys = {
-      { '<leader>zf', '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'Visual.fml' },
+      { '<leader>zf', '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'fml' },
     },
   },
   -- Typing test
@@ -21,7 +21,7 @@ return {
     'kwakzalver/duckytype.nvim',
     cond = conds['kwakzalver/duckytype.nvim'] or false,
     keys = {
-      { '<leader>zt', '<cmd>DuckyType cpp_keywords<cr>', desc = 'Visual.typing_test' },
+      { '<leader>zt', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test' },
     },
     config = function()
       require('duckytype').setup {}

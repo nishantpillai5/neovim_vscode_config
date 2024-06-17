@@ -315,6 +315,37 @@
                     "name": "blame_buffer",
                     "type": "command",
                     "command": "gitlens.toggleFileBlame"
+                },
+                {
+                    "key": "d",
+                    "name": "diff",
+                    "type": "command",
+                    "command": "workbench.view.scm"
+                },
+                {
+                    "key": "D",
+                    "name": "file_history",
+                    "type": "command",
+                    "command": "gitlens.viewFileHistory"
+                },
+                {
+                    "key": "g",
+                    "name": "+Open",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "c",
+                            "name": "commit",
+                            "type": "command",
+                            "command": "gitlens.openCommitOnRemote"
+                        },
+                        {
+                            "key": "p",
+                            "name": "pr",
+                            "type": "command",
+                            "command": "gitlens.openAssociatedPullRequestOnRemote"
+                        }
+                    ]
                 }
             ]
         },
@@ -388,7 +419,7 @@
             "bindings": [
                 {
                     "key": "o",
-                    "name": "run_front_list",
+                    "name": "run_from_list",
                     "type": "command",
                     "command": "workbench.action.tasks.build"
                 }

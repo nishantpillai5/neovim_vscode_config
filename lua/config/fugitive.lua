@@ -3,15 +3,15 @@ local M = {}
 M.keymaps = function()
   vim.keymap.set('n', '<leader>gs', function()
     vim.cmd 'Git'
-  end, { desc = 'Git.status' })
+  end, { desc = 'status' })
 
   vim.keymap.set('n', '<leader>gl', function()
     vim.cmd 'Git log'
-  end, { desc = 'Git.log' })
+  end, { desc = 'log' })
 
   vim.keymap.set('n', '<leader>gB', function()
     vim.cmd 'Git blame'
-  end, { desc = 'Git.blame_buffer' })
+  end, { desc = 'blame_buffer' })
 end
 
 M.setup = function()
@@ -28,11 +28,11 @@ M.setup = function()
       local bufnr = vim.api.nvim_get_current_buf()
       vim.keymap.set('n', '<leader>P', function()
         vim.cmd [[ Git push ]]
-      end, { buffer = bufnr, remap = false, desc = 'Git.push' })
+      end, { buffer = bufnr, remap = false, desc = 'push' })
 
       vim.keymap.set('n', '<leader>p', function()
         vim.cmd [[ Git pull --rebase ]]
-      end, { buffer = bufnr, remap = false, desc = 'Git.pull' })
+      end, { buffer = bufnr, remap = false, desc = 'pull' })
     end,
   })
 end

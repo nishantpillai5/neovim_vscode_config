@@ -3,42 +3,42 @@ local M = {}
 M.keymaps = function()
   vim.keymap.set('n', '<leader>cc', function()
     vim.cmd 'CopilotChatToggle'
-  end, { desc = 'Chat.toggle' })
+  end, { desc = 'toggle' })
 
   vim.keymap.set({ 'n', 'v' }, '<leader>ce', function()
     vim.cmd 'CopilotChatExplain'
-  end, { desc = 'Chat.explain' })
+  end, { desc = 'explain' })
 
   vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
     vim.cmd 'CopilotChatFix'
-  end, { desc = 'Chat.fix' })
+  end, { desc = 'fix' })
 
   vim.keymap.set({ 'n', 'v' }, '<leader>cd', function()
     vim.cmd 'CopilotChatFixDiagnostic'
-  end, { desc = 'Chat.diagnositic' })
+  end, { desc = 'diagnositic' })
 
   vim.keymap.set('n', '<leader>cr', function()
     vim.cmd 'CopilotChatReset'
-  end, { desc = 'Chat.reset' })
+  end, { desc = 'reset' })
 
   vim.keymap.set('n', '<leader>cb', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
       require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
     end
-  end, { desc = 'Chat.buffer' })
+  end, { desc = 'buffer' })
 
   vim.keymap.set('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
       require('CopilotChat').ask(input, { selection = require('CopilotChat.select').selection })
     end
-  end, { desc = 'Chat.selection' })
+  end, { desc = 'selection' })
 
   vim.keymap.set('n', '<leader>fc', function()
     local actions = require 'CopilotChat.actions'
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
-  end, { desc = 'Find.chat' })
+  end, { desc = 'chat' })
 end
 
 M.setup = function()

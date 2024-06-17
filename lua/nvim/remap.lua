@@ -5,8 +5,8 @@ vim.keymap.set('n', '<leader>x', ':q<cr>', { silent = true, desc = 'quit' })
 vim.keymap.set('n', '<leader>X', ':q!<cr>', { silent = true, desc = 'quit_force' })
 
 -- Split
-vim.keymap.set('n', '<leader>zv', '<cmd>vs<cr>', { desc = 'Visual.vertical_split' })
-vim.keymap.set('n', '<leader>zs', '<cmd>sp<cr>', { desc = 'Visual.horizontal_split' })
+vim.keymap.set('n', '<leader>zv', '<cmd>vs<cr>', { desc = 'vertical_split' })
+vim.keymap.set('n', '<leader>zs', '<cmd>sp<cr>', { desc = 'horizontal_split' })
 
 -- Resize vertically with Ctrl-Right and Ctrl-Left
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<cr>', { silent = true, desc = 'vertical_resize_right' })
@@ -21,10 +21,10 @@ vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { silent = true, desc = 'exit_termin
 
 -- Yank filepaths
 local names = {
-  eyy = { expand = '%:p', desc = 'Explorer.Yank.absolute_path' },
-  eyY = { expand = '%', desc = 'Explorer.Yank.relative_path' },
-  eyf = { expand = '%:t', desc = 'Explorer.Yank.filename' },
-  eyF = { expand = '%:p:h', desc = 'Explorer.Yank.folder' },
+  eyy = { expand = '%:p', desc = 'absolute_path' },
+  eyY = { expand = '%', desc = 'relative_path' },
+  eyf = { expand = '%:t', desc = 'filename' },
+  eyF = { expand = '%:p:h', desc = 'folder' },
 }
 
 for key, lookup in pairs(names) do

@@ -3,11 +3,11 @@ local M = {}
 M.keymaps = function()
   vim.keymap.set('n', '<leader>;f', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
-  end, { desc = 'Terminal.find' })
+  end, { desc = 'find' })
 
   vim.keymap.set('n', '<leader>f;', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
-  end, { desc = 'Find.terminal' })
+  end, { desc = 'terminal' })
 end
 
 M.setup = function()

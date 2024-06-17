@@ -13,8 +13,9 @@ M.DIR_NOTES = os.getenv 'DIR_NOTES'
 M.DIR_NVIM = os.getenv 'DIR_NVIM'
 M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
 
-M.SIDEBAR_POSITION = 'right' -- left, right
-M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
+M.SIDEBAR_POSITION = 'left' -- left, right
+M.PANEL_POSITION = 'vertical' -- horizontal, vertical
 M.GLOBAL_STATUS = true
+M.CONTEXT = 'work' -- work, "home
 
 return M

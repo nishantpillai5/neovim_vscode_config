@@ -44,7 +44,7 @@ M.keymaps = function()
       _G.loaded_telescope_extension = true
     end
     require('telescope').extensions.picker_list.picker_list()
-  end, { desc = 'Find_Telescope.extensions' })
+  end, { desc = 'extensions' })
 end
 
 M.config = function()

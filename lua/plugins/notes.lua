@@ -14,7 +14,7 @@ return {
     'backdround/global-note.nvim',
     cond = conds['backdround/global-note.nvim'] or false,
     keys = {
-      { '<leader>nn', desc = 'Notes.current' },
+      { '<leader>nn', desc = 'current' },
     },
     config = function()
       local global_note = require 'global-note'
@@ -24,7 +24,7 @@ return {
         title = 'NOTE',
       }
 
-      vim.keymap.set('n', '<leader>nn', global_note.toggle_note, { desc = 'Notes.current' })
+      vim.keymap.set('n', '<leader>nn', global_note.toggle_note, { desc = 'current' })
     end,
   },
   -- Notes management
@@ -33,7 +33,7 @@ return {
     cond = conds['epwalsh/obsidian.nvim'] or false,
     version = '*',
     keys = {
-      { '<leader>nj', ':ObsidianToday<cr>', desc = 'Notes.journal' },
+      { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal' },
     },
     -- event = {
     --   "BufReadPre " .. NOTES_DIR .. "/**.md",

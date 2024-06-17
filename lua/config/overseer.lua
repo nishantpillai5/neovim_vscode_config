@@ -4,19 +4,19 @@ M.keymaps = function()
   local align = require('common.env').SIDEBAR_POSITION
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
-  end, { desc = 'Tasks.run_from_list' })
+  end, { desc = 'run_from_list' })
 
   vim.keymap.set('n', '<leader>eo', function()
     vim.cmd('OverseerToggle ' .. align)
-  end, { desc = 'Explorer.tasks' })
+  end, { desc = 'tasks' })
 
   vim.keymap.set('n', '<leader>ot', function()
     vim.cmd('OverseerToggle ' .. align)
-  end, { desc = 'Tasks.toggle' })
+  end, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>ol', function()
     vim.cmd 'OverseerRestartLast'
-  end, { desc = 'Tasks.last_restart' })
+  end, { desc = 'last_restart' })
 
   vim.keymap.set('n', '<leader>or', function()
     if _G.run_cmd == nil then
@@ -24,7 +24,7 @@ M.keymaps = function()
     else
       vim.cmd('OverseerRunCmd ' .. _G.run_cmd)
     end
-  end, { desc = 'Tasks.run' })
+  end, { desc = 'run' })
 
   vim.keymap.set('n', '<leader>ob', function()
     if _G.build_cmd == nil then
@@ -32,7 +32,7 @@ M.keymaps = function()
     else
       vim.cmd('OverseerRunCmd ' .. _G.build_cmd)
     end
-  end, { desc = 'Tasks.build' })
+  end, { desc = 'build' })
 end
 
 M.setup = function()

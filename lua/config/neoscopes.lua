@@ -13,7 +13,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = '󱇳 > ',
       search_dirs = neoscopes.get_current_dirs(),
     }
-  end, { desc = 'Find.files(workspace)' })
+  end, { desc = 'files(workspace)' })
 
   vim.keymap.set('n', '<leader>fa', function()
     local bufname = vim.api.nvim_buf_get_name(0)
@@ -24,7 +24,7 @@ local replace_telescope_keymaps = function()
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
-  end, { desc = 'Find.alternate(workspace)' })
+  end, { desc = 'alternate(workspace)' })
 
   vim.keymap.set('n', '<leader>fl', function()
     require('telescope.builtin').live_grep {
@@ -32,17 +32,17 @@ local replace_telescope_keymaps = function()
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
-  end, { desc = 'Find.live_grep_global(workspace)' })
+  end, { desc = 'live_grep_global(workspace)' })
   -- TODO: remap fL forworkspaces
 
-  vim.keymap.set('n', '<leader>f?', function()
+  vim.keymap.set('n', '<leader>?', function()
     require('telescope.builtin').grep_string {
       prompt_prefix = '󱇳 > ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
-  end, { desc = 'Find.global(workspace)' })
+  end, { desc = 'global(workspace)' })
 
   vim.keymap.set('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
@@ -52,7 +52,7 @@ local replace_telescope_keymaps = function()
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
-  end, { desc = 'Find.word(workspace)' })
+  end, { desc = 'word(workspace)' })
 
   vim.keymap.set('n', '<leader>fW', function()
     local word = vim.fn.expand '<cWORD>'
@@ -62,7 +62,7 @@ local replace_telescope_keymaps = function()
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
-  end, { desc = 'Find.whole_word(workspace)' })
+  end, { desc = 'whole_word(workspace)' })
 end
 
 local refresh_workspace = function()
@@ -93,7 +93,7 @@ end
 
 M.keymaps = function()
   local neoscopes = require 'neoscopes'
-  vim.keymap.set('n', '<leader>ww', M.select_scope, { desc = 'Workspace.select' })
+  vim.keymap.set('n', '<leader>ww', M.select_scope, { desc = 'select' })
 
   vim.keymap.set('n', '<leader>wx', function()
     neoscopes.clear()

@@ -46,7 +46,7 @@ return {
   {
     'nvim-zh/colorful-winsep.nvim',
     cond = conds['nvim-zh/colorful-winsep.nvim'] or false,
-    event = { 'WinNew' },
+    event = { 'BufReadPre' },
     config = function()
       require('colorful-winsep').setup { smooth = false }
       require('config.theme').highlightSeparator 'n'
@@ -130,7 +130,7 @@ return {
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
-      'VonHeikemen/lsp-zero.nvim',
+      -- 'VonHeikemen/lsp-zero.nvim',
     },
     config = require('config.noice').config,
   },

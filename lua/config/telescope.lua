@@ -29,32 +29,33 @@ end
 M.keymaps = function()
   local builtin = require 'telescope.builtin'
   vim.keymap.set('n', '<leader>:', builtin.commands, { desc = 'find_commands' })
-  vim.keymap.set('n', '<leader>ff', M.project_files, { desc = 'Find.git_files' })
+  vim.keymap.set('n', '<leader>ff', M.project_files, { desc = 'git_files' })
 
   vim.keymap.set('n', '<leader>fF', function()
     local prefix = require('common.env').GITIGNORE_PREFIX
     builtin.find_files { default_text = prefix, no_ignore = true }
-  end, { desc = 'Find.ignored_files' })
+  end, { desc = 'ignored_files' })
 
   vim.keymap.set('n', '<leader>fa', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
     builtin.git_files { default_text = basename }
-  end, { desc = 'Find.alternate' })
+  end, { desc = 'alternate' })
 
-  vim.keymap.set('n', '<leader>fA', builtin.find_files, { desc = 'Find.all' })
+  vim.keymap.set('n', '<leader>fA', builtin.find_files, { desc = 'all' })
 
-  vim.keymap.set('n', '<leader>fgs', builtin.git_status, { desc = 'Find.Git.status' })
-  vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'Find.Git.branches' })
-  vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'Find.Git.commits' })
-  vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'Find.Git.stash' })
+  vim.keymap.set('n', '<leader>fgs', builtin.git_status, { desc = 'status' })
+  vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches' })
+  vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits' })
+  vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'stash' })
+  vim.keymap.set('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>', { desc = 'conflicts' })
 
-  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'Find.live_grep_global' })
+  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'live_grep_global' })
   vim.keymap.set(
     'n',
     '<leader>fL',
     "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
-    { desc = 'Find.live_grep_global_with_args' }
+    { desc = 'live_grep_global_with_args' }
   )
 
   vim.keymap.set('n', '<leader>/', function()
@@ -69,24 +70,24 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
     builtin.grep_string { search = word }
-  end, { desc = 'Find.word' })
+  end, { desc = 'word' })
 
   vim.keymap.set('n', '<leader>fW', function()
     local word = vim.fn.expand '<cWORD>'
     builtin.grep_string { search = word }
-  end, { desc = 'Find.whole_word' })
+  end, { desc = 'whole_word' })
 
-  vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'Find_Telescope.builtin' })
+  vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'builtin' })
 
-  vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'Find.symbols' })
-  vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'Find.marks' })
+  vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'symbols' })
+  vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'marks' })
 
   vim.keymap.set('n', '<leader>fr', function()
     builtin.oldfiles { only_cwd = true }
-  end, { desc = 'Find.recents' })
+  end, { desc = 'recents' })
 
-  vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'Find.registers' })
-  vim.keymap.set('n', '<leader>fh', builtin.buffers, { desc = 'Find.buffers' })
+  vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'registers' })
+  vim.keymap.set('n', '<leader>fh', builtin.buffers, { desc = 'buffers' })
   -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
   -- TODO: use string instead to prevent loading extensions?
   -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
@@ -95,7 +96,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>fn', function()
     builtin.find_files { cwd = require('common.env').DIR_NOTES }
-  end, { desc = 'Find.notes' })
+  end, { desc = 'notes' })
 
   vim.keymap.set('n', '<leader>wc', function()
     require('telescope.builtin').find_files {
@@ -103,7 +104,7 @@ M.keymaps = function()
       hidden = true,
       search_dirs = { '.vscode' },
     }
-  end, { desc = 'Workspace.configurations' })
+  end, { desc = 'configuration' })
 end
 
 M.setup = function()

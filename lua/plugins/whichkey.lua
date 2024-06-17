@@ -48,15 +48,15 @@ return {
         ['<F2>'] = 'rename',
         ['<F3>'] = 'format(lsp)',
         ['<F4>'] = 'code_action',
-        [']'] = { name = 'Next', d = 'Next.diagnostic' },
-        ['['] = { name = 'Prev', d = 'Prev.diagnostic' },
+        [']'] = { name = 'Next', d = 'diagnostic' },
+        ['['] = { name = 'Prev', d = 'diagnostic' },
         K = 'hover',
         s = 'hop_char',
         d = { m = { name = '+Marks' } },
         m = {
           name = '+Marks',
-          [';'] = 'Marks.mark_toggle',
-          [','] = 'Marks.mark_set',
+          [';'] = 'toggle',
+          [','] = 'set',
         },
         ['<C-h>'] = 'move_focus_left',
         ['<C-j>'] = 'move_focus_down',
@@ -67,7 +67,7 @@ return {
       wk.register({
         ['<leader>'] = {
           c = 'Chat',
-          g = { name = 'Git', h = 'Hunk' },
+          g = { name = 'Git', h = 'Hunk', o = 'Open' },
           l = 'LSP',
           ['/'] = 'Search',
         },

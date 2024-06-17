@@ -21,31 +21,31 @@ M.keymaps = function()
   local trouble = require 'trouble'
   vim.keymap.set('n', '<leader>tt', function()
     trouble.toggle 'last'
-  end, { desc = 'Trouble.toggle' })
+  end, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>td', function()
     trouble.toggle 'diagnostics'
-  end, { desc = 'Trouble.diagnostics' })
+  end, { desc = 'diagnostics' })
 
   vim.keymap.set('n', '<leader>tq', function()
     trouble.toggle 'quickfix'
-  end, { desc = 'Trouble.quickfix' })
+  end, { desc = 'quickfix' })
 
   vim.keymap.set('n', '<leader>tl', function()
     trouble.toggle 'loclist'
-  end, { desc = 'Trouble.loclist' })
+  end, { desc = 'loclist' })
 
   vim.keymap.set('n', '<leader>tg', function()
     vim.cmd 'Gitsigns setloclist'
-  end, { desc = 'Trouble.git' })
+  end, { desc = 'git' })
 
   vim.keymap.set('n', '<leader>tL', function()
     trouble.toggle 'lsp'
-  end, { desc = 'Trouble.loclist' })
+  end, { desc = 'loclist' })
 
   vim.keymap.set('n', '<leader>tf', function()
     trouble.toggle 'telescope'
-  end, { desc = 'Trouble.finder' })
+  end, { desc = 'finder' })
 
   vim.keymap.set('n', '<leader>j', function()
     trouble.next { skip_groups = true, jump = true }
