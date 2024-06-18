@@ -12,7 +12,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<C-F5>', function()
     vim.notify 'DAP: Stop'
-    dap.close()
+    dap.terminate()
   end, { desc = 'Debug.stop' })
 
   vim.keymap.set('n', '<F6>', function()
