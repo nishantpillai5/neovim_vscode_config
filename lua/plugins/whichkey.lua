@@ -34,7 +34,7 @@ return {
           o = 'Tasks',
           q = 'Quarto',
           z = { name = 'Visual', g = 'Git' },
-          g = { name = 'Git', h = 'Hunk' },
+          g = { name = 'Git', h = 'Hunk', o = 'Open' },
         },
         g = {
           d = 'definition',
@@ -67,7 +67,7 @@ return {
       wk.register({
         ['<leader>'] = {
           c = 'Chat',
-          g = { name = 'Git', h = 'Hunk', o = 'Open' },
+          g = { name = 'Git', h = 'Hunk' },
           l = 'LSP',
           ['/'] = 'Search',
         },

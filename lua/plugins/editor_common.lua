@@ -93,7 +93,7 @@ return {
         function()
           require('expand_expr').expand()
         end,
-        desc = 'Tasks.inline_macro',
+        desc = 'inline_macro',
       },
     },
   },

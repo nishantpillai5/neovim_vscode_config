@@ -97,7 +97,7 @@ return {
     'folke/zen-mode.nvim',
     cond = conds['folke/zen-mode.nvim'] or false,
     keys = {
-      { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'Visual.zen' },
+      { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'zen' },
     },
     opts = {
       window = { width = 0.95 },
@@ -112,7 +112,7 @@ return {
     version = '*',
     cond = conds['shortcuts/no-neck-pain.nvim'] or false,
     keys = {
-      { '<leader>zz', ':NoNeckPain<cr>', desc = 'Visual.zen', silent = true },
+      { '<leader>zz', ':NoNeckPain<cr>', desc = 'zen', silent = true },
     },
   },
   -- Absolute line numbers when not focused

@@ -17,8 +17,8 @@ return {
       { '<leader>:', desc = 'find_commands' },
       { '<leader>ff', desc = 'git_files' },
       { '<leader>fF', desc = 'ignored_files' },
-      { '<leader>fa', desc = 'alternate' },
-      { '<leader>fA', desc = 'all' },
+      { '<leader>fa', desc = 'all' },
+      { '<leader>fA', desc = 'alternate' },
       { '<leader>fgs', desc = 'status' },
       { '<leader>fgb', desc = 'branch' },
       { '<leader>fgc', desc = 'commits' },
@@ -38,6 +38,7 @@ return {
       { '<leader>fh', desc = 'buffers' },
       -- { "<leader>fp", desc = "yank" },
       { '<leader>fn', desc = 'notes' },
+      { '<leader>nf', desc = 'notes' },
       { '<leader>wc', desc = 'configurations' },
     },
     dependencies = {

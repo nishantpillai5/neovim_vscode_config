@@ -36,6 +36,9 @@ M.keymaps = function()
 end
 
 M.setup = function()
+  local align = require('common.env').PANEL_POSITION
+  local cr_align = (align == "vertical") and "OpenVsplit" or 'OpenSplit'
+
   require('overseer').setup {
     strategy = {
       'toggleterm',
@@ -54,7 +57,7 @@ M.setup = function()
         ['v'] = 'OpenVsplit',
         ['s'] = 'OpenSplit',
         ['c'] = 'RunAction',
-        ['<CR>'] = 'OpenVsplit',
+        ['<CR>'] = cr_align,
         ['d'] = 'Dispose',
         -- ['x'] = 'Stop', --FIXME: doesn't work
       },

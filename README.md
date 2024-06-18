@@ -47,12 +47,12 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ### Priority
 
+- gitlinker router azure dev, open commit, open PR
 - map ll to refresh lsp
 - ]x to next conflict doesn't work
 - overseer firewall prompt
 - python lsp doesn't work, gd
 - lsp virtual text comes back after insert mode
-- gitlinker router azure dev, open commit, open PR
 - add vsc whichkey config json and complete key descriptions
 - open task side bar when a task is ran
 - ^M line endings with trouble preview

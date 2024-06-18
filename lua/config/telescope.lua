@@ -36,13 +36,13 @@ M.keymaps = function()
     builtin.find_files { default_text = prefix, no_ignore = true }
   end, { desc = 'ignored_files' })
 
-  vim.keymap.set('n', '<leader>fa', function()
+  vim.keymap.set('n', '<leader>fa', builtin.find_files, { desc = 'all' })
+
+  vim.keymap.set('n', '<leader>fA', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
     builtin.git_files { default_text = basename }
   end, { desc = 'alternate' })
-
-  vim.keymap.set('n', '<leader>fA', builtin.find_files, { desc = 'all' })
 
   vim.keymap.set('n', '<leader>fgs', builtin.git_status, { desc = 'status' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches' })
@@ -95,6 +95,10 @@ M.keymaps = function()
   -- end)
 
   vim.keymap.set('n', '<leader>fn', function()
+    builtin.find_files { cwd = require('common.env').DIR_NOTES }
+  end, { desc = 'notes' })
+
+  vim.keymap.set('n', '<leader>nf', function()
     builtin.find_files { cwd = require('common.env').DIR_NOTES }
   end, { desc = 'notes' })
 

@@ -26,6 +26,7 @@ M.setup = function()
   local align = require('common.env').PANEL_POSITION
 
   require('toggleterm').setup {
+    direction = align,
     size = function (term)
       if term.direction == 'horizontal' then
         return vim.o.lines * 0.30
@@ -33,7 +34,6 @@ M.setup = function()
         return vim.o.columns * 0.35
       end
     end,
-    direction = align,
     close_on_exit = true,
     start_in_insert = false,
     hide_numbers = true,
