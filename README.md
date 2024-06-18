@@ -30,9 +30,14 @@ This repository contains my Neovim configuration, including parallel settings fo
   - [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
   - [Whichkey (vspacecode.whichkey)](https://marketplace.visualstudio.com/items?itemName=vspacecode.whichkey)
 
-## Todo
+## Neovim features brought to VSCode
 
-### Current
+- Tmux like navigation
+- Which key keybinds
+
+## Current Issues
+
+### Priority
 
 - map ll to refresh lsp
 - ]x to next conflict doesn't work
