@@ -35,7 +35,15 @@ This repository contains my Neovim configuration, including parallel settings fo
 - Tmux like navigation
 - Which key keybinds
 
-## Current Issues
+## Features left
+
+- Rainbow indent
+- Copilot keybinds
+- Debug keybinds
+- Undo tree vsc
+- make jk work for quickopen
+
+## Neovim Issues
 
 ### Priority
 
