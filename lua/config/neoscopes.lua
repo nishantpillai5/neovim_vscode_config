@@ -15,7 +15,7 @@ local replace_telescope_keymaps = function()
     }
   end, { desc = 'files(workspace)' })
 
-  vim.keymap.set('n', '<leader>fa', function()
+  vim.keymap.set('n', '<leader>fA', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
     require('telescope.builtin').find_files {

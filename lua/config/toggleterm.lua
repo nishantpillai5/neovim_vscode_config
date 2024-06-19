@@ -31,7 +31,7 @@ M.setup = function()
       if term.direction == 'horizontal' then
         return vim.o.lines * 0.30
       elseif term.direction == 'vertical' then
-        return vim.o.columns * 0.35
+        return vim.o.columns * 0.30
       end
     end,
     close_on_exit = true,

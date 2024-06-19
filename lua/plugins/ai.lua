@@ -20,12 +20,12 @@ return {
     end,
     keys = {
       { '<leader>cc', desc = 'toggle' },
+      { '<leader>cc', mode = 'v', desc = 'chat' },
       { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain' },
       { '<leader>cf', mode = { 'n', 'v' }, desc = 'fix' },
       { '<leader>cd', mode = { 'n', 'v' }, desc = 'diagnositic' },
       { '<leader>cr', desc = 'reset' },
       { '<leader>cb', desc = 'buffer' },
-      { '<leader>cc', mode = 'v', desc = 'selection' },
     },
     config = require 'config.copilot_chat'.config,
   },

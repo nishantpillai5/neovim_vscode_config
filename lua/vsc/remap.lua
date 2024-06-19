@@ -31,6 +31,17 @@ map('n', '<C-Right>', 'workbench.action.increaseViewWidth')
 
 map('n', '<leader>zn', 'notifications.toggleDoNotDisturbMode')
 
+-------------------- AI -----------------------------------
+
+map('n', '<leader>cc', 'inlineChat.start')
+map('n', '<leader>cc', 'inlineChat.start')
+
+map('n', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
+map('v', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
+
+map('n', '<leader>cf', 'github.copilot.interactiveEditor.fix')
+map('v', '<leader>cf', 'github.copilot.interactiveEditor.fix')
+
 -------------------- Debug --------------------------------
 
 -- Dap
@@ -62,7 +73,10 @@ map('n', '<C-j>', 'workbench.action.navigateDown')
 map('n', '<C-k>', 'workbench.action.navigateUp')
 map('n', '<C-l>', 'workbench.action.navigateRight')
 
--- Misc
+-- Undotree
+map('n', '<leader>u', 'timeline.toggleExcludeSource:timeline.localHistory')
+
+-- Zen
 map('n', '<leader>zz', 'workbench.action.toggleMaximizeEditorGroup')
 
 -------------------- Explorer -----------------------------
@@ -77,6 +91,7 @@ map('n', '<leader>es', 'outline.focus')
 
 -- Telescope
 map('n', '<leader>:', 'workbench.action.showCommands')
+map('v', '<leader>:', 'workbench.action.showCommands')
 map('n', '<leader>ff', 'workbench.action.quickOpen')
 map('n', '<leader>fa', 'workbench.action.quickOpen')
 map('n', '<leader>fA', 'workbench.action.quickOpen')

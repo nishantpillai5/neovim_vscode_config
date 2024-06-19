@@ -23,27 +23,21 @@ This repository contains my Neovim configuration, including parallel settings fo
 
 ## VSCode Configuration
 
-- Use the json files from `vscode_config` to configure VSCode settings
+The following features are configured in VSCode config files:
+
+- Which key keybinds
+- Tmux-like navigation
+
+To install the configuration:
+
+- Move the json files from `vscode_config` to [VSCode settings directory](https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations)
 - Install following extensions:
-  - [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
+  - [Whichkey (vspacecode.whichkey)](https://marketplace.visualstudio.com/items?itemName=vspacecode.whichkey)
   - [fuzzy-search (jacobdufault.fuzzy-search)](https://marketplace.visualstudio.com/items?itemName=jacobdufault.fuzzy-search)
   - [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
-  - [Whichkey (vspacecode.whichkey)](https://marketplace.visualstudio.com/items?itemName=vspacecode.whichkey)
+  - [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
 
-## Neovim features brought to VSCode
-
-- Tmux like navigation
-- Which key keybinds
-
-## Features left
-
-- Rainbow indent
-- Copilot keybinds
-- Debug keybinds
-- Undo tree vsc
-- make jk work for quickopen
-
-## Neovim Issues
+## Issues
 
 ### Priority
 

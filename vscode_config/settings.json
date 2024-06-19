@@ -424,6 +424,37 @@
                     "command": "workbench.action.tasks.build"
                 }
             ]
+        },
+        {
+            "key": "c",
+            "name": "+Chat",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "c",
+                    "name": "chat",
+                    "type": "command",
+                    "command": "inlineChat.start"
+                },
+                {
+                    "key": "e",
+                    "name": "explain",
+                    "type": "command",
+                    "command": "github.copilot.interactiveEditor.explain.palette"
+                },
+                {
+                    "key": "f",
+                    "name": "chat",
+                    "type": "command",
+                    "command": "github.copilot.interactiveEditor.fix"
+                }
+            ]
+        },
+        {
+            "key": "u",
+            "name": "undo",
+            "type": "command",
+            "command": "timeline.toggleExcludeSource:timeline.localHistory"
         }
     ]
 }
