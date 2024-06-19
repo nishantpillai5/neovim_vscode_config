@@ -8,7 +8,7 @@
             "command": "vscode-neovim.escape"
         }
     },
-    "whichkey.delay": 200,
+    "whichkey.delay": 0,
     "whichkey.bindings": [
         {
             "key": ":",
