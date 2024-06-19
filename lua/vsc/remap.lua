@@ -1,187 +1,220 @@
--- Helper
-local function map(mode, key, action)
-  vim.api.nvim_set_keymap(
-    mode,
-    key,
-    ":lua require('vscode-neovim').call('" .. action .. "')<CR>",
+local vscode = require('vscode')
+
+-------------------------------------- Helpers ------------------------------------------
+
+local function map_action(mode, key, input, opts)
+  -- Asynchronous keymaps
+  vim.keymap.set(mode, key,
+    function()
+      vscode.action(input, opts)
+    end,
     { noremap = true, silent = true }
   )
 end
 
--------------------- Basics -------------------------------
+local function map_call(mode, key, input, opts)
+  -- Synchronous keymaps
+  vim.keymap.set(mode, key,
+    function()
+      vscode.call(input, opts)
+    end,
+    { noremap = true, silent = true }
+  )
+end
 
-map('n', '<leader>x', 'workbench.action.closeActiveEditor')
-map('n', '<leader>s', 'workbench.action.files.save')
-map('n', '<leader>zv', 'workbench.action.splitEditorRight')
-map('n', '<leader>zs', 'workbench.action.splitEditorDown')
-map('n', '<leader>H', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
+local function map_whichkey(mode, key, node)
+  vim.keymap.set(mode, key, function()
+    vscode.call("whichkey.show")
+    vscode.call("whichkey.triggerKey", { args = { node } })
+  end, { noremap = true, silent = true })
+end
+
+-------------------------------------- Basics -------------------------------------------
+
+map_call('n', '<leader>x', 'workbench.action.closeActiveEditor')
+map_action('n', '<leader>s', 'workbench.action.files.save')
+map_call('n', '<leader>zv', 'workbench.action.splitEditorRight')
+map_call('n', '<leader>zs', 'workbench.action.splitEditorDown')
+map_call('n', '<leader>H', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
 
 -- Netrw
-map('n', '<leader>ef', 'workbench.view.explorer')
+map_call('n', '<leader>ef', 'workbench.view.explorer')
 
 -- Resize horizontally with Ctrl-Up and Ctrl-Down
-map('n', '<C-Up>', 'workbench.action.increaseViewHeight')
-map('n', '<C-Down>', 'workbench.action.decreaseViewHeight')
+map_call('n', '<C-Up>', 'workbench.action.increaseViewHeight')
+map_call('n', '<C-Down>', 'workbench.action.decreaseViewHeight')
 
 -- Resize vertically with Ctrl-Right and Ctrl-Left
-map('n', '<C-Left>', 'workbench.action.decreaseViewWidth')
-map('n', '<C-Right>', 'workbench.action.increaseViewWidth')
+map_call('n', '<C-Left>', 'workbench.action.decreaseViewWidth')
+map_call('n', '<C-Right>', 'workbench.action.increaseViewWidth')
 
--------------------- Aesthetics ---------------------------
+-------------------------------------- Aesthetics ---------------------------------------
 
-map('n', '<leader>zn', 'notifications.toggleDoNotDisturbMode')
+map_call('n', '<leader>zn', 'notifications.toggleDoNotDisturbMode')
 
--------------------- AI -----------------------------------
+-------------------------------------- AI -----------------------------------------------
 
-map('n', '<leader>cc', 'inlineChat.start')
-map('n', '<leader>cc', 'inlineChat.start')
+map_call('n', '<leader>cc', 'inlineChat.start')
 
-map('n', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
-map('v', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
+map_call('n', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
+map_call('v', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
 
-map('n', '<leader>cf', 'github.copilot.interactiveEditor.fix')
-map('v', '<leader>cf', 'github.copilot.interactiveEditor.fix')
+map_call('n', '<leader>cf', 'github.copilot.interactiveEditor.fix')
+map_call('v', '<leader>cf', 'github.copilot.interactiveEditor.fix')
 
--------------------- Debug --------------------------------
+-------------------------------------- Debug --------------------------------------------
 
 -- Dap
 -- map( "n", "<leader>dr", 'workbench.action.debug.run')
 -- map( "n", "<leader>ds", 'workbench.action.debug.start')
-map('n', '<F5>', 'workbench.action.debug.continue')
-map('n', '<C-F5>', 'workbench.action.debug.stop')
-map('n', '<F6>', 'workbench.action.debug.pause')
-map('n', '<F7>', 'workbench.action.debug.stepInto')
-map('n', '<C-F7>', 'workbench.action.debug.stepOut')
-map('n', '<F8>', 'workbench.action.debug.stepOver')
-map('n', '<leader>bb', 'editor.debug.action.toggleBreakpoint')
-map('n', '[b', 'editor.debug.action.goToPreviousBreakpoint')
-map('n', ']b', 'editor.debug.action.goToNextBreakpoint')
+map_call('n', '<F5>', 'workbench.action.debug.continue')
+map_call('n', '<C-F5>', 'workbench.action.debug.stop')
+map_call('n', '<F6>', 'workbench.action.debug.pause')
+map_call('n', '<F7>', 'workbench.action.debug.stepInto')
+map_call('n', '<C-F7>', 'workbench.action.debug.stepOut')
+map_call('n', '<F8>', 'workbench.action.debug.stepOver')
+map_call('n', '<leader>bb', 'editor.debug.action.toggleBreakpoint')
+map_call('n', '[b', 'editor.debug.action.goToPreviousBreakpoint')
+map_call('n', ']b', 'editor.debug.action.goToNextBreakpoint')
 
 -- DAP UI
 -- TODO: add hover
-map('n', '<leader>bt', 'workbench.view.debug')
+map_call('n', '<leader>bt', 'workbench.view.debug')
 
--------------------- Editor -------------------------------
+-------------------------------------- Editor -------------------------------------------
 
 -- Comments
-map('n', '[t', 'todo-tree.goToPrevious')
-map('n', ']t', 'todo-tree.goToNext')
+map_call('n', '[t', 'todo-tree.goToPrevious')
+map_call('n', ']t', 'todo-tree.goToNext')
 
 -- Tmux like navigation
-map('n', '<C-h>', 'workbench.action.navigateLeft')
-map('n', '<C-j>', 'workbench.action.navigateDown')
-map('n', '<C-k>', 'workbench.action.navigateUp')
-map('n', '<C-l>', 'workbench.action.navigateRight')
+map_call('n', '<C-h>', 'workbench.action.navigateLeft')
+map_call('n', '<C-j>', 'workbench.action.navigateDown')
+map_call('n', '<C-k>', 'workbench.action.navigateUp')
+map_call('n', '<C-l>', 'workbench.action.navigateRight')
 
 -- Undotree
-map('n', '<leader>u', 'timeline.toggleExcludeSource:timeline.localHistory')
+map_call('n', '<leader>u', 'timeline.toggleExcludeSource:timeline.localHistory')
 
 -- Zen
-map('n', '<leader>zz', 'workbench.action.toggleMaximizeEditorGroup')
+map_call('n', '<leader>zz', 'workbench.action.toggleMaximizeEditorGroup')
 
--------------------- Explorer -----------------------------
+-------------------------------------- Explorer -----------------------------------------
 
-map('n', '<leader>ee', 'workbench.view.explorer')
-map('n', '<leader>et', 'workbench.action.toggleSidebarVisibility')
+map_call('n', '<leader>ee', 'workbench.view.explorer')
+map_call('n', '<leader>et', 'workbench.action.toggleSidebarVisibility')
 
 -- Vista
-map('n', '<leader>es', 'outline.focus')
+map_call('n', '<leader>es', 'outline.focus')
 
--------------------- Finder -------------------------------
+-------------------------------------- Finder -------------------------------------------
 
 -- Telescope
-map('n', '<leader>:', 'workbench.action.showCommands')
-map('v', '<leader>:', 'workbench.action.showCommands')
-map('n', '<leader>ff', 'workbench.action.quickOpen')
-map('n', '<leader>fa', 'workbench.action.quickOpen')
-map('n', '<leader>fA', 'workbench.action.quickOpen')
+map_call('n', '<leader>:', 'workbench.action.showCommands')
+map_call('v', '<leader>:', 'workbench.action.showCommands')
+map_call('n', '<leader>ff', 'workbench.action.quickOpen')
+map_call('n', '<leader>fa', 'workbench.action.quickOpen')
+map_call('n', '<leader>fA', 'workbench.action.quickOpen')
 
-map('n', '<leader>fgs', 'gitlens.gitCommands.status')
-map('n', '<leader>fgb', 'git.checkout')
-map('n', '<leader>fgc', 'gitlens.showCommitSearch')
-map('n', '<leader>fgz', 'gitlens.gitCommands.stash.list')
+map_call('n', '<leader>fgs', 'gitlens.gitCommands.status')
+map_call('n', '<leader>fgb', 'git.checkout')
+map_call('n', '<leader>fgc', 'gitlens.showCommitSearch')
+map_call('n', '<leader>fgz', 'gitlens.gitCommands.stash.list')
 
-map('n', '<leader>fl', 'workbench.action.findInFiles')
-map('n', '<leader>fL', 'workbench.action.findInFiles')
-map('n', '<leader>/', 'fuzzySearch.activeTextEditor')
-map('n', '<leader>?', 'workbench.action.findInFiles')
+map_call('n', '<leader>fl', 'workbench.action.findInFiles')
+map_call('n', '<leader>fL', 'workbench.action.findInFiles')
+map_call('n', '<leader>/', 'fuzzySearch.activeTextEditor')
+map_call('n', '<leader>?', 'workbench.action.findInFiles')
 
-map('n', '<leader>fs', 'workbench.action.gotoSymbol')
-map('n', '<leader>fr', 'workbench.action.openRecent')
-map('n', '<leader>fh', 'workbench.action.showAllEditors')
+map_call('n', '<leader>fs', 'workbench.action.gotoSymbol')
+map_call('n', '<leader>fr', 'workbench.action.openRecent')
+map_call('n', '<leader>fh', 'workbench.action.showAllEditors')
 
 -- Harpoon
-map('n', '<leader>h', 'workbench.action.showAllEditors')
+map_call('n', '<leader>h', 'workbench.action.showAllEditors')
 
--------------------- Git ----------------------------------
+-------------------------------------- Git ----------------------------------------------
 
 --Fugitive
-map('n', '<leader>gs', 'workbench.view.scm')
-map('n', '<leader>gl', 'git.viewHistory')
+map_call('n', '<leader>gs', 'workbench.view.scm')
+map_call('n', '<leader>gl', 'git.viewHistory')
 -- map("n", "<leader>gb", "gitlens.showQuickCommitFileDetails")
-map('n', '<leader>gB', 'gitlens.toggleFileBlame')
+map_call('n', '<leader>gB', 'gitlens.toggleFileBlame')
 
 --LazyGit
 
 -- Diffview
-map('n', '<leader>gd', 'workbench.view.scm')
-map('n', '<leader>gD', 'git.viewFileHistory')
+map_call('n', '<leader>gd', 'workbench.view.scm')
+map_call('n', '<leader>gD', 'git.viewFileHistory')
 
 -- Gitlinker
-map('n', '<leader>goc', 'gitlens.openCommitOnRemote')
-map('n', '<leader>gop', 'gitlens.openAssociatedPullRequestOnRemote')
+map_call('n', '<leader>goc', 'gitlens.openCommitOnRemote')
+map_call('n', '<leader>gop', 'gitlens.openAssociatedPullRequestOnRemote')
 
 -- Gitsigns
-map('n', '[c', 'workbench.action.editor.previousChange')
-map('n', ']c', 'workbench.action.editor.nextChange')
-map('n', '<leader>zgb', 'gitlens.toggleLineBlame')
+map_call('n', '[c', 'workbench.action.editor.previousChange')
+map_call('n', ']c', 'workbench.action.editor.nextChange')
+map_call('n', '<leader>zgb', 'gitlens.toggleLineBlame')
 
 -- Hunk maps
 
--------------------- LSP ----------------------------------
+-------------------------------------- LSP ----------------------------------------------
 
 -- LSP
-map('n', 'gd', 'editor.action.revealDefinition')
-map('n', 'gD', 'editor.action.goToDeclaration')
-map('n', 'gi', 'editor.action.goToImplementation')
-map('n', 'gl', 'workbench.actions.view.problems')
-map('n', 'go', 'editor.action.goToTypeDefinition')
-map('n', '<F2>', 'editor.action.rename')
-map('n', '<F3>', 'editor.action.formatDocument')
-map('n', '<F4>', 'editor.action.quickFix')
+map_call('n', 'gd', 'editor.action.revealDefinition')
+map_call('n', 'gD', 'editor.action.goToDeclaration')
+map_call('n', 'gi', 'editor.action.goToImplementation')
+map_call('n', 'gl', 'workbench.actions.view.problems')
+map_call('n', 'go', 'editor.action.goToTypeDefinition')
+map_call('n', '<F2>', 'editor.action.rename')
+map_call('n', '<F3>', 'editor.action.formatDocument')
+map_call('n', '<F4>', 'editor.action.quickFix')
 
 -- Formatter
-map('n', '<leader>ls', 'editor.action.formatDocument')
-map('v', '<leader>ls', 'editor.action.formatSelection')
+map_action('n', '<leader>ls', 'editor.action.formatDocument')
+map_action('v', '<leader>ls', 'editor.action.formatSelection')
 
 -- Trouble
-map('n', '<leader>tt', 'workbench.action.togglePanel')
-map('n', '<leader>td', 'workbench.actions.view.toggleProblems')
-map('n', '<leader>tq', 'problems.action.showQuickFixes')
-map('n', '<leader>k', 'editor.action.marker.prev')
-map('n', '<leader>j', 'editor.action.marker.next')
-map('n', 'gr', 'editor.action.goToReferences')
+map_call('n', '<leader>tt', 'workbench.action.togglePanel')
+map_call('n', '<leader>td', 'workbench.actions.view.toggleProblems')
+map_call('n', '<leader>tq', 'problems.action.showQuickFixes')
+map_call('n', '<leader>k', 'editor.action.marker.prev')
+map_call('n', '<leader>j', 'editor.action.marker.next')
+map_call('n', 'gr', 'editor.action.goToReferences')
 
--------------------- Refactor -----------------------------
+-------------------------------------- Refactor -----------------------------------------
 
-map('n', '<leader>rn', 'editor.action.refactor')
-map('n', '<leader>rr', 'editor.action.refactor')
+map_call('n', '<leader>rn', 'editor.action.refactor')
+map_call('n', '<leader>rr', 'editor.action.refactor')
 
 -- Spectre
-map('n', '<leader>r/', 'search.action.replaceAllInFile')
-map('n', '<leader>r?', 'workbench.action.replaceInFiles')
+map_call('n', '<leader>r/', 'search.action.replaceAllInFile')
+map_call('n', '<leader>r?', 'workbench.action.replaceInFiles')
 
--------------------- Terminal -----------------------------
+-------------------------------------- Terminal -----------------------------------------
 
 -- Terminal
-map('n', '<leader>;;', 'workbench.action.terminal.toggleTerminal')
-map('n', '<leader>;f', 'workbench.action.terminal.toggleTerminal')
-map('n', '<leader>f;', 'workbench.action.terminal.toggleTerminal')
+map_call('n', '<leader>;;', 'workbench.action.terminal.toggleTerminal')
+map_call('n', '<leader>;f', 'workbench.action.terminal.toggleTerminal')
+map_call('n', '<leader>f;', 'workbench.action.terminal.toggleTerminal')
 
 -- Build
-map('n', '<leader>oo', 'workbench.action.tasks.build')
+map_call('n', '<leader>oo', 'workbench.action.tasks.build')
 
--------------------- Whichkey -----------------------------
+-------------------------------------- Whichkey -----------------------------------------
 
-map('n', '<leader>', 'whichkey.show')
-
+map_call('n', '<leader>', 'whichkey.show')
+map_whichkey('n', '<leader>;', ';')
+map_whichkey('n', '<leader>[', '[')
+map_whichkey('n', '<leader>]', ']')
+map_whichkey('n', '<leader>b', 'b')
+map_whichkey('n', '<leader>c', 'c')
+map_whichkey('n', '<leader>e', 'e')
+map_whichkey('n', '<leader>f', 'f')
+map_whichkey('n', '<leader>g', 'g')
+map_whichkey('n', '<leader>l', 'l')
+map_whichkey('n', '<leader>o', 'o')
+map_whichkey('n', '<leader>r', 'r')
+map_whichkey('n', '<leader>t', 't')
+map_whichkey('n', '<leader>w', 'w')
+map_whichkey('n', '<leader>z', 'z')

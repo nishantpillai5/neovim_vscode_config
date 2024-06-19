@@ -42,6 +42,7 @@ To install the configuration:
 ### Priority
 
 - gitlinker router azure dev, open commit, open PR
+- make vsc keymaps asynchronous
 - map ll to refresh lsp
 - ]x to next conflict doesn't work
 - overseer firewall prompt
