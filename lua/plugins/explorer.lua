@@ -17,6 +17,7 @@ return {
       { '<leader>ee', desc = 'neotree' },
       { '<leader>eb', desc = 'buffers' },
       { '<leader>eg', desc = 'git' },
+      { '<leader>et', desc = 'toggle' },
     },
     config = require('config.neotree').config,
   },
@@ -26,7 +27,7 @@ return {
     cond = conds['stevearc/oil.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     keys = {
-      { '<leader>et', '<cmd>Oil<cr>', desc = 'oil' },
+      { '<leader>ei', '<cmd>Oil<cr>', desc = 'oil' },
     },
     config = function()
       require('oil').setup {

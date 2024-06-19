@@ -82,3 +82,4 @@ To install the configuration:
 - MRU in dashboard in a non git directory, changes cwd
 - Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
 - gd prefers buffer over lsp
+- compare active file with picker like vsc

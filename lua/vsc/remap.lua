@@ -82,7 +82,7 @@ map('n', '<leader>zz', 'workbench.action.toggleMaximizeEditorGroup')
 -------------------- Explorer -----------------------------
 
 map('n', '<leader>ee', 'workbench.view.explorer')
-map('n', '<leader>et', 'workbench.view.explorer')
+map('n', '<leader>et', 'workbench.action.toggleSidebarVisibility')
 
 -- Vista
 map('n', '<leader>es', 'outline.focus')

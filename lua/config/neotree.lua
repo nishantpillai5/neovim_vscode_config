@@ -14,6 +14,10 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>eg', function()
     vim.cmd('Neotree reveal focus git_status toggle ' .. align)
   end, { desc = 'git' })
+
+  vim.keymap.set('n', '<leader>et', function()
+    vim.cmd('Neotree toggle')
+  end, { desc = 'toggle' })
 end
 
 M.setup = function()

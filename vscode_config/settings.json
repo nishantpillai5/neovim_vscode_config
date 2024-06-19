@@ -20,7 +20,7 @@
             "key": "?",
             "name": "find_global",
             "type": "command",
-            "command": "fuzzySearch.activeTextEditor"
+            "command": "workbench.action.findInFiles"
         },
         {
             "key": "/",
@@ -263,21 +263,27 @@
             "bindings": [
                 {
                     "key": "e",
-                    "name": "tree",
+                    "name": "neotree",
                     "type": "command",
-                    "command": "editor.debug.action.toggleBreakpoint"
+                    "command": "workbench.view.explorer"
                 },
                 {
-                    "key": "t",
-                    "name": "tree",
+                    "key": "g",
+                    "name": "git",
                     "type": "command",
-                    "command": "workbench.view.debug"
+                    "command": "workbench.view.scm"
                 },
                 {
                     "key": "s",
                     "name": "symbols",
                     "type": "command",
                     "command": "outline.focus"
+                },
+                {
+                    "key": "t",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.toggleSidebarVisibility"
                 },
                 {
                     "key": "y",
@@ -301,6 +307,7 @@
                 }
             ]
         },
+        // FIXME: complete binds below
         {
             "key": "f",
             "name": "+Find",
