@@ -41,7 +41,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>tL', function()
     trouble.toggle 'lsp'
-  end, { desc = 'loclist' })
+  end, { desc = 'lsp' })
 
   vim.keymap.set('n', '<leader>tf', function()
     trouble.toggle 'telescope'
