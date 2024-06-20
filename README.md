@@ -2,6 +2,11 @@
 
 This repository contains my Neovim configuration, including parallel settings for the [Neovim Extension for VSCode](https://marketplace.visualstudio.com/items?itemName=asvetliakov.vscode-neovim). I've aimed to keep the experience as consistent as possible across both platforms, prioritizing Neovim keybinds and bringing them to VSCode, rather than the other way around.
 
+Notable features:
+
+- Use Which-key keybinds within VSCode
+- Tmux-like navigation inside VSCode
+
 ## Installation
 
 ### Linux
@@ -22,11 +27,6 @@ This repository contains my Neovim configuration, including parallel settings fo
 - MinGW (gcc and make should be available in system's PATH)
 
 ## VSCode Configuration
-
-The following features are configured in VSCode config files:
-
-- Which key keybinds
-- Tmux-like navigation
 
 To install the configuration:
 
