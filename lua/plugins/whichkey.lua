@@ -18,24 +18,7 @@ return {
     config = function()
       local wk = require 'which-key'
       wk.register {
-        ['<leader>'] = {
-          name = 'Shortcuts',
-          [';'] = 'Terminal',
-          r = 'Refactor',
-          l = 'LSP',
-          c = 'Chat',
-          f = { name = 'Find', g = 'Git', b = 'Breakpoint' },
-          F = { name = 'Find_Telescope' },
-          e = { name = 'Explorer', y = 'Yank' },
-          w = 'Workspace',
-          t = 'Trouble',
-          b = 'Breakpoint',
-          n = 'Notes',
-          o = 'Tasks',
-          q = 'Quarto',
-          z = { name = 'Visual', g = 'Git' },
-          g = { name = 'Git', h = 'Hunk', o = 'Open' },
-        },
+        ['<leader>'] = require("common.whichkey_config").leader_maps,
         g = {
           d = 'definition',
           D = 'declaration',

@@ -41,7 +41,6 @@ To install the configuration:
 
 ### Priority
 
-- ghd for visual mode
 - gitlinker router azure dev, open commit, open PR
 - Circular todo comments jump (PR)
 - Hide icons for buffer componenet (PR)

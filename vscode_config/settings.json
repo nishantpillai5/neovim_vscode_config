@@ -131,69 +131,7 @@
             // FIXME: only available through neovim
             "command": ""
         },
-        {
-            "key": "[",
-            "name": "+Prev",
-            "type": "bindings",
-            "bindings": [
-                {
-                    "key": "b",
-                    "name": "breakpoint",
-                    "type": "command",
-                    "command": "editor.debug.action.goToPreviousBreakpoint"
-                },
-                {
-                    "key": "t",
-                    "name": "todo",
-                    "type": "command",
-                    "command": "todo-tree.goToPrevious"
-                },
-                {
-                    "key": "c",
-                    "name": "chunk",
-                    "type": "command",
-                    "command": "workbench.action.editor.previousChange"
-                },
-                {
-                    "key": "d",
-                    "name": "diagnostic",
-                    "type": "command",
-                    "command": "editor.action.marker.prev"
-                }
-            ]
-        },
-        {
-            "key": "]",
-            "name": "+Next",
-            "type": "bindings",
-            "bindings": [
-                {
-                    "key": "b",
-                    "name": "breakpoint",
-                    "type": "command",
-                    "command": "editor.debug.action.goToNextBreakpoint"
-                },
-                {
-                    "key": "t",
-                    "name": "todo",
-                    "type": "command",
-                    "command": "todo-tree.goToNext"
-                },
-                {
-                    "key": "c",
-                    "name": "chunk",
-                    "type": "command",
-                    "command": "workbench.action.editor.nextChange"
-                },
-                {
-                    "key": "d",
-                    "name": "diagnostic",
-                    "type": "command",
-                    "command": "editor.action.marker.next"
-                }
-            ]
-        },
-        {
+       {
             "key": ";",
             "name": "+Terminal",
             "type": "bindings",
