@@ -37,10 +37,10 @@ M.setup = function()
       map('n', '<leader>ghr', gitsigns.reset_hunk, { desc = 'reset' })
       map('v', '<leader>ghs', function()
         gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-      end, { desc = 'Hunk.stage' })
+      end, { desc = 'stage' })
       map('v', '<leader>ghr', function()
         gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-      end, { desc = 'Hunk.reset' })
+      end, { desc = 'reset' })
       map('n', '<leader>ghS', gitsigns.stage_buffer, { desc = 'stage_buffer' })
       map('n', '<leader>ghu', gitsigns.undo_stage_hunk, { desc = 'undo_stage' })
       map('n', '<leader>ghR', gitsigns.reset_buffer, { desc = 'reset_buffer' })

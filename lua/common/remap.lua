@@ -2,7 +2,7 @@
 vim.keymap.set('n', '<leader>zr', ':set relativenumber!<CR>', { desc = 'relative_numbers_toggle' })
 
 -- Clear highlighted search
-vim.keymap.set('n', '<leader>z/', ':nohlsearch<CR>', { desc = 'clear_highlighted_search' })
+vim.keymap.set('n', '<leader>z/', ':nohlsearch<CR>', { desc = 'clear_search' })
 
 -- Page up/down
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { silent = true, desc = 'page_down' })

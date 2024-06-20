@@ -59,7 +59,6 @@ M.setup = function()
         'fileformat',
       },
       lualine_z = {
-        'searchcount',
         'progress',
         'location',
       },
@@ -94,7 +93,7 @@ M.setup = function()
           end,
         },
       },
-      lualine_y = {},
+      lualine_y = { 'searchcount' },
       lualine_z = {},
     },
   }
