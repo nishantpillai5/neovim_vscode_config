@@ -201,6 +201,11 @@ map_call('n', '<leader>f;', 'workbench.action.terminal.toggleTerminal')
 -- Build
 map_call('n', '<leader>oo', 'workbench.action.tasks.build')
 
+-------------------------------------- Workspace ----------------------------------------
+
+map_call('n', '<leader>ww', _G.workspace_select_cmd)
+map_call('n', '<leader>wx', _G.workspace_close_cmd)
+
 -------------------------------------- Whichkey -----------------------------------------
 
 map_call('n', '<leader>', 'whichkey.show')

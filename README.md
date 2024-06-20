@@ -42,6 +42,13 @@ To install the configuration:
 ### Priority
 
 - gitlinker router azure dev, open commit, open PR
+- show no of search hits in top right
+- Circular todo comments jump (PR)
+- overseer list bind bind r to restart task
+- overseer list in a dressing window
+- remove diagnostics from trouble panel using dd
+- vsc harpoon no search input box
+- import which key settings for vsc
 - make vsc keymaps asynchronous
 - map ll to refresh lsp
 - ]x to next conflict doesn't work

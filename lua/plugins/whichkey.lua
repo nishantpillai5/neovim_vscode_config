@@ -23,7 +23,7 @@ return {
           [';'] = 'Terminal',
           r = 'Refactor',
           l = 'LSP',
-          c = { name = 'Chat' },
+          c = 'Chat',
           f = { name = 'Find', g = 'Git', b = 'Breakpoint' },
           F = { name = 'Find_Telescope' },
           e = { name = 'Explorer', y = 'Yank' },
@@ -67,6 +67,7 @@ return {
       wk.register({
         ['<leader>'] = {
           c = 'Chat',
+          f = 'Find',
           g = { name = 'Git', h = 'Hunk' },
           l = 'LSP',
           ['/'] = 'Search',

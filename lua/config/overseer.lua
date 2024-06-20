@@ -1,7 +1,34 @@
 local M = {}
 
+local action_on_all_tasks = function(action)
+    local overseer = require 'overseer'
+    local tasks = overseer.list_tasks { recent_first = true }
+    if vim.tbl_isempty(tasks) then
+      vim.notify('No tasks found', vim.log.levels.WARN)
+    else
+      for _, task in ipairs(tasks) do
+        overseer.run_action(task, action)
+      end
+    end
+end
+
+local action_on_last_task = function(action)
+    local overseer = require 'overseer'
+    local tasks = overseer.list_tasks { recent_first = true }
+    if vim.tbl_isempty(tasks) then
+      vim.notify('No tasks found', vim.log.levels.WARN)
+    else
+      overseer.run_action(tasks[1], action)
+    end
+end
+
 M.keymaps = function()
   local align = require('common.env').SIDEBAR_POSITION
+  local force_right = require('common.env').ENABLE_RIGHT_PANEL
+  if force_right then
+    align = 'right'
+  end
+
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
   end, { desc = 'run_from_list' })
@@ -16,7 +43,19 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>ol', function()
     vim.cmd 'OverseerRestartLast'
-  end, { desc = 'last_restart' })
+  end, { desc = 'restart_last' })
+
+  vim.keymap.set('n', '<leader>op', function()
+    vim.cmd 'OverseerPreviewLast'
+  end, { desc = 'preview_last' })
+
+  vim.keymap.set('n', '<leader>ox', function()
+    vim.cmd 'OverseerStopLast'
+  end, { desc = 'stop_last' })
+
+  vim.keymap.set('n', '<leader>oX', function()
+    vim.cmd 'OverseerStopAll'
+  end, { desc = 'stop_all' })
 
   vim.keymap.set('n', '<leader>or', function()
     if _G.run_cmd == nil then
@@ -37,7 +76,7 @@ end
 
 M.setup = function()
   local align = require('common.env').PANEL_POSITION
-  local cr_align = (align == "vertical") and "OpenVsplit" or 'OpenSplit'
+  local cr_align = (align == 'vertical') and 'OpenVsplit' or 'OpenSplit'
 
   require('overseer').setup {
     strategy = {
@@ -64,13 +103,19 @@ M.setup = function()
     },
   }
   vim.api.nvim_create_user_command('OverseerRestartLast', function()
-    local overseer = require 'overseer'
-    local tasks = overseer.list_tasks { recent_first = true }
-    if vim.tbl_isempty(tasks) then
-      vim.notify('No tasks found', vim.log.levels.WARN)
-    else
-      overseer.run_action(tasks[1], 'restart')
-    end
+    action_on_last_task('restart')
+  end, {})
+
+  vim.api.nvim_create_user_command('OverseerPreviewLast', function()
+    action_on_last_task('open float')
+  end, {})
+
+  vim.api.nvim_create_user_command('OverseerStopLast', function()
+    action_on_last_task('stop')
+  end, {})
+
+  vim.api.nvim_create_user_command('OverseerStopAll', function()
+    action_on_all_tasks('stop')
   end, {})
 end
 

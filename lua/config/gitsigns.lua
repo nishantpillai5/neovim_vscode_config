@@ -4,10 +4,7 @@ M.setup = function()
   local gitsigns = require 'gitsigns'
   gitsigns.setup {
     current_line_blame_opts = {
-      delay = 300,
-    },
-    current_line_blame_formatter_opts = {
-      relative_time = true,
+      delay = 100,
     },
     on_attach = function(bufnr)
       vim.keymap.set('n', '<leader>gb', gitsigns.blame_line, { desc = 'blame' })

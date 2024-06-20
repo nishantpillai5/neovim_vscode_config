@@ -5,7 +5,7 @@ local plugins = {
   'sindrets/diffview.nvim',
   'linrongbin16/gitlinker.nvim',
   'akinsho/git-conflict.nvim',
-  'ThePrimeagen/git-worktree.nvim',
+  'polarmutex/git-worktree.nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -94,19 +94,26 @@ return {
   },
   -- Worktree
   {
-    'ThePrimeagen/git-worktree.nvim',
-    cond = conds['ThePrimeagen/git-worktree.nvim'] or false,
+    'polarmutex/git-worktree.nvim',
+    cond = conds['polarmutex/git-worktree.nvim'] or false,
     keys = {
-      { '<leader>fgw', desc = 'worktree_switch' },
-      { '<leader>fgW', desc = 'worktree_create' },
+      { '<leader>gw', desc = 'worktree_switch' },
+      { '<leader>gW', desc = 'worktree_create' },
     },
     config = function()
-      vim.keymap.set('n', '<leader>fgw', function()
+      require('telescope').load_extension 'git_worktree'
+
+      vim.keymap.set('n', '<leader>gw', function()
         require('telescope').extensions.git_worktree.git_worktrees()
+        -- local dir = vim.fn.input('worktree name: ')
+        -- require("git-worktree").switch_worktree(dir)
       end, { desc = 'worktree_switch' })
 
-      vim.keymap.set('n', '<leader>fgW', function()
+      vim.keymap.set('n', '<leader>gW', function()
         require('telescope').extensions.git_worktree.create_git_worktree()
+        -- local branch = vim.fn.input('Branch name: ')
+        -- local dir = vim.fn.input('worktree name: ')
+        -- require("git-worktree").create_worktree(dir, branch, "origin")
       end, { desc = 'worktree_create' })
     end,
   },

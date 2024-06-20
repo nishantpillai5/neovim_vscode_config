@@ -9,14 +9,6 @@ M.keymaps = function()
     vim.cmd 'CopilotChatExplain'
   end, { desc = 'explain' })
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
-    vim.cmd 'CopilotChatFix'
-  end, { desc = 'fix' })
-
-  vim.keymap.set({ 'n', 'v' }, '<leader>cd', function()
-    vim.cmd 'CopilotChatFixDiagnostic'
-  end, { desc = 'diagnositic' })
-
   vim.keymap.set('n', '<leader>cr', function()
     vim.cmd 'CopilotChatReset'
   end, { desc = 'reset' })
@@ -35,10 +27,15 @@ M.keymaps = function()
     end
   end, { desc = 'selection' })
 
-  vim.keymap.set('n', '<leader>fc', function()
+  vim.keymap.set({ 'n', 'v' }, '<leader>fc', function()
     local actions = require 'CopilotChat.actions'
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
   end, { desc = 'chat' })
+
+  vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
+    local actions = require 'CopilotChat.actions'
+    require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
+  end, { desc = 'find' })
 end
 
 M.setup = function()

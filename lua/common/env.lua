@@ -19,10 +19,12 @@ M.GLOBAL_STATUS = true
 M.CONTEXT = 'work' -- work, "home
 
 M.SCREEN = 'normal' -- normal, widescreen
+M.ENABLE_RIGHT_PANEL = false
 
 if M.SCREEN == 'widescreen' then
   M.SIDEBAR_POSITION = 'left'
   M.PANEL_POSITION = 'vertical'
+  M.ENABLE_RIGHT_PANEL = true
 end
 
 return M

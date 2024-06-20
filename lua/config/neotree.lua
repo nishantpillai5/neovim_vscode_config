@@ -4,18 +4,18 @@ M.keymaps = function()
   local align = require('common.env').SIDEBAR_POSITION
 
   vim.keymap.set('n', '<leader>ee', function()
-    vim.cmd('Neotree reveal focus toggle ' .. align)
+    vim.cmd('Neotree reveal focus ' .. align)
   end, { desc = 'neotree' })
 
   vim.keymap.set('n', '<leader>eb', function()
-    vim.cmd('Neotree reveal focus buffers toggle ' .. align)
+    vim.cmd('Neotree reveal focus buffers ' .. align)
   end, { desc = 'buffers' })
 
   vim.keymap.set('n', '<leader>eg', function()
-    vim.cmd('Neotree reveal focus git_status toggle ' .. align)
+    vim.cmd('Neotree reveal focus git_status ' .. align)
   end, { desc = 'git' })
 
-  vim.keymap.set('n', '<leader>et', function()
+  vim.keymap.set('n', '<leader>ex', function()
     vim.cmd('Neotree toggle')
   end, { desc = 'toggle' })
 end

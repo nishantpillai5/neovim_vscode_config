@@ -17,7 +17,7 @@ return {
       { '<leader>ee', desc = 'neotree' },
       { '<leader>eb', desc = 'buffers' },
       { '<leader>eg', desc = 'git' },
-      { '<leader>et', desc = 'toggle' },
+      { '<leader>ex', desc = 'toggle' },
     },
     config = require('config.neotree').config,
   },

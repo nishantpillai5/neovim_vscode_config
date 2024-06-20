@@ -280,7 +280,7 @@
                     "command": "outline.focus"
                 },
                 {
-                    "key": "t",
+                    "key": "x",
                     "name": "toggle",
                     "type": "command",
                     "command": "workbench.action.toggleSidebarVisibility"
