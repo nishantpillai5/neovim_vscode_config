@@ -16,7 +16,7 @@ M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
 M.SIDEBAR_POSITION = 'right' -- left, right
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
 M.GLOBAL_STATUS = true
-M.CONTEXT = 'work' -- work, "home
+M.CONTEXT = 'home' -- work, "home
 
 M.SCREEN = 'normal' -- normal, widescreen
 M.ENABLE_RIGHT_PANEL = false

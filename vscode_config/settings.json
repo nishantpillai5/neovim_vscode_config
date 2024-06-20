@@ -46,13 +46,13 @@
             "key": "H",
             "name": "buffer_prev",
             "type": "command",
-            "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+            "command": "workbench.action.previousEditor"
         },
         {
             "key": "h",
             "name": "harpoon_list",
             "type": "command",
-            "command": "workbench.action.showAllEditors"
+            "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor"
         },
         {
             "key": "I",
@@ -318,12 +318,6 @@
                     "name": "symbols",
                     "type": "command",
                     "command": "workbench.action.gotoSymbol"
-                },
-                {
-                    "key": "r",
-                    "name": "recents",
-                    "type": "command",
-                    "command": "workbench.action.openRecent"
                 },
                 {
                     "key": "h",
