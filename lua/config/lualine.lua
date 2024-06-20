@@ -59,6 +59,7 @@ M.setup = function()
         'fileformat',
       },
       lualine_z = {
+        'searchcount',
         'progress',
         'location',
       },
@@ -73,7 +74,26 @@ M.setup = function()
         readonly_alert,
         unsaved_buffer_alert,
       },
-      lualine_x = {},
+      lualine_x = {
+        {
+          'buffers',
+          show_modified_status = false,
+          symbols = {
+            modified = '',
+            alternate_file = '',
+            directory = '',
+          },
+          fmt = function(name, context)
+            if vim.bo[context.bufnr].modified then
+              return name
+            end
+            return ''
+          end,
+          cond = function()
+            return unsaved_buffer_alert() ~= ''
+          end,
+        },
+      },
       lualine_y = {},
       lualine_z = {},
     },

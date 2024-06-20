@@ -41,9 +41,10 @@ To install the configuration:
 
 ### Priority
 
+- ghd for visual mode
 - gitlinker router azure dev, open commit, open PR
-- show no of search hits in top right
 - Circular todo comments jump (PR)
+- Hide icons for buffer componenet (PR)
 - overseer list bind bind r to restart task
 - overseer list in a dressing window
 - remove diagnostics from trouble panel using dd
