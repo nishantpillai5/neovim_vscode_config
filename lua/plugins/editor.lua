@@ -1,6 +1,7 @@
 local plugins = {
   'windwp/nvim-autopairs',
-  'folke/todo-comments.nvim',
+  -- 'folke/todo-comments.nvim',
+  'nishantpillai5/todo-comments.nvim',
   'alexghergh/nvim-tmux-navigation',
   'mbbill/undotree',
   -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
@@ -25,8 +26,8 @@ return {
   },
   -- Todo comments
   {
-    'folke/todo-comments.nvim',
-    cond = conds['folke/todo-comments.nvim'] or false,
+    'nishantpillai5/todo-comments.nvim',
+    cond = conds['nishantpillai5/todo-comments.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = require('config.todo_comments').config,

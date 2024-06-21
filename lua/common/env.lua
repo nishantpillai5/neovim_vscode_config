@@ -12,7 +12,7 @@ M.HOME = os.getenv 'HOME'
 M.DIR_NOTES = os.getenv 'DIR_NOTES'
 M.DIR_NVIM = os.getenv 'DIR_NVIM'
 M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
-
+M.NVIM_PLUGINS = os.getenv 'NVIM_PLUGINS'
 M.SIDEBAR_POSITION = 'right' -- left, right
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
 M.GLOBAL_STATUS = true

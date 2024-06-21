@@ -76,6 +76,7 @@ M.setup = function()
       lualine_x = {
         {
           'buffers',
+          icons_enabled = false,
           show_modified_status = false,
           symbols = {
             modified = '',

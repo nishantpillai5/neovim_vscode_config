@@ -42,8 +42,6 @@ To install the configuration:
 ### Priority
 
 - gitlinker router azure dev, open commit, open PR
-- Circular todo comments jump (PR)
-- Hide icons for buffer componenet (PR)
 - overseer list bind bind r to restart task
 - overseer list in a dressing window
 - remove diagnostics from trouble panel using dd
