@@ -37,55 +37,46 @@ To install the configuration:
   - [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
   - [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
 
-## Issues
+## Todo
 
-### Priority
-
-- gitlinker router azure dev, open commit, open PR
-- overseer list bind bind r to restart task
-- overseer list in a dressing window
-- remove diagnostics from trouble panel using dd
-- vsc harpoon no search input box
-- import which key settings for vsc
-- make vsc keymaps asynchronous
-- map ll to refresh lsp
-- ]x to next conflict doesn't work
-- overseer firewall prompt
-- python lsp doesn't work, gd
-- lsp virtual text comes back after insert mode
-- add vsc whichkey config json and complete key descriptions
-- open task side bar when a task is ran
-- ^M line endings with trouble preview
-- don't load python dap at BufEnter, load it when needed
-- fugitive git blame buffer print useful info
-- edit neotree git mappings, use fugitive mappings
-- cmp doesn't update with new suggestions
-- toggling toggle-term doesn't work when terminal is exited
-- set minimum cols for dap views
-- debug config duplicates
-- python lsp gotodefinition stops working sometimes
-- cyclic trouble next/prev
-- sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
-- disable notifications for noice notify
-- zp and zP to toggle sidebar and panel positions
-  `workbench.action.positionPanelRight`
-- terminal toggle doesn't work when no terminal exists
-
-### Backlog
-
-- Overseer
+- Git
+  - gitlinker router azure dev, open commit, open PR
+  - ]x to next conflict doesn't work
+  - edit neotree git mappings, use fugitive mappings
+  - compare active file with picker like vsc
+- Tasks
+  - overseer list bind bind r to restart task
+  - overseer list in a dressing window
+- LSP
+  - remove diagnostics from trouble panel using dd
+  - map ll to refresh lsp, cmp doesn't update with new suggestions
+  - python lsp is too slow
+  - lsp virtual text comes back after insert mode even when disabled
+  - cyclic trouble next/prev
+  - gd prefers buffer over lsp
+  - cppcheck linting
+- Tasks
+  - overseer firewall prompt
+  - open task side bar when a task is ran
   - start a custom terminal for builds with ft set to log and autoscroll off
-  - termimals with process exited don't toggle
   - lualine, show branch and commit of running build
   - Custom problem matcher
-- Nvim doesn't exit properly
-  - searching in git log fails because not disposing running gdb server properly, 
-  - could also be because of plotposition doesn't support keyboard interrupts
-- cppcheck linting
+  - nvim doesn't exit properly
+    - searching in git log fails because not disposing running gdb server properly
+    - could also be because of plotposition doesn't support keyboard interrupts
+- Terminal
+  - toggle doesn't work when a terminal has it's process exited
+  - toggle doesn't work when no terminal exists
+- DAP
+  - set minimum cols for dap views
+  - don't load python dap at BufEnter, load it when needed
+  - debug config duplicates
+- Finder
+  - after going to a file from telescope, filename added is not normalized (PR)
+- UI
+  - disable notifications for noice notify
+  - sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
+  - zp and zP to toggle sidebar and panel positions
+    `workbench.action.positionPanelRight`
+  - loading a saved session from dashboard breaks colors
 - Leetcode: run file in terminal
-- Save harpoon menu on save workspace
-- loading a saved session from dashboard breaks colors
-- MRU in dashboard in a non git directory, changes cwd
-- Path display not reversed on git files [see GH issue](https://github.com/nvim-telescope/telescope.nvim/issues/3106)
-- gd prefers buffer over lsp
-- compare active file with picker like vsc

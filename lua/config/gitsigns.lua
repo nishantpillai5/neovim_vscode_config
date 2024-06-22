@@ -1,5 +1,11 @@
 local M = {}
 
+M.keymaps = function()
+  vim.keymap.set('n', '<leader>gB', function()
+    vim.cmd 'Gitsigns blame'
+  end, { desc = 'blame_buffer' })
+end
+
 M.setup = function()
   local gitsigns = require 'gitsigns'
   gitsigns.setup {
@@ -61,6 +67,7 @@ end
 
 M.config = function()
   M.setup()
+  M.keymaps()
 end
 
 -- M.config()

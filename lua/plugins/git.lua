@@ -18,7 +18,6 @@ return {
     keys = {
       { '<leader>gs', desc = 'status' },
       { '<leader>gl', desc = 'log' },
-      { '<leader>gB', desc = 'blame_buffer' },
     },
     config = require('config.fugitive').config,
   },
@@ -59,6 +58,9 @@ return {
     'lewis6991/gitsigns.nvim',
     cond = conds['lewis6991/gitsigns.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      { '<leader>gB', desc = 'blame_buffer' },
+    },
     config = require('config.gitsigns').config,
   },
   -- Open git link

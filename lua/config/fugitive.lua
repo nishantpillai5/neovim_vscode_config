@@ -8,10 +8,6 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>gl', function()
     vim.cmd 'Git log'
   end, { desc = 'log' })
-
-  vim.keymap.set('n', '<leader>gB', function()
-    vim.cmd 'Git blame'
-  end, { desc = 'blame_buffer' })
 end
 
 M.setup = function()
