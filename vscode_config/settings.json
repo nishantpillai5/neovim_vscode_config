@@ -282,10 +282,10 @@
                     "type": "bindings",
                     "bindings": [
                         {
-                            "key": "s",
-                            "name": "status",
+                            "key": "d",
+                            "name": "diff",
                             "type": "command",
-                            "command": "gitlens.gitCommands.status"
+                            "command": "gitlens.openChangedFiles"
                         },
                         {
                             "key": "b",

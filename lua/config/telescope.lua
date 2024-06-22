@@ -44,7 +44,7 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end, { desc = 'alternate' })
 
-  vim.keymap.set('n', '<leader>fgs', builtin.git_status, { desc = 'status' })
+  vim.keymap.set('n', '<leader>fgd', builtin.git_status, { desc = 'diff' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches' })
   vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits' })
   vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'stash' })

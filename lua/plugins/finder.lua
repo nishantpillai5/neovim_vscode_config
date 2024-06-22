@@ -1,6 +1,8 @@
 local plugins = {
   'nvim-telescope/telescope.nvim',
   'OliverChao/telescope-picker-list.nvim',
+  'axkirillov/easypick.nvim',
+  'jemag/telescope-diff.nvim',
   'ThePrimeagen/harpoon',
   'rgroli/other.nvim',
 }
@@ -19,7 +21,7 @@ return {
       { '<leader>fF', desc = 'ignored_files' },
       { '<leader>fa', desc = 'all' },
       { '<leader>fA', desc = 'alternate' },
-      { '<leader>fgs', desc = 'status' },
+      { '<leader>fgd', desc = 'diff' },
       { '<leader>fgb', desc = 'branch' },
       { '<leader>fgc', desc = 'commits' },
       { '<leader>fgz', desc = 'stash' },
@@ -65,23 +67,31 @@ return {
     config = require('config.telescope_picker').config,
   },
   {
-    "jemag/telescope-diff.nvim",
+    'axkirillov/easypick.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    keys = {
+      { '<leader>fgD', desc = 'diff_files_from_main' },
+    },
+    config = require('config.easypick').config,
+  },
+  {
+    'jemag/telescope-diff.nvim',
     keys = {
       { '<leader>ed', desc = 'diff_file_current' },
       { '<leader>eD', desc = 'diff_file_select_both' },
     },
     dependencies = {
-      "nvim-telescope/telescope.nvim",
+      'nvim-telescope/telescope.nvim',
     },
     config = function()
-      vim.keymap.set("n", "<leader>ed", function()
-        require("telescope").extensions.diff.diff_current({hidden=true})
-      end, { desc = "diff_file_current" })
+      vim.keymap.set('n', '<leader>ed', function()
+        require('telescope').extensions.diff.diff_current { hidden = true }
+      end, { desc = 'diff_file_current' })
 
-      vim.keymap.set("n", "<leader>eD", function()
-        require("telescope").extensions.diff.diff_files({hidden=true})
-      end, { desc = "diff_file_select_both" })
-    end
+      vim.keymap.set('n', '<leader>eD', function()
+        require('telescope').extensions.diff.diff_files { hidden = true }
+      end, { desc = 'diff_file_select_both' })
+    end,
   },
   -- Buffer navigation
   {

@@ -99,7 +99,7 @@ map_action('n', '<leader>ff', 'workbench.action.quickOpen')
 map_action('n', '<leader>fa', 'workbench.action.quickOpen')
 map_action('n', '<leader>fA', 'workbench.action.quickOpen')
 
-map_action('n', '<leader>fgs', 'gitlens.gitCommands.status')
+map_action('n', '<leader>fgd', 'gitlens.openChangedFiles')
 map_action('n', '<leader>fgb', 'git.checkout')
 map_action('n', '<leader>fgc', 'gitlens.showCommitSearch')
 map_action('n', '<leader>fgz', 'gitlens.gitCommands.stash.list')
