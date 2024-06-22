@@ -22,23 +22,32 @@ local action_on_last_task = function(action)
     end
 end
 
-M.keymaps = function()
+local sidebar_align = function ()
   local align = require('common.env').SIDEBAR_POSITION
   local force_right = require('common.env').ENABLE_RIGHT_PANEL
   if force_right then
     align = 'right'
   end
+  return align
+end
 
+local panel_align = function ()
+  local align = require('common.env').PANEL_POSITION
+  local cr_align = (align == 'vertical') and 'OpenVsplit' or 'OpenSplit'
+  return cr_align
+end
+
+M.keymaps = function()
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
   end, { desc = 'run_from_list' })
 
   vim.keymap.set('n', '<leader>eo', function()
-    vim.cmd('OverseerToggle ' .. align)
+    vim.cmd('OverseerToggle ' .. sidebar_align())
   end, { desc = 'tasks' })
 
   vim.keymap.set('n', '<leader>ot', function()
-    vim.cmd('OverseerToggle ' .. align)
+    vim.cmd('OverseerToggle ' .. sidebar_align())
   end, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>ol', function()
@@ -75,8 +84,7 @@ M.keymaps = function()
 end
 
 M.setup = function()
-  local align = require('common.env').PANEL_POSITION
-  local cr_align = (align == 'vertical') and 'OpenVsplit' or 'OpenSplit'
+  local align = panel_align()
 
   require('overseer').setup {
     strategy = {
@@ -96,7 +104,7 @@ M.setup = function()
         ['v'] = 'OpenVsplit',
         ['s'] = 'OpenSplit',
         ['c'] = 'RunAction',
-        ['<CR>'] = cr_align,
+        ['<CR>'] = align,
         ['d'] = 'Dispose',
         -- ['x'] = 'Stop', --FIXME: doesn't work
       },

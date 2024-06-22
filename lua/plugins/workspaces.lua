@@ -40,18 +40,20 @@ return {
     },
     config = require('config.recession').config,
   },
-  -- Find other projects directories
+  -- Find other project directories
   {
     'ahmedkhalf/project.nvim',
     cond = conds['ahmedkhalf/project.nvim'] or false,
     dependencies = { 'nvim-telescope/telescope.nvim' },
-    -- lazy = true,
     event = "VeryLazy",
+    keys = {
+      { '<leader>wW', desc = 'select_project' },
+    },
     config = function()
       require('project_nvim').setup()
-      vim.keymap.set('n', '<leader>wf', function()
+      vim.keymap.set('n', '<leader>wW', function()
         require('telescope').extensions.projects.projects()
-      end, { desc = 'find_project' })
+      end, { desc = 'select_project' })
     end,
   },
   -- Local config

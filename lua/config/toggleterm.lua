@@ -18,15 +18,17 @@ local init_or_toggle = function()
   end
 end
 
+local panel_align = function ()
+  return require('common.env').PANEL_POSITION
+end
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>;;', init_or_toggle, { desc = 'toggle', silent = true })
 end
 
 M.setup = function()
-  local align = require('common.env').PANEL_POSITION
-
   require('toggleterm').setup {
-    direction = align,
+    direction = panel_align(),
     size = function (term)
       if term.direction == 'horizontal' then
         return vim.o.lines * 0.30

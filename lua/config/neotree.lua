@@ -1,22 +1,24 @@
 local M = {}
 
-M.keymaps = function()
-  local align = require('common.env').SIDEBAR_POSITION
+local sidebar_align = function ()
+  return require('common.env').SIDEBAR_POSITION
+end
 
+M.keymaps = function()
   vim.keymap.set('n', '<leader>ee', function()
-    vim.cmd('Neotree reveal focus ' .. align)
+    vim.cmd('Neotree reveal focus ' .. sidebar_align())
   end, { desc = 'neotree' })
 
   vim.keymap.set('n', '<leader>eb', function()
-    vim.cmd('Neotree reveal focus buffers ' .. align)
+    vim.cmd('Neotree reveal focus buffers ' .. sidebar_align())
   end, { desc = 'buffers' })
 
   vim.keymap.set('n', '<leader>eg', function()
-    vim.cmd('Neotree reveal focus git_status ' .. align)
+    vim.cmd('Neotree reveal focus git_status ' .. sidebar_align())
   end, { desc = 'git' })
 
   vim.keymap.set('n', '<leader>ex', function()
-    vim.cmd('Neotree toggle')
+    vim.cmd('Neotree toggle last')
   end, { desc = 'toggle' })
 end
 

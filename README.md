@@ -76,9 +76,8 @@ To install the configuration:
   - after going to a file from telescope, filename added is not normalized (PR)
 - UI
   - disable notifications for noice notify
-  - sidepanels (Overseer,Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
-  - zp and zP to toggle sidebar and panel positions
-    `workbench.action.positionPanelRight`
+  - sidepanels (Overseer, Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
+  - zP to toggle panel positions
   - loading a saved session from dashboard breaks colors
 - Leetcode
   - run file in terminal

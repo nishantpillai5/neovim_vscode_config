@@ -545,6 +545,12 @@
                     "command": "workbench.action.toggleMaximizeEditorGroup"
                 },
                 {
+                    "key": "p",
+                    "name": "position_sidebar",
+                    "type": "command",
+                    "command": "workbench.action.toggleSidebarPosition"
+                },
+                {
                     "key": "g",
                     "name": "+Git",
                     "type": "bindings",
