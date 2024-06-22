@@ -200,6 +200,12 @@
             "type": "bindings",
             "bindings": [
                 {
+                    "key": "d",
+                    "name": "diff_file_current",
+                    "type": "command",
+                    "command": "workbench.files.action.compareFileWith"
+                },
+                {
                     "key": "e",
                     "name": "neotree",
                     "type": "command",

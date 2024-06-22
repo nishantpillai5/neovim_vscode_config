@@ -39,11 +39,12 @@ To install the configuration:
 
 ## Todo
 
+- VSC integration
+  - map whichkey in nvim by reading 'whichkey.bindings' table from config
 - Git
   - gitlinker router azure dev, open commit, open PR
   - ]x to next conflict doesn't work
   - edit neotree git mappings, use fugitive mappings
-  - compare active file with picker like vsc
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
@@ -79,4 +80,5 @@ To install the configuration:
   - zp and zP to toggle sidebar and panel positions
     `workbench.action.positionPanelRight`
   - loading a saved session from dashboard breaks colors
-- Leetcode: run file in terminal
+- Leetcode
+  - run file in terminal

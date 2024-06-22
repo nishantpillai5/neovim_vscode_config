@@ -64,6 +64,25 @@ return {
     },
     config = require('config.telescope_picker').config,
   },
+  {
+    "jemag/telescope-diff.nvim",
+    keys = {
+      { '<leader>ed', desc = 'diff_file_current' },
+      { '<leader>eD', desc = 'diff_file_select_both' },
+    },
+    dependencies = {
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      vim.keymap.set("n", "<leader>ed", function()
+        require("telescope").extensions.diff.diff_current({hidden=true})
+      end, { desc = "diff_file_current" })
+
+      vim.keymap.set("n", "<leader>eD", function()
+        require("telescope").extensions.diff.diff_files({hidden=true})
+      end, { desc = "diff_file_select_both" })
+    end
+  },
   -- Buffer navigation
   {
     'ThePrimeagen/harpoon',
