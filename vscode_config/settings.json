@@ -245,8 +245,7 @@
                             "name": "relative_path",
                             "type": "command",
                             "command": "copyRelativeFilePath"
-                        },
-                        // FIXME: map f and F
+                        }
                     ]
                 }
             ]
@@ -257,7 +256,6 @@
             "name": "+Find",
             "type": "bindings",
             "bindings": [
-                // FIXME: complete bindings
                 {
                     "key": "f",
                     "name": "git_files",

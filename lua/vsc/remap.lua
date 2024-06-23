@@ -84,11 +84,13 @@ map_action('n', '<leader>zz', 'workbench.action.toggleMaximizeEditorGroup')
 
 -------------------------------------- Explorer -----------------------------------------
 
+map_action('n', '<leader>ed', 'workbench.files.action.compareFileWith')
 map_action('n', '<leader>ee', 'workbench.view.explorer')
-map_action('n', '<leader>et', 'workbench.action.toggleSidebarVisibility')
-
--- Vista
+map_action('n', '<leader>eg', 'workbench.view.scm')
 map_action('n', '<leader>es', 'outline.focus')
+map_action('n', '<leader>ex', 'workbench.action.toggleSidebarVisibility')
+map_action('n', '<leader>eyy', 'copyFilePath')
+map_action('n', '<leader>eyY', 'copyRelativeFilePath')
 
 -------------------------------------- Finder -------------------------------------------
 
