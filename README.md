@@ -42,6 +42,7 @@ To install the configuration:
 - VSC integration
   - map whichkey in nvim by reading 'whichkey.bindings' table from config
 - Git
+  - zgb too slow, using statusline for now
   - gitlinker router azure dev, open commit, open PR
   - ]x to next conflict doesn't work
   - edit neotree git mappings, use fugitive mappings

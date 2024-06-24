@@ -6,6 +6,7 @@ local plugins = {
   'linrongbin16/gitlinker.nvim',
   'akinsho/git-conflict.nvim',
   'polarmutex/git-worktree.nvim',
+  'f-person/git-blame.nvim', --WARN: too flashy
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -119,4 +120,17 @@ return {
       end, { desc = 'worktree_create' })
     end,
   },
+  -- Statusline blame
+  {
+    'f-person/git-blame.nvim',
+    cond = conds['f-person/git-blame.nvim'] or false,
+    event = "VeryLazy",
+    config = function ()
+      local git_blame = require('gitblame')
+      vim.g.gitblame_display_virtual_text = 0
+      local lualineX = require('lualine').get_config().tabline.lualine_x or {}
+      table.insert(lualineX, { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available })
+      require('lualine').setup { tabline = { lualine_x = lualineX } }
+    end
+  }
 }
