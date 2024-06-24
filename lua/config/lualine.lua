@@ -52,6 +52,26 @@ M.setup = function()
         readonly_alert,
       },
       lualine_x = {
+        {
+          'buffers',
+          icons_enabled = false,
+          show_modified_status = false,
+          symbols = {
+            modified = '',
+            alternate_file = '',
+            directory = '',
+          },
+          fmt = function(name, context)
+            if vim.bo[context.bufnr].modified then
+              return name
+            end
+            return ''
+          end,
+          cond = function()
+            return unsaved_buffer_alert() ~= ''
+          end,
+        },
+        unsaved_buffer_alert,
         'diagnostics',
       },
       lualine_y = {
@@ -74,26 +94,6 @@ M.setup = function()
         'diff',
       },
       lualine_x = {
-        {
-          'buffers',
-          icons_enabled = false,
-          show_modified_status = false,
-          symbols = {
-            modified = '',
-            alternate_file = '',
-            directory = '',
-          },
-          fmt = function(name, context)
-            if vim.bo[context.bufnr].modified then
-              return name
-            end
-            return ''
-          end,
-          cond = function()
-            return unsaved_buffer_alert() ~= ''
-          end,
-        },
-        unsaved_buffer_alert,
       },
       lualine_y = { 'searchcount' },
       lualine_z = {},
