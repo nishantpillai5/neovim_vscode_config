@@ -39,10 +39,7 @@ To install the configuration:
 
 ## Todo
 
-- VSC integration
-  - map whichkey in nvim by reading 'whichkey.bindings' table from config
 - Git
-  - zgb too slow, using statusline for now
   - gitlinker router azure dev, open commit, open PR
   - ]x to next conflict doesn't work
   - edit neotree git mappings, use fugitive mappings
@@ -79,5 +76,7 @@ To install the configuration:
   - sidepanels (Overseer, Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
   - zP to toggle panel positions
   - loading a saved session from dashboard breaks colors
+- VSC integration
+  - map whichkey in nvim by reading 'whichkey.bindings' table from config
 - Leetcode
   - run file in terminal

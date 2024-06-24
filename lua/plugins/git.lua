@@ -44,7 +44,7 @@ return {
   {
     'sindrets/diffview.nvim',
     cond = conds['sindrets/diffview.nvim'] or false,
-    cmd = { 'DiffviewOpen', "DiffviewFileHistory" },
+    cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
     keys = {
       { '<leader>gd', desc = 'diff' },
       { '<leader>gD', desc = 'diff_from_main' },
@@ -73,6 +73,7 @@ return {
     keys = {
       { '<leader>goc', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'commit' },
       { '<leader>gop', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'pr' },
+      { '<leader>goj', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'jira' },
     },
     config = require('config.gitlinker').config,
   },
@@ -124,13 +125,7 @@ return {
   {
     'f-person/git-blame.nvim',
     cond = conds['f-person/git-blame.nvim'] or false,
-    event = "VeryLazy",
-    config = function ()
-      local git_blame = require('gitblame')
-      vim.g.gitblame_display_virtual_text = 0
-      local lualineX = require('lualine').get_config().tabline.lualine_x or {}
-      table.insert(lualineX, { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available })
-      require('lualine').setup { tabline = { lualine_x = lualineX } }
-    end
-  }
+    event = 'VeryLazy',
+    config = require('config.gitblame').config,
+  },
 }
