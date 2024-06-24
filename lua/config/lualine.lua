@@ -49,6 +49,7 @@ M.setup = function()
       lualine_b = {},
       lualine_c = {
         { 'filename', path = 0 },
+        readonly_alert,
       },
       lualine_x = {
         'diagnostics',
@@ -69,9 +70,8 @@ M.setup = function()
         { 'filename', path = 1 },
       },
       lualine_c = {
-        'diff',
         readonly_alert,
-        unsaved_buffer_alert,
+        'diff',
       },
       lualine_x = {
         {
@@ -93,6 +93,7 @@ M.setup = function()
             return unsaved_buffer_alert() ~= ''
           end,
         },
+        unsaved_buffer_alert,
       },
       lualine_y = { 'searchcount' },
       lualine_z = {},

@@ -52,7 +52,6 @@ To install the configuration:
   - remove diagnostics from trouble panel using dd
   - map ll to refresh lsp, cmp doesn't update with new suggestions
   - python lsp is too slow
-  - lsp virtual text comes back after insert mode even when disabled
   - cyclic trouble next/prev
   - gd prefers buffer over lsp
   - cppcheck linting

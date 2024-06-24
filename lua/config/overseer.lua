@@ -24,7 +24,7 @@ end
 
 local sidebar_align = function ()
   local align = require('common.env').SIDEBAR_POSITION
-  local force_right = require('common.env').ENABLE_RIGHT_PANEL
+  local force_right = require('common.env').FORCE_RIGHT_TASKS_PANEL
   if force_right then
     align = 'right'
   end

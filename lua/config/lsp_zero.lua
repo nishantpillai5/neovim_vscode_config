@@ -1,13 +1,10 @@
 local M = {}
 
--- FIXME: lsp virtual text comes back after insert mode
-local diagnostics_active = true
 local toggle_diagnostics = function()
-  diagnostics_active = not diagnostics_active
-  if diagnostics_active then
-    vim.diagnostic.show()
-  else
-    vim.diagnostic.hide()
+  local current_config = vim.diagnostic.config()
+  if current_config ~= nil then
+    local current_virtual_text = current_config.virtual_text or false
+    vim.diagnostic.config { virtual_text = not current_virtual_text, signs = false }
   end
 end
 
@@ -16,6 +13,8 @@ M.keymaps = function()
 end
 
 M.setup = function()
+  vim.diagnostic.config { virtual_text = true, signs = false }
+
   local lsp_zero = require 'lsp-zero'
   local cmp_nvim_lsp = require 'cmp_nvim_lsp'
 

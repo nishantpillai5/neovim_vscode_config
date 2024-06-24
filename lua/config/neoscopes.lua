@@ -33,7 +33,7 @@ local replace_telescope_keymaps = function()
       additional_args = { '--follow' },
     }
   end, { desc = 'live_grep_global(workspace)' })
-  -- TODO: remap fL forworkspaces
+  -- TODO: remap fL for workspaces
 
   vim.keymap.set('n', '<leader>?', function()
     require('telescope.builtin').grep_string {

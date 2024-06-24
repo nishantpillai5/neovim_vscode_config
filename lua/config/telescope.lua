@@ -62,7 +62,6 @@ M.keymaps = function()
     vim.cmd 'Telescope current_buffer_fuzzy_find'
   end, { desc = 'find_local' })
 
-  -- TODO: make centered input
   vim.keymap.set('n', '<leader>?', function()
     builtin.grep_string { search = vim.fn.input 'Search > ' }
   end, { desc = 'find_global' })
