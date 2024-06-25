@@ -75,9 +75,10 @@ M.setup = function()
         'diagnostics',
       },
       lualine_y = {
+        -- 'encoding',
         'filetype',
-        'encoding',
         'fileformat',
+        { 'fileformat', icons_enabled = false },
       },
       lualine_z = {
         'progress',
