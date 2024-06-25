@@ -7,19 +7,22 @@ else
   M.OS = 'linux'
 end
 
--- TODO: add defaults
 M.HOME = os.getenv 'HOME'
-M.DIR_NOTES = os.getenv 'DIR_NOTES'
-M.DIR_NVIM = os.getenv 'DIR_NVIM'
+M.DIR_NOTES = os.getenv 'DIR_NOTES' or M.HOME .. '/notes'
+M.DIR_NVIM = os.getenv 'DIR_NVIM' or M.HOME .. '/.config/nvim'
+M.NVIM_PLUGINS = os.getenv 'NVIM_PLUGINS' or M.HOME .. '/.nvim/local_lazy'
+M.CONTEXT = os.getenv 'NVIM_CONTEXT' or 'home' -- work, "home
 M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
-M.NVIM_PLUGINS = os.getenv 'NVIM_PLUGINS'
 
 M.GLOBAL_STATUS = true
-M.CONTEXT = 'home' -- work, "home
-
 M.SIDEBAR_POSITION = 'right' -- left, right
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
 M.FORCE_RIGHT_TASKS_PANEL = false
 M.SCREEN = 'normal' -- normal, widescreen
+
+if M.CONTEXT == 'work' then
+  M.SCREEN = 'widescreen'
+  M.PANEL_POSITION = 'vertical'
+end
 
 return M
