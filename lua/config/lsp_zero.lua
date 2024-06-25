@@ -1,5 +1,7 @@
 local M = {}
 
+local IS_WIDESCREEN = require('common.env').SCREEN == 'widescreen'
+
 local toggle_diagnostics = function()
   local current_config = vim.diagnostic.config()
   if current_config ~= nil then
@@ -137,6 +139,9 @@ local get_logo = function(name)
   }
   local icon = logo_dict[name]
   if icon then
+    if IS_WIDESCREEN then
+      return icon .. ' ' .. name
+    end
     return icon
   end
 
@@ -155,6 +160,11 @@ local lsp_clients = function()
   for _, client in pairs(clients) do
     table.insert(c, get_logo(client.name))
   end
+  
+  if IS_WIDESCREEN then
+    return '  [' .. table.concat(c, ' ') .. ']'
+  end
+
   return '  ' .. table.concat(c, ' ')
 end
 

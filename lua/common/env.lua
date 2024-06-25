@@ -20,6 +20,6 @@ M.CONTEXT = 'home' -- work, "home
 M.SIDEBAR_POSITION = 'right' -- left, right
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
 M.FORCE_RIGHT_TASKS_PANEL = false
-M.SCREEN = 'widescreen' -- normal, widescreen
+M.SCREEN = 'normal' -- normal, widescreen
 
 return M
