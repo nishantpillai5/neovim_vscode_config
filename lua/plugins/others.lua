@@ -21,7 +21,8 @@ return {
     'kwakzalver/duckytype.nvim',
     cond = conds['kwakzalver/duckytype.nvim'] or false,
     keys = {
-      { '<leader>zt', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test' },
+      { '<leader>zt', '<cmd>DuckyType english_common<cr>', desc = 'typing_test_eng' },
+      { '<leader>zT', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test_code' },
     },
     config = function()
       require('duckytype').setup {}
@@ -42,5 +43,8 @@ return {
     lazy = true,
     cond = conds['subnut/nvim-ghost.nvim'] or false,
     cmd = { 'GhostTextStart' },
+    init = function()
+      vim.g.nvim_ghost_autostart = 0
+    end,
   },
 }

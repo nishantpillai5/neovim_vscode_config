@@ -82,6 +82,7 @@ M.setup = function()
       lualine_z = {
         'progress',
         'location',
+        'searchcount',
       },
     },
     tabline = {
@@ -93,9 +94,8 @@ M.setup = function()
         readonly_alert,
         'diff',
       },
-      lualine_x = {
-      },
-      lualine_y = { 'searchcount' },
+      lualine_x = {},
+      lualine_y = {},
       lualine_z = {},
     },
   }

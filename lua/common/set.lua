@@ -14,6 +14,9 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
+-- Unix line endings
+vim.opt.fileformats = 'unix,dos'
+
 vim.opt.list = true
 vim.opt.listchars:append 'space:⋅'
 -- vim.opt.listchars:append "eol:↴"
@@ -58,9 +61,6 @@ vim.o.showtabline = 2
 -- Faster operation
 -- vim.opt.updatetime = 300
 
--- Disable browser input plugin autostart
-vim.g.nvim_ghost_autostart = 0
-
--- cmd in statusline
+-- last command in statusline
 vim.o.showcmd = true
 vim.o.showcmdloc = "last"

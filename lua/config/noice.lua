@@ -14,6 +14,10 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>zn', function()
     require('noice').cmd 'disable'
   end, { desc = 'noice_disable' })
+
+  vim.keymap.set('n', '<leader>fN', function()
+    vim.cmd("Telescope notify")
+  end, { desc = 'notifications' })
 end
 
 M.setup = function()

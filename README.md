@@ -43,16 +43,27 @@ To install the configuration:
   - gitlinker router azure dev, open commit, open PR
   - ]x to next conflict doesn't work
   - edit neotree git mappings, use fugitive mappings
+  - [C next change different from main
+  - [search within git changed](https://www.reddit.com/r/neovim/comments/1b95wvk/telescope_is_there_a_way_to_search_git_diff/)
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
+  - bind fo to find existing task buffer
+- Finder
+  - save harpoon with session
+  - bind ex to exit inside neotree
+  - after going to a file from telescope, filename added is not normalized (PR)
+  - bind fS to find interface functions, prefill with Ifilename
+  - vista keymaps, unbind s
+  - file already exists warning after navigating from telescope
 - LSP
   - remove diagnostics from trouble panel using dd
   - map ll to refresh lsp, cmp doesn't update with new suggestions
-  - python lsp is too slow
+  - python lsp is too slow, might be sharing a thread with overseer
   - cyclic trouble next/prev
   - gd prefers buffer over lsp
   - cppcheck linting
+  - show argument types as virtual text
 - Tasks
   - overseer firewall prompt
   - open task side bar when a task is ran
@@ -65,17 +76,17 @@ To install the configuration:
 - Terminal
   - toggle doesn't work when a terminal has it's process exited
   - toggle doesn't work when no terminal exists
+  - panel toggle goes to vsplit
 - DAP
   - set minimum cols for dap views
   - don't load python dap at BufEnter, load it when needed
   - debug config duplicates
-- Finder
-  - after going to a file from telescope, filename added is not normalized (PR)
 - UI
   - disable notifications for noice notify
   - sidepanels (Overseer, Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
   - zP to toggle panel positions
   - loading a saved session from dashboard breaks colors
+  - [tabline in zen mode](https://github.com/folke/zen-mode.nvim/issues/116)
 - VSC integration
   - map whichkey in nvim by reading 'whichkey.bindings' table from config
 - Leetcode
