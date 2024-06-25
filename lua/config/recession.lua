@@ -39,7 +39,12 @@ end
 
 M.setup = function()
   local recession = require 'resession'
-  recession.setup {}
+  recession.setup {
+    extensions = {
+      overseer = { recent_first = true },
+      grapple = {},
+    },
+  }
 end
 
 M.config = function()

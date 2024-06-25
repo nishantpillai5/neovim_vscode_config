@@ -6,7 +6,6 @@ local plugins = {
   'utilyre/barbecue.nvim',
   'nvimdev/dashboard-nvim',
   'nvim-lualine/lualine.nvim',
-  'letieu/harpoon-lualine',
   'lukas-reineke/indent-blankline.nvim',
   'rcarriga/nvim-notify',
   'folke/noice.nvim',
@@ -88,17 +87,6 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     init = require('config.lualine').init,
     config = require('config.lualine').config,
-  },
-  {
-    'letieu/harpoon-lualine',
-    cond = conds['letieu/harpoon-lualine'] or false,
-    event = 'VeryLazy',
-    dependencies = {
-      {
-        'ThePrimeagen/harpoon',
-        branch = 'harpoon2',
-      },
-    },
   },
   -- Indentation guides
   {

@@ -50,20 +50,24 @@ M.keymaps = function()
     vim.cmd('OverseerToggle ' .. sidebar_align())
   end, { desc = 'toggle' })
 
+  vim.keymap.set('n', '<leader>oc', function()
+    action_on_last_task(nil)
+  end, { desc = 'change_last' })
+
   vim.keymap.set('n', '<leader>ol', function()
-    vim.cmd 'OverseerRestartLast'
+    action_on_last_task('restart')
   end, { desc = 'restart_last' })
 
   vim.keymap.set('n', '<leader>op', function()
-    vim.cmd 'OverseerPreviewLast'
+    action_on_last_task('open float')
   end, { desc = 'preview_last' })
 
   vim.keymap.set('n', '<leader>ox', function()
-    vim.cmd 'OverseerStopLast'
+    action_on_last_task('stop')
   end, { desc = 'stop_last' })
 
   vim.keymap.set('n', '<leader>oX', function()
-    vim.cmd 'OverseerStopAll'
+    action_on_all_tasks('stop')
   end, { desc = 'stop_all' })
 
   vim.keymap.set('n', '<leader>or', function()
@@ -110,21 +114,7 @@ M.setup = function()
       },
     },
   }
-  vim.api.nvim_create_user_command('OverseerRestartLast', function()
-    action_on_last_task('restart')
-  end, {})
 
-  vim.api.nvim_create_user_command('OverseerPreviewLast', function()
-    action_on_last_task('open float')
-  end, {})
-
-  vim.api.nvim_create_user_command('OverseerStopLast', function()
-    action_on_last_task('stop')
-  end, {})
-
-  vim.api.nvim_create_user_command('OverseerStopAll', function()
-    action_on_all_tasks('stop')
-  end, {})
 end
 
 M.lualine = function()

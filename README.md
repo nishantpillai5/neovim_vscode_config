@@ -50,10 +50,8 @@ To install the configuration:
   - overseer list in a dressing window
   - bind fo to find existing task buffer
 - Finder
-  - save harpoon with session
   - bind ex to exit inside neotree
   - after going to a file from telescope, filename added is not normalized (PR)
-  - bind fS to find interface functions, prefill with Ifilename
   - vista keymaps, unbind s
   - file already exists warning after navigating from telescope
 - LSP
@@ -65,6 +63,7 @@ To install the configuration:
   - cppcheck linting
   - show argument types as virtual text
 - Tasks
+  - write custom parser
   - overseer firewall prompt
   - open task side bar when a task is ran
   - start a custom terminal for builds with ft set to log and autoscroll off

@@ -1,6 +1,6 @@
 local M = {}
 
-local EXCLUDED_FTS = { 'toggleterm', 'harpoon' }
+local EXCLUDED_FTS = { 'toggleterm' }
 local GLOBAL_STATUS = require('common.env').GLOBAL_STATUS
 
 local unsaved_buffer_alert = function()

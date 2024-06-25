@@ -3,7 +3,7 @@ local plugins = {
   'OliverChao/telescope-picker-list.nvim',
   'axkirillov/easypick.nvim',
   'jemag/telescope-diff.nvim',
-  'ThePrimeagen/harpoon',
+  'cbochs/grapple.nvim',
   'rgroli/other.nvim',
 }
 
@@ -96,20 +96,18 @@ return {
   },
   -- Buffer navigation
   {
-    'ThePrimeagen/harpoon',
-    cond = conds['ThePrimeagen/harpoon'] or false,
-    branch = 'harpoon2',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-    },
+    'cbochs/grapple.nvim',
+    cond = conds['cbochs/grapple.nvim'] or false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    event = { "BufReadPost", "BufNewFile" },
+    cmd = "Grapple",
     keys = {
-      { '<leader>a', desc = 'harpoon_add' },
-      { '<leader>h', desc = 'harpoon_list' },
-      { '<C-PageUp>', desc = 'harpoon_prev' },
-      { '<C-PageDown>', desc = 'harpoon_next' },
+      { "<leader>a", "<cmd>Grapple toggle<cr>", desc = "grapple_add" },
+      { "<leader>h", "<cmd>Grapple toggle_tags<cr>", desc = "grapple_list" },
+      { "<C-PageUp>", "<cmd>Grapple cycle_tags prev<cr>", desc = "grapple_prev" },
+      { "<C-PageDown>", "<cmd>Grapple cycle_tags next<cr>", desc = "grapple_next" },
     },
-    config = require('config.harpoon').config,
+    config = require('config.grapple').config,
   },
   -- Change to alternate file
   {

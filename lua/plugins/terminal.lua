@@ -44,6 +44,7 @@ return {
       { '<leader>oo', desc = 'run_from_list' },
       { '<leader>eo', desc = 'tasks' },
       { '<leader>ot', desc = 'toggle' },
+      { '<leader>oc', desc = 'change_last' },
       { '<leader>ol', desc = 'restart_last' },
       { '<leader>op', desc = 'preview_last' },
       { '<leader>ox', desc = 'stop_last' },

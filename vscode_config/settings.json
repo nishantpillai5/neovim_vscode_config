@@ -50,7 +50,7 @@
         },
         {
             "key": "h",
-            "name": "harpoon_list",
+            "name": "grapple_list",
             "type": "command",
             "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor"
         },

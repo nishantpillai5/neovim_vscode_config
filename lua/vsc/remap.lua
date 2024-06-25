@@ -115,7 +115,7 @@ map_action('n', '<leader>fs', 'workbench.action.gotoSymbol')
 map_action('n', '<leader>fr', 'workbench.action.openRecent')
 map_action('n', '<leader>fh', 'workbench.action.showAllEditors')
 
--- Harpoon
+-- Grapple
 map_action('n', '<leader>h', 'workbench.action.showAllEditors')
 
 -------------------------------------- Git ----------------------------------------------
