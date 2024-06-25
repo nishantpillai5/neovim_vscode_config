@@ -15,7 +15,7 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 -- Unix line endings
-vim.opt.fileformats = 'unix,dos'
+vim.opt.fileformats = 'unix,dos,mac'
 
 vim.opt.list = true
 vim.opt.listchars:append 'space:⋅'

@@ -34,6 +34,7 @@ return {
       { '<leader>fW', desc = 'whole_word' },
       { '<leader>Ff', desc = 'builtin' },
       { '<leader>fs', desc = 'symbols' },
+      { '<leader>fS', desc = 'symbols_interface' },
       { '<leader>fm', desc = 'marks' },
       { '<leader>fr', desc = 'recents' },
       { '<leader>f"', desc = 'registers' },

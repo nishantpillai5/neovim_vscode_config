@@ -79,6 +79,13 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'builtin' })
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'symbols' })
+
+  vim.keymap.set('n', '<leader>fS', function()
+    local bufname = vim.api.nvim_buf_get_name(0)
+    local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
+    builtin.lsp_document_symbols { default_text = 'i' .. basename }
+  end, { desc = 'symbols_interface' })
+
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'marks' })
 
   vim.keymap.set('n', '<leader>fr', function()
