@@ -1,6 +1,6 @@
 local M = {}
 
-local sidebar_align = function ()
+local sidebar_align = function()
   return require('common.env').SIDEBAR_POSITION
 end
 
@@ -18,15 +18,33 @@ M.keymaps = function()
   end, { desc = 'git' })
 
   vim.keymap.set('n', '<leader>ex', function()
-    vim.cmd('Neotree toggle last')
+    vim.cmd 'Neotree toggle last'
   end, { desc = 'toggle' })
 end
 
 M.setup = function()
   require('neo-tree').setup {
-    window = { mappings = { ['o'] = 'system_open' } },
     filesystem = {
-      window = { mappings = { ['o'] = 'system_open' } },
+      follow_current_file = {
+        enabled = true,
+      },
+    },
+    git_status = {
+      window = {
+        mappings = {
+          ['s'] = 'git_add_file',
+          ['u'] = 'git_unstage_file',
+          ['c'] = 'git_commit',
+        },
+      },
+    },
+    window = {
+      mappings = {
+        ['o'] = 'system_open',
+        ['e'] = 'close_window',
+        ['s'] = 'open_split',
+        ['v'] = 'open_vsplit',
+      },
     },
     commands = {
       system_open = function(state)

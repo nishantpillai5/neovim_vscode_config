@@ -42,7 +42,6 @@ To install the configuration:
 - Git
   - gitlinker router azure dev, open commit, open PR
   - ]x to next conflict doesn't work
-  - edit neotree git mappings, use fugitive mappings
   - [C next change different from main
   - [search within git changed](https://www.reddit.com/r/neovim/comments/1b95wvk/telescope_is_there_a_way_to_search_git_diff/)
 - Tasks
@@ -50,7 +49,6 @@ To install the configuration:
   - overseer list in a dressing window
   - bind fo to find existing task buffer
 - Finder
-  - bind ex to exit inside neotree
   - after going to a file from telescope, filename added is not normalized (PR)
   - vista keymaps, unbind s
   - file already exists warning after navigating from telescope
