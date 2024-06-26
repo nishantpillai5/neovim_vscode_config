@@ -70,7 +70,6 @@ return {
     cond = conds['linrongbin16/gitlinker.nvim'] or false,
     cmd = 'GitLink',
     keys = {
-      { '<leader>goc', '<cmd>GitLink! commit<cr>', mode = { 'n', 'v' }, desc = 'commit' },
       { '<leader>gop', '<cmd>GitLink! pr<cr>', mode = { 'n', 'v' }, desc = 'pr' },
       { '<leader>goj', '<cmd>GitLink! jira<cr>', mode = { 'n', 'v' }, desc = 'jira' },
       { '<leader>goJ', '<cmd>GitLink! jira_current<cr>', mode = { 'n', 'v' }, desc = 'jira_current' },
@@ -126,6 +125,10 @@ return {
     'f-person/git-blame.nvim',
     cond = conds['f-person/git-blame.nvim'] or false,
     event = 'VeryLazy',
+    keys = {
+      { '<leader>goc', '<cmd>GitBlameOpenCommitURL<cr>', mode = { 'n', 'v' }, desc = 'commit' },
+      { '<leader>gof', '<cmd>GitBlameOpenFileURL<cr>', mode = { 'n', 'v' }, desc = 'file' },
+    },
     config = require('config.gitblame').config,
   },
 }
