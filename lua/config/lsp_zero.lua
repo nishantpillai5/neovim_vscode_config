@@ -2,6 +2,10 @@ local M = {}
 
 local IS_WIDESCREEN = require('common.env').SCREEN == 'widescreen'
 
+local toggle_hints = function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end
+
 local toggle_diagnostics = function()
   local current_config = vim.diagnostic.config()
   if current_config ~= nil then
@@ -11,11 +15,13 @@ local toggle_diagnostics = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zl', toggle_diagnostics, { desc = 'toggle_diagnostics' })
+  vim.keymap.set('n', '<leader>zl', toggle_hints, { desc = 'toggle_hints' })
+  vim.keymap.set('n', '<leader>zL', toggle_diagnostics, { desc = 'toggle_diagnostics' })
 end
 
 M.setup = function()
   vim.diagnostic.config { virtual_text = true, signs = false }
+  vim.lsp.inlay_hint.enable()
 
   local lsp_zero = require 'lsp-zero'
   local cmp_nvim_lsp = require 'cmp_nvim_lsp'
@@ -160,7 +166,7 @@ local lsp_clients = function()
   for _, client in pairs(clients) do
     table.insert(c, get_logo(client.name))
   end
-  
+
   if IS_WIDESCREEN then
     return '  [' .. table.concat(c, ' ') .. ']'
   end
