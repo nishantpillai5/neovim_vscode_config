@@ -69,11 +69,11 @@ return {
     'linrongbin16/gitlinker.nvim',
     cond = conds['linrongbin16/gitlinker.nvim'] or false,
     cmd = 'GitLink',
-    -- TODO: incorrect commands
     keys = {
-      { '<leader>goc', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'commit' },
-      { '<leader>gop', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'pr' },
-      { '<leader>goj', '<cmd>GitLink! blame<cr>', mode = { 'n', 'v' }, desc = 'jira' },
+      { '<leader>goc', '<cmd>GitLink! commit<cr>', mode = { 'n', 'v' }, desc = 'commit' },
+      { '<leader>gop', '<cmd>GitLink! pr<cr>', mode = { 'n', 'v' }, desc = 'pr' },
+      { '<leader>goj', '<cmd>GitLink! jira<cr>', mode = { 'n', 'v' }, desc = 'jira' },
+      { '<leader>goJ', '<cmd>GitLink! jira_current<cr>', mode = { 'n', 'v' }, desc = 'jira_current' },
     },
     config = require('config.gitlinker').config,
   },
