@@ -15,8 +15,8 @@ local toggle_diagnostics = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zl', toggle_hints, { desc = 'toggle_hints' })
-  vim.keymap.set('n', '<leader>zL', toggle_diagnostics, { desc = 'toggle_diagnostics' })
+  vim.keymap.set('n', '<leader>zL', toggle_hints, { desc = 'toggle_hints' })
+  vim.keymap.set('n', '<leader>zl', toggle_diagnostics, { desc = 'toggle_diagnostics' })
 end
 
 M.setup = function()
