@@ -1,7 +1,6 @@
 local plugins = {
   'smoka7/hop.nvim',
   'kylechui/nvim-surround',
-  -- 'chentoast/marks.nvim',
   'LeonHeidelbach/trailblazer.nvim',
   'gregorias/coerce.nvim',
   'monaqa/dial.nvim',
@@ -19,7 +18,7 @@ return {
     cond = conds['smoka7/hop.nvim'] or false,
     keys = {
       { 's', '<cmd>HopChar2<cr>', mode = { 'n', 'x' }, desc = 'hop_char' },
-      -- { 'S', '<cmd>HopNodes<cr>', mode = {'n','x'}, desc = 'hop_node' },
+      { 'S', '<cmd>HopNodes<cr>', mode = {'n','x'}, desc = 'hop_node' },
     },
     opts = {
       multi_windows = true,
@@ -39,40 +38,10 @@ return {
   },
   -- Marks
   {
-    'chentoast/marks.nvim',
-    cond = conds['chentoast/marks.nvim'] or false,
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {},
-  },
-  {
     'LeonHeidelbach/trailblazer.nvim',
     cond = conds['LeonHeidelbach/trailblazer.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      require('trailblazer').setup {
-        trail_options = {
-          multiple_mark_symbol_counters_enabled = false,
-          trail_mark_in_text_highlights_enabled = false,
-        },
-        force_mappings = {
-          nv = {
-            motions = {
-              new_trail_mark = 'mm',
-              track_back = 'mb',
-              peek_move_next_down = '<A-PageDown>',
-              peek_move_previous_up = '<A-PageUp>',
-              move_to_nearest = '<A-m>',
-              toggle_trail_mark_list = 'M',
-            },
-            actions = {
-              delete_all_trail_marks = 'mD',
-              paste_at_last_trail_mark = 'mp',
-              paste_at_all_trail_marks = 'mP',
-            },
-          },
-        },
-      }
-    end,
+    config = require('config.trailblazer').config,
   },
   -- Change variable case format
   {

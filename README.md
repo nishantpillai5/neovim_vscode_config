@@ -40,23 +40,18 @@ To install the configuration:
 ## Todo
 
 - Git
+  - git blame statusline doesn't go away when not available
   - fugitive window height
   - ]x to next conflict doesn't work
   - [C next change different from main
   - [search within git changed](https://www.reddit.com/r/neovim/comments/1b95wvk/telescope_is_there_a_way_to_search_git_diff/)
-  - git blame statusline doesn't go away when not available
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
   - bind fo to find existing task buffer
   - don't auto dispose tasks
 - Finder
-  - [PRIO] use trailblazer
-    - trailblazer hlgroups
-    - delete in file
-    - whichkey desc
-    - integrate with telescope and grapple
-    - sorting
+  - integrate trailblazer with telescope, grapple, recession
   - after going to a file from telescope, filename added is not normalized (PR)
   - vista keymaps, unbind s
   - file already exists warning after navigating from telescope
