@@ -1,14 +1,5 @@
 local M = {}
 
-local get_main_branch = function()
-  if _G.main_branch then
-    return _G.main_branch
-  end
-
-  local get_default_branch = "git rev-parse --symbolic-full-name refs/remotes/origin/HEAD | sed 's!.*/!!'"
-  return vim.fn.system(get_default_branch) or 'main'
-end
-
 local diffview_toggle = function()
   local lib = require 'diffview.lib'
   local view = lib.get_current_view()
@@ -25,7 +16,7 @@ local diffview_from_main = function()
   if view then
     vim.cmd.DiffviewClose()
   else
-    vim.cmd('DiffviewOpen origin/' .. get_main_branch() .. '...HEAD')
+    vim.cmd('DiffviewOpen origin/' .. require('common.utils').get_main_branch() .. '...HEAD')
   end
 end
 

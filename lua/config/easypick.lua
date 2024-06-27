@@ -1,21 +1,12 @@
 local M = {}
 
-local get_main_branch = function()
-  if _G.main_branch then
-    return _G.main_branch
-  end
-
-  local get_default_branch = "git rev-parse --symbolic-full-name refs/remotes/origin/HEAD | sed 's!.*/!!'"
-  return vim.fn.system(get_default_branch) or 'main'
-end
-
 M.keymaps = function()
   vim.api.nvim_set_keymap('n', '<leader>fgD', ':Easypick changed_files<cr>', { desc = 'diff_files_from_main' })
 end
 
 M.setup = function()
   local easypick = require 'easypick'
-  local base_branch = get_main_branch()
+  local base_branch = require('common.utils').get_main_branch()
 
   local command = ''
 

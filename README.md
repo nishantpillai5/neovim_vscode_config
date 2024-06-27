@@ -40,11 +40,10 @@ To install the configuration:
 ## Todo
 
 - Git
-  - git blame statusline doesn't go away when not available
-  - fugitive window height
   - ]x to next conflict doesn't work
   - [C next change different from main
-  - [search within git changed](https://www.reddit.com/r/neovim/comments/1b95wvk/telescope_is_there_a_way_to_search_git_diff/)
+  - git blame statusline doesn't go away when not available
+  - fugitive window height
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
