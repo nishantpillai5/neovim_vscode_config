@@ -66,7 +66,7 @@ return {
       theme = {
         normal = { bg = '#262626' },
       },
-      show_basename = false,
+      show_basename = true,
       show_dirname = false,
     },
   },

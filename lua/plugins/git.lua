@@ -91,8 +91,8 @@ return {
         default_commands = true,
         disable_diagnostics = true,
       }
-      vim.keymap.set('n', '[x', '<Plug>(git-conflict-next-conflict)', { desc = 'conflict' })
-      vim.keymap.set('n', ']x', '<Plug>(git-conflict-prev-conflict)', { desc = 'conflict' })
+      vim.keymap.set('n', '[x', '<cmd>GitConflictPrevConflict<cr>', { desc = 'conflict' })
+      vim.keymap.set('n', ']x', '<cmd>GitConflictNextConflict<cr>', { desc = 'conflict' })
     end,
   },
   -- Worktree

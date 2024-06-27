@@ -4,7 +4,9 @@ local get_main_branch = function()
   if _G.main_branch then
     return _G.main_branch
   end
-  return 'main'
+
+  local get_default_branch = "git rev-parse --symbolic-full-name refs/remotes/origin/HEAD | sed 's!.*/!!'"
+  return vim.fn.system(get_default_branch) or 'main'
 end
 
 M.keymaps = function()

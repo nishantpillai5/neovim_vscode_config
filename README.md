@@ -40,15 +40,23 @@ To install the configuration:
 ## Todo
 
 - Git
-  - gitlinker router azure dev, open commit, open PR
+  - fugitive window height
   - ]x to next conflict doesn't work
   - [C next change different from main
   - [search within git changed](https://www.reddit.com/r/neovim/comments/1b95wvk/telescope_is_there_a_way_to_search_git_diff/)
+  - git blame statusline doesn't go away when not available
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
   - bind fo to find existing task buffer
+  - don't auto dispose tasks
 - Finder
+  - [PRIO] use trailblazer
+    - trailblazer hlgroups
+    - delete in file
+    - whichkey desc
+    - integrate with telescope and grapple
+    - sorting
   - after going to a file from telescope, filename added is not normalized (PR)
   - vista keymaps, unbind s
   - file already exists warning after navigating from telescope
@@ -86,5 +94,8 @@ To install the configuration:
   - [tabline in zen mode](https://github.com/folke/zen-mode.nvim/issues/116)
 - VSC integration
   - map whichkey in nvim by reading 'whichkey.bindings' table from config
+  - set whichkey settings from inside lua
+  - script to convert nvim nmap to whichkey json if mapping from lua doesn't work
+  - plot json to visualize
 - Leetcode
   - run file in terminal

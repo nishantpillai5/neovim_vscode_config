@@ -139,7 +139,7 @@ map_action('n', '<leader>gop', 'gitlens.openAssociatedPullRequestOnRemote')
 -- Gitsigns
 map_action('n', '[c', 'workbench.action.editor.previousChange')
 map_action('n', ']c', 'workbench.action.editor.nextChange')
-map_action('n', '<leader>zgb', 'gitlens.toggleLineBlame')
+map_action('n', '<leader>gv', 'gitlens.toggleLineBlame')
 
 -- Hunk maps
 

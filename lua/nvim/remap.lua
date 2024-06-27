@@ -49,4 +49,4 @@ vim.keymap.set('n', '<leader>zP',
     require('common.env').PANEL_POSITION = require('common.env').PANEL_POSITION == 'horizontal' and 'vertical' or 'horizontal'
     vim.notify("Panel position changed: " .. require('common.env').PANEL_POSITION)
   end
-, { silent = true, desc = 'position_sidebar' })
+, { silent = true, desc = 'position_panel' })

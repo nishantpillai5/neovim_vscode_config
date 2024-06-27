@@ -1,9 +1,9 @@
 local M = {}
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zgb', function()
+  vim.keymap.set('n', '<leader>gv', function()
     vim.g.gitblame_display_virtual_text = vim.g.gitblame_display_virtual_text == 0 and 1 or 0
-  end, { desc = 'blame' })
+  end, { desc = 'virtual_blame' })
 end
 
 M.setup = function()

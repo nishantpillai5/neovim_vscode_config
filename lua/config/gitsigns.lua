@@ -54,8 +54,7 @@ M.setup = function()
       map('n', '<leader>ghb', function()
         gitsigns.blame_line { full = true }
       end, { desc = 'blame' })
-      map('n', '<leader>zgd', gitsigns.toggle_deleted, { desc = 'deleted' })
-      -- map('n', '<leader>zgb', gitsigns.toggle_current_line_blame, { desc = 'blame' })
+      map('n', '<leader>gV', gitsigns.toggle_deleted, { desc = 'virtual_deleted' })
 
       -- Text object
       map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
