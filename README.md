@@ -63,12 +63,12 @@ To install the configuration:
   - cppcheck linting
   - show argument types as virtual text
 - Tasks
+  - custom problem matcher (PRIO)
   - write custom parser
   - overseer firewall prompt
   - open task side bar when a task is ran
   - start a custom terminal for builds with ft set to log and autoscroll off
   - lualine, show branch and commit of running build
-  - Custom problem matcher
   - nvim doesn't exit properly
     - searching in git log fails because not disposing running gdb server properly
     - could also be because of plotposition doesn't support keyboard interrupts
@@ -87,8 +87,8 @@ To install the configuration:
   - loading a saved session from dashboard breaks colors
   - [tabline in zen mode](https://github.com/folke/zen-mode.nvim/issues/116)
 - VSC integration
-  - map whichkey in nvim by reading 'whichkey.bindings' table from config
-  - set whichkey settings from inside lua
+  - set whichkey settings in vsc from inside lua (ISSUE)
+  - alternative: map whichkey in nvim by reading 'whichkey.bindings' table from config
   - script to convert nvim nmap to whichkey json if mapping from lua doesn't work
   - plot json to visualize
 - Leetcode
