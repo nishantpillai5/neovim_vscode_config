@@ -26,6 +26,9 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     cond = conds['nvim-treesitter/nvim-treesitter-context'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    keys = {
+      { '<leader>zc', "<cmd>TSContextToggle<CR>", mode = 'n', desc = 'context_sticky' },
+    },
   },
   -- Virtual context brackets
   {
@@ -34,14 +37,14 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
       {
-        '<leader>zc',
+        '<leader>zC',
         function()
           local nvim_biscuits = require 'nvim-biscuits'
           nvim_biscuits.BufferAttach()
           nvim_biscuits.toggle_biscuits()
         end,
         mode = 'n',
-        desc = 'context_virtual_toggle',
+        desc = 'context_virtual',
       },
     },
     opts = {

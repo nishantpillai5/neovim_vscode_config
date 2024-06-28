@@ -1,27 +1,24 @@
 local M = {}
 
 M.keymaps = function()
-  local common = require('trailblazer.trails.common')
+  local actions = require 'trailblazer.trails.actions'
 
-  vim.keymap.set('n', 'md', function ()
-    local win = vim.api.nvim_get_current_win()
-    local buf = vim.api.nvim_win_get_buf(win)
-    local pos = vim.api.nvim_win_get_cursor(win)
-    common.delete_trail_mark_at_pos(win, buf, pos)
-  end, { desc='delete' })
+  vim.keymap.set('n', 'md', function()
+    actions.delete_all_trail_marks(vim.api.nvim_get_current_buf())
+  end, { desc = 'delete_in_buffer' })
 end
 
 M.setup = function()
   require('trailblazer').setup {
     trail_options = {
-      current_trail_mark_mode = "global_buf_line_sorted",
+      current_trail_mark_mode = 'buffer_local_line_sorted',
       multiple_mark_symbol_counters_enabled = false,
       trail_mark_in_text_highlights_enabled = false,
-      mark_symbol = "",
-      newest_mark_symbol = "",
-      cursor_mark_symbol = "",
-      next_mark_symbol = "",
-      previous_mark_symbol = "",
+      mark_symbol = '',
+      newest_mark_symbol = '',
+      cursor_mark_symbol = '',
+      next_mark_symbol = '',
+      previous_mark_symbol = '',
     },
     force_mappings = {
       nv = {

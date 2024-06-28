@@ -131,7 +131,7 @@
             // FIXME: only available through neovim
             "command": ""
         },
-       {
+        {
             "key": ";",
             "name": "+Terminal",
             "type": "bindings",
@@ -507,14 +507,14 @@
             "bindings": [
                 {
                     "key": "r",
-                    "name": "relative_numbers_toggle",
+                    "name": "relative_numbers",
                     "type": "command",
                     // FIXME: doesn't exist
                     "command": ""
                 },
                 {
                     "key": "w",
-                    "name": "wrap_toggle",
+                    "name": "wrap",
                     "type": "command",
                     "command": "editor.action.toggleWordWrap"
                 },

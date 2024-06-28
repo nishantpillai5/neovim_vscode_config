@@ -3,19 +3,19 @@ M.keymaps = function()
   local todo = require 'todo-comments'
 
   vim.keymap.set('n', ']t', function()
-    todo.jump_next({ wrap = true })
+    todo.jump_next { wrap = true }
   end, { desc = 'todo' })
 
   vim.keymap.set('n', '[t', function()
-    todo.jump_prev({ wrap = true })
+    todo.jump_prev { wrap = true }
   end, { desc = 'todo' })
 
   vim.keymap.set('n', ']T', function()
-    todo.jump_next({ last = true })
+    todo.jump_next { last = true }
   end, { desc = 'todo' })
 
   vim.keymap.set('n', '[T', function()
-    todo.jump_prev({ last = true })
+    todo.jump_prev { last = true }
   end, { desc = 'todo' })
 
   vim.keymap.set('n', '<leader>ft', function()

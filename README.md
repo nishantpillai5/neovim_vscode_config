@@ -40,16 +40,21 @@ To install the configuration:
 ## Todo
 
 - Git
+  - fgD adding a new file (PRIO)
+  - fgL doesn't work
   - ]x to next conflict doesn't work
   - [C next change different from main
   - git blame statusline doesn't go away when not available
   - fugitive window height
+  - find todo in git changed
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
   - bind fo to find existing task buffer
   - don't auto dispose tasks
+  - autofill with last task same target but different goal
 - Finder
+  - trailblazer show all marks, change highlighting (PRIO)
   - integrate trailblazer with telescope, grapple, recession
   - after going to a file from telescope, filename added is not normalized (PR)
   - vista keymaps, unbind s

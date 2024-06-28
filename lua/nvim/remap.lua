@@ -37,16 +37,13 @@ for key, lookup in pairs(names) do
 end
 
 -- Toggle sides
-vim.keymap.set('n', '<leader>zp',
-  function ()
-    require('common.env').SIDEBAR_POSITION = require('common.env').SIDEBAR_POSITION == 'right' and 'left' or 'right'
-    vim.notify("Sidebar position changed: " .. require('common.env').SIDEBAR_POSITION)
-  end
-, { silent = true, desc = 'position_sidebar' })
+vim.keymap.set('n', '<leader>zp', function()
+  require('common.env').SIDEBAR_POSITION = require('common.env').SIDEBAR_POSITION == 'right' and 'left' or 'right'
+  vim.notify('Sidebar position changed: ' .. require('common.env').SIDEBAR_POSITION)
+end, { silent = true, desc = 'position_sidebar' })
 
-vim.keymap.set('n', '<leader>zP',
-  function ()
-    require('common.env').PANEL_POSITION = require('common.env').PANEL_POSITION == 'horizontal' and 'vertical' or 'horizontal'
-    vim.notify("Panel position changed: " .. require('common.env').PANEL_POSITION)
-  end
-, { silent = true, desc = 'position_panel' })
+vim.keymap.set('n', '<leader>zP', function()
+  require('common.env').PANEL_POSITION = require('common.env').PANEL_POSITION == 'horizontal' and 'vertical'
+    or 'horizontal'
+  vim.notify('Panel position changed: ' .. require('common.env').PANEL_POSITION)
+end, { silent = true, desc = 'position_panel' })

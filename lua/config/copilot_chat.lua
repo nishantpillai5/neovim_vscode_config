@@ -66,7 +66,7 @@ M.setup = function()
   })
 end
 
-M.config = function ()
+M.config = function()
   M.setup()
   M.keymaps()
 end

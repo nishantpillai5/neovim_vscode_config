@@ -1,8 +1,8 @@
 local M = {}
 
 -- TODO: integrate with trailblazer
-local save_marks = function () end
-local load_marks = function () end
+local save_marks = function() end
+local load_marks = function() end
 
 local workspace_session = function(action)
   local status, neoscopes = pcall(require, 'neoscopes')

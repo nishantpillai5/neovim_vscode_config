@@ -45,7 +45,7 @@ return {
     'ahmedkhalf/project.nvim',
     cond = conds['ahmedkhalf/project.nvim'] or false,
     dependencies = { 'nvim-telescope/telescope.nvim' },
-    event = "VeryLazy",
+    event = 'VeryLazy',
     keys = {
       { '<leader>wW', desc = 'select_project' },
     },

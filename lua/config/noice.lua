@@ -3,9 +3,9 @@ local M = {}
 M.lualine = function()
   local lualineY = require('lualine').get_config().tabline.lualine_y or {}
   table.insert(lualineY, {
-     require("noice").api.statusline.command.get,
-     cond = require("noice").api.statusline.command.has,
-   })
+    require('noice').api.statusline.command.get,
+    cond = require('noice').api.statusline.command.has,
+  })
 
   require('lualine').setup { tabline = { lualine_y = lualineY } }
 end
@@ -16,7 +16,7 @@ M.keymaps = function()
   end, { desc = 'noice_disable' })
 
   vim.keymap.set('n', '<leader>fN', function()
-    vim.cmd("Telescope notify")
+    vim.cmd 'Telescope notify'
   end, { desc = 'notifications' })
 end
 
@@ -39,21 +39,21 @@ M.setup = function()
     views = {
       cmdline_popup = {
         border = {
-          style = "single",
+          style = 'single',
           padding = { 0, 1 },
         },
         filter_options = {},
         win_options = {
-          winhighlight = "NormalFloat:NormalFloat",
+          winhighlight = 'NormalFloat:NormalFloat',
         },
       },
     },
     routes = {
       {
         filter = {
-          event = "msg_show",
-          kind = "",
-          find = "written",
+          event = 'msg_show',
+          kind = '',
+          find = 'written',
         },
         opts = { skip = true },
       },

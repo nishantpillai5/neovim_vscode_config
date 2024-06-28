@@ -1,5 +1,5 @@
 -- Toggle relative line numbers
-vim.keymap.set('n', '<leader>zr', ':set relativenumber!<CR>', { desc = 'relative_numbers_toggle' })
+vim.keymap.set('n', '<leader>zr', ':set relativenumber!<CR>', { desc = 'relative_numbers' })
 
 -- Clear highlighted search
 vim.keymap.set('n', '<leader>z/', ':nohlsearch<CR>', { desc = 'clear_search' })
@@ -20,7 +20,7 @@ vim.keymap.set('x', '<leader>P', [["+dP]], { desc = 'paste_from_clipboard' })
 vim.keymap.set('x', '<leader>p', [["+p]], { desc = 'paste_from_clipboard' })
 
 -- Line wrap
-vim.keymap.set('n', '<leader>zw', ':set wrap!<CR>', { desc = 'wrap_toggle' })
+vim.keymap.set('n', '<leader>zw', ':set wrap!<CR>', { desc = 'wrap' })
 
 -- Previous buffer
 vim.keymap.set('n', '<leader>H', ':b#<CR>', { desc = 'buffer_prev', silent = true })

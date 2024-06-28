@@ -63,4 +63,4 @@ vim.o.showtabline = 2
 
 -- last command in statusline
 vim.o.showcmd = true
-vim.o.showcmdloc = "last"
+vim.o.showcmdloc = 'last'

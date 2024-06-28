@@ -16,7 +16,6 @@ M.setup = function()
     command = 'git diff --name-only $(git merge-base HEAD ' .. base_branch .. ' )'
   end
 
-
   easypick.setup {
     pickers = {
       {

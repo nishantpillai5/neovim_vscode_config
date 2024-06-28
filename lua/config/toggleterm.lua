@@ -18,7 +18,7 @@ local init_or_toggle = function()
   end
 end
 
-local panel_align = function ()
+local panel_align = function()
   return require('common.env').PANEL_POSITION
 end
 
@@ -29,7 +29,7 @@ end
 M.setup = function()
   require('toggleterm').setup {
     direction = panel_align(),
-    size = function (term)
+    size = function(term)
       if term.direction == 'horizontal' then
         return vim.o.lines * 0.30
       elseif term.direction == 'vertical' then

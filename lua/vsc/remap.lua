@@ -1,15 +1,12 @@
-local vscode = require('vscode')
+local vscode = require 'vscode'
 
 -------------------------------------- Helpers ------------------------------------------
 
 local function map_action(mode, key, input, opts)
   -- Asynchronous keymaps
-  vim.keymap.set(mode, key,
-    function()
-      vscode.action(input, opts)
-    end,
-    { noremap = true, silent = true }
-  )
+  vim.keymap.set(mode, key, function()
+    vscode.action(input, opts)
+  end, { noremap = true, silent = true })
 end
 
 -------------------------------------- Basics -------------------------------------------
@@ -197,17 +194,17 @@ map_action('n', '<leader>', 'whichkey.show')
 
 local function map_whichkey_node(mode, key, node)
   vim.keymap.set(mode, key, function()
-    vscode.call("whichkey.show")
-    vscode.call("whichkey.triggerKey", { args = { node } })
+    vscode.call 'whichkey.show'
+    vscode.call('whichkey.triggerKey', { args = { node } })
   end, { noremap = true, silent = true })
 end
 
-Map_whichkey_nodes = function (mode, prefix, parent_key, maps)
-  if type(maps) == "string" then
+Map_whichkey_nodes = function(mode, prefix, parent_key, maps)
+  if type(maps) == 'string' then
     map_whichkey_node(mode, prefix, parent_key)
   else
     for key, lookup in pairs(maps) do
-      if key ~= "name" then
+      if key ~= 'name' then
         map_whichkey_node(mode, prefix .. key, key)
         Map_whichkey_nodes(mode, prefix .. key, key, lookup)
       end
@@ -215,5 +212,5 @@ Map_whichkey_nodes = function (mode, prefix, parent_key, maps)
   end
 end
 
-local leader_maps = require("common.whichkey_config").leader_maps
+local leader_maps = require('common.whichkey_config').leader_maps
 Map_whichkey_nodes('n', '<leader>', nil, leader_maps)

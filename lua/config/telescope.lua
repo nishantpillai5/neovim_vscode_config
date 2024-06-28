@@ -1,12 +1,12 @@
 local M = {}
 
-local utils = require("common.utils")
+local utils = require 'common.utils'
 local builtin = require 'telescope.builtin'
 
-local plenary_ok, PlenaryJob = pcall(require, "plenary.job")
+local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
 if not plenary_ok then
-	vim.notify("plenary not found")
-	return
+  vim.notify 'plenary not found'
+  return
 end
 
 local default_opts = {
@@ -15,110 +15,108 @@ local default_opts = {
 }
 
 local ripgrep_base_cmd = {
-	"rg",
-	"--color=never",
-	"--no-heading",
+  'rg',
+  '--color=never',
+  '--no-heading',
 }
 
 local content_ripgrep_base_cmd = utils.merge_list(ripgrep_base_cmd, {
-	"--with-filename",
-	"--line-number",
-	"--column",
-	"--smart-case",
+  '--with-filename',
+  '--line-number',
+  '--column',
+  '--smart-case',
 })
 
 -- Private
 
 local function trimGitModificationIndicator(cmd_output)
-	return cmd_output:match("[^%s]+$")
+  return cmd_output:match '[^%s]+$'
 end
 
 local function constrain_to_scope()
-    local neoscopes = require("neoscopes")
-	local success, scope = pcall(neoscopes.get_current_scope)
-	if not success or not scope then
-		-- utils.print('no current scope')
-		return {}, {}
-	end
-	local find_command_opts = {}
-	local search_dir_opts = {}
-	local pattern = "^file:///"
-	for _, dir_name in ipairs(scope.dirs) do
-		if dir_name then
-			if dir_name:find(pattern) ~= nil then
-				table.insert(find_command_opts, "--glob")
-				local file_name = dir_name:gsub(pattern, "")
-				-- require('user.utils').print(file_name)
-				-- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
-				table.insert(find_command_opts, file_name)
-			else
-				table.insert(search_dir_opts, dir_name)
-			end
-		end
-	end
-	for _, file_name in ipairs(scope.files) do
-		if file_name then
-			table.insert(find_command_opts, "--glob")
-			-- require('user.utils').print('included' .. file_name)
-			-- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
-			table.insert(find_command_opts, file_name)
-		end
-	end
-	return find_command_opts, search_dir_opts
+  local neoscopes = require 'neoscopes'
+  local success, scope = pcall(neoscopes.get_current_scope)
+  if not success or not scope then
+    -- utils.print('no current scope')
+    return {}, {}
+  end
+  local find_command_opts = {}
+  local search_dir_opts = {}
+  local pattern = '^file:///'
+  for _, dir_name in ipairs(scope.dirs) do
+    if dir_name then
+      if dir_name:find(pattern) ~= nil then
+        table.insert(find_command_opts, '--glob')
+        local file_name = dir_name:gsub(pattern, '')
+        -- require('user.utils').print(file_name)
+        -- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
+        table.insert(find_command_opts, file_name)
+      else
+        table.insert(search_dir_opts, dir_name)
+      end
+    end
+  end
+  for _, file_name in ipairs(scope.files) do
+    if file_name then
+      table.insert(find_command_opts, '--glob')
+      -- require('user.utils').print('included' .. file_name)
+      -- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
+      table.insert(find_command_opts, file_name)
+    end
+  end
+  return find_command_opts, search_dir_opts
 end
 
 local function live_grep_static_file_list(opts, file_list)
-	opts = opts or {}
-	opts.cwd = utils.get_root_dir()
-	local cmd_opts, dir_opts = constrain_to_scope()
+  opts = opts or {}
+  opts.cwd = utils.get_root_dir()
+  local cmd_opts, dir_opts = constrain_to_scope()
 
-	local vimgrep_arguments = utils.merge_list(content_ripgrep_base_cmd, {
-		-- "--no-ignore", -- **This is the added flag**
-		"--hidden", -- **Also this flag. The combination of the two is the same as `-uu`**
+  local vimgrep_arguments = utils.merge_list(content_ripgrep_base_cmd, {
+    -- "--no-ignore", -- **This is the added flag**
+    '--hidden', -- **Also this flag. The combination of the two is the same as `-uu`**
+  })
+  vimgrep_arguments = utils.merge_list(vimgrep_arguments, file_list)
+  vimgrep_arguments = utils.merge_list(vimgrep_arguments, cmd_opts)
+  opts.vimgrep_arguments = vimgrep_arguments
 
-	})
-	vimgrep_arguments = utils.merge_list(vimgrep_arguments, file_list)
-	vimgrep_arguments = utils.merge_list(vimgrep_arguments, cmd_opts)
-	opts.vimgrep_arguments = vimgrep_arguments
-
-	opts.search_dirs = opts.search_dirs or {}
-	opts.search_dirs = utils.merge_list(opts.search_dirs, dir_opts)
-	builtin.live_grep(opts)
+  opts.search_dirs = opts.search_dirs or {}
+  opts.search_dirs = utils.merge_list(opts.search_dirs, dir_opts)
+  builtin.live_grep(opts)
 end
 
-local live_grep_git_changed_files = function (opts)
-	local file_list = {}
-	PlenaryJob:new({
-		command = "git",
-		args = { "status", "--porcelain", "-u" },
-		cwd = utils.get_root_dir(),
-		on_exit = function(job)
-			for _, cmd_output in ipairs(job:result()) do
-				table.insert(file_list, "--glob")
-				table.insert(file_list, trimGitModificationIndicator(cmd_output))
-			end
-		end,
-	}):sync()
+local live_grep_git_changed_files = function(opts)
+  local file_list = {}
+  PlenaryJob:new({
+    command = 'git',
+    args = { 'status', '--porcelain', '-u' },
+    cwd = utils.get_root_dir(),
+    on_exit = function(job)
+      for _, cmd_output in ipairs(job:result()) do
+        table.insert(file_list, '--glob')
+        table.insert(file_list, trimGitModificationIndicator(cmd_output))
+      end
+    end,
+  }):sync()
 
-	live_grep_static_file_list(opts, file_list)
+  live_grep_static_file_list(opts, file_list)
 end
 
-
-local live_grep_git_changed_cmp_base_branch = function (opts)
-	local base_branch = utils.get_main_branch()
-	local file_list = {}
-	PlenaryJob:new({
-		command = "git",
-		args = { "diff", "--name-only", base_branch .. "..HEAD" },
-		cwd = utils.get_root_dir(),
-		on_exit = function(job)
-			for _, cmd_output in ipairs(job:result()) do
-				table.insert(file_list, "--glob")
-				table.insert(file_list, cmd_output)
-			end
-		end,
-	}):sync()
-	live_grep_static_file_list(opts, file_list)
+local live_grep_git_changed_cmp_base_branch = function(opts)
+  local base_branch = utils.get_main_branch()
+  local file_list = {}
+  PlenaryJob:new({
+    command = 'git',
+    args = { 'diff', '--name-only', base_branch .. '..HEAD' },
+    cwd = utils.get_root_dir(),
+    on_exit = function(job)
+      for _, cmd_output in ipairs(job:result()) do
+        table.insert(file_list, '--glob')
+        table.insert(file_list, cmd_output)
+      end
+    end,
+  }):sync()
+  live_grep_static_file_list(opts, file_list)
 end
 
 local is_inside_work_tree = {}

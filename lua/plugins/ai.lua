@@ -27,6 +27,6 @@ return {
       { '<leader>cf', mode = { 'n', 'v' }, desc = 'find' },
       { '<leader>fc', mode = { 'n', 'v' }, desc = 'chat' },
     },
-    config = require 'config.copilot_chat'.config,
+    config = require('config.copilot_chat').config,
   },
 }

@@ -18,7 +18,7 @@ return {
     config = function()
       local wk = require 'which-key'
       wk.register {
-        ['<leader>'] = require("common.whichkey_config").leader_maps,
+        ['<leader>'] = require('common.whichkey_config').leader_maps,
         g = {
           d = 'definition',
           D = 'declaration',
@@ -36,7 +36,16 @@ return {
         K = 'hover',
         s = 'hop_char',
         S = 'hop_node',
-        m = { name = '+Mark', b = 'back', d='delete', D = 'delete_all', m = 'mark', n = 'nearest', p = 'paste_last', P = 'paste_all' },
+        m = {
+          name = '+Mark',
+          b = 'back',
+          d = 'delete_in_buffer',
+          D = 'delete_all',
+          m = 'mark',
+          n = 'nearest',
+          p = 'paste_last',
+          P = 'paste_all',
+        },
         ['<C-h>'] = 'move_focus_left',
         ['<C-j>'] = 'move_focus_down',
         ['<C-k>'] = 'move_focus_up',
