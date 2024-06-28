@@ -55,6 +55,8 @@ To install the configuration:
   - autofill with last task same target but different goal
 - Finder
   - trailblazer show all marks, change highlighting (PRIO)
+  - mm to toggle all marks in line (PRIO)
+  - fh for unsaved buffers
   - integrate trailblazer with telescope, grapple, recession
   - after going to a file from telescope, filename added is not normalized (PR)
   - vista keymaps, unbind s
