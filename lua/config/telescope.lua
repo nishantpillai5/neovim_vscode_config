@@ -163,8 +163,8 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'stash' })
   vim.keymap.set('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>', { desc = 'conflicts' })
 
-  vim.keymap.set('n', '<leader>fgl', live_grep_git_changed_files, { desc = 'live_grep_diff' })
-  vim.keymap.set('n', '<leader>fgL', live_grep_git_changed_cmp_base_branch, { desc = 'live_grep_diff_from_main' })
+  vim.keymap.set('n', '<leader>fgl', live_grep_git_changed_files, { desc = 'live_grep_changed_files' })
+  vim.keymap.set('n', '<leader>fgL', live_grep_git_changed_cmp_base_branch, { desc = 'live_grep_changed_files_from_main' })
 
   vim.keymap.set('n', '<leader>ft', function()
     live_grep_git_changed_cmp_base_branch { default_text = require('common.env').TODO_CUSTOM .. ':' }

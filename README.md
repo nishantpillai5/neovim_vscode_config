@@ -39,35 +39,6 @@ To install the configuration:
 
 ## Todo
 
-- Git
-  - fgL doesn't work
-  - ]x to next conflict doesn't work
-  - [C next change different from main
-  - git blame statusline doesn't go away when not available
-  - fugitive window height
-  - find todo in git changed
-- Tasks
-  - overseer list bind bind r to restart task
-  - overseer list in a dressing window
-  - bind fo to find existing task buffer
-  - don't auto dispose tasks
-  - autofill with last task same target but different goal
-- Finder
-  - trailblazer show all marks, change highlighting
-  - mm to toggle all marks in line
-  - fh for unsaved buffers
-  - integrate trailblazer with telescope, grapple, recession
-  - after going to a file from telescope, filename added is not normalized (PR)
-  - vista keymaps, unbind s
-  - file already exists warning after navigating from telescope
-- LSP
-  - remove diagnostics from trouble panel using dd
-  - map ll to refresh lsp, cmp doesn't update with new suggestions
-  - python lsp is too slow, might be sharing a thread with overseer
-  - cyclic trouble next/prev
-  - gd prefers buffer over lsp
-  - cppcheck linting
-  - show argument types as virtual text
 - Tasks
   - custom problem matcher (PRIO)
   - write custom parser
@@ -78,6 +49,34 @@ To install the configuration:
   - nvim doesn't exit properly
     - searching in git log fails because not disposing running gdb server properly
     - could also be because of plotposition doesn't support keyboard interrupts
+- Git
+  - ]x to next conflict doesn't work
+  - [C next change different from main
+  - git blame statusline doesn't go away when not available
+  - fugitive window height
+  - bind to fgh to find git hunks, fgH to grep [git hunk picker](https://github.com/nvim-telescope/telescope.nvim/pull/3131)
+- Tasks
+  - overseer list bind bind r to restart task
+  - overseer list in a dressing window
+  - bind fo to find existing task buffer
+  - don't auto dispose tasks
+  - autofill with last task same target but different goal
+- Finder
+  - fh for unsaved buffers
+  - integrate trailblazer with telescope, grapple, recession
+  - after going to a file from telescope, filename added is not normalized (PR)
+  - vista keymaps, unbind s
+  - file already exists warning after navigating from telescope
+  - trailblazer show all marks, change highlighting
+  - mm to toggle all marks in line
+- LSP
+  - remove diagnostics from trouble panel using dd
+  - map ll to refresh lsp, cmp doesn't update with new suggestions
+  - python lsp is too slow, might be sharing a thread with overseer
+  - cyclic trouble next/prev
+  - gd prefers buffer over lsp
+  - cppcheck linting
+  - show argument types as virtual text
 - Terminal
   - toggle doesn't work when a terminal has it's process exited
   - toggle doesn't work when no terminal exists
