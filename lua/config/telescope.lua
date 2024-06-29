@@ -166,6 +166,10 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fgl', live_grep_git_changed_files, { desc = 'live_grep_diff' })
   vim.keymap.set('n', '<leader>fgL', live_grep_git_changed_cmp_base_branch, { desc = 'live_grep_diff_from_main' })
 
+  vim.keymap.set('n', '<leader>ft', function()
+    live_grep_git_changed_cmp_base_branch { default_text = require('common.env').TODO_CUSTOM }
+  end, { desc = 'todos' })
+
   vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'live_grep_global' })
   vim.keymap.set(
     'n',

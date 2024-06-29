@@ -18,9 +18,9 @@ M.keymaps = function()
     todo.jump_prev { last = true }
   end, { desc = 'todo' })
 
-  vim.keymap.set('n', '<leader>ft', function()
+  vim.keymap.set('n', '<leader>fT', function()
     vim.cmd 'TodoTelescope'
-  end, { desc = 'todos' })
+  end, { desc = 'todos_all' })
 
   vim.keymap.set('n', '<leader>tT', function()
     vim.cmd 'TodoTrouble'
@@ -28,8 +28,9 @@ M.keymaps = function()
 end
 
 M.setup = function()
+  local custom = require('common.env').TODO_CUSTOM
   require('todo-comments').setup {
-    keywords = { NISH = { icon = '󰬕', color = 'info' } },
+    keywords = { [custom] = { icon = '󰬕', color = 'info' } },
   }
 end
 

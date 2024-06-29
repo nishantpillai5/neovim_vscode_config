@@ -26,4 +26,6 @@ if M.CONTEXT == 'work' then
   M.PANEL_POSITION = 'vertical'
 end
 
+M.TODO_CUSTOM = "NISH"
+
 return M
