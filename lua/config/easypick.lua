@@ -11,7 +11,7 @@ M.setup = function()
   local command = ''
 
   if require('common.env').OS == 'windows' then
-    command = 'FOR /F "tokens=*" %i IN (\'git merge-base HEAD ' .. base_branch .. "') DO git diff --name-only %i"
+    command = 'powershell -command "git diff --name-only $(git merge-base HEAD ' .. base_branch .. ')"'
   else
     command = 'git diff --name-only $(git merge-base HEAD ' .. base_branch .. ' )'
   end

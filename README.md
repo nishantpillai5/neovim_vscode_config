@@ -40,7 +40,6 @@ To install the configuration:
 ## Todo
 
 - Git
-  - fgD adding a new file (PRIO)
   - fgL doesn't work
   - ]x to next conflict doesn't work
   - [C next change different from main
@@ -54,8 +53,8 @@ To install the configuration:
   - don't auto dispose tasks
   - autofill with last task same target but different goal
 - Finder
-  - trailblazer show all marks, change highlighting (PRIO)
-  - mm to toggle all marks in line (PRIO)
+  - trailblazer show all marks, change highlighting
+  - mm to toggle all marks in line
   - fh for unsaved buffers
   - integrate trailblazer with telescope, grapple, recession
   - after going to a file from telescope, filename added is not normalized (PR)
