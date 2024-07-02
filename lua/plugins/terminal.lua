@@ -2,6 +2,7 @@ local plugins = {
   'akinsho/nvim-toggleterm.lua',
   'ryanmsnyder/toggleterm-manager.nvim',
   'stevearc/overseer.nvim',
+  'sbulav/nredir.nvim',
 }
 
 local conds = require('common.lazy').get_conds(plugins)
@@ -53,5 +54,14 @@ return {
       { '<leader>ob', desc = 'build' },
     },
     config = require('config.overseer').config,
+  },
+  -- Redir commands to buffer
+  {
+    'sbulav/nredir.nvim',
+    cond = conds['sbulav/nredir.nvim'] or false,
+    cmd = { 'Nredir' },
+    keys = {
+      { '<leader>O', ':Nredir !', desc = 'run_cmd' },
+    },
   },
 }

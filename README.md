@@ -86,12 +86,14 @@ To install the configuration:
   - don't load python dap at BufEnter, load it when needed
   - debug config duplicates
 - UI
+  - disable treesitter context for markdown
   - disable notifications for noice notify
   - sidepanels (Overseer, Neotree) messes up lualine for horizontal splits (could be tmux nav plugin)
   - zP to toggle panel positions
   - loading a saved session from dashboard breaks colors
   - [tabline in zen mode](https://github.com/folke/zen-mode.nvim/issues/116)
 - VSC integration
+  - create commands for all bindings
   - set whichkey settings in vsc from inside lua (ISSUE)
   - alternative: map whichkey in nvim by reading 'whichkey.bindings' table from config
   - script to convert nvim nmap to whichkey json if mapping from lua doesn't work

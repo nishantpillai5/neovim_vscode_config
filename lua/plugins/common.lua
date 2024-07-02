@@ -89,7 +89,7 @@ return {
     cond = conds['AllenDang/nvim-expand-expr'] or false,
     keys = {
       {
-        '<leader>oq',
+        '<leader>q',
         function()
           require('expand_expr').expand()
         end,
