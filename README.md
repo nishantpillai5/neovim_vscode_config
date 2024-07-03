@@ -96,7 +96,5 @@ To install the configuration:
   - create commands for all bindings
   - set whichkey settings in vsc from inside lua (ISSUE)
   - alternative: map whichkey in nvim by reading 'whichkey.bindings' table from config
-  - script to convert nvim nmap to whichkey json if mapping from lua doesn't work
-  - plot json to visualize
 - Leetcode
   - run file in terminal

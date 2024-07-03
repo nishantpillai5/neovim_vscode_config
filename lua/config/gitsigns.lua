@@ -50,7 +50,7 @@ M.setup = function()
       map('n', '<leader>ghS', gitsigns.stage_buffer, { desc = 'stage_buffer' })
       map('n', '<leader>ghu', gitsigns.undo_stage_hunk, { desc = 'undo_stage' })
       map('n', '<leader>ghR', gitsigns.reset_buffer, { desc = 'reset_buffer' })
-      map('n', '<leader>ghp', gitsigns.preview_hunk, { desc = 'preview_diff' })
+      map('n', '<leader>ghd', gitsigns.preview_hunk, { desc = 'diff' })
       map('n', '<leader>ghb', function()
         gitsigns.blame_line { full = true }
       end, { desc = 'blame' })

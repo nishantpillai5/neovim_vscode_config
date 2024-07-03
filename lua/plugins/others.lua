@@ -12,14 +12,17 @@ return {
   {
     'eandrju/cellular-automaton.nvim',
     cond = conds['eandrju/cellular-automaton.nvim'] or false,
+    cmd = 'CellularAutomaton',
     keys = {
-      { '<leader>zf', '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'fml' },
+      { '<leader>zff', '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'fml' },
+      { '<leader>zft', '<cmd>CellularAutomaton scramble<cr>', desc = 'too_much_work' },
     },
   },
   -- Typing test
   {
     'kwakzalver/duckytype.nvim',
     cond = conds['kwakzalver/duckytype.nvim'] or false,
+    cmd = 'DuckyType',
     keys = {
       { '<leader>zt', '<cmd>DuckyType english_common<cr>', desc = 'typing_test_eng' },
       { '<leader>zT', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test_code' },
@@ -42,7 +45,7 @@ return {
     'subnut/nvim-ghost.nvim',
     lazy = true,
     cond = conds['subnut/nvim-ghost.nvim'] or false,
-    cmd = { 'GhostTextStart' },
+    cmd = 'GhostTextStart',
     init = function()
       vim.g.nvim_ghost_autostart = 0
     end,
