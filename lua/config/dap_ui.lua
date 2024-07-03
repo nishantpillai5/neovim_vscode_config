@@ -3,7 +3,7 @@ local M = {}
 M.keymaps = function()
   local dapui = require 'dapui'
 
-  vim.keymap.set('n', '<leader>bt', function()
+  vim.keymap.set('n', '<leader>bb', function()
     dapui.toggle()
   end, { desc = 'toggle_view' })
 

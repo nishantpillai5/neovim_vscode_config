@@ -24,7 +24,7 @@ return {
       { '<F7>', desc = 'Debug.step_into' },
       { '<C-F7>', desc = 'Debug.step_out' },
       { '<F8>', desc = 'Debug.step_over' },
-      { '<leader>bb', desc = 'toggle' },
+      { 'mb', desc = 'breakpoint' },
       { '<leader>bl', desc = 'toggle_with_log' },
       { '[b', desc = 'breakpoint' },
       { ']b', desc = 'breakpoint' },
@@ -41,7 +41,7 @@ return {
     cond = conds['rcarriga/nvim-dap-ui'] or false,
     dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
     keys = {
-      { '<leader>bt', desc = 'toggle_view' },
+      { '<leader>bb', desc = 'toggle_view' },
       { '<leader>bK', desc = 'hover' },
       -- { "<leader>bK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
       -- { "<leader>b?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
