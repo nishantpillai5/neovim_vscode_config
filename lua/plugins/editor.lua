@@ -1,6 +1,6 @@
 local plugins = {
   'windwp/nvim-autopairs',
-  -- 'folke/todo-comments.nvim',
+  -- 'folke/todo-comments.nvim', -- Circular todos not merged, using my fork
   'nishantpillai5/todo-comments.nvim',
   'alexghergh/nvim-tmux-navigation',
   'mbbill/undotree',
@@ -8,7 +8,7 @@ local plugins = {
   'Wansmer/treesj',
   'folke/zen-mode.nvim',
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
-  'sitiom/nvim-numbertoggle',
+  -- 'sitiom/nvim-numbertoggle', -- TODO: no line numbers when jumping with trouble
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
   'norcalli/nvim-colorizer.lua',
@@ -99,6 +99,7 @@ return {
     cond = conds['folke/zen-mode.nvim'] or false,
     keys = {
       { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'zen' },
+      { '<leader>zZ', "<cmd>lua require('zen-mode').toggle({window = { width = 1 }})<cr>", desc = 'zen_full' },
     },
     opts = {
       window = { width = 0.95 },

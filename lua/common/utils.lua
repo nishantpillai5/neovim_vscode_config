@@ -46,7 +46,7 @@ function M.spread(template)
   return function(table)
     local result = {}
     for key, value in pairs(template) do
-      result[key] = M.deep_copy(value) -- Note the deep copy!
+      result[key] = M.deep_copy(value)
     end
 
     for key, value in pairs(table) do

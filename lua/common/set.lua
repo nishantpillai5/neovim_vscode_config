@@ -1,5 +1,6 @@
 local HOME = require('common.env').HOME
 
+-- Line wrap
 vim.opt.wrap = false
 
 -- Line numbers

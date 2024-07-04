@@ -68,7 +68,6 @@ To install the configuration:
   - vista keymaps, unbind s
   - file already exists warning after navigating from telescope
   - trailblazer show all marks, change highlighting
-  - mm to toggle all marks in line
 - LSP
   - remove diagnostics from trouble panel using dd
   - map ll to refresh lsp, cmp doesn't update with new suggestions

@@ -34,7 +34,6 @@ M.setup = function()
       cursor_mark_symbol = '',
       next_mark_symbol = '',
       previous_mark_symbol = '',
-      trail_mark_in_text_highlights_enabled = true,
     },
     force_mappings = {
       nv = {
