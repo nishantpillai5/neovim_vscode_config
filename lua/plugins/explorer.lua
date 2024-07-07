@@ -14,10 +14,11 @@ return {
     branch = 'v3.x',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' },
     keys = {
-      { '<leader>ee', desc = 'neotree' },
+      { '<leader>ee', desc = 'explorer' },
       { '<leader>eb', desc = 'buffers' },
       { '<leader>eg', desc = 'git' },
       { '<leader>ex', desc = 'toggle' },
+      { '<leader>fe', desc = 'explorer' },
     },
     config = require('config.neotree').config,
   },

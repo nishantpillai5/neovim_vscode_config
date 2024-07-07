@@ -164,19 +164,22 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>', { desc = 'conflicts' })
 
   vim.keymap.set('n', '<leader>fgl', live_grep_git_changed_files, { desc = 'live_grep_changed_files' })
-  vim.keymap.set('n', '<leader>fgL', live_grep_git_changed_cmp_base_branch, { desc = 'live_grep_changed_files_from_main' })
+  vim.keymap.set(
+    'n',
+    '<leader>fgL',
+    live_grep_git_changed_cmp_base_branch,
+    { desc = 'live_grep_changed_files_from_main' }
+  )
 
   vim.keymap.set('n', '<leader>ft', function()
     live_grep_git_changed_cmp_base_branch { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_branch(' .. require('common.env').TODO_CUSTOM .. ')' })
 
   vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'live_grep_global' })
-  vim.keymap.set(
-    'n',
-    '<leader>fL',
-    "<cmd>lua require('telescope').extensions.live_grep_args.live_grep_args()<cr>",
-    { desc = 'live_grep_global_with_args' }
-  )
+
+  vim.keymap.set('n', '<leader>fL', function()
+    require('telescope').extensions.live_grep_args.live_grep_args()
+  end, { desc = 'live_grep_global_with_args' })
 
   vim.keymap.set('n', '<leader>/', function()
     vim.cmd 'Telescope current_buffer_fuzzy_find'

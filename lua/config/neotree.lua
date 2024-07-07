@@ -1,13 +1,34 @@
 local M = {}
 
+local utils = require 'common.utils'
+
 local sidebar_align = function()
   return require('common.env').SIDEBAR_POSITION
+end
+
+local find_dir = function()
+  local local_favs = _G.fav_dirs or {}
+  local global_favs = {
+    notes = require('common.env').DIR_NOTES,
+    nvim_config = require('common.env').DIR_NVIM,
+  }
+  local fav_dirs = utils.merge_table(global_favs, local_favs)
+
+  vim.ui.select(utils.get_keys(fav_dirs), {
+    prompt = 'Favorite directories',
+    telescope = require('telescope.themes').get_cursor(),
+  }, function(selected)
+    if selected == nil then
+      return
+    end
+    vim.cmd('Neotree reveal focus ' .. sidebar_align() .. ' dir=' .. fav_dirs[selected])
+  end)
 end
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>ee', function()
     vim.cmd('Neotree reveal focus ' .. sidebar_align())
-  end, { desc = 'neotree' })
+  end, { desc = 'explorer' })
 
   vim.keymap.set('n', '<leader>eb', function()
     vim.cmd('Neotree reveal focus buffers ' .. sidebar_align())
@@ -20,6 +41,8 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>ex', function()
     vim.cmd 'Neotree toggle last'
   end, { desc = 'toggle' })
+
+  vim.keymap.set('n', '<leader>fe', find_dir, { desc = 'explorer' })
 end
 
 M.setup = function()

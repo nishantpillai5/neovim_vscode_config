@@ -1,4 +1,14 @@
 local M = {}
+
+function M.get_keys(t)
+  local keys={}
+  for key,_ in pairs(t) do
+    table.insert(keys, key)
+  end
+  table.sort(keys)
+  return keys
+end
+
 function M.merge_list(t1, t2)
   local new_list = {}
   for _, v in ipairs(t1) do
@@ -19,7 +29,7 @@ function M.table_has_value(tab, val)
   return false
 end
 
-function M.table_merge(t1, t2)
+function M.merge_table(t1, t2)
   local result = {}
   for k, v in pairs(t1) do
     result[k] = v

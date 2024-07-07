@@ -62,6 +62,8 @@ To install the configuration:
   - don't auto dispose tasks
   - autofill with last task same target but different goal
 - Finder
+  - (PRIO) fL doesn't work with neoscopes
+  - reverse find projects related to a file
   - fh for unsaved buffers
   - integrate trailblazer with telescope, grapple, recession
   - after going to a file from telescope, filename added is not normalized (PR)

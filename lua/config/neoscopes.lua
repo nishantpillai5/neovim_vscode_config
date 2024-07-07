@@ -33,7 +33,14 @@ local replace_telescope_keymaps = function()
       additional_args = { '--follow' },
     }
   end, { desc = 'live_grep_global(workspace)' })
-  -- TODO: remap fL for workspaces
+
+  vim.keymap.set('n', '<leader>fL', function()
+    require('telescope').extensions.live_grep_args.live_grep_args{
+      prompt_prefix = '󱇳 > ',
+      search_dirs = neoscopes.get_current_dirs(),
+      additional_args = { '--follow' },
+    }
+  end, { desc = 'live_grep_global_with_args(workspace)' })
 
   vim.keymap.set('n', '<leader>?', function()
     require('telescope.builtin').grep_string {
