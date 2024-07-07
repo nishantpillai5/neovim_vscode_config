@@ -157,9 +157,11 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end, { desc = 'alternate' })
 
-  vim.keymap.set('n', '<leader>fgd', builtin.git_status, { desc = 'diff' })
-  vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches' })
-  vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits' })
+  vim.keymap.set('n', '<leader>fgd', builtin.git_status, { desc = 'changed_files' })
+  vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches_checkout' })
+  vim.keymap.set('n', '<leader>fgB', builtin.git_branches, { desc = 'branches_diff' })
+  vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits_checkout' })
+  vim.keymap.set('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits, { desc = 'commits_diff' })
   vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'stash' })
   vim.keymap.set('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>', { desc = 'conflicts' })
 
@@ -296,11 +298,15 @@ M.setup = function()
           },
         },
       },
+      git_diffs = {
+        git_command = { 'git', 'log', '--oneline', '--decorate', '--all', '.' },
+      },
     },
   }
 
   _G.loaded_telescope_extension = false
   require('telescope').load_extension 'fzf'
+  require('telescope').load_extension('git_diffs')
 end
 
 M.config = function()

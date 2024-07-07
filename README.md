@@ -55,6 +55,8 @@ To install the configuration:
   - git blame statusline doesn't go away when not available
   - fugitive window height
   - bind to fgh to find git hunks, fgH to grep [git hunk picker](https://github.com/nvim-telescope/telescope.nvim/pull/3131)
+  - bind to fgB to find git branches diff [PR](https://github.com/paopaol/telescope-git-diffs.nvim/)
+  - bind to fgZ to find stash diff [PR](https://github.com/paopaol/telescope-git-diffs.nvim/)
 - Tasks
   - overseer list bind bind r to restart task
   - overseer list in a dressing window
