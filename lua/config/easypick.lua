@@ -1,12 +1,20 @@
 local M = {}
+local utils = require 'common.utils'
+
+M.keys = {
+  { '<leader>fgF', desc = 'changed_files_from_main' },
+}
+
+M.cmds = { 'Easypick', 'KeyChangedFilesFromMain' }
 
 M.keymaps = function()
-  vim.api.nvim_set_keymap('n', '<leader>fgD', ':Easypick changed_files<cr>', { desc = 'diff_files_from_main' })
+  local set_keymap = utils.get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>fgF', ':Easypick changed_files<cr>')
 end
 
 M.setup = function()
   local easypick = require 'easypick'
-  local base_branch = require('common.utils').get_main_branch()
+  local base_branch = utils.get_main_branch()
 
   local command = ''
 

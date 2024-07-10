@@ -1,5 +1,40 @@
 local M = {}
 
+M.keys = {
+  { '<leader>:', desc = 'find_commands' },
+  { '<leader>ff', desc = 'git_files' },
+  { '<leader>fF', desc = 'ignored_files' },
+  { '<leader>fa', desc = 'all' },
+  { '<leader>fA', desc = 'alternate' },
+  { '<leader>fgf', desc = 'changed_files' },
+  { '<leader>fgb', desc = 'branch_checkout' },
+  { '<leader>fgB', desc = 'branch_diff' },
+  { '<leader>fgc', desc = 'commits_checkout' },
+  { '<leader>fgC', desc = 'commits_diff' },
+  { '<leader>fgz', desc = 'stash' },
+  { '<leader>fgx', desc = 'conflicts' },
+  { '<leader>fgl', desc = 'live_grep_changed_files' },
+  { '<leader>fgL', desc = 'live_grep_changed_files_from_main' },
+  { '<leader>ft', desc = 'todos' },
+  { '<leader>fl', desc = 'live_grep_global' },
+  { '<leader>fL', desc = 'live_grep_global_with_args' },
+  { '<leader>/', desc = 'find_local' },
+  { '<leader>?', desc = 'find_global' },
+  { '<leader>fw', desc = 'word' },
+  { '<leader>fW', desc = 'whole_word' },
+  { '<leader>Ff', desc = 'builtin' },
+  { '<leader>fs', desc = 'symbols' },
+  { '<leader>fS', desc = 'symbols_interface' },
+  { '<leader>fm', desc = 'marks' },
+  { '<leader>fr', desc = 'recents' },
+  { '<leader>f"', desc = 'registers' },
+  { '<leader>fh', desc = 'buffers' },
+  -- { "<leader>fp", desc = "yank" },
+  { '<leader>fn', desc = 'notes' },
+  { '<leader>nf', desc = 'notes' },
+  { '<leader>wc', desc = 'configurations' },
+}
+
 local utils = require 'common.utils'
 local builtin = require 'telescope.builtin'
 
@@ -157,7 +192,7 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end, { desc = 'alternate' })
 
-  vim.keymap.set('n', '<leader>fgd', builtin.git_status, { desc = 'changed_files' })
+  vim.keymap.set('n', '<leader>fgf', builtin.git_status, { desc = 'changed_files' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches_checkout' })
   vim.keymap.set('n', '<leader>fgB', builtin.git_branches, { desc = 'branches_diff' })
   vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits_checkout' })
@@ -306,7 +341,7 @@ M.setup = function()
 
   _G.loaded_telescope_extension = false
   require('telescope').load_extension 'fzf'
-  require('telescope').load_extension('git_diffs')
+  require('telescope').load_extension 'git_diffs'
 end
 
 M.config = function()

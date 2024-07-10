@@ -1,8 +1,8 @@
 local M = {}
 
 function M.get_keys(t)
-  local keys={}
-  for key,_ in pairs(t) do
+  local keys = {}
+  for key, _ in pairs(t) do
     table.insert(keys, key)
   end
   table.sort(keys)
@@ -83,6 +83,41 @@ function M.get_main_branch()
 
   local get_default_branch = "git rev-parse --symbolic-full-name refs/remotes/origin/HEAD | sed 's!.*/!!'"
   return vim.fn.system(get_default_branch) or 'main'
+end
+
+local function keymap_opts(table)
+  local opts = table.opts or {}
+  opts.noremap = opts.noremap or true
+  opts.silent = opts.silent or true
+  return opts
+end
+
+local function get_desc(lhs, table)
+  for _, v in ipairs(table) do
+    if v[1] == lhs then
+      return v.desc
+    end
+  end
+  return nil
+end
+
+local function snake_to_pascal(snake_str)
+  local words = {}
+  for word in string.gmatch(snake_str, '([%a%d]+)') do
+    word = string.gsub(word, '^%l', string.upper)
+    table.insert(words, word)
+  end
+  return table.concat(words)
+end
+
+function M.get_keymap_setter(keys)
+  return function(mode, lhs, rhs)
+    local desc = get_desc(lhs, keys)
+    vim.api.nvim_set_keymap(mode, lhs, rhs, keymap_opts { desc = desc })
+    if desc ~= '' then
+      vim.api.nvim_create_user_command('Key' .. snake_to_pascal(desc), rhs, {}) -- FIXME: desc didn't work
+    end
+  end
 end
 
 return M

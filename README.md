@@ -39,6 +39,7 @@ To install the configuration:
 
 ## Todo
 
+- Use keys table and utils keymaps everywhere
 - Tasks
   - custom problem matcher (PRIO)
   - write custom parser
