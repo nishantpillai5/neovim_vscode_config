@@ -506,8 +506,8 @@
             "type": "bindings",
             "bindings": [
                 {
-                    "key": "r",
-                    "name": "relative_numbers",
+                    "key": "l",
+                    "name": "line_no_relative",
                     "type": "command",
                     // FIXME: doesn't exist
                     "command": ""

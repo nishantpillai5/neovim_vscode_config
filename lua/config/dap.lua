@@ -6,7 +6,6 @@ M.keymaps = function()
     if vim.fn.filereadable '.vscode/launch.json' then
       require('dap.ext.vscode').load_launchjs(nil, { cppdbg = { 'c', 'cpp' } })
     end
-    -- vim.notify("DAP: Continue")
     dap.continue()
   end, { desc = 'Debug.continue/start' })
 
@@ -31,7 +30,6 @@ M.keymaps = function()
   end, { desc = 'Debug.step_out' })
 
   vim.keymap.set('n', '<F8>', function()
-    -- vim.notify("DAP: Step Over")
     dap.step_over()
   end, { desc = 'Debug.step_over' })
 
@@ -53,12 +51,12 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>zb', function()
     require('nvim-dap-virtual-text').toggle()
-    -- require("nvim-dap-virtual-text.virtual_text").clear_virtual_text()
-  end, { desc = 'debug_text_toggle' })
+  end, { desc = 'debug_virtual' })
 
-  -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
-  --   require("dap.ui.widgets").preview()
-  -- end)
+  vim.keymap.set('n', '<leader>bz', function()
+    require('nvim-dap-virtual-text').toggle()
+  end, { desc = 'virtual_text_toggle' })
+
   vim.keymap.set('n', '<leader>fbb', function()
     require('telescope').extensions.dap.list_breakpoints()
   end, { desc = 'breakpoint' })
@@ -74,6 +72,10 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>fbf', function()
     require('telescope').extensions.dap.frames()
   end, { desc = 'frames' })
+
+  -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
+  --   require("dap.ui.widgets").preview()
+  -- end)
 end
 
 M.setup = function()
@@ -94,7 +96,7 @@ M.setup = function()
   dap.adapters.cppdbg = {
     id = 'cppdbg',
     type = 'executable',
-    command = 'C:\\Data\\Other\\cpptools-win64\\extension\\debugAdapters\\bin\\OpenDebugAD7.exe',
+    command = 'OpenDebugAD7.exe',
     options = {
       detached = false,
     },

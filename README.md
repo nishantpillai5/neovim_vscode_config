@@ -25,6 +25,7 @@ Notable features:
 - [debugpy](https://github.com/mfussenegger/nvim-dap-python?tab=readme-ov-file#debugpy)
 - Lua 5.1 or LuaJIT ( should be available in system's PATH )
 - MinGW (gcc and make should be available in system's PATH)
+- OpenDebugAD7.exe should be available in system's PATH
 
 ## VSCode Configuration
 

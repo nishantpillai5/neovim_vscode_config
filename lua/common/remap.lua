@@ -1,5 +1,5 @@
 -- Toggle relative line numbers
-vim.keymap.set('n', '<leader>zr', ':set relativenumber!<CR>', { desc = 'relative_numbers' })
+vim.keymap.set('n', '<leader>zl', ':set relativenumber!<CR>', { desc = 'line_no_relative' })
 
 -- Clear highlighted search
 vim.keymap.set('n', '<leader>z/', ':nohlsearch<CR>', { desc = 'clear_search' })
