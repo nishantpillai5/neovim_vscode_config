@@ -79,7 +79,11 @@ return {
     cond = conds['chrisgrieser/nvim-recorder'] or false,
     keys = {
       { 'q', desc = 'macro_record' },
+      { 'cq', desc = 'macro' },
+      { 'dq', desc = 'macro' },
+      { 'yq', desc = 'macro' },
       { 'Q', desc = 'macro_play' },
+      { '<leader>q', desc = 'switch_macro_slot' },
     },
     config = require('config.recorder').config,
   },

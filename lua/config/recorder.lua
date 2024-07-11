@@ -10,11 +10,13 @@ end
 
 M.setup = function()
   require('recorder').setup {
+    slots = { "q", "w", "e" },
     -- dapSharedKeymaps = true,
     lessNotifications = true,
     logLevel = vim.log.levels.DEBUG,
     mapping = {
-      addBreakPoint = '|NX2J0CdIE', -- adding false doesn't work
+      addBreakPoint = "<Nop>",
+      switchSlot = "<leader>q",
     },
   }
 end
