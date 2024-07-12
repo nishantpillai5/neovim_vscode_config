@@ -12,7 +12,7 @@ local plugins = {
   'norcalli/nvim-colorizer.lua',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Autoclose
@@ -24,10 +24,10 @@ return {
   },
   -- Todo comments
   {
-    'nishantpillai5/todo-comments.nvim', -- Circular todos not merged, using my fork
+    'nishantpillai5/todo-comments.nvim', -- WARN: Circular todos not merged, using my fork
     event = { 'BufReadPre', 'BufNewFile' },
-    cond = conds['folke/todo-comments.nvim'] or false,
     dependencies = { 'nvim-lua/plenary.nvim' },
+    cond = conds['folke/todo-comments.nvim'] or false,
     config = require('config.todo_comments').config,
   },
   -- Tmux like navigation
@@ -80,13 +80,13 @@ return {
   -- Better join
   {
     'Wansmer/treesj',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    cond = conds['Wansmer/treesj'] or false,
     keys = {
       { '<space>J', "<cmd>lua require('treesj').toggle()<cr>", desc = 'code_join' },
       -- { "<space>Jm", "<cmd>lua require('treesj').join()<cr>", desc = "code join" },
       -- { "<space>Js", "<cmd>lua require('treesj').split()<cr>", desc = "code split" }
     },
-    cond = conds['Wansmer/treesj'] or false,
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {
       use_default_keymaps = false,
     },
@@ -94,11 +94,11 @@ return {
   -- Focus window
   {
     'folke/zen-mode.nvim',
+    cond = conds['folke/zen-mode.nvim'] or false,
     keys = {
       { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'zen' },
       { '<leader>zZ', "<cmd>lua require('zen-mode').toggle({window = { width = 1 }})<cr>", desc = 'zen_full' },
     },
-    cond = conds['folke/zen-mode.nvim'] or false,
     opts = {
       window = { width = 0.95 },
       plugins = {
@@ -109,11 +109,11 @@ return {
   },
   {
     'shortcuts/no-neck-pain.nvim',
+    version = '*',
+    cond = conds['shortcuts/no-neck-pain.nvim'] or false,
     keys = {
       { '<leader>zz', ':NoNeckPain<cr>', desc = 'zen', silent = true },
     },
-    cond = conds['shortcuts/no-neck-pain.nvim'] or false,
-    version = '*',
   },
   -- Highlight under cursor
   {
@@ -138,8 +138,8 @@ return {
   {
     'kevinhwang91/nvim-ufo',
     event = 'VeryLazy',
-    cond = conds['kevinhwang91/nvim-ufo'] or false,
     dependencies = { 'kevinhwang91/promise-async' },
+    cond = conds['kevinhwang91/nvim-ufo'] or false,
     init = require('config.ufo').init,
     config = require('config.ufo').config,
   },

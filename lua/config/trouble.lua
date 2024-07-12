@@ -1,5 +1,18 @@
 local M = {}
 
+M.keys = {
+  { '<leader>tt', desc = 'toggle' },
+  { '<leader>td', desc = 'diagnostics' },
+  { '<leader>tq', desc = 'quickfix' },
+  { '<leader>tl', desc = 'loclist' },
+  { '<leader>tg', desc = 'git' },
+  { '<leader>tL', desc = 'lsp' },
+  { '<leader>tf', desc = 'finder' },
+  { '<leader>j', desc = 'trouble_next' },
+  { '<leader>k', desc = 'trouble_prev' },
+  { 'gr', desc = 'references' },
+}
+
 M.use_trouble = function()
   local trouble = require 'trouble'
   -- Check whether we deal with a quickfix or location list buffer, close the window and open the

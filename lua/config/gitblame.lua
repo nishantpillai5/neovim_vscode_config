@@ -1,5 +1,10 @@
 local M = {}
 
+M.keys = {
+  { '<leader>goc', '<cmd>GitBlameOpenCommitURL<cr>', mode = { 'n', 'v' }, desc = 'commit' },
+  { '<leader>gof', '<cmd>GitBlameOpenFileURL<cr>', mode = { 'n', 'v' }, desc = 'file' },
+}
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>gv', function()
     vim.g.gitblame_display_virtual_text = vim.g.gitblame_display_virtual_text == 0 and 1 or 0

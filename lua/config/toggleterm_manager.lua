@@ -1,5 +1,10 @@
 local M = {}
 
+M.keys = {
+  { '<leader>f;', desc = 'terminal' },
+  { '<leader>;f', desc = 'find' },
+}
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>;f', function()
     vim.cmd [[ Telescope toggleterm_manager ]]

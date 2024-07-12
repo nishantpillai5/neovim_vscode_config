@@ -5,7 +5,7 @@ local plugins = {
   'mpas/marp-nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 local NOTES_DIR = require('common.env').DIR_NOTES
 
 return {
@@ -30,11 +30,7 @@ return {
   -- Notes management
   {
     'epwalsh/obsidian.nvim',
-    cond = conds['epwalsh/obsidian.nvim'] or false,
     version = '*',
-    keys = {
-      { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal' },
-    },
     -- event = {
     --   "BufReadPre " .. NOTES_DIR .. "/**.md",
     --   "BufNewFile " .. NOTES_DIR .. "/**.md",
@@ -42,6 +38,10 @@ return {
     dependencies = {
       'nvim-lua/plenary.nvim',
       -- "preservim/vim-markdown"
+    },
+    cond = conds['epwalsh/obsidian.nvim'] or false,
+    keys = {
+      { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal' },
     },
     opts = {
       ui = {
@@ -69,8 +69,8 @@ return {
   {
     'iamcco/markdown-preview.nvim',
     cond = conds['iamcco/markdown-preview.nvim'] or false,
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     ft = { 'markdown' },
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
     build = function()
       vim.fn['mkdp#util#install']()
     end,

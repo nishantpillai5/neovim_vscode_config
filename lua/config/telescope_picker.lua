@@ -1,5 +1,9 @@
 local M = {}
 
+M.keys = {
+  { '<leader>Fe', desc = 'extensions' },
+}
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>Fe', function()
     if not _G.loaded_telescope_extension then

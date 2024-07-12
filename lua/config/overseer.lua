@@ -1,5 +1,18 @@
 local M = {}
 
+M.keys = {
+  { '<leader>oo', desc = 'run_from_list' },
+  { '<leader>eo', desc = 'tasks' },
+  { '<leader>ot', desc = 'toggle' },
+  { '<leader>oc', desc = 'change_last' },
+  { '<leader>ol', desc = 'restart_last' },
+  { '<leader>op', desc = 'preview_last' },
+  { '<leader>ox', desc = 'stop_last' },
+  { '<leader>oX', desc = 'stop_all' },
+  { '<leader>or', desc = 'run' },
+  { '<leader>ob', desc = 'build' },
+}
+
 local action_on_all_tasks = function(action)
   local overseer = require 'overseer'
   local tasks = overseer.list_tasks { recent_first = true }

@@ -5,7 +5,7 @@ local plugins = {
   'subnut/nvim-ghost.nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- When nothing works
@@ -27,9 +27,7 @@ return {
       { '<leader>zt', '<cmd>DuckyType english_common<cr>', desc = 'typing_test_eng' },
       { '<leader>zT', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test_code' },
     },
-    config = function()
-      require('duckytype').setup {}
-    end,
+    opts = {}
   },
   -- Check startup time stats
   {
@@ -43,7 +41,6 @@ return {
   -- Use nvim to type online
   {
     'subnut/nvim-ghost.nvim',
-    lazy = true,
     cond = conds['subnut/nvim-ghost.nvim'] or false,
     cmd = 'GhostTextStart',
     init = function()

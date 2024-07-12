@@ -6,32 +6,24 @@ local plugins = {
   'linrongbin16/gitlinker.nvim',
   'akinsho/git-conflict.nvim',
   'polarmutex/git-worktree.nvim',
-  'f-person/git-blame.nvim', --WARN: too flashy
+  'f-person/git-blame.nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Git
   {
     'tpope/vim-fugitive',
     cond = conds['tpope/vim-fugitive'] or false,
-    keys = {
-      { '<leader>gs', desc = 'status' },
-      { '<leader>gl', desc = 'log' },
-    },
+    keys = require('config.fugitive').keys,
     config = require('config.fugitive').config,
   },
   -- Visual Git
   {
     'kdheepak/lazygit.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
     cond = conds['kdheepak/lazygit.nvim'] or false,
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-    },
-    keys = {
-      { '<leader>gz', '<cmd>LazyGit<cr>', desc = 'lazygit' },
-    },
     cmd = {
       'LazyGit',
       'LazyGitConfig',
@@ -39,19 +31,16 @@ return {
       'LazyGitFilter',
       'LazyGitFilterCurrentFile',
     },
+    keys = {
+      { '<leader>gz', '<cmd>LazyGit<cr>', desc = 'lazygit' },
+    },
   },
   -- Diff
   {
     'sindrets/diffview.nvim',
     cond = conds['sindrets/diffview.nvim'] or false,
-    cmd = { 'DiffviewOpen', 'DiffviewFileHistory' },
-    keys = {
-      { '<leader>gd', desc = 'diff' },
-      { '<leader>gD', desc = 'diff_from_main' },
-      { '<leader>gH', desc = 'history' },
-      { '<leader>gf', desc = 'file_diff' },
-      { '<leader>gF', desc = 'file_diff_from_main' },
-    },
+    cmd = require('config.diffview').cmd,
+    keys = require('config.diffview').keys,
     config = require('config.diffview').config,
   },
   -- Git sign column
@@ -59,21 +48,15 @@ return {
     'lewis6991/gitsigns.nvim',
     cond = conds['lewis6991/gitsigns.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
-    keys = {
-      { '<leader>gB', desc = 'blame_buffer' },
-    },
+    keys = require('config.gitsigns').keys,
     config = require('config.gitsigns').config,
   },
   -- Open git link
   {
     'linrongbin16/gitlinker.nvim',
     cond = conds['linrongbin16/gitlinker.nvim'] or false,
-    cmd = 'GitLink',
-    keys = {
-      { '<leader>gop', '<cmd>GitLink! pr<cr>', mode = { 'n', 'v' }, desc = 'pr' },
-      { '<leader>goj', '<cmd>GitLink! jira<cr>', mode = { 'n', 'v' }, desc = 'jira' },
-      { '<leader>goJ', '<cmd>GitLink! jira_current<cr>', mode = { 'n', 'v' }, desc = 'jira_current' },
-    },
+    cmd = require('config.gitlinker').cmd,
+    keys = require('config.gitlinker').keys,
     config = require('config.gitlinker').config,
   },
   -- Conflict
@@ -81,54 +64,22 @@ return {
     'akinsho/git-conflict.nvim',
     version = '*',
     cond = conds['akinsho/git-conflict.nvim'] or false,
-    keys = {
-      { '[x', desc = 'conflict' },
-      { ']x', desc = 'conflict' },
-    },
-    config = function()
-      require('git-conflict').setup {
-        default_mappings = false,
-        default_commands = true,
-        disable_diagnostics = true,
-      }
-      vim.keymap.set('n', '[x', '<cmd>GitConflictPrevConflict<cr>', { desc = 'conflict' })
-      vim.keymap.set('n', ']x', '<cmd>GitConflictNextConflict<cr>', { desc = 'conflict' })
-    end,
+    keys = require('config.git_conflict').keys,
+    config = require('config.git_conflict').config,
   },
   -- Worktree
   {
     'polarmutex/git-worktree.nvim',
     cond = conds['polarmutex/git-worktree.nvim'] or false,
-    keys = {
-      { '<leader>gw', desc = 'worktree_switch' },
-      { '<leader>gW', desc = 'worktree_create' },
-    },
-    config = function()
-      require('telescope').load_extension 'git_worktree'
-
-      vim.keymap.set('n', '<leader>gw', function()
-        require('telescope').extensions.git_worktree.git_worktrees()
-        -- local dir = vim.fn.input('worktree name: ')
-        -- require("git-worktree").switch_worktree(dir)
-      end, { desc = 'worktree_switch' })
-
-      vim.keymap.set('n', '<leader>gW', function()
-        require('telescope').extensions.git_worktree.create_git_worktree()
-        -- local branch = vim.fn.input('Branch name: ')
-        -- local dir = vim.fn.input('worktree name: ')
-        -- require("git-worktree").create_worktree(dir, branch, "origin")
-      end, { desc = 'worktree_create' })
-    end,
+    keys = require('config.git_worktree').keys,
+    config = require('config.git_worktree').config,
   },
   -- Statusline blame
   {
     'f-person/git-blame.nvim',
-    cond = conds['f-person/git-blame.nvim'] or false,
     event = 'VeryLazy',
-    keys = {
-      { '<leader>goc', '<cmd>GitBlameOpenCommitURL<cr>', mode = { 'n', 'v' }, desc = 'commit' },
-      { '<leader>gof', '<cmd>GitBlameOpenFileURL<cr>', mode = { 'n', 'v' }, desc = 'file' },
-    },
+    cond = conds['f-person/git-blame.nvim'] or false,
+    keys = require('config.gitblame').keys,
     config = require('config.gitblame').config,
   },
 }

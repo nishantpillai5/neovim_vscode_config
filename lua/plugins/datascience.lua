@@ -3,21 +3,14 @@ local plugins = {
   -- "jmbuhr/otter.nvim",
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   {
     'quarto-dev/quarto-nvim',
-    cond = conds['quarto-dev/quarto-nvim'] or false,
     ft = 'quarto',
-    dependencies = {
-      'jmbuhr/otter.nvim',
-    },
-    opts = {
-      lspFeatures = {
-        languages = { 'r', 'python', 'julia', 'bash', 'html', 'lua' },
-      },
-    },
+    dependencies = { 'jmbuhr/otter.nvim' },
+    cond = conds['quarto-dev/quarto-nvim'] or false,
     keys = {
       { '<leader>qa', ':QuartoActivate<cr>', desc = 'quarto activate' },
       { '<leader>qp', ":lua require'quarto'.quartoPreview()<cr>", desc = 'quarto preview' },
@@ -37,11 +30,16 @@ return {
       { '<leader>ctp', ':split term://python<cr>', desc = 'terminal: python' },
       { '<leader>ctj', ':split term://julia<cr>', desc = 'terminal: julia' },
     },
+    opts = {
+      lspFeatures = {
+        languages = { 'r', 'python', 'julia', 'bash', 'html', 'lua' },
+      },
+    },
   },
   {
     'jmbuhr/otter.nvim',
-    cond = conds['jmbuhr/otter.nvim'] or false,
     lazy = true,
+    cond = conds['jmbuhr/otter.nvim'] or false,
     opts = {
       buffers = {
         set_filetype = true,

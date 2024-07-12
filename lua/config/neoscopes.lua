@@ -1,5 +1,10 @@
 local M = {}
 
+M.keys = {
+  { '<leader>ww', desc = 'select' },
+  { '<leader>wx', desc = 'close' },
+}
+
 local global_scopes = function()
   local neoscopes = require 'neoscopes'
   neoscopes.add { name = 'notes', dirs = { require('common.env').DIR_NOTES } }

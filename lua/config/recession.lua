@@ -1,5 +1,13 @@
 local M = {}
 
+M.keys = {
+  { '<leader>ws', desc = 'save_session' },
+  { '<leader>wl', desc = 'load_session' },
+  { '<leader>wS', desc = 'save_manual_session' },
+  { '<leader>wL', desc = 'load_manual_session' },
+  { '<leader>wd', desc = 'delete_session' },
+}
+
 -- TODO: integrate with trailblazer
 local save_marks = function() end
 local load_marks = function() end

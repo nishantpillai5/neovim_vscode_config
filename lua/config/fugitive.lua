@@ -1,5 +1,10 @@
 local M = {}
 
+M.keys = {
+  { '<leader>gs', desc = 'status' },
+  { '<leader>gl', desc = 'log' },
+}
+
 local toggle_fugitive = function()
   local winids = vim.api.nvim_list_wins()
   for _, id in pairs(winids) do

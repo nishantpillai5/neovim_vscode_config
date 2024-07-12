@@ -1,5 +1,18 @@
 local M = {}
 
+M.keys = {
+  { '<leader>gd', desc = 'diff' },
+  { '<leader>gD', desc = 'diff_from_main' },
+  { '<leader>gH', desc = 'history' },
+  { '<leader>gf', desc = 'file_diff' },
+  { '<leader>gF', desc = 'file_diff_from_main' },
+}
+
+M.cmd = {
+ 'DiffviewOpen',
+ 'DiffviewFileHistory'
+}
+
 local diffview_toggle = function()
   local lib = require 'diffview.lib'
   local view = lib.get_current_view()

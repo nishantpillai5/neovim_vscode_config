@@ -9,32 +9,32 @@ local plugins = {
   'mtdl9/vim-log-highlighting',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    cond = conds['nvim-treesitter/nvim-treesitter'] or false,
     event = 'VeryLazy',
+    cond = conds['nvim-treesitter/nvim-treesitter'] or false,
     build = ':TSUpdate',
     config = require('config.treesitter').config,
   },
   -- Code context
   {
     'nvim-treesitter/nvim-treesitter-context',
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    cond = conds['nvim-treesitter/nvim-treesitter-context'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
       { '<leader>zc', "<cmd>TSContextToggle<CR>", mode = 'n', desc = 'context_sticky' },
     },
+    cond = conds['nvim-treesitter/nvim-treesitter-context'] or false,
   },
   -- Virtual context brackets
   {
     'code-biscuits/nvim-biscuits',
-    cond = conds['code-biscuits/nvim-biscuits'] or false,
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    cond = conds['code-biscuits/nvim-biscuits'] or false,
     keys = {
       {
         '<leader>zC',
@@ -56,7 +56,6 @@ return {
   -- LSP
   {
     'VonHeikemen/lsp-zero.nvim',
-    cond = conds['VonHeikemen/lsp-zero.nvim'] or false,
     event = 'VeryLazy',
     branch = 'v3.x',
     dependencies = {
@@ -68,54 +67,42 @@ return {
       'L3MON4D3/LuaSnip',
       'folke/neodev.nvim',
     },
+    cond = conds['VonHeikemen/lsp-zero.nvim'] or false,
     config = require('config.lsp_zero').config,
   },
   -- Linter
   {
     'mfussenegger/nvim-lint',
-    cond = conds['mfussenegger/nvim-lint'] or false,
     event = 'VeryLazy',
     dependencies = { 'VonHeikemen/lsp-zero.nvim' },
+    cond = conds['mfussenegger/nvim-lint'] or false,
     config = require('config.lint').config,
   },
   -- Formatter
   {
     'zapling/mason-conform.nvim',
-    cond = conds['stevearc/conform.nvim'] or false,
     dependencies = {
       'williamboman/mason.nvim',
       'stevearc/conform.nvim',
     },
-    keys = {
-      { '<leader>ls', mode = { 'n', 'v' }, desc = 'format' },
-    },
+    cond = conds['stevearc/conform.nvim'] or false,
+    keys = require('config.conform').keys,
     config = require('config.conform').config,
   },
   -- Diagnostic panel
   {
     'folke/trouble.nvim',
-    cond = conds['folke/trouble.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     ft = { 'qf' },
-    keys = {
-      { '<leader>tt', desc = 'toggle' },
-      { '<leader>td', desc = 'diagnostics' },
-      { '<leader>tq', desc = 'quickfix' },
-      { '<leader>tl', desc = 'loclist' },
-      { '<leader>tg', desc = 'git' },
-      { '<leader>tL', desc = 'lsp' },
-      { '<leader>tf', desc = 'finder' },
-      { '<leader>j', desc = 'trouble_next' },
-      { '<leader>k', desc = 'trouble_prev' },
-      { 'gr', desc = 'references' },
-    },
+    cond = conds['folke/trouble.nvim'] or false,
+    keys = require('config.trouble').keys,
     config = require('config.trouble').config,
   },
   -- Log Highlighting
   {
     'mtdl9/vim-log-highlighting',
-    cond = conds['mtdl9/vim-log-highlighting'] or false,
     event = { 'BufReadPre *.log', 'BufNewFile *.log' },
+    cond = conds['mtdl9/vim-log-highlighting'] or false,
     config = function()
 
       -- TODO: create syntax for [filename.c(1234)]

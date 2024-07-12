@@ -114,10 +114,18 @@ function M.get_keymap_setter(keys)
   return function(mode, lhs, rhs)
     local desc = get_desc(lhs, keys)
     vim.api.nvim_set_keymap(mode, lhs, rhs, keymap_opts { desc = desc })
-    if desc ~= '' then
-      vim.api.nvim_create_user_command('Key' .. snake_to_pascal(desc), rhs, {}) -- FIXME: desc didn't work
-    end
+    -- if desc ~= '' then
+    --   vim.api.nvim_create_user_command('Key' .. snake_to_pascal(desc), rhs, {}) -- FIXME: desc didn't work
+    -- end
   end
+end
+
+function M.get_conds_table(plugins_table)
+  local load_plugin = {}
+  for _, plugin in ipairs(plugins_table) do
+    load_plugin[plugin] = true
+  end
+  return load_plugin
 end
 
 return M

@@ -9,7 +9,7 @@ local plugins = {
   'echasnovski/mini.align',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Hop around text
@@ -30,8 +30,8 @@ return {
   {
     'kylechui/nvim-surround',
     event = { 'BufReadPre', 'BufNewFile' },
-    cond = conds['kylechui/nvim-surround'] or false,
     version = '*',
+    cond = conds['kylechui/nvim-surround'] or false,
     opts = {},
   },
   -- Marks
@@ -44,8 +44,8 @@ return {
   -- Change variable case format
   {
     'gregorias/coerce.nvim',
-    cond = conds['gregorias/coerce.nvim'] or false,
     tag = 'v1.0',
+    cond = conds['gregorias/coerce.nvim'] or false,
     keys = {
       { 'cr', desc = 'change_var_format' },
     },

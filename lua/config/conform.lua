@@ -1,5 +1,9 @@
 local M = {}
 
+M.keys = {
+  { '<leader>ls', mode = { 'n', 'v' }, desc = 'format' },
+}
+
 M.keymaps = function()
   vim.keymap.set({ 'n', 'v' }, '<leader>ls', function()
     require('conform').format({

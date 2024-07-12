@@ -6,46 +6,37 @@ local plugins = {
   'klen/nvim-config-local',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Follow symlinks
   {
     'aymericbeaumet/vim-symlink',
-    cond = conds['aymericbeaumet/vim-symlink'] or false,
-    dependencies = { 'moll/vim-bbye' },
     event = 'VeryLazy',
+    dependencies = { 'moll/vim-bbye' },
+    cond = conds['aymericbeaumet/vim-symlink'] or false,
   },
   -- Scoped finder
   {
     'smartpde/neoscopes',
-    cond = conds['smartpde/neoscopes'] or false,
-    keys = {
-      { '<leader>ww', desc = 'select' },
-      { '<leader>wx', desc = 'close' },
-    },
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+    cond = conds['smartpde/neoscopes'] or false,
+    keys = require('config.neoscopes').keys,
     config = require('config.neoscopes').config,
   },
   -- Session manager
   {
     'stevearc/resession.nvim',
     cond = conds['stevearc/resession.nvim'] or false,
-    keys = {
-      { '<leader>ws', desc = 'save_session' },
-      { '<leader>wl', desc = 'load_session' },
-      { '<leader>wS', desc = 'save_manual_session' },
-      { '<leader>wL', desc = 'load_manual_session' },
-      { '<leader>wd', desc = 'delete_session' },
-    },
+    keys = require('config.recession').keys,
     config = require('config.recession').config,
   },
   -- Find other project directories
   {
     'ahmedkhalf/project.nvim',
-    cond = conds['ahmedkhalf/project.nvim'] or false,
-    dependencies = { 'nvim-telescope/telescope.nvim' },
     event = 'VeryLazy',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    cond = conds['ahmedkhalf/project.nvim'] or false,
     keys = {
       { '<leader>wW', desc = 'select_project' },
     },
@@ -59,8 +50,8 @@ return {
   -- Local config
   {
     'klen/nvim-config-local',
-    cond = conds['klen/nvim-config-local'] or false,
     lazy = false,
+    cond = conds['klen/nvim-config-local'] or false,
     config = function()
       require('config-local').setup {
         config_files = { '.vscode/.nvim.lua', '.nvim.lua', '.nvimrc', '.exrc' },

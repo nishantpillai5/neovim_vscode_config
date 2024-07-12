@@ -5,54 +5,38 @@ local plugins = {
   'sbulav/nredir.nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Panel
   {
     'akinsho/nvim-toggleterm.lua',
     cond = conds['akinsho/nvim-toggleterm.lua'] or false,
-    keys = {
-      { '<leader>;;', desc = 'toggle' },
-    },
+    keys = require('config.toggleterm').keys,
     config = require('config.toggleterm').config,
   },
   -- Manager
   {
     'ryanmsnyder/toggleterm-manager.nvim',
-    cond = conds['ryanmsnyder/toggleterm-manager.nvim'] or false,
     dependencies = {
       'akinsho/nvim-toggleterm.lua',
       'nvim-telescope/telescope.nvim',
       'nvim-lua/plenary.nvim',
     },
-    keys = {
-      { '<leader>f;', desc = 'terminal' },
-      { '<leader>;f', desc = 'find' },
-    },
+    cond = conds['ryanmsnyder/toggleterm-manager.nvim'] or false,
+    keys = require('config.toggleterm_manager').keys,
     config = require('config.toggleterm_manager').config,
   },
   -- Tasks
   {
     'stevearc/overseer.nvim',
-    cond = conds['stevearc/overseer.nvim'] or false,
     dependencies = {
       'akinsho/nvim-toggleterm.lua',
       'nvim-telescope/telescope.nvim',
       'stevearc/dressing.nvim',
     },
-    keys = {
-      { '<leader>oo', desc = 'run_from_list' },
-      { '<leader>eo', desc = 'tasks' },
-      { '<leader>ot', desc = 'toggle' },
-      { '<leader>oc', desc = 'change_last' },
-      { '<leader>ol', desc = 'restart_last' },
-      { '<leader>op', desc = 'preview_last' },
-      { '<leader>ox', desc = 'stop_last' },
-      { '<leader>oX', desc = 'stop_all' },
-      { '<leader>or', desc = 'run' },
-      { '<leader>ob', desc = 'build' },
-    },
+    cond = conds['stevearc/overseer.nvim'] or false,
+    keys = require('config.overseer').keys,
     config = require('config.overseer').config,
   },
   -- Redir commands to buffer

@@ -4,7 +4,7 @@ local plugins = {
   'nvim-pack/nvim-spectre',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Refactor
@@ -33,11 +33,7 @@ return {
   {
     'nvim-pack/nvim-spectre',
     cond = conds['nvim-pack/nvim-spectre'] or false,
-    keys = {
-      { '<leader>r/', desc = 'local' },
-      { '<leader>r?', desc = 'global' },
-      { '<leader>rw', desc = 'global_word' },
-    },
+    keys = require('config.spectre').keys,
     config = require('config.spectre').config,
   },
 }

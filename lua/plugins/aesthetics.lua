@@ -12,7 +12,7 @@ local plugins = {
   'stevearc/dressing.nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Colorscheme
@@ -55,13 +55,13 @@ return {
   {
     'utilyre/barbecue.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    cond = conds['utilyre/barbecue.nvim'] or false,
     dependencies = {
       'SmiteshP/nvim-navic',
       'nvim-tree/nvim-web-devicons',
     },
     name = 'barbecue',
     version = '*',
+    cond = conds['utilyre/barbecue.nvim'] or false,
     config = require('config.barbecue').config,
   },
   -- Dashboard
@@ -69,16 +69,16 @@ return {
     'nvimdev/dashboard-nvim',
     lazy = false,
     priority = 900,
-    cond = conds['nvimdev/dashboard-nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    cond = conds['nvimdev/dashboard-nvim'] or false,
     config = require('config.dashboard').config,
   },
   -- Statusline
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    cond = conds['nvim-lualine/lualine.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    cond = conds['nvim-lualine/lualine.nvim'] or false,
     init = require('config.lualine').init,
     config = require('config.lualine').config,
   },
@@ -86,8 +86,8 @@ return {
   {
     'lukas-reineke/indent-blankline.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
-    cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
     dependencies = { 'HiPhish/rainbow-delimiters.nvim' },
+    cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
     config = require('config.indent_blankline').config,
   },
   -- Better UI
@@ -100,12 +100,12 @@ return {
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
-    cond = conds['folke/noice.nvim'] or false,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',
       -- 'VonHeikemen/lsp-zero.nvim',
     },
+    cond = conds['folke/noice.nvim'] or false,
     config = require('config.noice').config,
   },
   {

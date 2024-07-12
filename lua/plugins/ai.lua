@@ -3,7 +3,7 @@ local plugins = {
   'CopilotC-Nvim/CopilotChat.nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   {

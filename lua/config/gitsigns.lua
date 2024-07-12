@@ -1,5 +1,9 @@
 local M = {}
 
+M.keys = {
+  { '<leader>gB', desc = 'blame_buffer' },
+}
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>gB', function()
     vim.cmd 'Gitsigns blame'

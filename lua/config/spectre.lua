@@ -1,5 +1,11 @@
 local M = {}
 
+M.keys = {
+  { '<leader>r/', desc = 'local' },
+  { '<leader>r?', desc = 'global' },
+  { '<leader>rw', desc = 'global_word' },
+}
+
 M.keymaps = function()
   local spectre = require 'spectre'
 

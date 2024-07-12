@@ -10,15 +10,3 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
-local M = {}
-
-function M.get_conds(plugins_table)
-  local load_plugin = {}
-  for _, plugin in ipairs(plugins_table) do
-    load_plugin[plugin] = true
-  end
-  return load_plugin
-end
-
-return M

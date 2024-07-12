@@ -1,5 +1,9 @@
 local M = {}
 
+M.keys = {
+  { '<leader>;;', desc = 'toggle' },
+}
+
 local init_or_toggle = function()
   local buffers = vim.api.nvim_list_bufs()
   local toggleterm_exists = false

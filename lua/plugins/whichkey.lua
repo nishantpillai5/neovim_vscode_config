@@ -3,14 +3,14 @@ local plugins = {
   'tris203/hawtkeys.nvim',
 }
 
-local conds = require('common.lazy').get_conds(plugins)
+local conds = require('common.utils').get_conds_table(plugins)
 
 return {
   -- Shortcut helper
   {
     'folke/which-key.nvim',
-    cond = conds['folke/which-key.nvim'] or false,
     event = 'VeryLazy',
+    cond = conds['folke/which-key.nvim'] or false,
     init = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
