@@ -1,5 +1,14 @@
 local M = {}
 
+M.keys = {
+  { 'q', desc = 'macro_record' },
+  { 'cq', desc = 'macro' },
+  { 'dq', desc = 'macro' },
+  { 'yq', desc = 'macro' },
+  { 'Q', desc = 'macro_play' },
+  { '<leader>q', desc = 'switch_macro_slot' },
+}
+
 M.lualine = function()
   local lualineY = require('lualine').get_config().tabline.lualine_y or {}
   table.insert(lualineY, 1, { require('recorder').recordingStatus })

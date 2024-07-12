@@ -1,14 +1,12 @@
 local plugins = {
   'windwp/nvim-autopairs',
-  -- 'folke/todo-comments.nvim', -- Circular todos not merged, using my fork
-  'nishantpillai5/todo-comments.nvim',
+  'folke/todo-comments.nvim',
   'alexghergh/nvim-tmux-navigation',
   'mbbill/undotree',
   -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
   'Wansmer/treesj',
   'folke/zen-mode.nvim',
   -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
-  -- 'sitiom/nvim-numbertoggle', -- TODO: no line numbers when jumping with trouble
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
   'norcalli/nvim-colorizer.lua',
@@ -20,23 +18,23 @@ return {
   -- Autoclose
   {
     'windwp/nvim-autopairs',
+    event = { 'InsertEnter' },
     cond = conds['windwp/nvim-autopairs'] or false,
-    event = 'InsertEnter',
-    config = true,
+    opts = {}
   },
   -- Todo comments
   {
-    'nishantpillai5/todo-comments.nvim',
-    cond = conds['nishantpillai5/todo-comments.nvim'] or false,
+    'nishantpillai5/todo-comments.nvim', -- Circular todos not merged, using my fork
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['folke/todo-comments.nvim'] or false,
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = require('config.todo_comments').config,
   },
   -- Tmux like navigation
   {
     'alexghergh/nvim-tmux-navigation',
-    cond = conds['alexghergh/nvim-tmux-navigation'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['alexghergh/nvim-tmux-navigation'] or false,
     config = function()
       local nvim_tmux_nav = require 'nvim-tmux-navigation'
       nvim_tmux_nav.setup {
@@ -54,16 +52,16 @@ return {
   -- Better undo
   {
     'mbbill/undotree',
-    cond = conds['mbbill/undotree'] or false,
     keys = {
       { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'undotree_toggle' },
     },
+    cond = conds['mbbill/undotree'] or false,
   },
   -- Better yank
   {
     'gbprod/yanky.nvim',
-    cond = conds['gbprod/yanky.nvim'] or false,
     event = 'VeryLazy',
+    cond = conds['gbprod/yanky.nvim'] or false,
     config = function()
       require('yanky').setup {
         highlight = {
@@ -82,25 +80,25 @@ return {
   -- Better join
   {
     'Wansmer/treesj',
-    cond = conds['Wansmer/treesj'] or false,
-    opts = {
-      use_default_keymaps = false,
-    },
     keys = {
       { '<space>J', "<cmd>lua require('treesj').toggle()<cr>", desc = 'code_join' },
       -- { "<space>Jm", "<cmd>lua require('treesj').join()<cr>", desc = "code join" },
       -- { "<space>Js", "<cmd>lua require('treesj').split()<cr>", desc = "code split" }
     },
+    cond = conds['Wansmer/treesj'] or false,
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    opts = {
+      use_default_keymaps = false,
+    },
   },
   -- Focus window
   {
     'folke/zen-mode.nvim',
-    cond = conds['folke/zen-mode.nvim'] or false,
     keys = {
       { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'zen' },
       { '<leader>zZ', "<cmd>lua require('zen-mode').toggle({window = { width = 1 }})<cr>", desc = 'zen_full' },
     },
+    cond = conds['folke/zen-mode.nvim'] or false,
     opts = {
       window = { width = 0.95 },
       plugins = {
@@ -111,23 +109,17 @@ return {
   },
   {
     'shortcuts/no-neck-pain.nvim',
-    version = '*',
-    cond = conds['shortcuts/no-neck-pain.nvim'] or false,
     keys = {
       { '<leader>zz', ':NoNeckPain<cr>', desc = 'zen', silent = true },
     },
-  },
-  -- Absolute line numbers when not focused
-  {
-    'sitiom/nvim-numbertoggle',
-    cond = conds['sitiom/nvim-numbertoggle'] or false,
-    event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['shortcuts/no-neck-pain.nvim'] or false,
+    version = '*',
   },
   -- Highlight under cursor
   {
     'RRethy/vim-illuminate',
-    cond = conds['RRethy/vim-illuminate'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['RRethy/vim-illuminate'] or false,
     config = function()
       require('illuminate').configure {
         providers = {
@@ -145,12 +137,10 @@ return {
   -- Folds
   {
     'kevinhwang91/nvim-ufo',
-    cond = conds['kevinhwang91/nvim-ufo'] or false,
     event = 'VeryLazy',
+    cond = conds['kevinhwang91/nvim-ufo'] or false,
     dependencies = { 'kevinhwang91/promise-async' },
-    init = function()
-      require('config.ufo').init()
-    end,
+    init = require('config.ufo').init,
     config = require('config.ufo').config,
   },
   -- Highlight color info inline

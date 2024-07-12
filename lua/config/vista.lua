@@ -1,5 +1,9 @@
 local M = {}
 
+M.keys = {
+  { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols' },
+}
+
 M.setup = function()
   local align = require('common.env').SIDEBAR_POSITION
   if align == 'left' then

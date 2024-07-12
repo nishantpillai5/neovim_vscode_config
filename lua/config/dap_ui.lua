@@ -1,5 +1,12 @@
 local M = {}
 
+M.keys = {
+  { '<leader>bb', desc = 'toggle_view' },
+  { '<leader>bK', desc = 'hover' },
+  -- { "<leader>bK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
+  -- { "<leader>b?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
+}
+
 M.keymaps = function()
   local dapui = require 'dapui'
 

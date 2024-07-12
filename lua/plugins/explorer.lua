@@ -10,16 +10,10 @@ return {
   -- Explorer
   {
     'nvim-neo-tree/neo-tree.nvim',
+    keys = require('config.neotree').keys,
     cond = conds['nvim-neo-tree/neo-tree.nvim'] or false,
-    branch = 'v3.x',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' },
-    keys = {
-      { '<leader>ee', desc = 'explorer' },
-      { '<leader>eb', desc = 'buffers' },
-      { '<leader>eg', desc = 'git' },
-      { '<leader>ex', desc = 'toggle' },
-      { '<leader>fe', desc = 'explorer' },
-    },
+    branch = 'v3.x',
     config = require('config.neotree').config,
   },
   -- Edit files as buffer
@@ -40,10 +34,8 @@ return {
   -- Symbol explorer
   {
     'liuchengxu/vista.vim',
+    keys = require('config.vista').keys,
     cond = conds['liuchengxu/vista.vim'] or false,
-    keys = {
-      { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols' },
-    },
     config = require('config.vista').config,
   },
 }

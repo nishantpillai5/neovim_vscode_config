@@ -2,6 +2,14 @@ local M = {}
 
 local utils = require 'common.utils'
 
+M.keys = {
+  { '<leader>ee', desc = 'explorer' },
+  { '<leader>eb', desc = 'buffers' },
+  { '<leader>eg', desc = 'git' },
+  { '<leader>ex', desc = 'toggle' },
+  { '<leader>fe', desc = 'explorer' },
+}
+
 local sidebar_align = function()
   return require('common.env').SIDEBAR_POSITION
 end

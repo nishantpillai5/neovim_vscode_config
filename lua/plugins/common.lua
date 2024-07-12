@@ -29,62 +29,40 @@ return {
   -- Surround
   {
     'kylechui/nvim-surround',
-    cond = conds['kylechui/nvim-surround'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['kylechui/nvim-surround'] or false,
     version = '*',
-    config = function()
-      require('nvim-surround').setup {}
-    end,
+    opts = {},
   },
   -- Marks
   {
     'LeonHeidelbach/trailblazer.nvim',
-    cond = conds['LeonHeidelbach/trailblazer.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['LeonHeidelbach/trailblazer.nvim'] or false,
     config = require('config.trailblazer').config,
   },
   -- Change variable case format
   {
     'gregorias/coerce.nvim',
     cond = conds['gregorias/coerce.nvim'] or false,
-    keys = {
-      { 'cr', desc = 'coerce' },
-    },
     tag = 'v1.0',
+    keys = {
+      { 'cr', desc = 'change_var_format' },
+    },
     opts = {},
   },
   -- Better increment
   {
     'monaqa/dial.nvim',
     cond = conds['monaqa/dial.nvim'] or false,
-    keys = {
-      { '<leader>i', "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = 'increment' },
-      { '<leader>I', "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = 'decrement' },
-    },
-    config = function()
-      local augend = require 'dial.augend'
-      require('dial.config').augends:register_group {
-        default = {
-          augend.integer.alias.decimal,
-          augend.integer.alias.hex,
-          augend.semver.alias.semver,
-          augend.date.alias['%Y/%m/%d'],
-        },
-      }
-    end,
+    keys = require('config.dial').keys,
+    config = require('config.dial').config,
   },
   -- Better macros
   {
     'chrisgrieser/nvim-recorder',
     cond = conds['chrisgrieser/nvim-recorder'] or false,
-    keys = {
-      { 'q', desc = 'macro_record' },
-      { 'cq', desc = 'macro' },
-      { 'dq', desc = 'macro' },
-      { 'yq', desc = 'macro' },
-      { 'Q', desc = 'macro_play' },
-      { '<leader>q', desc = 'switch_macro_slot' },
-    },
+    keys = require('config.recorder').keys,
     config = require('config.recorder').config,
   },
   -- Inline macros
@@ -92,22 +70,14 @@ return {
     'AllenDang/nvim-expand-expr',
     cond = conds['AllenDang/nvim-expand-expr'] or false,
     keys = {
-      {
-        '<leader>q',
-        function()
-          require('expand_expr').expand()
-        end,
-        desc = 'inline_macro',
-      },
+      { '<leader>q', ":lua require('expand_expr').expand()<cr>", desc = 'inline_macro' }
     },
   },
   -- Align expressions
   {
     'echasnovski/mini.align',
-    cond = conds['echasnovski/mini.align'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      require('mini.align').setup()
-    end,
+    cond = conds['echasnovski/mini.align'] or false,
+    opts = {},
   },
 }

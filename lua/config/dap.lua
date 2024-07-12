@@ -1,5 +1,24 @@
 local M = {}
 
+M.keys = {
+  { '<F5>', desc = 'Debug.continue/start' },
+  { '<C-F5>', desc = 'Debug.stop' },
+  { '<F6>', desc = 'Debug.pause' },
+  { '<F7>', desc = 'Debug.step_into' },
+  { '<C-F7>', desc = 'Debug.step_out' },
+  { '<F8>', desc = 'Debug.step_over' },
+  { 'mb', desc = 'breakpoint' },
+  { '<leader>bl', desc = 'toggle_with_log' },
+  { '[b', desc = 'breakpoint' },
+  { ']b', desc = 'breakpoint' },
+  { '<leader>fbb', desc = 'Breakpoint' },
+  { '<leader>fbc', desc = 'configurations' },
+  { '<leader>fbv', desc = 'variables' },
+  { '<leader>fbf', desc = 'frames' },
+  { '<leader>zb', desc = 'debug_virtual' },
+  { '<leader>bz', desc = 'virtual_text_toggle' },
+}
+
 M.keymaps = function()
   local dap = require 'dap'
   vim.keymap.set('n', '<F5>', function()

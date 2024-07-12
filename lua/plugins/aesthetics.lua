@@ -18,23 +18,23 @@ return {
   -- Colorscheme
   {
     'Mofiqul/vscode.nvim',
-    cond = conds['Mofiqul/vscode.nvim'] or false,
     lazy = false,
     priority = 1000,
+    cond = conds['Mofiqul/vscode.nvim'] or false,
     config = require('config.theme').config,
   },
   -- Scrollbar
   {
     'petertriho/nvim-scrollbar',
-    cond = conds['petertriho/nvim-scrollbar'] or false,
     event = { 'BufReadPre' },
+    cond = conds['petertriho/nvim-scrollbar'] or false,
     config = require('config.scrollbar').config,
   },
   -- Scrollbar search indicators
   {
     'kevinhwang91/nvim-hlslens',
-    cond = conds['kevinhwang91/nvim-hlslens'] or false,
     event = { 'BufReadPre' },
+    cond = conds['kevinhwang91/nvim-hlslens'] or false,
     config = function()
       require('scrollbar.handlers.search').setup {
         override_lens = function() end,
@@ -44,8 +44,8 @@ return {
   -- Windows Separator
   {
     'nvim-zh/colorful-winsep.nvim',
-    cond = conds['nvim-zh/colorful-winsep.nvim'] or false,
     event = { 'BufReadPre' },
+    cond = conds['nvim-zh/colorful-winsep.nvim'] or false,
     config = function()
       require('colorful-winsep').setup { smooth = false }
       require('config.theme').highlightSeparator 'n'
@@ -54,36 +54,30 @@ return {
   -- Context breadcrumbs
   {
     'utilyre/barbecue.nvim',
-    cond = conds['utilyre/barbecue.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
-    name = 'barbecue',
-    version = '*',
+    cond = conds['utilyre/barbecue.nvim'] or false,
     dependencies = {
       'SmiteshP/nvim-navic',
       'nvim-tree/nvim-web-devicons',
     },
-    opts = {
-      theme = {
-        normal = { bg = '#262626' },
-      },
-      show_basename = true,
-      show_dirname = false,
-    },
+    name = 'barbecue',
+    version = '*',
+    config = require('config.barbecue').config,
   },
   -- Dashboard
   {
     'nvimdev/dashboard-nvim',
-    cond = conds['nvimdev/dashboard-nvim'] or false,
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
     lazy = false,
     priority = 900,
+    cond = conds['nvimdev/dashboard-nvim'] or false,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = require('config.dashboard').config,
   },
   -- Statusline
   {
     'nvim-lualine/lualine.nvim',
-    cond = conds['nvim-lualine/lualine.nvim'] or false,
     event = 'VeryLazy',
+    cond = conds['nvim-lualine/lualine.nvim'] or false,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     init = require('config.lualine').init,
     config = require('config.lualine').config,
@@ -91,30 +85,22 @@ return {
   -- Indentation guides
   {
     'lukas-reineke/indent-blankline.nvim',
-    cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
     dependencies = { 'HiPhish/rainbow-delimiters.nvim' },
     config = require('config.indent_blankline').config,
   },
   -- Better UI
   {
     'rcarriga/nvim-notify',
-    cond = conds['rcarriga/nvim-notify'] or false,
     event = 'VeryLazy',
-    config = function()
-      require('notify').setup {
-        stages = 'static',
-        timeout = 2000,
-        render = 'compact',
-        top_down = true,
-      }
-      vim.notify = require 'notify'
-    end,
+    cond = conds['rcarriga/nvim-notify'] or false,
+    config = require('config.notify').config,
   },
   {
     'folke/noice.nvim',
-    cond = conds['folke/noice.nvim'] or false,
     event = 'VeryLazy',
+    cond = conds['folke/noice.nvim'] or false,
     dependencies = {
       'MunifTanjim/nui.nvim',
       'rcarriga/nvim-notify',

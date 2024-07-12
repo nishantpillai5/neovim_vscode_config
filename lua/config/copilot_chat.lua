@@ -1,5 +1,15 @@
 local M = {}
 
+M.keys = {
+  { '<leader>cc', desc = 'toggle' },
+  { '<leader>cc', mode = 'v', desc = 'chat' },
+  { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain' },
+  { '<leader>cr', desc = 'reset' },
+  { '<leader>cb', desc = 'buffer' },
+  { '<leader>cf', mode = { 'n', 'v' }, desc = 'find' },
+  { '<leader>fc', mode = { 'n', 'v' }, desc = 'chat' },
+}
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>cc', function()
     vim.cmd 'CopilotChatToggle'
