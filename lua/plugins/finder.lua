@@ -42,7 +42,7 @@ return {
     'axkirillov/easypick.nvim',
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['axkirillov/easypick.nvim'] or false,
-    cmd = require('config.easypick').cmds,
+    cmd = require('config.easypick').cmd,
     keys = require('config.easypick').keys,
     config = require('config.easypick').config,
   },

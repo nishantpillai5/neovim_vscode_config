@@ -9,6 +9,26 @@ local function map_action(mode, key, input, opts)
   end, { noremap = true, silent = true })
 end
 
+local function map_whichkey_node(mode, key, node)
+  vim.keymap.set(mode, key, function()
+    vscode.call 'whichkey.show'
+    vscode.call('whichkey.triggerKey', { args = { node } })
+  end, { noremap = true, silent = true })
+end
+
+Map_whichkey_nodes = function(mode, prefix, parent_key, maps)
+  if type(maps) == 'string' then
+    map_whichkey_node(mode, prefix, parent_key)
+  else
+    for key, lookup in pairs(maps) do
+      if key ~= 'name' then
+        map_whichkey_node(mode, prefix .. key, key)
+        Map_whichkey_nodes(mode, prefix .. key, key, lookup)
+      end
+    end
+  end
+end
+
 -------------------------------------- Basics -------------------------------------------
 
 map_action('n', '<leader>x', 'workbench.action.closeActiveEditor')
@@ -191,26 +211,4 @@ map_action('n', '<leader>wx', _G.workspace_close_cmd)
 -------------------------------------- Whichkey -----------------------------------------
 
 map_action('n', '<leader>', 'whichkey.show')
-
-local function map_whichkey_node(mode, key, node)
-  vim.keymap.set(mode, key, function()
-    vscode.call 'whichkey.show'
-    vscode.call('whichkey.triggerKey', { args = { node } })
-  end, { noremap = true, silent = true })
-end
-
-Map_whichkey_nodes = function(mode, prefix, parent_key, maps)
-  if type(maps) == 'string' then
-    map_whichkey_node(mode, prefix, parent_key)
-  else
-    for key, lookup in pairs(maps) do
-      if key ~= 'name' then
-        map_whichkey_node(mode, prefix .. key, key)
-        Map_whichkey_nodes(mode, prefix .. key, key, lookup)
-      end
-    end
-  end
-end
-
-local leader_maps = require('common.whichkey_config').leader_maps
-Map_whichkey_nodes('n', '<leader>', nil, leader_maps)
+Map_whichkey_nodes('n', '<leader>', nil, require('common.whichkey_config').leader_maps)

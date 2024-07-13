@@ -35,25 +35,15 @@ return {
     'alexghergh/nvim-tmux-navigation',
     event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['alexghergh/nvim-tmux-navigation'] or false,
-    config = function()
-      local nvim_tmux_nav = require 'nvim-tmux-navigation'
-      nvim_tmux_nav.setup {
-        disable_when_zoomed = true, -- defaults to false
-      }
+    keys = require('config.tmux_navigation').keys,
+    config = require('config.tmux_navigation').config,
 
-      vim.keymap.set('n', '<C-h>', nvim_tmux_nav.NvimTmuxNavigateLeft)
-      vim.keymap.set('n', '<C-j>', nvim_tmux_nav.NvimTmuxNavigateDown)
-      vim.keymap.set('n', '<C-k>', nvim_tmux_nav.NvimTmuxNavigateUp)
-      vim.keymap.set('n', '<C-l>', nvim_tmux_nav.NvimTmuxNavigateRight)
-      vim.keymap.set('n', '<C-Space>', nvim_tmux_nav.NvimTmuxNavigateLastActive)
-      vim.keymap.set('n', '<C-\\>', nvim_tmux_nav.NvimTmuxNavigateNext)
-    end,
   },
   -- Better undo
   {
     'mbbill/undotree',
     keys = {
-      { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'undotree_toggle' },
+      { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'undotree' },
     },
     cond = conds['mbbill/undotree'] or false,
   },
@@ -84,8 +74,6 @@ return {
     cond = conds['Wansmer/treesj'] or false,
     keys = {
       { '<space>J', "<cmd>lua require('treesj').toggle()<cr>", desc = 'code_join' },
-      -- { "<space>Jm", "<cmd>lua require('treesj').join()<cr>", desc = "code join" },
-      -- { "<space>Js", "<cmd>lua require('treesj').split()<cr>", desc = "code split" }
     },
     opts = {
       use_default_keymaps = false,

@@ -5,7 +5,7 @@ M.keys = {
   { '<leader>fgF', desc = 'changed_files_from_main' },
 }
 
-M.cmds = { 'Easypick', 'KeyChangedFilesFromMain' }
+M.cmd = { 'Easypick', 'KeyChangedFilesFromMain' }
 
 M.keymaps = function()
   local set_keymap = utils.get_keymap_setter(M.keys)

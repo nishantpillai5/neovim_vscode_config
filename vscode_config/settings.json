@@ -101,7 +101,7 @@
         },
         {
             "key": "u",
-            "name": "undotree_toggle",
+            "name": "undotree",
             "type": "command",
             "command": "timeline.toggleExcludeSource:timeline.localHistory"
         },

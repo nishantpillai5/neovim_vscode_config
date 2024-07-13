@@ -24,12 +24,10 @@ return {
     keys = {
       { '<leader>ei', '<cmd>Oil<cr>', desc = 'oil' },
     },
-    config = function()
-      require('oil').setup {
-        -- Keep netrw enabled
-        default_file_explorer = false,
-      }
-    end,
+    opts = {
+      -- Keep netrw enabled
+      default_file_explorer = false,
+    },
   },
   -- Symbol explorer
   {
