@@ -15,52 +15,79 @@ return {
       vim.o.timeout = true
       vim.o.timeoutlen = 300
     end,
+    keys = {
+      {
+        "<leader><leader>",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "whichkey_help",
+      },
+    },
     config = function()
       local wk = require 'which-key'
-      wk.register {
-        ['<leader>'] = require('common.whichkey_config').leader_maps,
-        g = {
-          d = 'definition',
-          D = 'declaration',
-          i = 'implementation',
-          o = 'symbol',
-          r = 'references',
-          h = 'signature help',
-          l = 'diagnostics',
-        },
-        ['<F2>'] = 'rename',
-        ['<F3>'] = 'format(lsp)',
-        ['<F4>'] = 'code_action',
-        [']'] = { name = 'Next', d = 'diagnostic' },
-        ['['] = { name = 'Prev', d = 'diagnostic' },
-        K = 'hover',
-        s = 'hop_char',
-        S = 'hop_node',
-        m = {
-          name = '+Mark',
-          d = 'delete_in_buffer',
-          D = 'delete_all',
-          m = 'mark',
-          n = 'nearest',
-          p = 'paste_last',
-          P = 'paste_all',
-          x = 'back',
-        },
-        ['<C-h>'] = 'move_focus_left',
-        ['<C-j>'] = 'move_focus_down',
-        ['<C-k>'] = 'move_focus_up',
-        ['<C-l>'] = 'move_focus_right',
-      }
+      wk.setup {
+        preset = "helix",
+        icons = { rules = false },
+        sort = { "local", "order", "group", "alphanum", "mod", "lower", "icase" },
+        spec = {
+          { '<leader>;', group = 'Terminal' },
+          { '<leader>b', group = 'Breakpoint' },
+          { '<leader>c', group = 'Chat', mode = { 'n', 'v'} },
+          { '<leader>e', group = 'Explorer' },
+          { '<leader>ey', group = 'Yank' },
+          { '<leader>f', group  = 'Find', mode = { 'n', 'v'} },
+          { '<leader>fg', group = 'Git' },
+          { '<leader>fb',group = 'Breakpoint' },
+          { '<leader>F', group = 'Find_Telescope' },
+          { '<leader>g', group = 'Git', mode = { 'n', 'v'} },
+          { '<leader>gh', group = 'Hunk', mode = { 'n', 'v'} },
+          { '<leader>go', group = 'Open' },
+          { '<leader>l', group = 'LSP', mode = { 'n', 'v'} },
+          { '<leader>n', group = 'Notes' },
+          { '<leader>o', group = 'Tasks' },
+          { '<leader>r', group = 'Refactor' },
+          { '<leader>t', group = 'Trouble' },
+          { '<leader>w', group = 'Workspace' },
+          { '<leader>z', group = 'Visual' },
+          { '<leader>zf', group = 'fml' },
+          { ']', group = 'Next' },
+          { '[', group = 'Prev' },
 
-      wk.register({
-        ['<leader>'] = {
-          c = 'Chat',
-          f = 'Find',
-          g = { name = 'Git', h = 'Hunk' },
-          l = 'LSP',
-          ['/'] = 'Search',
-        },
-      }, { mode = 'v' })
+          { ']d', desc = 'diagnostic' },
+          { '[d', desc = 'diagnostic' },
+
+          { 'm', group = 'Marks' },
+          { 'md', desc = 'delete_in_buffer' },
+          { 'mD', desc = 'delete_all' },
+          { 'mm', desc = 'mark' },
+          { 'mn', desc = 'nearest' },
+          { 'mp', desc = 'paste_last' },
+          { 'mP', desc = 'paste_all' },
+          { 'mx', desc = 'back' },
+
+          { '<C-h>', desc = 'move_focus_left' },
+          { '<C-j>', desc = 'move_focus_down' },
+          { '<C-k>', desc = 'move_focus_up' },
+          { '<C-l>', desc = 'move_focus_right' },
+
+          { 'gd', desc = 'definition' },
+          { 'gD', desc = 'declaration' },
+          { 'gi', desc = 'implementation' },
+          { 'go', desc = 'symbol' },
+          { 'gr', desc = 'references' },
+          { 'gh', desc = 'signature_help' },
+          { 'gl', desc  = 'diagnostics' },
+
+          { 'K', desc = 'hover' },
+          { 's', desc = 'hop_char' },
+          { 'S', desc = 'hop_node' },
+
+          { '<F2>', desc = 'rename' },
+          { '<F3>', desc = 'format_lsp' },
+          { '<F4>', desc = 'code_action' },
+        }
+      }
     end,
   },
   -- Find shortcut conflicts
