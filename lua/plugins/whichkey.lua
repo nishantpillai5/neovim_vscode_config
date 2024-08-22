@@ -27,7 +27,6 @@ return {
     config = function()
       local wk = require 'which-key'
       wk.setup {
-        preset = "helix",
         icons = { rules = false },
         sort = { "local", "order", "group", "alphanum", "mod", "lower", "icase" },
         spec = {

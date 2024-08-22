@@ -13,7 +13,7 @@ M.keymaps = function()
     }, function()
       vim.notify 'Formatted'
     end)
-  end)
+  end, { desc = 'format' })
 end
 
 M.setup = function()

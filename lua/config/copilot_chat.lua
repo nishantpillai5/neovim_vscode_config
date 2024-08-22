@@ -53,6 +53,7 @@ M.setup = function()
     show_help = 'yes',
     debug = false,
     disable_extra_info = 'no',
+    auto_follow_cursor = false, -- Auto-follow cursor in chat
     language = 'English',
     mappings = {
       reset = {

@@ -42,16 +42,18 @@ To install the configuration:
 
 - Use keys table and utils keymaps everywhere
 - Tasks
-  - custom problem matcher (PRIO)
+  - Show last build in top statusline
+  - open task side bar when a task is ran (PRIO), close when no tasks
+  - custom problem matcher
   - write custom parser
   - overseer firewall prompt
-  - open task side bar when a task is ran
   - start a custom terminal for builds with ft set to log and autoscroll off
   - lualine, show branch and commit of running build
   - nvim doesn't exit properly
     - searching in git log fails because not disposing running gdb server properly
     - could also be because of plotposition doesn't support keyboard interrupts
 - Git
+  - whichkey fugitive conflict, commit doesn't work unless done fast (PRIO)
   - ]x to next conflict doesn't work
   - [C next change different from main
   - git blame statusline doesn't go away when not available
@@ -87,6 +89,7 @@ To install the configuration:
   - toggle doesn't work when no terminal exists
   - panel toggle goes to vsplit
 - DAP
+  - Automatically select the right debugger from neoscopes (PRIO)
   - set minimum cols for dap views
   - don't load python dap at BufEnter, load it when needed
   - debug config duplicates
@@ -97,6 +100,7 @@ To install the configuration:
   - zP to toggle panel positions
   - loading a saved session from dashboard breaks colors
   - [tabline in zen mode](https://github.com/folke/zen-mode.nvim/issues/116)
+  - make a custom command to switch markdown preview theme `:lua vim.g.mkdp_theme = 'dark'` 'MarkdownPreviewToggleTheme'
 - VSC integration
   - create commands for all bindings
   - set whichkey settings in vsc from inside lua (ISSUE)

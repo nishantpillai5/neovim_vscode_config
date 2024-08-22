@@ -15,8 +15,14 @@ local toggle_diagnostics = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>lh', toggle_hints, { desc = 'hints_toggle' })
-  vim.keymap.set('n', '<leader>ld', toggle_diagnostics, { desc = 'diagnostics_toggle' })
+  vim.keymap.set({ 'n', 'v' }, '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', { desc = 'action(F4)' })
+  vim.keymap.set({ 'n', 'v' }, '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', { desc = 'format_with_lsp(F3)' })
+  vim.keymap.set({ 'n', 'v' }, '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', { desc = 'rename(F2)' })
+
+  vim.keymap.set({ 'n', 'v' }, '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', { desc = 'hints_view(K)' })
+  vim.keymap.set({ 'n', 'v' }, '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = 'diagnostic_view(gl)' })
+  vim.keymap.set('n', '<leader>lD', toggle_diagnostics, { desc = 'diagnostics_toggle' })
+  vim.keymap.set('n', '<leader>lH', toggle_hints, { desc = 'hints_toggle' })
 end
 
 M.setup = function()

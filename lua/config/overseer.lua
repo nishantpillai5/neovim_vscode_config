@@ -7,10 +7,12 @@ M.keys = {
   { '<leader>oc', desc = 'change_last' },
   { '<leader>ol', desc = 'restart_last' },
   { '<leader>op', desc = 'preview_last' },
+  { '<F10>', desc = 'overseer_preview_last' },
   { '<leader>ox', desc = 'stop_last' },
   { '<leader>oX', desc = 'stop_all' },
   { '<leader>or', desc = 'run' },
   { '<leader>ob', desc = 'build' },
+  { '<leader>oB', desc = 'build2' },
 }
 
 local action_on_all_tasks = function(action)
@@ -75,6 +77,16 @@ M.keymaps = function()
     action_on_last_task 'open float'
   end, { desc = 'preview_last' })
 
+  -- Is_Preview_Open = false
+  -- vim.keymap.set('n', '<F10>', function()
+  --   if Is_Preview_Open then
+  --     action_on_last_task 'open float'
+  --   else
+  --     vim.cmd('q')
+  --   end
+  --   Is_Preview_Open = not Is_Preview_Open
+  -- end, { desc = 'overseer_preview_last' })
+
   vim.keymap.set('n', '<leader>ox', function()
     action_on_last_task 'stop'
   end, { desc = 'stop_last' })
@@ -98,6 +110,14 @@ M.keymaps = function()
       vim.cmd('OverseerRunCmd ' .. _G.build_cmd)
     end
   end, { desc = 'build' })
+
+  vim.keymap.set('n', '<leader>oB', function()
+    if _G.build_cmd2 == nil then
+      vim.notify('Build Command not set', vim.log.levels.ERROR)
+    else
+      vim.cmd('OverseerRunCmd ' .. _G.build_cmd2)
+    end
+  end, { desc = 'build2' })
 end
 
 M.setup = function()

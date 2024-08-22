@@ -2,7 +2,7 @@
 vim.keymap.set('n', '<leader>s', ':w<cr>', { silent = true, desc = 'save' })
 vim.keymap.set('n', '<leader>S', ':wq<cr>', { silent = true, desc = 'save_quit' })
 vim.keymap.set('n', '<leader>x', ':q<cr>', { silent = true, desc = 'quit' })
-vim.keymap.set('n', '<leader>X', ':q!<cr>', { silent = true, desc = 'quit_force' })
+vim.keymap.set('n', '<leader>X', ':bd<cr>', { silent = true, desc = 'buffer_delete' })
 
 -- Split
 vim.keymap.set('n', '<leader>zv', '<cmd>vs<cr>', { desc = 'vertical_split' })

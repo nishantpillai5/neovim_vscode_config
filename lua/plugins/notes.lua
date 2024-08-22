@@ -41,7 +41,8 @@ return {
     },
     cond = conds['epwalsh/obsidian.nvim'] or false,
     keys = {
-      { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal' },
+      -- { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal_today' },
+      { '<leader>nj', ':ObsidianDailies<cr>', desc = 'journal_list' },
     },
     opts = {
       ui = {

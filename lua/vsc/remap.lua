@@ -56,8 +56,8 @@ map_action('n', '<leader>zn', 'notifications.toggleDoNotDisturbMode')
 
 map_action('n', '<leader>cc', 'inlineChat.start')
 
-map_action('n', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
-map_action('v', '<leader>ce', 'github.copilot.interactiveEditor.explain.palette')
+map_action('n', '<leader>ce', 'github.copilot.chat.explain.palette')
+map_action('v', '<leader>ce', 'github.copilot.chat.explain.palette')
 
 map_action('n', '<leader>cf', 'github.copilot.interactiveEditor.fix')
 map_action('v', '<leader>cf', 'github.copilot.interactiveEditor.fix')
