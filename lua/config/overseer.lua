@@ -52,18 +52,21 @@ local panel_align = function()
   return cr_align
 end
 
+Toggled = false
+
 M.keymaps = function()
+  local overseer = require 'overseer'
+  local toggle_sidebar = function()
+    vim.cmd('OverseerToggle ' .. sidebar_align())
+    Toggled = not Toggled
+  end
+
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
   end, { desc = 'run_from_list' })
 
-  vim.keymap.set('n', '<leader>eo', function()
-    vim.cmd('OverseerToggle ' .. sidebar_align())
-  end, { desc = 'tasks' })
-
-  vim.keymap.set('n', '<leader>ot', function()
-    vim.cmd('OverseerToggle ' .. sidebar_align())
-  end, { desc = 'toggle' })
+  vim.keymap.set('n', '<leader>eo', toggle_sidebar, { desc = 'tasks' })
+  vim.keymap.set('n', '<leader>ot', toggle_sidebar, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>oc', function()
     action_on_last_task(nil)
@@ -104,18 +107,20 @@ M.keymaps = function()
   end, { desc = 'run' })
 
   vim.keymap.set('n', '<leader>ob', function()
-    if _G.build_cmd == nil then
-      vim.notify('Build Command not set', vim.log.levels.ERROR)
+    if _G.build_template == nil then
+      vim.notify('Build template not set', vim.log.levels.ERROR)
     else
-      vim.cmd('OverseerRunCmd ' .. _G.build_cmd)
+      overseer.run_template(_G.build_template)
     end
   end, { desc = 'build' })
 
   vim.keymap.set('n', '<leader>oB', function()
-    if _G.build_cmd2 == nil then
-      vim.notify('Build Command not set', vim.log.levels.ERROR)
+    if _G.build_template == nil then
+      vim.notify('Build template not set', vim.log.levels.ERROR)
     else
-      vim.cmd('OverseerRunCmd ' .. _G.build_cmd2)
+      local template = _G.build_template
+      template.params.build_target_goal = nil
+      overseer.run_template(template)
     end
   end, { desc = 'build2' })
 end
@@ -130,6 +135,7 @@ M.setup = function()
     },
     dap = false,
     task_list = {
+    default_detail = 2,
       width = 0.1,
       bindings = {
         ['L'] = 'IncreaseDetail',
@@ -141,6 +147,7 @@ M.setup = function()
         ['v'] = 'OpenVsplit',
         ['s'] = 'OpenSplit',
         ['c'] = 'RunAction',
+        ['r'] = 'RunAction',
         ['<CR>'] = align,
         ['d'] = 'Dispose',
         -- ['x'] = 'Stop', --FIXME: doesn't work
@@ -151,7 +158,13 @@ end
 
 M.lualine = function()
   local lualineX = require('lualine').get_config().tabline.lualine_x or {}
-  table.insert(lualineX, { 'overseer' })
+  table.insert(lualineX, {
+    'overseer',
+    -- name = {"build"},
+    -- name_not = true,
+    -- status = {"build"},
+    -- status_not = true,
+  })
 
   require('lualine').setup {
     extensions = { 'overseer', 'nvim-dap-ui' },

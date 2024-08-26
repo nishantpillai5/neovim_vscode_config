@@ -21,6 +21,7 @@ M.keys = {
 
 M.keymaps = function()
   local dap = require 'dap'
+  -- TODO: separate json file for each build target name from neoscope
   vim.keymap.set('n', '<F5>', function()
     if vim.fn.filereadable '.vscode/launch.json' then
       require('dap.ext.vscode').load_launchjs(nil, { cppdbg = { 'c', 'cpp' } })

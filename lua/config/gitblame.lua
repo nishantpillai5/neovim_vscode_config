@@ -6,9 +6,12 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>gv', function()
+  local toggle_virtual_blame = function()
     vim.g.gitblame_display_virtual_text = vim.g.gitblame_display_virtual_text == 0 and 1 or 0
-  end, { desc = 'virtual_blame' })
+  end
+
+  vim.keymap.set('n', '<leader>gv', toggle_virtual_blame, { desc = 'virtual_blame' })
+  vim.keymap.set('n', '<leader>zg', toggle_virtual_blame, { desc = 'git_blame' })
 end
 
 M.setup = function()

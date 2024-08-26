@@ -43,15 +43,17 @@ To install the configuration:
 - Use keys table and utils keymaps everywhere
 - Tasks
   - Show last build in top statusline
-  - open task side bar when a task is ran (PRIO), close when no tasks
   - custom problem matcher
   - write custom parser
   - overseer firewall prompt
   - start a custom terminal for builds with ft set to log and autoscroll off
-  - lualine, show branch and commit of running build
   - nvim doesn't exit properly
     - searching in git log fails because not disposing running gdb server properly
     - could also be because of plotposition doesn't support keyboard interrupts
+  - open task side bar when a task is ran, close when no tasks https://github.com/stevearc/overseer.nvim/issues/318
+  - bind fo to find existing task buffer
+  - don't auto dispose tasks
+  - autofill with last task same target but different goal (for running memorycheck)
 - Git
   - whichkey fugitive conflict, commit doesn't work unless done fast (PRIO)
   - ]x to next conflict doesn't work
@@ -61,14 +63,8 @@ To install the configuration:
   - bind to fgh to find git hunks, fgH to grep [git hunk picker](https://github.com/nvim-telescope/telescope.nvim/pull/3131)
   - bind to fgB to find git branches diff [PR](https://github.com/paopaol/telescope-git-diffs.nvim/)
   - bind to fgZ to find stash diff [PR](https://github.com/paopaol/telescope-git-diffs.nvim/)
-- Tasks
-  - overseer list bind bind r to restart task
-  - overseer list in a dressing window
-  - bind fo to find existing task buffer
-  - don't auto dispose tasks
-  - autofill with last task same target but different goal
 - Finder
-  - (PRIO) fL doesn't work with neoscopes
+  - fL doesn't work with neoscopes
   - reverse find projects related to a file
   - fh for unsaved buffers
   - integrate trailblazer with telescope, grapple, recession
@@ -89,7 +85,7 @@ To install the configuration:
   - toggle doesn't work when no terminal exists
   - panel toggle goes to vsplit
 - DAP
-  - Automatically select the right debugger from neoscopes (PRIO)
+  - Automatically select the right debugger from neoscopes
   - set minimum cols for dap views
   - don't load python dap at BufEnter, load it when needed
   - debug config duplicates
@@ -107,3 +103,5 @@ To install the configuration:
   - alternative: map whichkey in nvim by reading 'whichkey.bindings' table from config
 - Leetcode
   - run file in terminal
+- Marp
+  - export works on vscode, not on nvim, setting CHROME_PATH didn't work
