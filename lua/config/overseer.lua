@@ -12,6 +12,9 @@ M.keys = {
   { '<leader>oX', desc = 'stop_all' },
   { '<leader>or', desc = 'run' },
   { '<leader>ob', desc = 'build' },
+  { '<leader>oss', desc = 'save_last' },
+  { '<leader>osl', desc = 'load_bundle' },
+  { '<leader>osd', desc = 'delete_bundle' },
 }
 
 local action_on_all_tasks = function(action)
@@ -112,6 +115,35 @@ M.keymaps = function()
       overseer.run_template(_G.build_template)
     end
   end, { desc = 'build' })
+
+  vim.keymap.set('n', '<leader>oss', function()
+    action_on_last_task 'save'
+  end, { desc = 'save_last' })
+
+  vim.keymap.set('n', '<leader>osl', function()
+    vim.ui.select(overseer.list_task_bundles(), {
+      prompt = 'Load bundle',
+      telescope = require('telescope.themes').get_cursor(),
+    }, function(selected)
+      if selected == nil then
+        return
+      end
+      vim.cmd('OverseerLoadBundle ' .. selected)
+    end)
+  end, { desc = 'load_bundle' })
+
+  vim.keymap.set('n', '<leader>osd', function()
+    vim.ui.select(overseer.list_task_bundles(), {
+      prompt = 'Delete bundle',
+      telescope = require('telescope.themes').get_cursor(),
+    }, function(selected)
+      if selected == nil then
+        return
+      end
+      vim.cmd('OverseerDeleteBundle ' .. selected)
+    end)
+  end, { desc = 'delete_bundle' })
+
 end
 
 M.setup = function()

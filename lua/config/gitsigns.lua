@@ -17,7 +17,7 @@ M.setup = function()
       delay = 100,
     },
     on_attach = function(bufnr)
-      vim.keymap.set('n', '<leader>gb', gitsigns.blame_line, { desc = 'blame' })
+      -- vim.keymap.set('n', '<leader>gb', gitsigns.blame_line, { desc = 'blame' })
 
       local function map(mode, l, r, opts)
         opts = opts or {}

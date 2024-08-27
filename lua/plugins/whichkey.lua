@@ -45,6 +45,7 @@ return {
           { '<leader>l', group = 'LSP', mode = { 'n', 'v'} },
           { '<leader>n', group = 'Notes' },
           { '<leader>o', group = 'Tasks' },
+          { '<leader>os', group = 'Save' },
           { '<leader>r', group = 'Refactor' },
           { '<leader>t', group = 'Trouble' },
           { '<leader>w', group = 'Workspace' },
