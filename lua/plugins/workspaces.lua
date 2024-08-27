@@ -50,6 +50,7 @@ return {
   -- Local config
   {
     'klen/nvim-config-local',
+    priority = 999,
     lazy = false,
     cond = conds['klen/nvim-config-local'] or false,
     config = function()

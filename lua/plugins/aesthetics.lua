@@ -68,7 +68,7 @@ return {
   {
     'nvimdev/dashboard-nvim',
     lazy = false,
-    priority = 900,
+    priority = 700,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     cond = conds['nvimdev/dashboard-nvim'] or false,
     config = require('config.dashboard').config,

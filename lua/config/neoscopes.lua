@@ -1,8 +1,8 @@
 local M = {}
 
 M.keys = {
-  { '<leader>ww', desc = 'select' },
-  { '<leader>wx', desc = 'close' },
+  { '<leader>ww', desc = 'select_scope' },
+  { '<leader>wx', desc = 'close_scope' },
 }
 
 local global_scopes = function()
@@ -105,12 +105,12 @@ end
 
 M.keymaps = function()
   local neoscopes = require 'neoscopes'
-  vim.keymap.set('n', '<leader>ww', M.select_scope, { desc = 'select' })
+  vim.keymap.set('n', '<leader>ww', M.select_scope, { desc = 'select_scope' })
 
   vim.keymap.set('n', '<leader>wx', function()
     neoscopes.clear()
     refresh_workspace()
-  end)
+  end, { desc = 'close_scope' })
 end
 
 local function lualine_status()

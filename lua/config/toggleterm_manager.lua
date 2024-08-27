@@ -2,6 +2,7 @@ local M = {}
 
 M.keys = {
   { '<leader>f;', desc = 'terminal' },
+  { '<leader>fo', desc = 'tasks' },
   { '<leader>;f', desc = 'find' },
 }
 
@@ -11,6 +12,11 @@ M.keymaps = function()
   end, { desc = 'find' })
 
   vim.keymap.set('n', '<leader>f;', function()
+    vim.cmd [[ Telescope toggleterm_manager ]]
+  end, { desc = 'terminal' })
+
+  -- TODO: filter only overseer
+  vim.keymap.set('n', '<leader>fo', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
   end, { desc = 'terminal' })
 end

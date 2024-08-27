@@ -1,8 +1,8 @@
 local plugins = {
   'backdround/global-note.nvim',
-  'epwalsh/obsidian.nvim',
   'iamcco/markdown-preview.nvim',
-  'mpas/marp-nvim',
+  'epwalsh/obsidian.nvim',
+  -- 'mpas/marp-nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -13,19 +13,19 @@ return {
   {
     'backdround/global-note.nvim',
     cond = conds['backdround/global-note.nvim'] or false,
-    keys = {
-      { '<leader>nn', desc = 'current' },
-    },
-    config = function()
-      local global_note = require 'global-note'
-      global_note.setup {
-        filename = 'current.md',
-        directory = NOTES_DIR,
-        title = 'NOTE',
-      }
-
-      vim.keymap.set('n', '<leader>nn', global_note.toggle_note, { desc = 'current' })
+    keys = require('config.global_note').keys,
+    config = require('config.global_note').config,
+  },
+  -- Preview markdown files
+  {
+    'iamcco/markdown-preview.nvim',
+    cond = conds['iamcco/markdown-preview.nvim'] or false,
+    ft = { 'markdown' },
+    build = function()
+      vim.fn['mkdp#util#install']()
     end,
+    cmd = require("config.markdown_preview").cmd,
+    config = require("config.markdown_preview").config,
   },
   -- Notes management
   {
@@ -40,41 +40,9 @@ return {
       -- "preservim/vim-markdown"
     },
     cond = conds['epwalsh/obsidian.nvim'] or false,
-    keys = {
-      -- { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal_today' },
-      { '<leader>nj', ':ObsidianDailies<cr>', desc = 'journal_list' },
-    },
-    opts = {
-      ui = {
-        enable = false,
-      },
-      workspaces = {
-        {
-          name = 'notes',
-          path = NOTES_DIR,
-        },
-      },
-      templates = {
-        folder = 'templates',
-        date_format = '%Y.%m.%d.%a',
-        time_format = '%H:%M',
-      },
-      daily_notes = {
-        folder = 'journal',
-        date_format = '%Y.%m.%d',
-        template = 'daily.md',
-      },
-    },
-  },
-  -- Preview markdown files
-  {
-    'iamcco/markdown-preview.nvim',
-    cond = conds['iamcco/markdown-preview.nvim'] or false,
-    ft = { 'markdown' },
-    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
+    keys = require('config.obsidian').keys,
+    config = require('config.obsidian').config
+    ,
   },
   -- Presentation
   {

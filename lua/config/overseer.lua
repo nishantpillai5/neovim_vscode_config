@@ -12,7 +12,6 @@ M.keys = {
   { '<leader>oX', desc = 'stop_all' },
   { '<leader>or', desc = 'run' },
   { '<leader>ob', desc = 'build' },
-  { '<leader>oB', desc = 'build2' },
 }
 
 local action_on_all_tasks = function(action)
@@ -113,16 +112,6 @@ M.keymaps = function()
       overseer.run_template(_G.build_template)
     end
   end, { desc = 'build' })
-
-  vim.keymap.set('n', '<leader>oB', function()
-    if _G.build_template == nil then
-      vim.notify('Build template not set', vim.log.levels.ERROR)
-    else
-      local template = _G.build_template
-      template.params.build_target_goal = nil
-      overseer.run_template(template)
-    end
-  end, { desc = 'build2' })
 end
 
 M.setup = function()
@@ -136,21 +125,23 @@ M.setup = function()
     dap = false,
     task_list = {
     default_detail = 2,
-      width = 0.1,
+      width = 0.13,
       bindings = {
-        ['L'] = 'IncreaseDetail',
-        ['H'] = 'DecreaseDetail',
         ['<C-h>'] = false,
         ['<C-j>'] = false,
         ['<C-k>'] = false,
         ['<C-l>'] = false,
+        ['L'] = 'IncreaseDetail',
+        ['H'] = 'DecreaseDetail',
         ['v'] = 'OpenVsplit',
         ['s'] = 'OpenSplit',
-        ['c'] = 'RunAction',
-        ['r'] = 'RunAction',
         ['<CR>'] = align,
+        ['c'] = 'RunAction',
         ['d'] = 'Dispose',
-        -- ['x'] = 'Stop', --FIXME: doesn't work
+        ['j'] = 'NextTask',
+        ['k'] = 'PrevTask',
+        ['x'] = 'Stop', --FIXME: doesn't work
+        ['r'] = 'Restart',--FIXME: doesn't work
       },
     },
   }
@@ -160,6 +151,7 @@ M.lualine = function()
   local lualineX = require('lualine').get_config().tabline.lualine_x or {}
   table.insert(lualineX, {
     'overseer',
+    -- TODO: show last running task in tabline
     -- name = {"build"},
     -- name_not = true,
     -- status = {"build"},

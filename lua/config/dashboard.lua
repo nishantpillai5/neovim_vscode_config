@@ -38,11 +38,13 @@ local LOGO2 = {
 
 local function get_logo()
   local context = require('common.env').CONTEXT
+  local logo = LOGO1
+
   if context == 'work' then
-    return LOGO2
-  else
-    return LOGO1
+    logo = _G.LOGO or LOGO2
   end
+
+  return logo
 end
 
 local function get_datetime()
