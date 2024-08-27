@@ -70,6 +70,8 @@ return {
   -- Worktree
   {
     'polarmutex/git-worktree.nvim',
+    version = '^2',
+    dependencies = { "nvim-lua/plenary.nvim" },
     cond = conds['polarmutex/git-worktree.nvim'] or false,
     keys = require('config.git_worktree').keys,
     config = require('config.git_worktree').config,

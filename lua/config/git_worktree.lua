@@ -7,16 +7,11 @@ M.keys = {
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>gw', function()
-    require('telescope').extensions.git_worktree.git_worktrees()
-    -- local dir = vim.fn.input('worktree name: ')
-    -- require("git-worktree").switch_worktree(dir)
+    require('telescope').extensions.git_worktree.git_worktree()
   end, { desc = 'worktree_switch' })
 
   vim.keymap.set('n', '<leader>gW', function()
     require('telescope').extensions.git_worktree.create_git_worktree()
-    -- local branch = vim.fn.input('Branch name: ')
-    -- local dir = vim.fn.input('worktree name: ')
-    -- require("git-worktree").create_worktree(dir, branch, "origin")
   end, { desc = 'worktree_create' })
 end
 
