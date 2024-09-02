@@ -46,7 +46,8 @@ M.setup = function()
     ensure_installed = {
       -- "typos_lsp",
       'clangd',
-      'pyright',
+      -- 'pyright',
+      'ruff_lsp',
       'lua_ls',
       'yamlls',
       'jsonls',
@@ -74,10 +75,19 @@ M.setup = function()
     end,
 
     -- Python
-    ['pyright'] = function()
-      require('lspconfig').pyright.setup {
-        capabilities = cmp_nvim_lsp.default_capabilities(),
-        settings = _G.pyright_settings or {},
+    -- ['pyright'] = function()
+    --   require('lspconfig').pyright.setup {
+    --     capabilities = cmp_nvim_lsp.default_capabilities(),
+    --     settings = _G.pyright_settings or {},
+    --   }
+    -- end,
+    ['ruff_lsp'] = function()
+      require'lspconfig'.ruff_lsp.setup{
+        init_options = {
+          settings = {
+            args = {},
+          }
+        }
       }
     end,
 

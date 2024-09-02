@@ -15,6 +15,7 @@ vim.keymap.set('n', 'n', 'nzzzv', { silent = true, desc = 'next' })
 -- Yank
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'yank_to_clipboard' })
 vim.keymap.set({ 'n', 'v' }, '<leader>d', [["+d]], { desc = 'delete_to_clipboard' })
+-- TODO: delete to void
 vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'yank_to_clipboard' })
 vim.keymap.set('x', '<leader>P', [["+dP]], { desc = 'paste_from_clipboard' })
 vim.keymap.set('x', '<leader>p', [["+p]], { desc = 'paste_from_clipboard' })

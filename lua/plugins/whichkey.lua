@@ -28,6 +28,10 @@ return {
       local wk = require 'which-key'
       wk.setup {
         icons = { rules = false },
+        triggers = {
+          { "<auto>", mode = "nixsotc" },
+          { "m", mode = { "n", "v" } },
+        },
         sort = { "local", "order", "group", "alphanum", "mod", "lower", "icase" },
         spec = {
           { '<leader>;', group = 'Terminal' },
@@ -42,6 +46,7 @@ return {
           { '<leader>g', group = 'Git', mode = { 'n', 'v'} },
           { '<leader>gh', group = 'Hunk', mode = { 'n', 'v'} },
           { '<leader>go', group = 'Open' },
+          { '<leader>gx', group = 'Conflict' },
           { '<leader>l', group = 'LSP', mode = { 'n', 'v'} },
           { '<leader>n', group = 'Notes' },
           { '<leader>o', group = 'Tasks' },

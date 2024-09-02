@@ -6,7 +6,7 @@ M.keys = {
   { '<leader>ee', desc = 'explorer' },
   { '<leader>eb', desc = 'buffers' },
   { '<leader>eg', desc = 'git' },
-  { '<leader>ex', desc = 'toggle' },
+  { '<leader>eE', desc = 'toggle' },
   { '<leader>fe', desc = 'explorer' },
 }
 
@@ -46,7 +46,7 @@ M.keymaps = function()
     vim.cmd('Neotree reveal focus git_status ' .. sidebar_align())
   end, { desc = 'git' })
 
-  vim.keymap.set('n', '<leader>ex', function()
+  vim.keymap.set('n', '<leader>eE', function()
     vim.cmd 'Neotree toggle last'
   end, { desc = 'toggle' })
 

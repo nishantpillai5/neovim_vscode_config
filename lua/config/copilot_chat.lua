@@ -64,6 +64,9 @@ M.setup = function()
         insert = '<S-Tab>',
       },
     },
+    prompts = {
+      Explain = "Write a concise explanation for the active selection in bullet points",
+    },
   }
 
   vim.api.nvim_create_autocmd('BufEnter', {

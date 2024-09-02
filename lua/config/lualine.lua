@@ -21,6 +21,10 @@ local function readonly_alert()
   return ''
 end
 
+local function cwd()
+  return vim.fn.getcwd()
+end
+
 M.init = function()
   if GLOBAL_STATUS then
     vim.opt.laststatus = 3
@@ -49,6 +53,7 @@ M.setup = function()
       lualine_b = {},
       lualine_c = {
         { 'filename', path = 0 },
+        'diff',
         readonly_alert,
       },
       lualine_x = {
@@ -88,13 +93,8 @@ M.setup = function()
     },
     tabline = {
       lualine_a = { 'branch' },
-      lualine_b = {
-        { 'filename', path = 1 },
-      },
-      lualine_c = {
-        readonly_alert,
-        'diff',
-      },
+      lualine_b = { cwd },
+      lualine_c = {function () return ">>" end,{ 'filename', path = 1 }},
       lualine_x = {},
       lualine_y = {},
       lualine_z = {},

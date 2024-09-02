@@ -1,7 +1,8 @@
 local M = {}
 
 M.keys = {
-  { '<leader>es', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols' },
+  { '<leader>es', '<cmd>Vista<cr>', mode = 'n', desc = 'symbols' },
+  { '<leader>eS', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols_close' },
 }
 
 M.setup = function()

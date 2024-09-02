@@ -10,6 +10,7 @@ local plugins = {
   'rcarriga/nvim-notify',
   'folke/noice.nvim',
   'stevearc/dressing.nvim',
+  -- 'folke/edgy.nvim', --TODO: Fix resizing
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -114,4 +115,19 @@ return {
     cond = conds['stevearc/dressing.nvim'] or false,
     opts = {},
   },
+  {
+    'folke/edgy.nvim',
+    cond = conds['folke/edgy.nvim'] or false,
+    event = "VeryLazy",
+    opts = {
+      animate = { enabled = false },
+      right = {
+        {
+          title = "CopilotChat.nvim",
+          ft = "copilot-chat",
+          size = { width = 0.4 },
+        },
+      },
+    },
+  }
 }
