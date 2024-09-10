@@ -1,25 +1,29 @@
 local M = {}
 
+M.mark_at_pos = function()
+  local common = require 'trailblazer.trails.common'
+  local actions = require 'trailblazer.trails.actions'
+  local win = vim.api.nvim_get_current_win()
+  local buf = vim.api.nvim_get_current_buf()
+  local pos = vim.api.nvim_win_get_cursor(win)
+  actions.new_trail_mark(win, buf, pos)
+
+  local line = vim.fn.getline '.'
+  for i = 0, #line - 1 do
+    if i ~= pos[2] then
+      common.delete_trail_mark_at_pos(win, buf, { pos[1], i })
+    end
+  end
+end
+
 M.keymaps = function()
   local actions = require 'trailblazer.trails.actions'
-  local common = require 'trailblazer.trails.common'
-
   vim.keymap.set('n', 'md', function()
     actions.delete_all_trail_marks(vim.api.nvim_get_current_buf())
   end, { desc = 'delete_in_buffer' })
 
   vim.keymap.set('n', 'mm', function()
-    local win = vim.api.nvim_get_current_win()
-    local buf = vim.api.nvim_get_current_buf()
-    local pos = vim.api.nvim_win_get_cursor(win)
-    actions.new_trail_mark(win, buf, pos)
-
-    local line = vim.fn.getline '.'
-    for i = 0, #line - 1 do
-      if i ~= pos[2] then
-        common.delete_trail_mark_at_pos(win, buf, { pos[1], i })
-      end
-    end
+    M.mark_at_pos()
   end, { desc = 'mark' })
 end
 

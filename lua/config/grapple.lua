@@ -12,10 +12,10 @@ M.keys = {
 }
 
 M.lualine = function()
-  local lualineB = require('lualine').get_config().sections.lualine_b or {}
-  table.insert(lualineB, { 'grapple' })
+  local lualineA = require('lualine').get_config().tabline.lualine_a or {}
+  table.insert(lualineA, { 'grapple' })
 
-  require('lualine').setup { sections = { lualine_b = lualineB } }
+  require('lualine').setup { tabline = { lualine_a = lualineA } }
 end
 
 M.setup = function()

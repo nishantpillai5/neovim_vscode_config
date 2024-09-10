@@ -20,6 +20,14 @@ M.setup = function()
 
   local Hooks = require 'git-worktree.hooks'
 
+  Hooks.register(Hooks.type.CREATE, function(path, prev_path)
+    if _G.worktree_create_callback ~= nil then
+      _G.worktree_create_callback(path, prev_path)
+    else
+      vim.notify('No git worktree callback', vim.log.levels.WARN)
+    end
+  end)
+
   Hooks.register(Hooks.type.SWITCH, function(path, prev_path)
     vim.notify('Moved:' .. prev_path .. '  ~>  ' .. path)
 
@@ -28,10 +36,6 @@ M.setup = function()
     -- else
     --   Hooks.builtins.update_current_buffer_on_switch(path, prev_path)
     -- end
-
-    if _G.git_worktree_callback ~= nil then
-      _G.git_worktree_callback(path, prev_path)
-    end
   end)
 end
 

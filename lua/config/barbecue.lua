@@ -5,8 +5,8 @@ M.setup = function()
     -- theme = {
     --   normal = { bg = '#262626' },
     -- },
-    show_basename = false,
-    show_dirname = false,
+    show_basename = require('common.env').SCREEN == 'widescreen',
+    show_dirname = require('common.env').SCREEN == 'widescreen',
   }
 end
 

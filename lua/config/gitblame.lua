@@ -22,9 +22,10 @@ end
 
 M.lualine = function()
   local git_blame = require 'gitblame'
-  local lualineX = require('lualine').get_config().tabline.lualine_x or {}
-  table.insert(lualineX, { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available })
-  require('lualine').setup { tabline = { lualine_x = lualineX } }
+  local lualineC = require('lualine').get_config().sections.lualine_c or {}
+  table.insert(lualineC, { function() return '>>' end })
+  table.insert(lualineC, { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available })
+  require('lualine').setup { sections = { lualine_c = lualineC } }
 end
 
 M.config = function()

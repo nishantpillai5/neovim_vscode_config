@@ -54,7 +54,7 @@ return {
           { '<leader>r', group = 'Refactor' },
           { '<leader>t', group = 'Trouble' },
           { '<leader>w', group = 'Workspace' },
-          { '<leader>z', group = 'Visual' },
+          { '<leader>z', group = 'Visual', mode = { 'n', 'v'} },
           { '<leader>zf', group = 'fml' },
           { ']', group = 'Next' },
           { '[', group = 'Prev' },

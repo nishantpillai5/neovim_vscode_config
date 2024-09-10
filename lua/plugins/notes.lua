@@ -3,6 +3,7 @@ local plugins = {
   'iamcco/markdown-preview.nvim',
   'epwalsh/obsidian.nvim',
   -- 'mpas/marp-nvim',
+  'Pocco81/HighStr.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -24,8 +25,8 @@ return {
     build = function()
       vim.fn['mkdp#util#install']()
     end,
-    cmd = require("config.markdown_preview").cmd,
-    config = require("config.markdown_preview").config,
+    cmd = require('config.markdown_preview').cmd,
+    config = require('config.markdown_preview').config,
   },
   -- Notes management
   {
@@ -41,8 +42,7 @@ return {
     },
     cond = conds['epwalsh/obsidian.nvim'] or false,
     keys = require('config.obsidian').keys,
-    config = require('config.obsidian').config
-    ,
+    config = require('config.obsidian').config,
   },
   -- Presentation
   {
@@ -57,5 +57,12 @@ return {
         wait_for_response_delay = 1,
       }
     end,
+  },
+  -- Highlight
+  {
+    'Pocco81/HighStr.nvim',
+    cond = conds['Pocco81/HighStr.nvim'] or false,
+    keys = require('config.highlight').keys,
+    config = require('config.highlight').config,
   },
 }

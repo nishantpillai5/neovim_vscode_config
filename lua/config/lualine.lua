@@ -50,12 +50,30 @@ M.setup = function()
         'mode',
         'selectioncount',
       },
+      lualine_b = { cwd },
+      lualine_c = { 'branch' },
+      lualine_x = { 'diagnostics' },
+      lualine_y = {
+        -- 'encoding',
+        'filetype',
+        'fileformat',
+        { 'fileformat', icons_enabled = false },
+      },
+      lualine_z = {
+        'progress',
+        'location',
+        'searchcount',
+      },
+    },
+    tabline = {
+      lualine_a = {},
       lualine_b = {},
       lualine_c = {
-        { 'filename', path = 0 },
+        { 'filename', path = require('common.env').SCREEN == 'widescreen' and 0 or 1 },
         'diff',
         readonly_alert,
       },
+
       lualine_x = {
         {
           'buffers',
@@ -77,25 +95,7 @@ M.setup = function()
           end,
         },
         unsaved_buffer_alert,
-        'diagnostics',
       },
-      lualine_y = {
-        -- 'encoding',
-        'filetype',
-        'fileformat',
-        { 'fileformat', icons_enabled = false },
-      },
-      lualine_z = {
-        'progress',
-        'location',
-        'searchcount',
-      },
-    },
-    tabline = {
-      lualine_a = { 'branch' },
-      lualine_b = { cwd },
-      lualine_c = {function () return ">>" end,{ 'filename', path = 1 }},
-      lualine_x = {},
       lualine_y = {},
       lualine_z = {},
     },
