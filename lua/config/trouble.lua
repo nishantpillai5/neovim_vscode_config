@@ -1,16 +1,21 @@
 local M = {}
 
+-- TODO: Trouble default lsp position to right, bind ll to view lsp
+
 M.keys = {
   { '<leader>tt', desc = 'toggle' },
   { '<leader>td', desc = 'diagnostics' },
+  { '<leader>tD', desc = 'diagnostics_global' },
   { '<leader>tq', desc = 'quickfix' },
-  { '<leader>tl', desc = 'loclist' },
+  { '<leader>tL', desc = 'loclist' },
   { '<leader>tg', desc = 'git' },
-  { '<leader>tL', desc = 'lsp' },
+  { '<leader>tl', desc = 'lsp' },
+  { '<leader>ll', desc = 'lsp' },
   { '<leader>tf', desc = 'finder' },
   { '<leader>j', desc = 'trouble_next' },
   { '<leader>k', desc = 'trouble_prev' },
   { 'gr', desc = 'references' },
+  { '<leader>tz', desc = 'test' },
 }
 
 M.use_trouble = function()
@@ -32,19 +37,29 @@ end
 
 M.keymaps = function()
   local trouble = require 'trouble'
+
+  vim.keymap.set('n', '<leader>tz', function()
+    trouble.toggle 'test'
+  end, { desc = 'test' })
+
   vim.keymap.set('n', '<leader>tt', function()
     trouble.toggle 'last'
   end, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>td', function()
-    trouble.toggle 'diagnostics'
+    -- trouble.toggle 'diagnostics'
+    vim.cmd 'Trouble diagnostics toggle filter.buf=0'
   end, { desc = 'diagnostics' })
+
+  vim.keymap.set('n', '<leader>tD', function()
+    trouble.toggle 'diagnostics'
+  end, { desc = 'diagnostics_global' })
 
   vim.keymap.set('n', '<leader>tq', function()
     trouble.toggle 'quickfix'
   end, { desc = 'quickfix' })
 
-  vim.keymap.set('n', '<leader>tl', function()
+  vim.keymap.set('n', '<leader>tL', function()
     trouble.toggle 'loclist'
   end, { desc = 'loclist' })
 
@@ -52,8 +67,12 @@ M.keymaps = function()
     vim.cmd 'Gitsigns setloclist'
   end, { desc = 'git' })
 
-  vim.keymap.set('n', '<leader>tL', function()
-    trouble.toggle 'lsp'
+  vim.keymap.set('n', '<leader>tl', function()
+    vim.cmd 'Trouble newlsp toggle focus=false'
+  end, { desc = 'lsp' })
+
+  vim.keymap.set('n', '<leader>ll', function()
+    vim.cmd 'Trouble newlsp open focus=false'
   end, { desc = 'lsp' })
 
   vim.keymap.set('n', '<leader>tf', function()
@@ -74,7 +93,20 @@ M.keymaps = function()
 end
 
 M.setup = function()
-  require('trouble').setup {}
+  -- TODO: preview in the bottom https://github.com/folke/trouble.nvim/blob/main/docs/examples.md#preview-in-a-split-to-the-right-of-the-trouble-list
+  require('trouble').setup {
+    modes = {
+      newlsp = {
+        mode = 'lsp',
+        preview = { --TODO: not preview
+          type = 'split',
+          relative = 'win',
+          position = 'right',
+          size = 0.3,
+        },
+      },
+    },
+  }
 
   -- vim.api.nvim_create_autocmd("FileType", {
   --   pattern = {"qf"},

@@ -11,6 +11,9 @@ local BOTTOM_HEIGHT = 0.2
 local LEFT_WIDTH = 0.1
 local RIGHT_WIDTH = 0.15
 
+local DAP_BOTTOM_HEIGHT = 0.25
+local DAP_LEFT_WIDTH = 0.2
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zx', function()
     require('edgy').close()
@@ -53,10 +56,20 @@ M.setup = function()
         ft = 'fugitive',
         size = { height = BOTTOM_HEIGHT },
       },
+      -- {
+      --   title = 'Trouble',
+      --   ft = 'trouble',
+      --   size = { height = BOTTOM_HEIGHT },
+      -- },
       {
-        title = 'Trouble',
-        ft = 'trouble',
-        size = { height = BOTTOM_HEIGHT },
+        title = 'DAP REPL',
+        ft = 'dap-repl',
+        size = { height = DAP_BOTTOM_HEIGHT },
+      },
+      {
+        title = 'DAP Console',
+        ft = 'dapui_console',
+        size = { height = DAP_BOTTOM_HEIGHT },
       },
     },
     left = {
@@ -69,6 +82,26 @@ M.setup = function()
         title = 'Symbols',
         ft = 'vista',
         size = { width = LEFT_WIDTH },
+      },
+      {
+        title = 'DAP Scopes',
+        ft = 'dapui_scopes',
+        size = { width = DAP_LEFT_WIDTH },
+      },
+      {
+        title = 'DAP Breakpoints',
+        ft = 'dapui_breakpoints',
+        size = { width = DAP_LEFT_WIDTH },
+      },
+      {
+        title = 'DAP Stacks',
+        ft = 'dapui_stacks',
+        size = { width = DAP_LEFT_WIDTH },
+      },
+      {
+        title = 'DAP Watches',
+        ft = 'dapui_watches',
+        size = { width = DAP_LEFT_WIDTH },
       },
     },
     right = {

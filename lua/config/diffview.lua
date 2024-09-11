@@ -59,7 +59,7 @@ local file_diff_from_main_toggle = function()
   if view then
     vim.cmd.DiffviewClose()
   else
-    vim.cmd('DiffviewOpen origin/' .. get_main_branch() .. '...HEAD -- %')
+    vim.cmd('DiffviewOpen origin/' .. require('common.utils').get_main_branch() .. '...HEAD -- %')
   end
 end
 

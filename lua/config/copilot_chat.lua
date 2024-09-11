@@ -3,9 +3,12 @@ local M = {}
 local explain_prompt = 'Write a concise explanation for the active selection in bullet points'
 local simplify_prompt = 'Simplify and improve readablilty'
 local fix_prompt =
-  'There is a problem in this code. Explain what the problem is and rewrite the code with the bug fixed.'
+  'There is a problem in this code. Explain what the problem is and then rewrite the code with the bug fixed'
+local pr_prompt =
+  'Generate a list of bullet points for a PR description that reflects the changes made. The points should be concise, clear and should reflect the change in functionality rather than the minor details. The PR description should begin with Changes:'
 
 -- find other default prompts here
+-- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/config.lua
 
 -- TODO: add exclude dirs (journal) and files (todo.md, readme)
@@ -22,11 +25,12 @@ M.keys = {
   { '<leader>cG', mode = { 'n', 'v' }, desc = 'commit_staged' },
   { '<leader>cr', mode = { 'n', 'v' }, desc = 'review' },
   { '<leader>ct', mode = { 'n', 'v' }, desc = 'tests' },
-  { '<leader>cx', desc = 'stop' },
+  { '<leader>cX', desc = 'stop' },
+  { '<leader>cx', desc = 'reset' },
   { '<leader>cb', desc = 'buffer' },
   { '<leader>cc', mode = 'v', desc = 'selection' },
   { '<leader>cs', mode = 'v', desc = 'simplify' },
-  { '<leader>cp', mode = { 'n', 'v' }, desc = 'pr_changes' },
+  { '<leader>cp', mode = 'n', desc = 'pr_changes' },
   { '<leader>fc', mode = { 'n', 'v' }, desc = 'chat' },
   { '<leader>cf', mode = { 'n', 'v' }, desc = 'find' },
 }
@@ -74,9 +78,13 @@ M.keymaps = function()
     vim.cmd 'CopilotChatTests'
   end, { desc = 'tests' })
 
-  vim.keymap.set('n', '<leader>cx', function()
+  vim.keymap.set('n', '<leader>cX', function()
     vim.cmd 'CopilotChatStop'
   end, { desc = 'stop' })
+
+  vim.keymap.set('n', '<leader>cx', function()
+    vim.cmd 'CopilotChatReset'
+  end, { desc = 'reset' })
 
   -- Custom
 
@@ -98,11 +106,9 @@ M.keymaps = function()
     require('CopilotChat').ask(simplify_prompt, { selection = select.selection })
   end, { desc = 'simplify' })
 
-  -- TODO: generate PR changes message with git diff as context
-  -- TODO: git diff from main
-  vim.keymap.set('v', '<leader>cp', function()
-    vim.notify 'Not implemented yet'
-    -- require('CopilotChat').ask(simplify_prompt, { selection = function(source) end })
+  -- TODO: gitdiff from master instead of local
+  vim.keymap.set('n', '<leader>cp', function()
+    require('CopilotChat').ask(pr_prompt, { selection = select.gitdiff })
   end, { desc = 'pr_changes' })
 
   -- Telescope
