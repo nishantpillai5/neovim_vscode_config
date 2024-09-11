@@ -2,13 +2,14 @@ local M = {}
 
 M.keys = {
   { '<leader>zhh', ':<c-u>HSHighlight 3<CR>', mode = { 'n', 'v' }, desc = 'highlight' },
-  { '<leader>zhx', ':<c-u>HSRmHighlight<CR>', mode = { 'n', 'v' }, desc = 'highlight_delete' },
-  { '<leader>zhX', ':<c-u>HSRmHighlight rm_all<CR>', mode = { 'n', 'v' }, desc = 'highlight_delete_all' },
+  { '<leader>zhx', ':<c-u>HSRmHighlight<CR>', mode = { 'n', 'v' }, desc = 'remove' },
+  { '<leader>zhX', ':<c-u>HSRmHighlight rm_all<CR>', mode = { 'n', 'v' }, desc = 'remove_all' },
+  { '<leader>zhs', ':HSExport<CR>', desc = 'save' }, --FIXME: save doesn't remove previous highlights
+  { '<leader>zhl', ':HSImport<CR>', desc = 'load' },
 }
 
 M.keymaps = function()
   -- TODO: mark_at_pos on highlight
-  -- TODO: export doesn't work
 
   -- vim.keymap.set({ 'n', 'v' }, '<leader>zh', function()
   --   vim.cmd [[ HSHighlight 1 ]]

@@ -56,6 +56,7 @@ return {
           { '<leader>w', group = 'Workspace' },
           { '<leader>z', group = 'Visual', mode = { 'n', 'v' } },
           { '<leader>zf', group = 'fml' },
+          { '<leader>zh', group = 'Highlight', mode = { 'n', 'v' } },
           { ']', group = 'Next' },
           { '[', group = 'Prev' },
 

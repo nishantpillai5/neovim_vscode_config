@@ -15,7 +15,7 @@ M.leader_maps = {
   r = 'Refactor',
   t = 'Trouble',
   w = 'Workspace',
-  z = { name = 'Visual', f = 'fml' },
+  z = { name = 'Visual', f = 'fml', h = 'Highlight' },
 }
 
 return M
