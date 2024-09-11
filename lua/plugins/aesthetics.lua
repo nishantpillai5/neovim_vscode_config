@@ -118,16 +118,29 @@ return {
   {
     'folke/edgy.nvim',
     cond = conds['folke/edgy.nvim'] or false,
-    event = "VeryLazy",
+    event = 'VeryLazy',
     opts = {
+      exit_when_last = true,
       animate = { enabled = false },
-      right = {
+      bottom = {
         {
-          title = "CopilotChat.nvim",
-          ft = "copilot-chat",
+          title = 'Fugitive',
+          ft = 'fugitive',
           size = { width = 0.4 },
         },
       },
+      right = {
+        {
+          title = 'Overseer',
+          ft = 'OverseerList',
+          size = { width = 0.25 },
+        },
+        -- {
+        --   title = 'CopilotChat.nvim',
+        --   ft = 'copilot-chat',
+        --   size = { width = 0.4 },
+        -- },
+      },
     },
-  }
+  },
 }

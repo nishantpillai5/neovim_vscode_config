@@ -32,6 +32,9 @@ M.keys = {
 }
 
 M.keymaps = function()
+  local actions = require 'CopilotChat.actions'
+  local select = require 'CopilotChat.select'
+
   vim.keymap.set('n', '<leader>cc', function()
     vim.cmd 'CopilotChatToggle'
   end, { desc = 'toggle' })
@@ -80,36 +83,35 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>cb', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      require('CopilotChat').ask(input, { selection = require('CopilotChat.select').buffer })
+      require('CopilotChat').ask(input, { selection = select.buffer })
     end
   end, { desc = 'buffer' })
 
   vim.keymap.set('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      require('CopilotChat').ask(input, { selection = require('CopilotChat.select').selection })
+      require('CopilotChat').ask(input, { select.selection })
     end
   end, { desc = 'selection' })
 
   vim.keymap.set('v', '<leader>cs', function()
-    require('CopilotChat').ask(simplify_prompt, { selection = require('CopilotChat.select').selection })
+    require('CopilotChat').ask(simplify_prompt, { selection = select.selection })
   end, { desc = 'simplify' })
 
   -- TODO: generate PR changes message with git diff as context
   -- TODO: git diff from main
   vim.keymap.set('v', '<leader>cp', function()
-    require('CopilotChat').ask(simplify_prompt, { selection = function(source) end })
+    vim.notify 'Not implemented yet'
+    -- require('CopilotChat').ask(simplify_prompt, { selection = function(source) end })
   end, { desc = 'pr_changes' })
 
   -- Telescope
 
   vim.keymap.set({ 'n', 'v' }, '<leader>fc', function()
-    local actions = require 'CopilotChat.actions'
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
   end, { desc = 'chat' })
 
   vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
-    local actions = require 'CopilotChat.actions'
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
   end, { desc = 'find' })
 end

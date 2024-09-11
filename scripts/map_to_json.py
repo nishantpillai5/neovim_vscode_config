@@ -10,11 +10,9 @@ node_desc = {
   'e' : 'Explorer',
   'y' : 'Yank',
   'f' : 'Find',
-  'b' : 'Breakpoint',
   'F' : 'Find_Telescope',
   'g' : 'Git',
   'h' : 'Hunk',
-  'o' : 'Open' ,
   'l' : 'LSP',
   'n' : 'Notes',
   'o' : 'Tasks',
@@ -113,7 +111,7 @@ def add_to_tree(item,tree,level=0):
             if i['key'] == item['tokens'][level]:
                 # if i["bindings"] is a list, make sure it doesn't fail if i["bindings"] doesn't exist
                 try:
-                    if type(i["bindings"]) == list:
+                    if type(i["bindings"]) is list:
                         add_to_tree(item, i["bindings"], level+1)
                         return
                 except:

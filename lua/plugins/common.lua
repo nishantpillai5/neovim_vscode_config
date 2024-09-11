@@ -70,7 +70,7 @@ return {
     'AllenDang/nvim-expand-expr',
     cond = conds['AllenDang/nvim-expand-expr'] or false,
     keys = {
-      { '<leader>q', ":lua require('expand_expr').expand()<cr>", desc = 'inline_macro' }
+      { '<leader>q', ":lua require('expand_expr').expand()<cr>", desc = 'inline_macro' },
     },
   },
   -- Align expressions

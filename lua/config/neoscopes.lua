@@ -40,7 +40,7 @@ local replace_telescope_keymaps = function()
   end, { desc = 'live_grep_global(workspace)' })
 
   vim.keymap.set('n', '<leader>fL', function()
-    require('telescope').extensions.live_grep_args.live_grep_args{
+    require('telescope').extensions.live_grep_args.live_grep_args {
       prompt_prefix = '󱇳 > ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },

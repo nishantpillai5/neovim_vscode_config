@@ -7,7 +7,7 @@ M.keys = {
 
 M.setup = function()
   local DIR_NOTES = require('common.env').DIR_NOTES
-  require("obsidian").setup({
+  require('obsidian').setup {
     ui = {
       enable = false,
     },
@@ -27,7 +27,7 @@ M.setup = function()
       date_format = '%Y.%m.%d',
       template = 'daily.md',
     },
-  })
+  }
 end
 
 M.config = function()

@@ -9,8 +9,8 @@ M.keys = {
 }
 
 M.cmd = {
- 'DiffviewOpen',
- 'DiffviewFileHistory'
+  'DiffviewOpen',
+  'DiffviewFileHistory',
 }
 
 local diffview_toggle = function()

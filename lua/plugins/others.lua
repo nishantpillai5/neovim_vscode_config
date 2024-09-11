@@ -27,7 +27,7 @@ return {
       { '<leader>zt', '<cmd>DuckyType english_common<cr>', desc = 'typing_test_eng' },
       { '<leader>zT', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test_code' },
     },
-    opts = {}
+    opts = {},
   },
   -- Check startup time stats
   {

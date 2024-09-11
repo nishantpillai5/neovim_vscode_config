@@ -26,7 +26,7 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
-      { '<leader>zc', "<cmd>TSContextToggle<CR>", mode = 'n', desc = 'context_sticky' },
+      { '<leader>zc', '<cmd>TSContextToggle<CR>', mode = 'n', desc = 'context_sticky' },
     },
     cond = conds['nvim-treesitter/nvim-treesitter-context'] or false,
   },

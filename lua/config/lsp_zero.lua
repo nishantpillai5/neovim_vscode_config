@@ -20,7 +20,12 @@ M.keymaps = function()
   vim.keymap.set({ 'n', 'v' }, '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', { desc = 'rename(F2)' })
 
   vim.keymap.set({ 'n', 'v' }, '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', { desc = 'hints_view(K)' })
-  vim.keymap.set({ 'n', 'v' }, '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', { desc = 'diagnostic_view(gl)' })
+  vim.keymap.set(
+    { 'n', 'v' },
+    '<leader>ld',
+    '<cmd>lua vim.diagnostic.open_float()<CR>',
+    { desc = 'diagnostic_view(gl)' }
+  )
   vim.keymap.set('n', '<leader>lD', toggle_diagnostics, { desc = 'diagnostics_toggle' })
   vim.keymap.set('n', '<leader>lH', toggle_hints, { desc = 'hints_toggle' })
 end
@@ -82,12 +87,12 @@ M.setup = function()
     --   }
     -- end,
     ['ruff_lsp'] = function()
-      require'lspconfig'.ruff_lsp.setup{
+      require('lspconfig').ruff_lsp.setup {
         init_options = {
           settings = {
             args = {},
-          }
-        }
+          },
+        },
       }
     end,
 

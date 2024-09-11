@@ -7,14 +7,14 @@ local toggle_theme = function()
   else
     vim.g.mkdp_theme = 'dark'
   end
-  vim.cmd('MarkdownPreview')
+  vim.cmd 'MarkdownPreview'
 end
 
-M.cmd  = {
+M.cmd = {
   'MarkdownPreviewToggle',
   'MarkdownPreview',
   'MarkdownPreviewStop',
-  'MarkdownPreviewToggleTheme'
+  'MarkdownPreviewToggleTheme',
 }
 
 M.setup = function()

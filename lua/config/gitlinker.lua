@@ -1,7 +1,7 @@
 local M = {}
 
 M.cmd = {
-  'GitLink'
+  'GitLink',
 }
 
 M.keys = {

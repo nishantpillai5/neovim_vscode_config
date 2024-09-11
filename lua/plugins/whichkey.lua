@@ -17,11 +17,11 @@ return {
     end,
     keys = {
       {
-        "<leader><leader>",
+        '<leader><leader>',
         function()
-          require("which-key").show({ global = false })
+          require('which-key').show { global = false }
         end,
-        desc = "whichkey_help",
+        desc = 'whichkey_help',
       },
     },
     config = function()
@@ -29,32 +29,32 @@ return {
       wk.setup {
         icons = { rules = false },
         triggers = {
-          { "<auto>", mode = "nixsotc" },
-          { "m", mode = { "n", "v" } },
+          { '<auto>', mode = 'nixsotc' },
+          { 'm', mode = { 'n', 'v' } },
         },
-        sort = { "local", "order", "group", "alphanum", "mod", "lower", "icase" },
+        sort = { 'local', 'order', 'group', 'alphanum', 'mod', 'lower', 'icase' },
         spec = {
           { '<leader>;', group = 'Terminal' },
           { '<leader>b', group = 'Breakpoint' },
-          { '<leader>c', group = 'Chat', mode = { 'n', 'v'} },
+          { '<leader>c', group = 'Chat', mode = { 'n', 'v' } },
           { '<leader>e', group = 'Explorer' },
           { '<leader>ey', group = 'Yank' },
-          { '<leader>f', group  = 'Find', mode = { 'n', 'v'} },
+          { '<leader>f', group = 'Find', mode = { 'n', 'v' } },
           { '<leader>fg', group = 'Git' },
-          { '<leader>fb',group = 'Breakpoint' },
+          { '<leader>fb', group = 'Breakpoint' },
           { '<leader>F', group = 'Find_Telescope' },
-          { '<leader>g', group = 'Git', mode = { 'n', 'v'} },
-          { '<leader>gh', group = 'Hunk', mode = { 'n', 'v'} },
+          { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
+          { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
           { '<leader>go', group = 'Open' },
           { '<leader>gx', group = 'Conflict' },
-          { '<leader>l', group = 'LSP', mode = { 'n', 'v'} },
+          { '<leader>l', group = 'LSP', mode = { 'n', 'v' } },
           { '<leader>n', group = 'Notes' },
           { '<leader>o', group = 'Tasks' },
           { '<leader>os', group = 'Save' },
           { '<leader>r', group = 'Refactor' },
           { '<leader>t', group = 'Trouble' },
           { '<leader>w', group = 'Workspace' },
-          { '<leader>z', group = 'Visual', mode = { 'n', 'v'} },
+          { '<leader>z', group = 'Visual', mode = { 'n', 'v' } },
           { '<leader>zf', group = 'fml' },
           { ']', group = 'Next' },
           { '[', group = 'Prev' },
@@ -82,7 +82,7 @@ return {
           { 'go', desc = 'symbol' },
           { 'gr', desc = 'references' },
           { 'gh', desc = 'signature_help' },
-          { 'gl', desc  = 'diagnostics' },
+          { 'gl', desc = 'diagnostics' },
 
           { 'K', desc = 'hover' },
           { 's', desc = 'hop_char' },
@@ -91,7 +91,7 @@ return {
           { '<F2>', desc = 'rename' },
           { '<F3>', desc = 'format_lsp' },
           { '<F4>', desc = 'code_action' },
-        }
+        },
       }
     end,
   },

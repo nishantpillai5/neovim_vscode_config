@@ -143,7 +143,6 @@ M.keymaps = function()
       vim.cmd('OverseerDeleteBundle ' .. selected)
     end)
   end, { desc = 'delete_bundle' })
-
 end
 
 M.setup = function()
@@ -156,7 +155,7 @@ M.setup = function()
     },
     dap = false,
     task_list = {
-    default_detail = 2,
+      default_detail = 2,
       width = 0.13,
       bindings = {
         ['<C-h>'] = false,
@@ -173,7 +172,7 @@ M.setup = function()
         ['j'] = 'NextTask',
         ['k'] = 'PrevTask',
         ['x'] = 'Stop', --FIXME: doesn't work
-        ['r'] = 'Restart',--FIXME: doesn't work
+        ['r'] = 'Restart', --FIXME: doesn't work
       },
     },
   }

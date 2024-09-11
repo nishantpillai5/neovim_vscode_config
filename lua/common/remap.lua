@@ -36,4 +36,9 @@ vim.api.nvim_set_keymap('n', 'J', 'gJ', { noremap = true, desc = 'join_next_line
 vim.keymap.set('n', '<leader>zq', ':set lazyredraw!<cr>', { desc = 'lazyredraw_toggle' })
 
 -- Add custom comment
-vim.keymap.set('n', 'gco', 'o' .. require('common.env').TODO_CUSTOM.. ': <esc>:normal gcc<cr>A', { desc = 'add_comment', silent = true })
+vim.keymap.set(
+  'n',
+  'gco',
+  'o' .. require('common.env').TODO_CUSTOM .. ': <esc>:normal gcc<cr>A',
+  { desc = 'add_comment', silent = true }
+)

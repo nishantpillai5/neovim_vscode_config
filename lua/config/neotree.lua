@@ -2,6 +2,8 @@ local M = {}
 
 local utils = require 'common.utils'
 
+local EXCLUDED_FTS = { 'terminal', 'Trouble', 'qf', 'edgy' }
+
 M.keys = {
   { '<leader>ee', desc = 'explorer' },
   { '<leader>eb', desc = 'buffers' },
@@ -55,6 +57,7 @@ end
 
 M.setup = function()
   require('neo-tree').setup {
+    open_files_do_not_replace_types = EXCLUDED_FTS,
     close_if_last_window = true,
     filesystem = {
       follow_current_file = {

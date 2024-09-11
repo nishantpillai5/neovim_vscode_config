@@ -20,7 +20,7 @@ return {
     'windwp/nvim-autopairs',
     event = { 'InsertEnter' },
     cond = conds['windwp/nvim-autopairs'] or false,
-    opts = {}
+    opts = {},
   },
   -- Todo comments
   {
@@ -37,7 +37,6 @@ return {
     cond = conds['alexghergh/nvim-tmux-navigation'] or false,
     keys = require('config.tmux_navigation').keys,
     config = require('config.tmux_navigation').config,
-
   },
   -- Better undo
   {

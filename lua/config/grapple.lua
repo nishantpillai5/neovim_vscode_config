@@ -1,7 +1,7 @@
 local M = {}
 
 M.cmd = {
-  'Grapple'
+  'Grapple',
 }
 
 M.keys = {
