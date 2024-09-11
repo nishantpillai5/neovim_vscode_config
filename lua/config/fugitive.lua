@@ -15,7 +15,6 @@ local toggle_fugitive = function()
     end
   end
   vim.api.nvim_command 'Git'
-  -- vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<CR><C-w>23-', true, true, true), 'n', true)
 end
 
 M.keymaps = function()

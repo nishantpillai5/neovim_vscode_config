@@ -10,7 +10,7 @@ local plugins = {
   'rcarriga/nvim-notify',
   'folke/noice.nvim',
   'stevearc/dressing.nvim',
-  -- 'folke/edgy.nvim', --TODO: Fix resizing
+  'folke/edgy.nvim', --TODO: Fix resizing
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -119,28 +119,7 @@ return {
     'folke/edgy.nvim',
     cond = conds['folke/edgy.nvim'] or false,
     event = 'VeryLazy',
-    opts = {
-      exit_when_last = true,
-      animate = { enabled = false },
-      bottom = {
-        {
-          title = 'Fugitive',
-          ft = 'fugitive',
-          size = { width = 0.4 },
-        },
-      },
-      right = {
-        {
-          title = 'Overseer',
-          ft = 'OverseerList',
-          size = { width = 0.25 },
-        },
-        -- {
-        --   title = 'CopilotChat.nvim',
-        --   ft = 'copilot-chat',
-        --   size = { width = 0.4 },
-        -- },
-      },
-    },
+    keys = require('config.edgy').keys,
+    config = require('config.edgy').config,
   },
 }
