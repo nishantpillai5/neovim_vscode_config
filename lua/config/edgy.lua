@@ -1,7 +1,8 @@
 local M = {}
 
 M.keys = {
-  { '<leader>z=', desc = 'equalize_windows' },
+  { '<leader>z=', desc = 'equalize_panels' },
+  { '<leader>zx', desc = 'close_panels' },
 }
 
 M.setup = function()
@@ -9,19 +10,16 @@ M.setup = function()
     exit_when_last = true,
     animate = { enabled = false },
     keys = {
-      -- increase width
+      -- TODO: bind <leader>zx to close all
       ['<C-Right>'] = function(win)
         win:resize('width', 2)
       end,
-      -- decrease width
       ['<C-Left>'] = function(win)
         win:resize('width', -2)
       end,
-      -- increase height
       ['<C-Up>'] = function(win)
         win:resize('height', 2)
       end,
-      -- decrease height
       ['<C-Down>'] = function(win)
         win:resize('height', -2)
       end,

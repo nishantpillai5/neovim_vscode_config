@@ -1,9 +1,9 @@
 local M = {}
 
 M.keys = {
-  { '<leader>zh', ':<c-u>HSHighlight 3<CR>', mode = { 'n', 'v' }, desc = 'highlight' },
-  { '<leader>zx', ':<c-u>HSRmHighlight<CR>', mode = { 'n', 'v' }, desc = 'highlight_delete' },
-  { '<leader>zX', ':<c-u>HSRmHighlight rm_all<CR>', mode = { 'n', 'v' }, desc = 'highlight_delete_all' },
+  { '<leader>zhh', ':<c-u>HSHighlight 3<CR>', mode = { 'n', 'v' }, desc = 'highlight' },
+  { '<leader>zhx', ':<c-u>HSRmHighlight<CR>', mode = { 'n', 'v' }, desc = 'highlight_delete' },
+  { '<leader>zhX', ':<c-u>HSRmHighlight rm_all<CR>', mode = { 'n', 'v' }, desc = 'highlight_delete_all' },
 }
 
 M.keymaps = function()
