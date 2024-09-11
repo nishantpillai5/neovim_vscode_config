@@ -54,14 +54,18 @@ local panel_align = function()
   return cr_align
 end
 
-Toggled = false
+local toggle_sidebar = function()
+  vim.cmd('OverseerToggle ' .. sidebar_align())
+end
+
+local open_sidebar = function()
+  vim.cmd('OverseerOpen ' .. sidebar_align())
+  -- focus back to the previous window
+  vim.cmd 'wincmd p'
+end
 
 M.keymaps = function()
   local overseer = require 'overseer'
-  local toggle_sidebar = function()
-    vim.cmd('OverseerToggle ' .. sidebar_align())
-    Toggled = not Toggled
-  end
 
   vim.keymap.set('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
@@ -176,6 +180,11 @@ M.setup = function()
       },
     },
   }
+
+  -- open sidebar when any task is started
+  require('overseer').add_template_hook({ name = '.*' }, function(_, _)
+    open_sidebar()
+  end)
 end
 
 M.lualine = function()
