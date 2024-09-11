@@ -6,6 +6,11 @@ M.keys = {
   { '<leader>ex', desc = 'close_explorers' },
 }
 
+-- TODO: change this based on screen type
+local BOTTOM_HEIGHT = 0.2
+local LEFT_WIDTH = 0.1
+local RIGHT_WIDTH = 0.15
+
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zx', function()
     require('edgy').close()
@@ -24,7 +29,6 @@ M.setup = function()
       winhighlight = '',
     },
     keys = {
-      -- TODO: bind <leader>zx to close all
       ['<C-Right>'] = function(win)
         win:resize('width', 2)
       end,
@@ -47,37 +51,37 @@ M.setup = function()
       {
         title = 'Git',
         ft = 'fugitive',
-        size = { width = 0.4 },
+        size = { height = BOTTOM_HEIGHT },
       },
       {
         title = 'Trouble',
         ft = 'trouble',
-        size = { width = 0.4 },
+        size = { height = BOTTOM_HEIGHT },
       },
     },
     left = {
       {
         title = 'Explorer',
         ft = 'neo-tree',
-        size = { width = 0.2 },
+        size = { width = LEFT_WIDTH },
       },
       {
         title = 'Symbols',
         ft = 'vista',
-        size = { width = 0.2 },
+        size = { width = LEFT_WIDTH },
       },
     },
     right = {
       {
         title = 'Tasks',
         ft = 'OverseerList',
-        size = { width = 0.25 },
+        size = { width = RIGHT_WIDTH },
       },
-      {
-        title = 'Copilot',
-        ft = 'copilot-chat',
-        size = { width = 0.4 },
-      },
+      -- {
+      --   title = 'Copilot',
+      --   ft = 'copilot-chat',
+      --   size = { width = 0.4 },
+      -- },
     },
   }
 end
