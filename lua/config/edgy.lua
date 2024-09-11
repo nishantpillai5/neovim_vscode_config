@@ -12,7 +12,7 @@ M.keymaps = function()
   end, { desc = 'close_panels' })
 
   vim.keymap.set('n', '<leader>ex', function()
-    require('edgy').close("left")
+    require('edgy').close 'left'
   end, { desc = 'close_explorers' })
 end
 
@@ -20,6 +20,9 @@ M.setup = function()
   require('edgy').setup {
     exit_when_last = true,
     animate = { enabled = false },
+    wo = {
+      winhighlight = '',
+    },
     keys = {
       -- TODO: bind <leader>zx to close all
       ['<C-Right>'] = function(win)

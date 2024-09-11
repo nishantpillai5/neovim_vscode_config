@@ -76,7 +76,6 @@ M.setup = function()
     window = {
       mappings = {
         ['o'] = 'system_open',
-        ['e'] = 'close_window',
         ['s'] = 'open_split',
         ['v'] = 'open_vsplit',
         ['O'] = { 'show_help', nowait = false, config = { title = 'Order by', prefix_key = 'o' } },
