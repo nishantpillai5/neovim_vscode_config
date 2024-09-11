@@ -8,10 +8,10 @@ M.keys = {
   { '<C-F7>', desc = 'Debug.step_out' },
   { '<F8>', desc = 'Debug.step_over' },
   { 'mb', desc = 'breakpoint' },
-  { '<leader>bl', desc = 'toggle_with_log' },
+  { 'mB', desc = 'breakpoint_conditional' },
   { '[b', desc = 'breakpoint' },
   { ']b', desc = 'breakpoint' },
-  { '<leader>fbb', desc = 'Breakpoint' },
+  { '<leader>fbb', desc = 'breakpoint' },
   { '<leader>fbc', desc = 'configurations' },
   { '<leader>fbv', desc = 'variables' },
   { '<leader>fbf', desc = 'frames' },
@@ -57,9 +57,12 @@ M.keymaps = function()
     dap.toggle_breakpoint()
   end, { desc = 'breakpoint' })
 
-  vim.keymap.set('n', '<leader>bl', function()
-    dap.set_breakpoint(nil, nil, vim.fn.input 'Log point message: ')
-  end, { desc = 'toggle_with_log' })
+  vim.keymap.set('n', 'mB', function()
+    local input = vim.fn.input('Condition: ', vim.fn.expand '<cWORD>' .. '==')
+    if input ~= '' then
+      dap.toggle_breakpoint(input, nil, nil)
+    end
+  end, { desc = 'breakpoint_conditional' })
 
   vim.keymap.set('n', '[b', function()
     require('goto-breakpoints').prev()
@@ -112,6 +115,7 @@ M.setup = function()
 
   vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '@error', linehl = '', numhl = '' })
   vim.fn.sign_define('DapLogPoint', { text = '󰰍', texthl = '@error', linehl = '', numhl = '' })
+  vim.fn.sign_define('DapBreakpointCondition', { text = '★', texthl = '@error', linehl = '', numhl = '' })
 
   dap.adapters.cppdbg = {
     id = 'cppdbg',

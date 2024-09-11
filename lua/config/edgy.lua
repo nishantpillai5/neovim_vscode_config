@@ -11,8 +11,9 @@ local BOTTOM_HEIGHT = 0.2
 local LEFT_WIDTH = 0.1
 local RIGHT_WIDTH = 0.15
 
-local DAP_BOTTOM_HEIGHT = 0.25
-local DAP_LEFT_WIDTH = 0.2
+local BOTTOM_HEIGHT_2 = 0.25
+local DAP_LEFT_WIDTH_2 = 0.2
+local RIGHT_WIDTH_2 = 0.2
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zx', function()
@@ -25,6 +26,7 @@ M.keymaps = function()
 end
 
 M.setup = function()
+  local starts_with = require('common.utils').starts_with
   require('edgy').setup {
     exit_when_last = true,
     animate = { enabled = false },
@@ -52,63 +54,90 @@ M.setup = function()
     },
     bottom = {
       {
-        title = 'Git',
+        title = 'Git (Fugitive)',
         ft = 'fugitive',
         size = { height = BOTTOM_HEIGHT },
       },
-      -- {
-      --   title = 'Trouble',
-      --   ft = 'trouble',
-      --   size = { height = BOTTOM_HEIGHT },
-      -- },
       {
-        title = 'DAP REPL',
+        title = 'REPL (DAP)',
         ft = 'dap-repl',
-        size = { height = DAP_BOTTOM_HEIGHT },
+        size = { height = BOTTOM_HEIGHT_2 },
       },
       {
-        title = 'DAP Console',
+        title = 'Console (DAP)',
         ft = 'dapui_console',
-        size = { height = DAP_BOTTOM_HEIGHT },
+        size = { height = BOTTOM_HEIGHT_2 },
+      },
+      {
+        title = 'Diagnostics (Trouble)',
+        ft = 'trouble',
+        size = { height = BOTTOM_HEIGHT },
+        filter = function(_, win)
+          return vim.w[win].trouble and starts_with(vim.w[win].trouble.mode, 'diagnostics')
+        end,
+      },
+      {
+        title = 'List (Trouble)',
+        ft = 'trouble',
+        size = { height = BOTTOM_HEIGHT },
+        filter = function(_, win)
+          return vim.w[win].trouble and vim.w[win].trouble.mode == 'loclist' or vim.w[win].trouble.mode == 'quickfix'
+        end,
+      },
+      {
+        title = 'Preview (Trouble)',
+        ft = 'trouble',
+        size = { height = BOTTOM_HEIGHT_2 },
+        filter = function(_, win)
+          return vim.w[win].trouble and vim.w[win].trouble_preview
+        end,
       },
     },
     left = {
       {
-        title = 'Explorer',
+        title = 'Explorer (Neotree)',
         ft = 'neo-tree',
         size = { width = LEFT_WIDTH },
       },
       {
-        title = 'Symbols',
+        title = 'Symbols (Vista)',
         ft = 'vista',
         size = { width = LEFT_WIDTH },
       },
       {
-        title = 'DAP Scopes',
+        title = 'Scopes (DAP)',
         ft = 'dapui_scopes',
-        size = { width = DAP_LEFT_WIDTH },
+        size = { width = DAP_LEFT_WIDTH_2 },
       },
       {
-        title = 'DAP Breakpoints',
+        title = 'Breakpoints (DAP)',
         ft = 'dapui_breakpoints',
-        size = { width = DAP_LEFT_WIDTH },
+        size = { width = DAP_LEFT_WIDTH_2 },
       },
       {
-        title = 'DAP Stacks',
+        title = 'Stacks (DAP)',
         ft = 'dapui_stacks',
-        size = { width = DAP_LEFT_WIDTH },
+        size = { width = DAP_LEFT_WIDTH_2 },
       },
       {
-        title = 'DAP Watches',
+        title = 'Watches (DAP)',
         ft = 'dapui_watches',
-        size = { width = DAP_LEFT_WIDTH },
+        size = { width = DAP_LEFT_WIDTH_2 },
       },
     },
     right = {
       {
-        title = 'Tasks',
+        title = 'Tasks (Overseer)',
         ft = 'OverseerList',
         size = { width = RIGHT_WIDTH },
+      },
+      {
+        title = 'LSP (Trouble)',
+        ft = 'trouble',
+        size = { width = RIGHT_WIDTH_2 },
+        filter = function(_, win)
+          return vim.w[win].trouble and (starts_with(vim.w[win].trouble.mode, 'lsp') and not vim.w[win].trouble_preview)
+        end,
       },
       -- {
       --   title = 'Copilot',

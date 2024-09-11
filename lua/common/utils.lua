@@ -128,4 +128,8 @@ function M.get_conds_table(plugins_table)
   return load_plugin
 end
 
+function M.starts_with(str, prefix)
+  return string.sub(str, 1, #prefix) == prefix
+end
+
 return M
