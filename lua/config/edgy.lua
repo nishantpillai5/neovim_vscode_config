@@ -3,7 +3,18 @@ local M = {}
 M.keys = {
   { '<leader>z=', desc = 'equalize_panels' },
   { '<leader>zx', desc = 'close_panels' },
+  { '<leader>ex', desc = 'close_explorers' },
 }
+
+M.keymaps = function()
+  vim.keymap.set('n', '<leader>zx', function()
+    require('edgy').close()
+  end, { desc = 'close_panels' })
+
+  vim.keymap.set('n', '<leader>ex', function()
+    require('edgy').close("left")
+  end, { desc = 'close_explorers' })
+end
 
 M.setup = function()
   require('edgy').setup {
@@ -23,9 +34,11 @@ M.setup = function()
       ['<C-Down>'] = function(win)
         win:resize('height', -2)
       end,
-      ['<leader>z='] = function(win)
-        win.view.edgebar:equalize()
-      end,
+      -- FIXME: this doesn't work
+
+      -- ['<leader>z='] = function(win)
+      --   win.view.edgebar:equalize()
+      -- end,
     },
     bottom = {
       {
@@ -68,6 +81,7 @@ end
 
 M.config = function()
   M.setup()
+  M.keymaps()
 end
 
 -- M.config()
