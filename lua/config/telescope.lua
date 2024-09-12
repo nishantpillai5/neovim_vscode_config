@@ -8,7 +8,7 @@ M.keys = {
   { '<leader>fA', desc = 'alternate' },
   { '<leader>fgf', desc = 'changed_files' },
   { '<leader>fgb', desc = 'branch_checkout' },
-  { '<leader>fgB', desc = 'branch_diff' },
+  -- { '<leader>fgB', desc = 'branch_diff' },
   { '<leader>fgc', desc = 'commits_checkout' },
   { '<leader>fgC', desc = 'commits_diff' },
   { '<leader>fgz', desc = 'stash' },
@@ -28,7 +28,6 @@ M.keys = {
   { '<leader>fr', desc = 'recents' },
   { '<leader>f"', desc = 'registers' },
   { '<leader>fh', desc = 'buffers' },
-  { '<leader>fH', desc = 'unsaved_buffers' },
   -- { "<leader>fp", desc = "yank" },
   { '<leader>fn', desc = 'notes' },
   { '<leader>nf', desc = 'notes' },
@@ -194,7 +193,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>fgf', builtin.git_status, { desc = 'changed_files' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches_checkout' })
-  vim.keymap.set('n', '<leader>fgB', builtin.git_branches, { desc = 'branches_diff' })
+  -- vim.keymap.set('n', '<leader>fgB', builtin.git_branches, { desc = 'branches_diff' })
   vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits_checkout' })
   vim.keymap.set('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits, { desc = 'commits_diff' })
   vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'stash' })
@@ -247,8 +246,19 @@ M.keymaps = function()
   end, { desc = 'recents' })
 
   vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'registers' })
-  vim.keymap.set('n', '<leader>fh', builtin.buffers, { desc = 'buffers' })
-  vim.keymap.set('n', '<leader>fH', builtin.buffers, { desc = 'unsaved_buffers' })
+  vim.keymap.set('n', '<leader>fh', function()
+    -- Prefer unsaved buffers
+    builtin.buffers {
+      sort_buffers = function(buf_a, buf_b)
+        local a_unsaved = vim.bo[buf_a].modified
+        local b_unsaved = vim.bo[buf_b].modified
+        if a_unsaved ~= b_unsaved then
+          return a_unsaved
+        end
+        return buf_a < buf_b
+      end,
+    }
+  end, { desc = 'buffers' })
   -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
   -- TODO: use string instead to prevent loading extensions?
   -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
