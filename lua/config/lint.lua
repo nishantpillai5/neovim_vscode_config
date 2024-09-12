@@ -1,9 +1,11 @@
 local M = {}
 
+-- TODO: fail quietly
+
 M.setup = function()
   local lint = require 'lint'
   lint.linters_by_ft = {
-    -- c = { "cppcheck" },
+    c = { "cppcheck" },
   }
 
   local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
@@ -18,9 +20,9 @@ end
 local lint_progress = function()
   local linters = require('lint').get_running()
   if #linters == 0 then
-    return '  ' .. table.concat(linters, ', ')
+    return '   [' .. table.concat(linters, ', ') .. ']'
   end
-  return '  ' .. table.concat(linters, ', ')
+  return '   [' .. table.concat(linters, ', ') .. ']'
 end
 
 M.lualine = function()

@@ -12,6 +12,8 @@ M.keys = {
   { '<leader>tf', desc = 'finder' },
   { '<leader>j', desc = 'trouble_next' },
   { '<leader>k', desc = 'trouble_prev' },
+  { '<M-j>', desc = 'trouble_next' },
+  { '<M-k>', desc = 'trouble_prev' },
   { 'gr', desc = 'references' },
 }
 
@@ -76,6 +78,14 @@ M.keymaps = function()
   end, { desc = 'trouble_next' })
 
   vim.keymap.set('n', '<leader>k', function()
+    trouble.prev { skip_groups = true, jump = true }
+  end, { desc = 'trouble_prev' })
+
+  vim.keymap.set('n', '<M-j>', function()
+    trouble.next { skip_groups = true, jump = true }
+  end, { desc = 'trouble_next' })
+
+  vim.keymap.set('n', '<M-k>', function()
     trouble.prev { skip_groups = true, jump = true }
   end, { desc = 'trouble_prev' })
 

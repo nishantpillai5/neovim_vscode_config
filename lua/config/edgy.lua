@@ -6,6 +6,8 @@ M.keys = {
   { '<leader>ex', desc = 'close_explorers' },
 }
 
+--TODO: Fix resizing when not inside edgy panel
+
 -- TODO: change this based on screen type
 local BOTTOM_HEIGHT = 0.2
 local LEFT_WIDTH = 0.1
@@ -14,6 +16,7 @@ local RIGHT_WIDTH = 0.15
 local BOTTOM_HEIGHT_2 = 0.25
 local DAP_LEFT_WIDTH_2 = 0.2
 local RIGHT_WIDTH_2 = 0.2
+local LEFT_WIDTH_2 = 0.2
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zx', function()
@@ -81,7 +84,7 @@ M.setup = function()
         ft = 'trouble',
         size = { height = BOTTOM_HEIGHT },
         filter = function(_, win)
-          return vim.w[win].trouble and vim.w[win].trouble.mode == 'loclist' or vim.w[win].trouble.mode == 'quickfix'
+          return vim.w[win].trouble and (vim.w[win].trouble.mode == 'loclist' or vim.w[win].trouble.mode == 'quickfix')
         end,
       },
       {
@@ -97,12 +100,12 @@ M.setup = function()
       {
         title = 'Explorer (Neotree)',
         ft = 'neo-tree',
-        size = { width = LEFT_WIDTH },
+        size = { width = LEFT_WIDTH_2 },
       },
       {
         title = 'Symbols (Vista)',
         ft = 'vista',
-        size = { width = LEFT_WIDTH },
+        size = { width = LEFT_WIDTH_2 },
       },
       {
         title = 'Scopes (DAP)',
@@ -137,6 +140,15 @@ M.setup = function()
         size = { width = RIGHT_WIDTH_2 },
         filter = function(_, win)
           return vim.w[win].trouble and (starts_with(vim.w[win].trouble.mode, 'lsp') and not vim.w[win].trouble_preview)
+        end,
+      },
+      {
+        title = 'Telescope (Trouble)',
+        ft = 'trouble',
+        size = { width = RIGHT_WIDTH_2 },
+        filter = function(_, win)
+          return vim.w[win].trouble
+            and (starts_with(vim.w[win].trouble.mode, 'telescope') and not vim.w[win].trouble_preview)
         end,
       },
       -- {

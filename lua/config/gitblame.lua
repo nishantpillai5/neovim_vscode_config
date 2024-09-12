@@ -20,15 +20,14 @@ M.setup = function()
   vim.g.gitblame_highlight_group = 'GitSignsCurrentLineBlame'
 end
 
+local function blame_text()
+  return "" .. require('gitblame').get_current_blame_text()
+end
+
 M.lualine = function()
   local git_blame = require 'gitblame'
   local lualineC = require('lualine').get_config().sections.lualine_c or {}
-  table.insert(lualineC, {
-    function()
-      return '>>'
-    end,
-  })
-  table.insert(lualineC, { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available })
+  table.insert(lualineC, { blame_text, cond = git_blame.is_blame_text_available })
   require('lualine').setup { sections = { lualine_c = lualineC } }
 end
 

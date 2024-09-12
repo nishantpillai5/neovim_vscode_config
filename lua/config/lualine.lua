@@ -25,6 +25,15 @@ local function cwd()
   return vim.fn.getcwd()
 end
 
+local function worktree()
+  local res, match = vim.fn.FugitiveGitDir():gsub('.*worktrees/', '')
+  if match == 1 then
+    return ' ' .. res
+  else
+    return ''
+  end
+end
+
 M.init = function()
   if GLOBAL_STATUS then
     vim.opt.laststatus = 3
@@ -51,7 +60,7 @@ M.setup = function()
         'selectioncount',
       },
       lualine_b = { cwd },
-      lualine_c = { 'branch' },
+      lualine_c = { 'branch', worktree },
       lualine_x = { 'diagnostics' },
       lualine_y = {
         -- 'encoding',

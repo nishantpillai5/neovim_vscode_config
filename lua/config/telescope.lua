@@ -28,6 +28,7 @@ M.keys = {
   { '<leader>fr', desc = 'recents' },
   { '<leader>f"', desc = 'registers' },
   { '<leader>fh', desc = 'buffers' },
+  { '<leader>fH', desc = 'unsaved_buffers' },
   -- { "<leader>fp", desc = "yank" },
   { '<leader>fn', desc = 'notes' },
   { '<leader>nf', desc = 'notes' },
@@ -247,6 +248,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'registers' })
   vim.keymap.set('n', '<leader>fh', builtin.buffers, { desc = 'buffers' })
+  vim.keymap.set('n', '<leader>fH', builtin.buffers, { desc = 'unsaved_buffers' })
   -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
   -- TODO: use string instead to prevent loading extensions?
   -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()

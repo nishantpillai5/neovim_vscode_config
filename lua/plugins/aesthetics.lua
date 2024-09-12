@@ -10,7 +10,7 @@ local plugins = {
   'rcarriga/nvim-notify',
   'folke/noice.nvim',
   'stevearc/dressing.nvim',
-  'folke/edgy.nvim', --TODO: Fix resizing
+  'folke/edgy.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -78,7 +78,7 @@ return {
   {
     'nvim-lualine/lualine.nvim',
     event = 'VeryLazy',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    dependencies = { 'nvim-tree/nvim-web-devicons', 'tpope/vim-fugitive' },
     cond = conds['nvim-lualine/lualine.nvim'] or false,
     init = require('config.lualine').init,
     config = require('config.lualine').config,
