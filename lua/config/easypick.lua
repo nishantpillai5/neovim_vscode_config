@@ -2,14 +2,14 @@ local M = {}
 local utils = require 'common.utils'
 
 M.keys = {
-  { '<leader>fgF', desc = 'changed_files_from_main' },
+  { '<leader>fgD', desc = 'changed_files_from_main' },
 }
 
 M.cmd = { 'Easypick', 'KeyChangedFilesFromMain' }
 
 M.keymaps = function()
   local set_keymap = utils.get_keymap_setter(M.keys)
-  set_keymap('n', '<leader>fgF', ':Easypick changed_files<cr>')
+  set_keymap('n', '<leader>fgD', ':Easypick changed_files<cr>')
 end
 
 M.setup = function()

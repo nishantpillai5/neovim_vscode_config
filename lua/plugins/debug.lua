@@ -2,6 +2,7 @@ local plugins = {
   'mfussenegger/nvim-dap',
   'rcarriga/nvim-dap-ui',
   -- 'mfussenegger/nvim-dap-python',
+  'nvim-neotest/neotest',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -36,5 +37,20 @@ return {
     config = function()
       require('dap-python').setup(HOME .. '/.virtualenvs/debugpy/Scripts/python')
     end,
+  },
+  {
+    'nvim-neotest/neotest',
+    dependencies = {
+      'nvim-neotest/nvim-nio',
+      'nvim-lua/plenary.nvim',
+      'antoinemadec/FixCursorHold.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'stevearc/overseer.nvim',
+      'alfaix/neotest-gtest',
+      'nvim-neotest/neotest-python',
+    },
+    cond = conds['nvim-neotest/neotest'] or false,
+    keys = require('config.neotest').keys,
+    config = require('config.neotest').config,
   },
 }

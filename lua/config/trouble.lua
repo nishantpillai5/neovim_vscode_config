@@ -81,6 +81,18 @@ M.keymaps = function()
     trouble.prev { skip_groups = true, jump = true }
   end, { desc = 'trouble_prev' })
 
+  vim.keymap.set('n', '<leader>J', function()
+    trouble.next { skip_groups = true, jump = true }
+    vim.wait(200)
+    require('gitsigns').nav_hunk 'next'
+  end, { desc = 'trouble_next' })
+
+  vim.keymap.set('n', '<leader>K', function()
+    trouble.prev { skip_groups = true, jump = true }
+    vim.wait(200)
+    require('gitsigns').nav_hunk 'next'
+  end, { desc = 'trouble_prev' })
+
   vim.keymap.set('n', '<M-j>', function()
     trouble.next { skip_groups = true, jump = true }
   end, { desc = 'trouble_next' })

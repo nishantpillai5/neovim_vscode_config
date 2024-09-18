@@ -12,6 +12,7 @@ M.leader_maps = {
   l = 'LSP',
   n = 'Notes',
   o = 'Tasks',
+  i = 'Test',
   r = 'Refactor',
   t = 'Trouble',
   w = 'Workspace',

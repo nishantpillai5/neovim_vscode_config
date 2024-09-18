@@ -16,7 +16,7 @@ local RIGHT_WIDTH = 0.15
 local BOTTOM_HEIGHT_2 = 0.25
 local DAP_LEFT_WIDTH_2 = 0.2
 local RIGHT_WIDTH_2 = 0.2
-local LEFT_WIDTH_2 = 0.2
+local LEFT_WIDTH_2 = 0.15
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>zx', function()
@@ -133,6 +133,11 @@ M.setup = function()
         title = 'Tasks (Overseer)',
         ft = 'OverseerList',
         size = { width = RIGHT_WIDTH },
+      },
+      {
+        title = 'Tests (Neotest)',
+        ft = 'neotest-summary',
+        size = { width = RIGHT_WIDTH_2 },
       },
       {
         title = 'LSP (Trouble)',

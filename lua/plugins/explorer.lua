@@ -10,6 +10,7 @@ return {
   -- Explorer
   {
     'nvim-neo-tree/neo-tree.nvim',
+    event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' },
     branch = 'v3.x',
     cond = conds['nvim-neo-tree/neo-tree.nvim'] or false,
@@ -22,7 +23,7 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     cond = conds['stevearc/oil.nvim'] or false,
     keys = {
-      { '<leader>ei', '<cmd>Oil<cr>', desc = 'oil' },
+      { '<leader>ef', '<cmd>Oil<cr>', desc = 'oil' },
     },
     opts = {
       -- Keep netrw enabled

@@ -3,11 +3,9 @@ local M = {}
 M.keys = {
   { '<leader>oo', desc = 'run_from_list' },
   { '<leader>eo', desc = 'tasks' },
-  { '<leader>ot', desc = 'toggle' },
   { '<leader>oc', desc = 'change_last' },
   { '<leader>ol', desc = 'restart_last' },
   { '<leader>op', desc = 'preview_last' },
-  { '<F10>', desc = 'overseer_preview_last' },
   { '<leader>ox', desc = 'stop_last' },
   { '<leader>oX', desc = 'stop_all' },
   { '<leader>or', desc = 'run' },
@@ -72,7 +70,6 @@ M.keymaps = function()
   end, { desc = 'run_from_list' })
 
   vim.keymap.set('n', '<leader>eo', toggle_sidebar, { desc = 'tasks' })
-  vim.keymap.set('n', '<leader>ot', toggle_sidebar, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>oc', function()
     action_on_last_task(nil)
@@ -85,16 +82,6 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>op', function()
     action_on_last_task 'open float'
   end, { desc = 'preview_last' })
-
-  -- Is_Preview_Open = false
-  -- vim.keymap.set('n', '<F10>', function()
-  --   if Is_Preview_Open then
-  --     action_on_last_task 'open float'
-  --   else
-  --     vim.cmd('q')
-  --   end
-  --   Is_Preview_Open = not Is_Preview_Open
-  -- end, { desc = 'overseer_preview_last' })
 
   vim.keymap.set('n', '<leader>ox', function()
     action_on_last_task 'stop'
@@ -177,6 +164,14 @@ M.setup = function()
         ['k'] = 'PrevTask',
         ['x'] = 'Stop', --FIXME: doesn't work
         ['r'] = 'Restart', --FIXME: doesn't work
+      },
+    },
+    component_aliases = {
+      default_neotest = {
+        'on_output_summarize',
+        'on_exit_set_status',
+        'on_complete_notify',
+        'on_complete_dispose',
       },
     },
   }

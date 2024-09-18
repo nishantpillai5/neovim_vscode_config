@@ -27,7 +27,7 @@ vim.keymap.set('n', '<leader>zw', ':set wrap!<cr>', { desc = 'wrap' })
 vim.keymap.set('n', '<leader>H', ':b#<cr>', { desc = 'buffer_prev', silent = true })
 
 -- Netrw
-vim.keymap.set('n', '<leader>ef', vim.cmd.Ex, { desc = 'netrw' })
+vim.keymap.set('n', '<leader>eF', vim.cmd.Ex, { desc = 'netrw' })
 
 -- Spaceless join
 vim.api.nvim_set_keymap('n', 'J', 'gJ', { noremap = true, desc = 'join_next_line' })

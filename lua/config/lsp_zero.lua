@@ -51,7 +51,7 @@ M.setup = function()
     ensure_installed = {
       -- "typos_lsp",
       'clangd',
-      -- 'pyright',
+      'pyright',
       'ruff_lsp',
       'lua_ls',
       'yamlls',
@@ -60,6 +60,8 @@ M.setup = function()
       -- "markdown_oxide",
     },
   }
+
+  local capabilities = cmp_nvim_lsp.default_capabilities()
 
   require('mason-lspconfig').setup_handlers {
     -- default handler
@@ -70,7 +72,7 @@ M.setup = function()
     -- C
     ['clangd'] = function()
       require('lspconfig').clangd.setup {
-        capabilities = cmp_nvim_lsp.default_capabilities(),
+        capabilities = capabilities,
         cmd = {
           'clangd',
           '--offset-encoding=utf-16',
@@ -80,12 +82,13 @@ M.setup = function()
     end,
 
     -- Python
-    -- ['pyright'] = function()
-    --   require('lspconfig').pyright.setup {
-    --     capabilities = cmp_nvim_lsp.default_capabilities(),
-    --     settings = _G.pyright_settings or {},
-    --   }
-    -- end,
+    ['pyright'] = function()
+      require('lspconfig').pyright.setup {
+        capabilities = capabilities,
+        settings = _G.pyright_settings or {},
+      }
+    end,
+
     ['ruff_lsp'] = function()
       require('lspconfig').ruff_lsp.setup {
         init_options = {
@@ -99,7 +102,7 @@ M.setup = function()
     -- Lua
     ['lua_ls'] = function()
       require('lspconfig').lua_ls.setup {
-        capabilities = cmp_nvim_lsp.default_capabilities(),
+        capabilities = capabilities,
         on_init = function(client)
           local path = client.workspace_folders[1].name
           if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
@@ -134,6 +137,19 @@ M.setup = function()
       ['<C-u>'] = cmp.mapping.scroll_docs(-4),
       ['<C-d>'] = cmp.mapping.scroll_docs(4),
     },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      {
+        name = 'lazydev',
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      },
+      -- { name = 'vsnip' }, -- For vsnip users.
+      -- { name = 'luasnip' }, -- For luasnip users.
+      -- { name = 'ultisnips' }, -- For ultisnips users.
+      -- { name = 'snippy' }, -- For snippy users.
+    }, {
+      { name = 'buffer' },
+    }),
   }
 
   -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
@@ -162,6 +178,7 @@ local get_logo = function(name)
     ['GitHub Copilot'] = '',
     ['clangd'] = '󰙱',
     ['pyright'] = '',
+    ['ruff_lsp'] = '',
     ['jsonls'] = '',
   }
   local icon = logo_dict[name]

@@ -48,6 +48,7 @@ return {
           { '<leader>go', group = 'Open' },
           { '<leader>gx', group = 'Conflict' },
           { '<leader>l', group = 'LSP', mode = { 'n', 'v' } },
+          { '<leader>i', group = 'Test', mode = { 'n', 'v' } },
           { '<leader>n', group = 'Notes' },
           { '<leader>o', group = 'Tasks' },
           { '<leader>os', group = 'Save' },

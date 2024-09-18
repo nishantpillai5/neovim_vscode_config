@@ -6,7 +6,7 @@ M.keys = {
   { '<leader>fF', desc = 'ignored_files' },
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
-  { '<leader>fgf', desc = 'changed_files' },
+  { '<leader>fgd', desc = 'changed_files' },
   { '<leader>fgb', desc = 'branch_checkout' },
   -- { '<leader>fgB', desc = 'branch_diff' },
   { '<leader>fgc', desc = 'commits_checkout' },
@@ -191,7 +191,7 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end, { desc = 'alternate' })
 
-  vim.keymap.set('n', '<leader>fgf', builtin.git_status, { desc = 'changed_files' })
+  vim.keymap.set('n', '<leader>fgd', builtin.git_status, { desc = 'changed_files' })
   vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches_checkout' })
   -- vim.keymap.set('n', '<leader>fgB', builtin.git_branches, { desc = 'branches_diff' })
   vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits_checkout' })

@@ -69,6 +69,12 @@ M.setup = function()
           key = 'f',
         },
         {
+          desc = ' Explorer',
+          group = 'Label',
+          action = 'Neotree reveal focus',
+          key = 'e',
+        },
+        {
           desc = ' Recent',
           group = 'Label',
           action = 'Telescope oldfiles only_cwd=true',
