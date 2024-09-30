@@ -1,7 +1,6 @@
 local M = {}
 
 local utils = require 'common.utils'
-
 local EXCLUDED_FTS = { 'terminal', 'Trouble', 'qf', 'edgy' }
 
 M.keys = {
@@ -11,10 +10,6 @@ M.keys = {
   { '<leader>eE', desc = 'toggle' },
   { '<leader>fe', desc = 'explorer' },
 }
-
-local sidebar_align = function()
-  return require('common.env').SIDEBAR_POSITION
-end
 
 local find_dir = function()
   local local_favs = _G.fav_dirs or {}
@@ -31,21 +26,21 @@ local find_dir = function()
     if selected == nil then
       return
     end
-    vim.cmd('Neotree reveal focus ' .. sidebar_align() .. ' dir=' .. fav_dirs[selected])
+    vim.cmd('Neotree reveal focus' .. ' dir=' .. fav_dirs[selected])
   end)
 end
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>ee', function()
-    vim.cmd('Neotree reveal focus ' .. sidebar_align())
+    vim.cmd 'Neotree reveal focus'
   end, { desc = 'explorer' })
 
   vim.keymap.set('n', '<leader>eb', function()
-    vim.cmd('Neotree reveal focus buffers ' .. sidebar_align())
+    vim.cmd 'Neotree reveal focus buffers'
   end, { desc = 'buffers' })
 
   vim.keymap.set('n', '<leader>eg', function()
-    vim.cmd('Neotree reveal focus git_status ' .. sidebar_align())
+    vim.cmd 'Neotree reveal focus git_status'
   end, { desc = 'git' })
 
   vim.keymap.set('n', '<leader>eE', function()

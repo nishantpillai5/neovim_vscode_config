@@ -9,12 +9,22 @@ M.keys = {
 
 M.keymaps = function()
   local dapui = require 'dapui'
+  local dapui_open = false
 
-  vim.keymap.set('n', '<leader>bb', function()
+  -- FIXME: keybind not working
+  local function toggle_dapui()
     dapui.toggle()
-  end, { desc = 'toggle_view' })
+    dapui_open = not dapui_open
+    if dapui_open then
+      vim.keymap.set('n', 'K', function()
+        dapui.eval(vim.fn.expand '<cWORD>')
+      end, { desc = 'dap_eval' })
+    else
+      vim.api.nvim_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<cr>', { noremap = true, silent = true })
+    end
+  end
 
-  -- TODO: make toggle, also remap K to dap eval instead of hover
+  vim.keymap.set('n', '<leader>bb', toggle_dapui, { desc = 'toggle_view' })
   vim.keymap.set('n', '<leader>bK', function()
     dapui.eval(vim.fn.expand '<cWORD>')
   end, { desc = 'hover' })

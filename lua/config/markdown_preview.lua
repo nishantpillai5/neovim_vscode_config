@@ -1,6 +1,5 @@
 local M = {}
 
--- FIXME: doesn't work
 local toggle_theme = function()
   if vim.g.mkdp_theme == 'dark' then
     vim.g.mkdp_theme = 'light'
@@ -18,6 +17,7 @@ M.cmd = {
 }
 
 M.setup = function()
+  vim.g.mkdp_theme = 'dark'
   vim.api.nvim_create_user_command('MarkdownPreviewToggleTheme', toggle_theme, {})
 end
 

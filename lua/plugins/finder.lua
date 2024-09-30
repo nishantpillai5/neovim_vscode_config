@@ -19,6 +19,7 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
       'nvim-telescope/telescope-live-grep-args.nvim',
       'paopaol/telescope-git-diffs.nvim',
+      'scottmckendry/telescope-resession.nvim',
     },
     cond = conds['nvim-telescope/telescope.nvim'] or false,
     keys = require('config.telescope').keys,

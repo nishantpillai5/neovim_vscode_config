@@ -18,7 +18,6 @@ M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
 M.GLOBAL_STATUS = true
 M.SIDEBAR_POSITION = 'left' -- left, right
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
-M.FORCE_RIGHT_TASKS_PANEL = true
 M.SCREEN = 'normal' -- normal, widescreen
 
 if M.CONTEXT == 'work' then

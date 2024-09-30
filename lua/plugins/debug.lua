@@ -3,6 +3,7 @@ local plugins = {
   'rcarriga/nvim-dap-ui',
   -- 'mfussenegger/nvim-dap-python',
   'nvim-neotest/neotest',
+  'Weissle/persistent-breakpoints.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -37,6 +38,13 @@ return {
     config = function()
       require('dap-python').setup(HOME .. '/.virtualenvs/debugpy/Scripts/python')
     end,
+  },
+  {
+    'Weissle/persistent-breakpoints.nvim',
+    event = 'VeryLazy',
+    cond = conds['Weissle/persistent-breakpoints.nvim'] or false,
+    keys = require('config.dap_breakpoints').keys,
+    config = require('config.dap_breakpoints').config,
   },
   {
     'nvim-neotest/neotest',

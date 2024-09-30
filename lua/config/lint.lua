@@ -5,7 +5,9 @@ local M = {}
 M.setup = function()
   local lint = require 'lint'
   lint.linters_by_ft = {
-    c = { "cppcheck" },
+    c = { 'cppcheck' },
+    typescript = { 'eslint_d' },
+    javascript = { 'eslint_d' },
   }
 
   local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
@@ -19,10 +21,12 @@ end
 
 local lint_progress = function()
   local linters = require('lint').get_running()
+  local array = require('config.lualine').array
+  local linters_string = array[1] .. table.concat(linters, ', ') .. array[2]
   if #linters == 0 then
-    return '   [' .. table.concat(linters, ', ') .. ']'
+    return '   '
   end
-  return '   [' .. table.concat(linters, ', ') .. ']'
+  return '   ' .. linters_string
 end
 
 M.lualine = function()

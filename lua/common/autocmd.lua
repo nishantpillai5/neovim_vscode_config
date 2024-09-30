@@ -25,3 +25,10 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     end
   end,
 })
+
+-- Set comment string for Markdown files
+-- FIXME: This is not working, cuz obsidian plugin maybe?
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  command = "setlocal commentstring=<!--\\ %s\\ -->"
+})

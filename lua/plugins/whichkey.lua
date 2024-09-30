@@ -45,7 +45,7 @@ return {
           { '<leader>F', group = 'Find_Telescope' },
           { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
           { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
-          { '<leader>go', group = 'Open' },
+          { '<leader>go', group = 'Open', mode = { 'n', 'v' }},
           { '<leader>gx', group = 'Conflict' },
           { '<leader>l', group = 'LSP', mode = { 'n', 'v' } },
           { '<leader>i', group = 'Test', mode = { 'n', 'v' } },

@@ -27,31 +27,30 @@ local workspace_session = function(action)
 end
 
 M.keymaps = function()
-  local recession = require 'resession'
+  local resession = require 'resession'
   vim.keymap.set('n', '<leader>ws', function()
-    workspace_session(recession.save)
+    workspace_session(resession.save)
   end, { desc = 'save_session' })
 
   vim.keymap.set('n', '<leader>wl', function()
-    workspace_session(recession.load)
+    workspace_session(resession.load)
   end, { desc = 'load_session' })
 
   vim.keymap.set('n', '<leader>wS', function()
-    recession.save()
+    resession.save()
   end, { desc = 'save_manual_session' })
 
   vim.keymap.set('n', '<leader>wL', function()
-    recession.load()
+    resession.load()
   end, { desc = 'load_manual_session' })
 
   vim.keymap.set('n', '<leader>wd', function()
-    recession.delete()
+    resession.delete()
   end, { desc = 'delete_session' })
 end
 
 M.setup = function()
-  local recession = require 'resession'
-  recession.setup {
+  require('resession').setup {
     extensions = {
       overseer = { recent_first = true },
       grapple = {},

@@ -1,39 +1,3 @@
-local M = {}
-
-M.keys = {
-  { '<leader>:', desc = 'find_commands' },
-  { '<leader>ff', desc = 'git_files' },
-  { '<leader>fF', desc = 'ignored_files' },
-  { '<leader>fa', desc = 'all' },
-  { '<leader>fA', desc = 'alternate' },
-  { '<leader>fgd', desc = 'changed_files' },
-  { '<leader>fgb', desc = 'branch_checkout' },
-  -- { '<leader>fgB', desc = 'branch_diff' },
-  { '<leader>fgc', desc = 'commits_checkout' },
-  { '<leader>fgC', desc = 'commits_diff' },
-  { '<leader>fgz', desc = 'stash' },
-  { '<leader>fgx', desc = 'conflicts' },
-  { '<leader>fgl', desc = 'live_grep_changed_files' },
-  { '<leader>fgL', desc = 'live_grep_changed_files_from_main' },
-  { '<leader>ft', desc = 'todos' },
-  { '<leader>fl', desc = 'live_grep_global' },
-  { '<leader>fL', desc = 'live_grep_global_with_args' },
-  { '<leader>/', desc = 'find_local' },
-  { '<leader>?', desc = 'find_global' },
-  { '<leader>fw', desc = 'word' },
-  { '<leader>fW', desc = 'whole_word' },
-  { '<leader>Ff', desc = 'builtin' },
-  { '<leader>fs', desc = 'symbols' },
-  { '<leader>fm', desc = 'marks' },
-  { '<leader>fr', desc = 'recents' },
-  { '<leader>f"', desc = 'registers' },
-  { '<leader>fh', desc = 'buffers' },
-  -- { "<leader>fp", desc = "yank" },
-  { '<leader>fn', desc = 'notes' },
-  { '<leader>nf', desc = 'notes' },
-  { '<leader>wc', desc = 'configurations' },
-}
-
 local utils = require 'common.utils'
 local builtin = require 'telescope.builtin'
 
@@ -60,8 +24,6 @@ local content_ripgrep_base_cmd = utils.merge_list(ripgrep_base_cmd, {
   '--column',
   '--smart-case',
 })
-
--- Private
 
 local function trimGitModificationIndicator(cmd_output)
   return cmd_output:match '[^%s]+$'
@@ -172,7 +134,44 @@ local project_files = function()
   end
 end
 
--- Public
+------------------------------------------------ Public ------------------------------------------------
+
+local M = {}
+
+M.keys = {
+  { '<leader>:', desc = 'find_commands' },
+  { '<leader>ff', desc = 'git_files' },
+  { '<leader>fF', desc = 'ignored_files' },
+  { '<leader>fa', desc = 'all' },
+  { '<leader>fA', desc = 'alternate' },
+  { '<leader>fgd', desc = 'changed_files' },
+  { '<leader>fgb', desc = 'branch_checkout' },
+  -- { '<leader>fgB', desc = 'branch_diff' },
+  { '<leader>fgc', desc = 'commits_checkout' },
+  { '<leader>fgC', desc = 'commits_diff' },
+  { '<leader>fgz', desc = 'stash' },
+  { '<leader>fgx', desc = 'conflicts' },
+  { '<leader>fgl', desc = 'live_grep_changed_files' },
+  { '<leader>fgL', desc = 'live_grep_changed_files_from_main' },
+  { '<leader>ft', desc = 'todos' },
+  { '<leader>fl', desc = 'live_grep_global' },
+  { '<leader>fL', desc = 'live_grep_global_with_args' },
+  { '<leader>/', desc = 'find_local' },
+  { '<leader>?', desc = 'find_global' },
+  { '<leader>fw', desc = 'word' },
+  { '<leader>fW', desc = 'whole_word' },
+  { '<leader>Ff', desc = 'builtin' },
+  { '<leader>fs', desc = 'symbols' },
+  { '<leader>wf', desc = 'find' },
+  { '<leader>fm', desc = 'marks' },
+  { '<leader>fr', desc = 'recents' },
+  { '<leader>f"', desc = 'registers' },
+  { '<leader>fh', desc = 'buffers' },
+  -- { "<leader>fp", desc = "yank" },
+  { '<leader>fn', desc = 'notes' },
+  { '<leader>nf', desc = 'notes' },
+  { '<leader>wc', desc = 'configurations' },
+}
 
 M.keymaps = function()
   vim.keymap.set('n', '<leader>:', builtin.commands, { desc = 'find_commands' })
@@ -238,6 +237,8 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'builtin' })
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'symbols' })
+
+  vim.keymap.set('n', '<leader>wf', '<cmd>Telescope resession<cr>', { desc = 'find' })
 
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'marks' })
 
@@ -340,6 +341,10 @@ M.setup = function()
       },
       git_diffs = {
         git_command = { 'git', 'log', '--oneline', '--decorate', '--all', '.' },
+      },
+      resession = {
+        prompt_title = 'Find Sessions',
+        dir = 'session',
       },
     },
   }

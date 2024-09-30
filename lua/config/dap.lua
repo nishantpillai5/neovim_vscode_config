@@ -7,8 +7,8 @@ M.keys = {
   { '<F7>', desc = 'Debug.step_into' },
   { '<C-F7>', desc = 'Debug.step_out' },
   { '<F8>', desc = 'Debug.step_over' },
-  { 'mb', desc = 'breakpoint' },
-  { 'mB', desc = 'breakpoint_conditional' },
+  -- { 'mb', desc = 'breakpoint' },
+  -- { 'mB', desc = 'breakpoint_conditional' },
   { '[b', desc = 'breakpoint' },
   { ']b', desc = 'breakpoint' },
   { '<leader>fbb', desc = 'breakpoint' },
@@ -53,16 +53,16 @@ M.keymaps = function()
     dap.step_over()
   end, { desc = 'Debug.step_over' })
 
-  vim.keymap.set('n', 'mb', function()
-    dap.toggle_breakpoint()
-  end, { desc = 'breakpoint' })
-
-  vim.keymap.set('n', 'mB', function()
-    local input = vim.fn.input('Condition: ', vim.fn.expand '<cWORD>' .. '==')
-    if input ~= '' then
-      dap.toggle_breakpoint(input, nil, nil)
-    end
-  end, { desc = 'breakpoint_conditional' })
+  -- vim.keymap.set('n', 'mb', function()
+  --   dap.toggle_breakpoint()
+  -- end, { desc = 'breakpoint' })
+  --
+  -- vim.keymap.set('n', 'mB', function()
+  --   local input = vim.fn.input('Condition: ', vim.fn.expand '<cWORD>' .. '==')
+  --   if input ~= '' then
+  --     dap.toggle_breakpoint(input, nil, nil)
+  --   end
+  -- end, { desc = 'breakpoint_conditional' })
 
   vim.keymap.set('n', '[b', function()
     require('goto-breakpoints').prev()
@@ -113,9 +113,9 @@ M.setup = function()
 
   vim.g.dap_virtual_text = true
 
-  vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '@error', linehl = '', numhl = '' })
+  vim.fn.sign_define('DapBreakpoint', { text = '', texthl = '@error', linehl = '', numhl = '' }) -- alternate icons   
   vim.fn.sign_define('DapLogPoint', { text = '󰰍', texthl = '@error', linehl = '', numhl = '' })
-  vim.fn.sign_define('DapBreakpointCondition', { text = '★', texthl = '@error', linehl = '', numhl = '' })
+  vim.fn.sign_define('DapBreakpointCondition', { text = '', texthl = '@error', linehl = '', numhl = '' })
 
   dap.adapters.cppdbg = {
     id = 'cppdbg',

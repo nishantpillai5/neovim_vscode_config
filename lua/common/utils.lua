@@ -132,4 +132,12 @@ function M.starts_with(str, prefix)
   return string.sub(str, 1, #prefix) == prefix
 end
 
+function M.string_to_array(str)
+  local array = {}
+  for i = 1, #str do
+    array[i] = str:sub(i, i)
+  end
+  return array
+end
+
 return M

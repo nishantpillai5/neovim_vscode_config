@@ -28,8 +28,9 @@ return {
   {
     'stevearc/resession.nvim',
     cond = conds['stevearc/resession.nvim'] or false,
-    keys = require('config.recession').keys,
-    config = require('config.recession').config,
+    dependencies = { 'cbochs/grapple.nvim' },
+    keys = require('config.resession').keys,
+    config = require('config.resession').config,
   },
   -- Find other project directories
   {

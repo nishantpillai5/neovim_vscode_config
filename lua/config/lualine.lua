@@ -1,6 +1,10 @@
 local M = {}
 
+-- M.array = require('common.utils').string_to_array '｢｣'
+M.array = { '｢', '｣' }
+
 local EXCLUDED_FTS = { 'toggleterm' }
+local IGNORE_FTS = { 'OverseerList', 'neo-tree', 'vista', 'copilot-chat', 'TelescopePrompt', 'trouble', 'fugitive' }
 local GLOBAL_STATUS = require('common.env').GLOBAL_STATUS
 
 local unsaved_buffer_alert = function()
@@ -13,10 +17,16 @@ local unsaved_buffer_alert = function()
   return ''
 end
 
-local function readonly_alert()
-  local buf = vim.api.nvim_win_get_buf(0)
-  if vim.bo[buf].readonly then
-    return ' '
+local function buffer_array1()
+  if unsaved_buffer_alert() ~= '' then
+    return M.array[1]
+  end
+  return ''
+end
+
+local function buffer_array2()
+  if unsaved_buffer_alert() ~= '' then
+    return M.array[2]
   end
   return ''
 end
@@ -46,9 +56,9 @@ M.setup = function()
     options = {
       globalstatus = GLOBAL_STATUS,
       theme = 'vscode',
-      section_separators = { left = '', right = ' ' },
+      section_separators = { left = '', right = '' },
       component_separators = { left = '', right = '' },
-      ignore_focus = { 'OverseerList', 'neo-tree', 'vista', 'copilot-chat' },
+      ignore_focus = IGNORE_FTS,
       disabled_filetypes = {
         statusline = {},
         winbar = { 'toggleterm' },
@@ -63,7 +73,7 @@ M.setup = function()
       lualine_c = { 'branch', worktree },
       lualine_x = { 'diagnostics' },
       lualine_y = {
-        -- 'encoding',
+        'encoding',
         'filetype',
         'fileformat',
         { 'fileformat', icons_enabled = false },
@@ -78,12 +88,21 @@ M.setup = function()
       lualine_a = {},
       lualine_b = {},
       lualine_c = {
-        { 'filename', path = require('common.env').SCREEN == 'widescreen' and 0 or 1 },
+        {
+          'filename',
+          path = require('common.env').SCREEN == 'widescreen' and 0 or 1,
+          symbols = {
+            modified = '●',
+            readonly = '',
+            directory = '',
+          },
+        },
         'diff',
-        readonly_alert,
       },
 
       lualine_x = {
+        unsaved_buffer_alert,
+        buffer_array1,
         {
           'buffers',
           icons_enabled = false,
@@ -103,7 +122,7 @@ M.setup = function()
             return unsaved_buffer_alert() ~= ''
           end,
         },
-        unsaved_buffer_alert,
+        buffer_array2,
       },
       lualine_y = {},
       lualine_z = {},

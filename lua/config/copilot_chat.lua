@@ -12,7 +12,7 @@ local pr_prompt =
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/config.lua
 
 -- TODO: add exclude dirs (journal) and files (todo.md, readme)
--- TODO: add mapping to disable/enable copilot cX
+-- TODO: add mapping to disable/enable copilot
 -- TODO: role based prompts cR (https://github.com/abelberhane/GPT-Scripts/tree/main/role-prompting)
 
 M.keys = {
@@ -124,11 +124,13 @@ end
 
 M.setup = function()
   require('CopilotChat').setup {
-    show_help = 'yes',
+    show_help = true,
     debug = false,
     disable_extra_info = 'no',
     auto_follow_cursor = false, -- Auto-follow cursor in chat
+    insert_at_end = true,
     language = 'English',
+    context = 'buffers',
     mappings = {
       reset = {
         normal = '<C-r>',

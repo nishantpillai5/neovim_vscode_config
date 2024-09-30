@@ -27,6 +27,7 @@ return {
     'nishantpillai5/todo-comments.nvim', -- WARN: Circular todos not merged, using my fork
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = require('config.todo_comments').keys,
     cond = conds['folke/todo-comments.nvim'] or false,
     config = require('config.todo_comments').config,
   },

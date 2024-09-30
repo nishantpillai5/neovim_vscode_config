@@ -7,7 +7,6 @@ local plugins = {
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
-local NOTES_DIR = require('common.env').DIR_NOTES
 
 return {
   -- Global note

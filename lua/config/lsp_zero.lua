@@ -58,6 +58,7 @@ M.setup = function()
       'jsonls',
       'bashls',
       -- "markdown_oxide",
+      'ts_ls',
     },
   }
 
@@ -125,6 +126,16 @@ M.setup = function()
         settings = {
           Lua = {},
         },
+      }
+    end,
+
+    ['ts_ls'] = function()
+      require('lspconfig').ts_ls.setup {
+        capabilities = capabilities,
+        -- on_attach = function(client, bufnr)
+        -- Disable tsserver formatting if you use another formatter
+        -- client.resolved_capabilities.document_formatting = false
+        -- end,
       }
     end,
   }
@@ -195,7 +206,7 @@ end
 local lsp_clients = function()
   local bufnr = vim.api.nvim_get_current_buf()
 
-  local clients = vim.lsp.buf_get_clients(bufnr)
+  local clients = vim.lsp.get_clients { bufnr = bufnr }
   if next(clients) == nil then
     return '  '
   end
@@ -205,11 +216,8 @@ local lsp_clients = function()
     table.insert(c, get_logo(client.name))
   end
 
-  if IS_WIDESCREEN then
-    return '  [' .. table.concat(c, ' ') .. ']'
-  end
-
-  return '  ' .. table.concat(c, ' ')
+  local array = require('config.lualine').array
+  return '  ' .. array[1] .. table.concat(c, ' ') .. ' ' .. array[2]
 end
 
 M.lualine = function()

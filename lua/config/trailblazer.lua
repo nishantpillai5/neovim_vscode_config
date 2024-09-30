@@ -1,5 +1,11 @@
 local M = {}
 
+M.keys = {
+  { 'md', desc = 'delete_in_buffer' },
+  { 'mm', desc = 'mark' },
+  { 'ml', desc = 'load' },
+}
+
 M.mark_at_pos = function()
   local common = require 'trailblazer.trails.common'
   local actions = require 'trailblazer.trails.actions'
@@ -25,10 +31,14 @@ M.keymaps = function()
   vim.keymap.set('n', 'mm', function()
     M.mark_at_pos()
   end, { desc = 'mark' })
+
+  vim.keymap.set('n', 'ml', '<cmd>TrailBlazerLoadSession<cr>', { desc = 'load' })
 end
 
 M.setup = function()
   require('trailblazer').setup {
+    auto_save_trailblazer_state_on_exit = true,
+    -- auto_load_trailblazer_state_on_enter = true,
     trail_options = {
       current_trail_mark_mode = 'buffer_local_line_sorted',
       multiple_mark_symbol_counters_enabled = false,

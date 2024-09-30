@@ -37,15 +37,6 @@ local action_on_last_task = function(action)
   end
 end
 
-local sidebar_align = function()
-  local align = require('common.env').SIDEBAR_POSITION
-  local force_right = require('common.env').FORCE_RIGHT_TASKS_PANEL
-  if force_right then
-    align = 'right'
-  end
-  return align
-end
-
 local panel_align = function()
   local align = require('common.env').PANEL_POSITION
   local cr_align = (align == 'vertical') and 'OpenVsplit' or 'OpenSplit'
@@ -53,11 +44,11 @@ local panel_align = function()
 end
 
 local toggle_sidebar = function()
-  vim.cmd('OverseerToggle ' .. sidebar_align())
+  vim.cmd 'OverseerToggle'
 end
 
 local open_sidebar = function()
-  vim.cmd('OverseerOpen ' .. sidebar_align())
+  vim.cmd 'OverseerOpen'
   -- focus back to the previous window
   vim.cmd 'wincmd p'
 end

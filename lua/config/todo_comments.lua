@@ -1,4 +1,13 @@
 local M = {}
+M.keys = {
+  { ']t', desc = 'todo' },
+  { '[t', desc = 'todo' },
+  { ']T', desc = 'todo_last' },
+  { '[T', desc = 'todo_first' },
+  { '<leader>fT', desc = 'todos_all' },
+  { '<leader>tT', desc = 'todos' },
+}
+
 M.keymaps = function()
   local todo = require 'todo-comments'
 
@@ -12,11 +21,11 @@ M.keymaps = function()
 
   vim.keymap.set('n', ']T', function()
     todo.jump_next { last = true }
-  end, { desc = 'todo' })
+  end, { desc = 'todo_last' })
 
   vim.keymap.set('n', '[T', function()
     todo.jump_prev { last = true }
-  end, { desc = 'todo' })
+  end, { desc = 'todo_first' })
 
   vim.keymap.set('n', '<leader>fT', function()
     vim.cmd 'TodoTelescope'

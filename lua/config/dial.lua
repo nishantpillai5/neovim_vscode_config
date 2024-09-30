@@ -1,7 +1,7 @@
 local M = {}
 M.keys = {
-  { '<leader>i', "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = 'increment' },
-  { '<leader>I', "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = 'decrement' },
+  { '<C-a>', "<cmd>lua require('dial.map').manipulate('increment', 'normal')<cr>", desc = 'increment' },
+  { '<C-x>', "<cmd>lua require('dial.map').manipulate('decrement', 'normal')<cr>", desc = 'decrement' },
 }
 
 M.setup = function()
