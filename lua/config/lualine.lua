@@ -71,7 +71,7 @@ M.setup = function()
       },
       lualine_b = { cwd },
       lualine_c = { 'branch', worktree },
-      lualine_x = { 'diagnostics' },
+      lualine_x = { { 'diagnostics', always_visible = false } },
       lualine_y = {
         'encoding',
         'filetype',
@@ -115,8 +115,9 @@ M.setup = function()
           fmt = function(name, context)
             if vim.bo[context.bufnr].modified then
               return name
+            else
+              return ''
             end
-            return ''
           end,
           cond = function()
             return unsaved_buffer_alert() ~= ''

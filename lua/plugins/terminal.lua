@@ -36,6 +36,7 @@ return {
       'stevearc/dressing.nvim',
     },
     cond = conds['stevearc/overseer.nvim'] or false,
+    cmd = require('config.overseer').cmd,
     keys = require('config.overseer').keys,
     config = require('config.overseer').config,
   },

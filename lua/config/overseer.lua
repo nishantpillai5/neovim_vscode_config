@@ -1,5 +1,7 @@
 local M = {}
 
+M.cmd = { 'OverseerList' }
+
 M.keys = {
   { '<leader>oo', desc = 'run_from_list' },
   { '<leader>eo', desc = 'tasks' },
@@ -51,6 +53,30 @@ local open_sidebar = function()
   vim.cmd 'OverseerOpen'
   -- focus back to the previous window
   vim.cmd 'wincmd p'
+end
+
+local get_cmd = function(task)
+  if type(task.cmd) == 'string' then
+    return task.cmd
+  end
+  return table.concat(task.cmd, ' ')
+end
+
+local filter_build_tasks = function(task)
+  return string.find(string.lower(get_cmd(task)), 'build') ~= nil
+end
+
+local last_task_text = function()
+  local overseer = require 'overseer'
+  local tasks = overseer.list_tasks {
+    recent_first = true,
+    filter = filter_build_tasks,
+  }
+  if vim.tbl_isempty(tasks) then
+    return ''
+  else
+    return get_cmd(tasks[1])
+  end
 end
 
 M.keymaps = function()
@@ -125,6 +151,10 @@ M.keymaps = function()
       vim.cmd('OverseerDeleteBundle ' .. selected)
     end)
   end, { desc = 'delete_bundle' })
+
+  vim.api.nvim_create_user_command('OverseerList', function()
+    vim.notify(vim.inspect(overseer.list_tasks()[1]))
+  end, {})
 end
 
 M.setup = function()
@@ -176,14 +206,12 @@ end
 
 M.lualine = function()
   local lualineX = require('lualine').get_config().tabline.lualine_x or {}
-  table.insert(lualineX, {
-    'overseer',
-    -- TODO: show last running task in tabline
-    -- name = {"build"},
-    -- name_not = true,
-    -- status = {"build"},
-    -- status_not = true,
-  })
+  if _G.last_task_text then
+    table.insert(lualineX, _G.last_task_text)
+  else
+    table.insert(lualineX, last_task_text)
+  end
+  table.insert(lualineX, { 'overseer' })
 
   require('lualine').setup {
     extensions = { 'overseer', 'nvim-dap-ui' },
