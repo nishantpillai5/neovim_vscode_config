@@ -67,6 +67,14 @@ local filter_build_tasks = function(task)
 end
 
 local last_task_text = function()
+  local status_symbols = {
+    RUNNING = '  ',
+    SUCCESS = '  ',
+    CANCELED = ' 󰜺 ',
+    FAILURE = '  ',
+    DEFAULT = '  ',
+  }
+
   local overseer = require 'overseer'
   local tasks = overseer.list_tasks {
     recent_first = true,
@@ -75,7 +83,8 @@ local last_task_text = function()
   if vim.tbl_isempty(tasks) then
     return ''
   else
-    return get_cmd(tasks[1])
+    local status_symbol = status_symbols[tasks[1].status] or status_symbols.DEFAULT
+    return status_symbol .. get_cmd(tasks[1])
   end
 end
 

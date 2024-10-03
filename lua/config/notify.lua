@@ -12,6 +12,9 @@ end
 
 M.config = function()
   M.setup()
+  if _G.whenNotifyLoaded ~= nil then
+    _G.whenNotifyLoaded()
+  end
 end
 
 -- M.config()

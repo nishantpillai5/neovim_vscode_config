@@ -81,7 +81,6 @@ M.setup = function()
       lualine_z = {
         'progress',
         'location',
-        'searchcount',
       },
     },
     tabline = {
@@ -125,7 +124,9 @@ M.setup = function()
         },
         buffer_array2,
       },
-      lualine_y = {},
+      lualine_y = {
+        'searchcount',
+      },
       lualine_z = {},
     },
   }

@@ -1,4 +1,5 @@
 local M = {}
+local icon = ' '
 
 M.keys = {
   { '<leader>ww', desc = 'select_scope' },
@@ -15,7 +16,7 @@ local replace_telescope_keymaps = function()
   local neoscopes = require 'neoscopes'
   vim.keymap.set('n', '<leader>ff', function()
     require('telescope.builtin').find_files {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
     }
   end, { desc = 'files(workspace)' })
@@ -24,7 +25,7 @@ local replace_telescope_keymaps = function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
     require('telescope.builtin').find_files {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       default_text = basename,
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
@@ -33,7 +34,7 @@ local replace_telescope_keymaps = function()
 
   vim.keymap.set('n', '<leader>fl', function()
     require('telescope.builtin').live_grep {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
@@ -41,7 +42,7 @@ local replace_telescope_keymaps = function()
 
   vim.keymap.set('n', '<leader>fL', function()
     require('telescope').extensions.live_grep_args.live_grep_args {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
     }
@@ -49,7 +50,7 @@ local replace_telescope_keymaps = function()
 
   vim.keymap.set('n', '<leader>?', function()
     require('telescope.builtin').grep_string {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
@@ -59,7 +60,7 @@ local replace_telescope_keymaps = function()
   vim.keymap.set('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
     require('telescope.builtin').grep_string {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
@@ -69,7 +70,7 @@ local replace_telescope_keymaps = function()
   vim.keymap.set('n', '<leader>fW', function()
     local word = vim.fn.expand '<cWORD>'
     require('telescope.builtin').grep_string {
-      prompt_prefix = '󱇳 > ',
+      prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
@@ -81,11 +82,11 @@ local refresh_workspace = function()
   local neoscopes = require 'neoscopes'
   local current_scope = neoscopes.get_current_scope()
   if current_scope == nil then
-    vim.notify '󱇳 No scope selected'
+    vim.notify(icon .. 'No scope selected')
     require('config.telescope').keymaps()
   else
-    local scope_name = neoscopes.get_current_scope().name
-    vim.notify('Scope selected: 󱇳 ' .. scope_name)
+    local scope_name = current_scope.name
+    vim.notify('Scope selected: ' .. icon .. ' ' .. scope_name)
     replace_telescope_keymaps()
     if _G.onSelectWorkspace ~= nil then
       _G.onSelectWorkspace(scope_name)
@@ -93,19 +94,28 @@ local refresh_workspace = function()
   end
 end
 
-M.select_scope = function()
+M.setup = function(selecting)
   local neoscopes = require 'neoscopes'
   neoscopes.setup {
     neoscopes_config_filename = _G.scope_config,
     on_scope_selected = refresh_workspace,
   }
   global_scopes()
-  neoscopes.select()
+
+  if selecting then
+    if _G.selectWorkspace ~= nil then
+      _G.selectWorkspace()
+    else
+      neoscopes.select()
+    end
+  end
 end
 
 M.keymaps = function()
   local neoscopes = require 'neoscopes'
-  vim.keymap.set('n', '<leader>ww', M.select_scope, { desc = 'select_scope' })
+  vim.keymap.set('n', '<leader>ww', function()
+    M.setup(true)
+  end, { desc = 'select_scope' })
 
   vim.keymap.set('n', '<leader>wx', function()
     neoscopes.clear()
@@ -117,9 +127,9 @@ local function lualine_status()
   local neoscopes = require 'neoscopes'
   local current_scope = neoscopes.get_current_scope()
   if current_scope == nil then
-    return '󱇳 '
+    return icon .. ''
   end
-  return '󱇳 ' .. neoscopes.get_current_scope().name
+  return icon .. neoscopes.get_current_scope().name
 end
 
 M.lualine = function()
@@ -130,8 +140,18 @@ M.lualine = function()
 end
 
 M.config = function()
+  if _G.workspace_icon ~= nil then
+    icon = _G.workspace_icon
+  end
+
   M.keymaps()
   M.lualine()
+
+  if _G.workspace_load_on_init ~= nil then
+    M.setup(_G.workspace_load_on_init)
+  else
+    M.setup(false)
+  end
 end
 
 -- M.config()

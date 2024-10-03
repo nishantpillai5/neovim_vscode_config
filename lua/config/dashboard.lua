@@ -83,7 +83,7 @@ M.setup = function()
         {
           desc = '󱇳 Scope',
           group = 'Label',
-          action = require('config.neoscopes').select_scope,
+          action = require('config.neoscopes').setup,
           key = 'w',
         },
         {

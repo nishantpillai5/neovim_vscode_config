@@ -19,6 +19,7 @@ return {
   -- Scoped finder
   {
     'smartpde/neoscopes',
+    event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
     cond = conds['smartpde/neoscopes'] or false,
     keys = require('config.neoscopes').keys,

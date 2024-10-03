@@ -25,6 +25,7 @@ M.setup = function()
       typescript = { 'prettier' },
       c = { 'clang-format' },
       cpp = { 'clang-format' },
+      markdown = { 'prettier' },
       ['_'] = { 'trim_whitespace' },
     },
   }
