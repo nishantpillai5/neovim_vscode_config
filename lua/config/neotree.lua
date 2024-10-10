@@ -1,3 +1,5 @@
+_G.fav_dirs = _G.fav_dirs or nil
+
 local M = {}
 
 local utils = require 'common.utils'

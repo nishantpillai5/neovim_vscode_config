@@ -1,3 +1,5 @@
+_G.loaded_telescope_extension = _G.loaded_telescope_extension or false
+
 local utils = require 'common.utils'
 local builtin = require 'telescope.builtin'
 

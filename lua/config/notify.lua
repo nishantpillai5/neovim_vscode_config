@@ -1,3 +1,5 @@
+_G.notify_loaded_callback = _G.notify_loaded_callback or nil
+
 local M = {}
 
 M.setup = function()
@@ -12,8 +14,8 @@ end
 
 M.config = function()
   M.setup()
-  if _G.whenNotifyLoaded ~= nil then
-    _G.whenNotifyLoaded()
+  if _G.notify_loaded_callback ~= nil then
+    _G.notify_loaded_callback()
   end
 end
 

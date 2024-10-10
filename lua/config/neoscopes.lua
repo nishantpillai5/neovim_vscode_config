@@ -1,5 +1,12 @@
+_G.scope_config_file = _G.scope_config_file or nil
+_G.select_workspace_callback = _G.select_workspace_callback or nil
+_G.select_workspace = _G.select_workspace or nil
+_G.workspace_load_on_init = _G.workspace_load_on_init or nil
+_G.workspace_icon = _G.workspace_icon or nil
+
 local M = {}
 local icon = ' '
+local SILENT = true
 
 M.keys = {
   { '<leader>ww', desc = 'select_scope' },
@@ -82,14 +89,18 @@ local refresh_workspace = function()
   local neoscopes = require 'neoscopes'
   local current_scope = neoscopes.get_current_scope()
   if current_scope == nil then
-    vim.notify(icon .. 'No scope selected')
+    if not SILENT then
+      vim.notify(icon .. 'No scope selected')
+    end
     require('config.telescope').keymaps()
   else
     local scope_name = current_scope.name
-    vim.notify('Scope selected: ' .. icon .. ' ' .. scope_name)
+    if not SILENT then
+      vim.notify('Scope selected: ' .. icon .. ' ' .. scope_name)
+    end
     replace_telescope_keymaps()
-    if _G.onSelectWorkspace ~= nil then
-      _G.onSelectWorkspace(scope_name)
+    if _G.select_workspace_callback ~= nil then
+      _G.select_workspace_callback(scope_name)
     end
   end
 end
@@ -97,14 +108,14 @@ end
 M.setup = function(selecting)
   local neoscopes = require 'neoscopes'
   neoscopes.setup {
-    neoscopes_config_filename = _G.scope_config,
+    neoscopes_config_filename = _G.scope_config_file,
     on_scope_selected = refresh_workspace,
   }
   global_scopes()
 
   if selecting then
-    if _G.selectWorkspace ~= nil then
-      _G.selectWorkspace()
+    if _G.select_workspace ~= nil then
+      _G.select_workspace()
     else
       neoscopes.select()
     end

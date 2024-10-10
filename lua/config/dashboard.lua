@@ -1,3 +1,5 @@
+_G.LOGO = _G.LOGO or nil
+
 local M = {}
 
 local LOGO1 = {

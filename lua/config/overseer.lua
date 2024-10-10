@@ -1,4 +1,9 @@
 local M = {}
+_G.filter_build_tasks = _G.filter_build_tasks or nil
+_G.filter_run_tasks = _G.filter_run_tasks or nil
+_G.task_formatter = _G.task_formatter or nil
+_G.run_cmd = _G.run_cmd or nil
+_G.build_template = _G.build_template or nil
 
 M.cmd = { 'OverseerList' }
 
@@ -29,9 +34,9 @@ local action_on_all_tasks = function(action)
   end
 end
 
-local action_on_last_task = function(action)
+local action_on_last_task = function(action, filter)
   local overseer = require 'overseer'
-  local tasks = overseer.list_tasks { recent_first = true }
+  local tasks = overseer.list_tasks { recent_first = true, filter = filter }
   if vim.tbl_isempty(tasks) then
     vim.notify('No tasks found', vim.log.levels.WARN)
   else
@@ -55,18 +60,35 @@ local open_sidebar = function()
   vim.cmd 'wincmd p'
 end
 
-local get_cmd = function(task)
+M.get_cmd = function(task)
   if type(task.cmd) == 'string' then
     return task.cmd
   end
   return table.concat(task.cmd, ' ')
 end
 
-local filter_build_tasks = function(task)
-  return string.find(string.lower(get_cmd(task)), 'build') ~= nil
+M.filter_build_tasks = function(task)
+  if _G.filter_build_tasks ~= nil then
+    return _G.filter_build_tasks(task)
+  end
+  return string.find(string.lower(M.get_cmd(task)), 'build') ~= nil
 end
 
-local last_task_text = function()
+M.filter_run_tasks = function(task)
+  if _G.filter_run_tasks ~= nil then
+    return _G.filter_run_tasks(task)
+  end
+  return string.find(string.lower(M.get_cmd(task)), 'run') ~= nil
+end
+
+M.task_formatter = function(task)
+  if _G.task_formatter ~= nil then
+    return _G.task_formatter(task)
+  end
+  return M.get_cmd(task)
+end
+
+local last_build_text = function()
   local status_symbols = {
     RUNNING = '  ',
     SUCCESS = '  ',
@@ -78,14 +100,32 @@ local last_task_text = function()
   local overseer = require 'overseer'
   local tasks = overseer.list_tasks {
     recent_first = true,
-    filter = filter_build_tasks,
+    filter = require('config.overseer').filter_build_tasks,
   }
   if vim.tbl_isempty(tasks) then
     return ''
   else
     local status_symbol = status_symbols[tasks[1].status] or status_symbols.DEFAULT
-    return status_symbol .. get_cmd(tasks[1])
+    return status_symbol .. M.task_formatter(tasks[1])
   end
+end
+
+local last_run_text = function()
+  local overseer = require 'overseer'
+  local tasks = overseer.list_tasks {
+    recent_first = true,
+    filter = require('config.overseer').filter_run_tasks,
+    status = { 'RUNNING' },
+  }
+  if vim.tbl_isempty(tasks) then
+    return ''
+  else
+    return ' 󰜎 ' .. M.task_formatter(tasks[1])
+  end
+end
+
+local lualine_status = function()
+  return last_run_text() .. last_build_text()
 end
 
 M.keymaps = function()
@@ -110,7 +150,7 @@ M.keymaps = function()
   end, { desc = 'preview_last' })
 
   vim.keymap.set('n', '<leader>ox', function()
-    action_on_last_task 'stop'
+    action_on_last_task('stop', function (task) return M.filter_run_tasks(task) or M.filter_build_tasks(task) end)
   end, { desc = 'stop_last' })
 
   vim.keymap.set('n', '<leader>oX', function()
@@ -215,11 +255,7 @@ end
 
 M.lualine = function()
   local lualineX = require('lualine').get_config().tabline.lualine_x or {}
-  if _G.last_task_text then
-    table.insert(lualineX, _G.last_task_text)
-  else
-    table.insert(lualineX, last_task_text)
-  end
+  table.insert(lualineX, lualine_status)
   table.insert(lualineX, { 'overseer' })
 
   require('lualine').setup {

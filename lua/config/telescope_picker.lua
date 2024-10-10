@@ -1,3 +1,5 @@
+_G.loaded_telescope_extension = _G.loaded_telescope_extension or nil
+
 local M = {}
 
 M.keys = {

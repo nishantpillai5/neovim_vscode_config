@@ -1,3 +1,5 @@
+_G.gitlinker_config = _G.gitlinker_config or nil
+
 local M = {}
 
 M.cmd = {

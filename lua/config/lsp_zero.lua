@@ -1,3 +1,5 @@
+_G.pyright_settings = _G.pyright_settings or nil
+
 local M = {}
 
 local IS_WIDESCREEN = require('common.env').SCREEN == 'widescreen'

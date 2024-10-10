@@ -1,3 +1,5 @@
+_G.worktree_create_callback = _G.worktree_create_callback or nil
+
 local M = {}
 
 M.keys = {

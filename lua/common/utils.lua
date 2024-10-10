@@ -1,3 +1,5 @@
+_G.main_branch = _G.main_branch or nil
+
 local M = {}
 
 function M.get_keys(t)

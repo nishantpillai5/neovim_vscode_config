@@ -1,3 +1,6 @@
+_G.workspace_select_cmd = _G.workspace_select_cmd or nil
+_G.workspace_close_cmd = _G.workspace_close_cmd or nil
+
 local vscode = require 'vscode'
 
 -------------------------------------- Helpers ------------------------------------------
