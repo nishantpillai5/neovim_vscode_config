@@ -88,6 +88,9 @@ M.task_formatter = function(task)
   return M.get_cmd(task)
 end
 
+local spinner_build_index = 1
+local spinner_run_index = 1
+
 local last_build_text = function()
   local status_symbols = {
     RUNNING = '  ',
@@ -106,6 +109,11 @@ local last_build_text = function()
     return ''
   else
     local status_symbol = status_symbols[tasks[1].status] or status_symbols.DEFAULT
+    if tasks[1].status == 'RUNNING' then
+      local spinner
+      spinner, spinner_build_index = require('common.utils').spinner(spinner_build_index, 'build')
+      status_symbol = ' ' .. spinner .. ' '
+    end
     return status_symbol .. M.task_formatter(tasks[1])
   end
 end
@@ -120,7 +128,10 @@ local last_run_text = function()
   if vim.tbl_isempty(tasks) then
     return ''
   else
-    return ' 󰜎 ' .. M.task_formatter(tasks[1])
+    local spinner
+    spinner, spinner_run_index = require('common.utils').spinner(spinner_run_index, 'run')
+    local status_symbol = ' ' .. spinner .. ' '
+    return status_symbol .. M.task_formatter(tasks[1])
   end
 end
 
@@ -150,7 +161,9 @@ M.keymaps = function()
   end, { desc = 'preview_last' })
 
   vim.keymap.set('n', '<leader>ox', function()
-    action_on_last_task('stop', function (task) return M.filter_run_tasks(task) or M.filter_build_tasks(task) end)
+    action_on_last_task('stop', function(task)
+      return M.filter_run_tasks(task) or M.filter_build_tasks(task)
+    end)
   end, { desc = 'stop_last' })
 
   vim.keymap.set('n', '<leader>oX', function()

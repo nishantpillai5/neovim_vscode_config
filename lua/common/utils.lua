@@ -142,4 +142,15 @@ function M.string_to_array(str)
   return array
 end
 
+-- local run_chars = { '󰖃', '󰜎', '󰑮', '󰜎' }
+-- local build_chars = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' }
+local build_chars = { '', '' }
+local run_chars = { '󰑮', '󰜎' }
+
+function M.spinner(curr_index, char_type)
+  local chars = char_type == 'run' and run_chars or build_chars
+  local new_index = (curr_index % #chars) + 1
+  return chars[new_index], new_index
+end
+
 return M

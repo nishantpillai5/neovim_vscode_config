@@ -54,7 +54,7 @@ M.setup = function()
       -- "typos_lsp",
       'clangd',
       'pyright',
-      'ruff_lsp',
+      -- 'ruff_lsp',
       'lua_ls',
       'yamlls',
       'jsonls',
@@ -92,15 +92,15 @@ M.setup = function()
       }
     end,
 
-    ['ruff_lsp'] = function()
-      require('lspconfig').ruff_lsp.setup {
-        init_options = {
-          settings = {
-            args = {},
-          },
-        },
-      }
-    end,
+    -- ['ruff_lsp'] = function()
+    --   require('lspconfig').ruff_lsp.setup {
+    --     init_options = {
+    --       settings = {
+    --         args = {},
+    --       },
+    --     },
+    --   }
+    -- end,
 
     -- Lua
     ['lua_ls'] = function()
