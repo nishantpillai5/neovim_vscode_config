@@ -95,7 +95,7 @@
         },
         {
             "key": "S",
-            "name": "save_quit",
+            "name": "save_force",
             "type": "command",
             "command": "workbench.action.files.save"
         },

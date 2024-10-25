@@ -1,6 +1,6 @@
 -- Editor
 vim.keymap.set('n', '<leader>s', ':w<cr>', { silent = true, desc = 'save' })
-vim.keymap.set('n', '<leader>S', ':wq<cr>', { silent = true, desc = 'save_quit' })
+vim.keymap.set('n', '<leader>S', ':w!<cr>', { silent = true, desc = 'save_force' })
 vim.keymap.set('n', '<leader>x', ':q<cr>', { silent = true, desc = 'quit' })
 vim.keymap.set('n', '<leader>X', ':bd<cr>', { silent = true, desc = 'buffer_delete' })
 

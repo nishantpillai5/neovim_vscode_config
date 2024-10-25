@@ -1,9 +1,9 @@
 local M = {}
 
-local explain_prompt = 'Write a concise explanation for the active selection in bullet points'
+local explain_prompt = 'Write a concise explanation for the active selection. Don\'t explain everything in the code, just the functionality as a whole'
 local simplify_prompt = 'Simplify and improve readablilty'
 local fix_prompt =
-  'There is a problem in this code. Explain what the problem is and then rewrite the code with the bug fixed'
+  'There is a problem in this code. Explain what the problem is and then rewrite the code with the bug fixed. Only generate code that needs to be changed.'
 local pr_prompt =
   'Generate a list of bullet points for a PR description that reflects the changes made. The points should be concise, clear and should reflect the change in functionality rather than the minor details. The PR description should begin with Changes:'
 
@@ -25,8 +25,8 @@ M.keys = {
   { '<leader>cG', mode = { 'n', 'v' }, desc = 'commit_staged' },
   { '<leader>cr', mode = { 'n', 'v' }, desc = 'review' },
   { '<leader>ct', mode = { 'n', 'v' }, desc = 'tests' },
-  { '<leader>cX', desc = 'stop' },
-  { '<leader>cx', desc = 'reset' },
+  { '<leader>cx', desc = 'stop' },
+  { '<leader>cX', desc = 'reset' },
   { '<leader>cb', desc = 'buffer' },
   { '<leader>cc', mode = 'v', desc = 'selection' },
   { '<leader>cs', mode = 'v', desc = 'simplify' },
@@ -78,11 +78,11 @@ M.keymaps = function()
     vim.cmd 'CopilotChatTests'
   end, { desc = 'tests' })
 
-  vim.keymap.set('n', '<leader>cX', function()
+  vim.keymap.set('n', '<leader>cx', function()
     vim.cmd 'CopilotChatStop'
   end, { desc = 'stop' })
 
-  vim.keymap.set('n', '<leader>cx', function()
+  vim.keymap.set('n', '<leader>cX', function()
     vim.cmd 'CopilotChatReset'
   end, { desc = 'reset' })
 
