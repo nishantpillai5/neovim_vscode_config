@@ -85,13 +85,13 @@ M.keymaps = function()
     trouble.next { skip_groups = true, jump = true }
     vim.wait(200)
     require('gitsigns').nav_hunk 'next'
-  end, { desc = 'trouble_next' })
+  end, { desc = 'trouble_next_jump_to_chunk' })
 
   vim.keymap.set('n', '<leader>K', function()
     trouble.prev { skip_groups = true, jump = true }
     vim.wait(200)
     require('gitsigns').nav_hunk 'next'
-  end, { desc = 'trouble_prev' })
+  end, { desc = 'trouble_prev_jump_to_chunk' })
 
   vim.keymap.set('n', '<M-j>', function()
     trouble.next { skip_groups = true, jump = true }

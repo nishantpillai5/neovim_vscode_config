@@ -1,60 +1,132 @@
 [
     // Explorer hjkl
     {
-        "key": "h",
-        "when": "!inputFocus && filesExplorerFocus",
-        "command": "list.collapse"
+      "key": "h",
+      "when": "!inputFocus && filesExplorerFocus",
+      "command": "list.collapse"
     },
     {
-        "key": "j",
-        "when": "!inputFocus && listFocus",
-        "command": "list.focusDown"
+      "key": "j",
+      "when": "!inputFocus && listFocus",
+      "command": "list.focusDown"
     },
     {
-        "key": "k",
-        "when": "!inputFocus && listFocus",
-        "command": "list.focusUp"
+      "key": "k",
+      "when": "!inputFocus && listFocus",
+      "command": "list.focusUp"
     },
     {
-        "key": "l",
-        "when": "!inputFocus && filesExplorerFocus",
-        "command": "list.select"
+      "key": "l",
+      "when": "!inputFocus && filesExplorerFocus",
+      "command": "list.select"
+    },
+    {
+      "key": "o",
+      "when": "!inputFocus && filesExplorerFocus",
+      "command": "revealFileInOS"
     },
     // Tmux like navigation
     {
-        "key": "ctrl+l",
-        "when": "sideBarFocus",
-        "command": "workbench.action.focusFirstEditorGroup"
+      "key": "ctrl+l",
+      "when": "sideBarFocus",
+      "command": "workbench.action.focusFirstEditorGroup"
     },
     {
-        "key": "ctrl+h",
-        "when": "filesExplorerFocus || sideBarFocus",
-        "command": "workbench.action.focusActivityBar"
+      "key": "ctrl+h",
+      "when": "filesExplorerFocus || sideBarFocus",
+      "command": "workbench.action.focusActivityBar"
     },
     {
-        "key": "ctrl+k",
-        "when": "!editorTextFocus",
-        "command": "workbench.action.focusFirstEditorGroup"
+      "key": "ctrl+k",
+      "when": "!editorTextFocus",
+      "command": "workbench.action.focusFirstEditorGroup"
     },
     {
-        "key": "ctrl+l",
-        "when": "!inputFocus && !sideBarFocus && !editorTextFocus",
-        "command": "workbench.action.focusSideBar"
+      "key": "ctrl+l",
+      "when": "!inputFocus && !sideBarFocus && !editorTextFocus",
+      // "when": "activityBarFocus",
+      "command": "workbench.action.focusSideBar"
     },
     // Cycle through panels like tabs
     {
-        "key": "ctrl+pageDown",
-        "when": "panelFocus",
-        "command": "workbench.action.nextPanelView"
+      "key": "ctrl+pageDown",
+      "when": "panelFocus",
+      "command": "workbench.action.nextPanelView"
     },
     {
-        "key": "ctrl+pageUp",
-        "when": "panelFocus",
-        "command": "workbench.action.previousPanelView"
+      "key": "ctrl+pageUp",
+      "when": "panelFocus",
+      "command": "workbench.action.previousPanelView"
+    },
+    // Whichkey
+    {
+      "key": "ctrl+g",
+      "command": "whichkey.show"
+    },
+    // Debug
+    {
+      "key": "ctrl+f5",
+      "command": "workbench.action.debug.stop",
+      "when": "inDebugMode && !focusedSessionIsAttach"
+    },
+    {
+      "key": "shift+f5",
+      "command": "-workbench.action.debug.stop",
+      "when": "inDebugMode && !focusedSessionIsAttach"
+    },
+    {
+      "key": "ctrl+f5",
+      "command": "-workbench.action.debug.run",
+      "when": "debuggersAvailable && debugState != 'initializing'"
+    },
+    {
+      "key": "f7",
+      "command": "workbench.action.debug.stepInto",
+      "when": "debugState != 'inactive'"
+    },
+    {
+      "key": "f11",
+      "command": "-workbench.action.debug.stepInto",
+      "when": "debugState != 'inactive'"
+    },
+    {
+      "key": "ctrl+f7",
+      "command": "workbench.action.debug.stepOut",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "key": "shift+f11",
+      "command": "-workbench.action.debug.stepOut",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "key": "f8",
+      "command": "workbench.action.debug.stepOver",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "key": "f10",
+      "command": "-workbench.action.debug.stepOver",
+      "when": "debugState == 'stopped'"
+    },
+    {
+      "key": "f8",
+      "command": "-editor.action.marker.nextInFiles",
+      "when": "editorFocus"
+    },
+    {
+      "key": "f9",
+      "command": "-editor.debug.action.toggleBreakpoint",
+      "when": "debuggersAvailable && disassemblyViewFocus || debuggersAvailable && editorTextFocus"
+    },
+    {
+      "key": "f5",
+      "command": "workbench.action.debug.selectandstart",
+      "when": "debuggersAvailable && debugState == 'inactive'"
+    },
+    {
+      "key": "f5",
+      "command": "-workbench.action.debug.start",
+      "when": "debuggersAvailable && debugState == 'inactive'"
     }
-    // To use whichkey without neovim, use this keybinding
-    // {
-    //   "key": "ctrl+g",
-    //   "command": "whichkey.show"
-    // }
-]
+  ]  

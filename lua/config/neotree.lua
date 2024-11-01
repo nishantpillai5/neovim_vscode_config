@@ -9,7 +9,6 @@ M.keys = {
   { '<leader>ee', desc = 'explorer' },
   { '<leader>eb', desc = 'buffers' },
   { '<leader>eg', desc = 'git' },
-  { '<leader>eE', desc = 'toggle' },
   { '<leader>fe', desc = 'explorer' },
 }
 
@@ -45,9 +44,9 @@ M.keymaps = function()
     vim.cmd 'Neotree reveal focus git_status'
   end, { desc = 'git' })
 
-  vim.keymap.set('n', '<leader>eE', function()
-    vim.cmd 'Neotree toggle last'
-  end, { desc = 'toggle' })
+  -- vim.keymap.set('n', '<leader>eE', function()
+  --   vim.cmd 'Neotree toggle last'
+  -- end, { desc = 'toggle' })
 
   vim.keymap.set('n', '<leader>fe', find_dir, { desc = 'explorer' })
 end
@@ -87,29 +86,9 @@ M.setup = function()
     },
     commands = {
       system_open = function(state)
-        local os = require('common.env').OS
         local node = state.tree:get_node()
         local path = node:get_id()
-
-        if os == 'mac' then
-          -- macOs: open file in default application in the background.
-          vim.fn.jobstart({ 'xdg-open', '-g', path }, { detach = true })
-        end
-        if os == 'linux' then
-          -- Linux: open file in default application
-          vim.fn.jobstart({ 'xdg-open', path }, { detach = true })
-        end
-        if os == 'windows' then
-          -- Windows: Without removing the file from the path, it opens in code.exe instead of explorer.exe
-          local p
-          local lastSlashIndex = path:match '^.+()\\[^\\]*$' -- Match the last slash and everything before it
-          if lastSlashIndex then
-            p = path:sub(1, lastSlashIndex - 1) -- Extract substring before the last slash
-          else
-            p = path -- If no slash found, return original path
-          end
-          vim.cmd('silent !start explorer ' .. p)
-        end
+        require('common.utils').open_explorer(path)
       end,
     },
   }

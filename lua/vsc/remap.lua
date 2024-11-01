@@ -1,6 +1,3 @@
-_G.workspace_select_cmd = _G.workspace_select_cmd or nil
-_G.workspace_close_cmd = _G.workspace_close_cmd or nil
-
 local vscode = require 'vscode'
 
 -------------------------------------- Helpers ------------------------------------------
@@ -12,206 +9,71 @@ local function map_action(mode, key, input, opts)
   end, { noremap = true, silent = true })
 end
 
-local function map_whichkey_node(mode, key, node)
-  vim.keymap.set(mode, key, function()
-    vscode.call 'whichkey.show'
-    vscode.call('whichkey.triggerKey', { args = { node } })
-  end, { noremap = true, silent = true })
+local function map_node(mode, binding)
+  if string.find(binding, '<leader>') then
+    local node = string.gsub(binding, '<leader>', '')
+    vim.keymap.set(mode, binding, function()
+      vscode.call 'whichkey.show'
+      vscode.call('whichkey.triggerKey', { args = { node } })
+    end, { noremap = true, silent = true })
+  else
+    -- FIXME: messes up g bindings
+    -- local node = binding
+    -- vim.keymap.set(mode, binding, function()
+    --   vscode.call('whichkey.show', { args = { 'whichkey.others' } })
+    --   vscode.call('whichkey.triggerKey', { args = { node } })
+    -- end, { noremap = true, silent = true })
+  end
 end
 
-Map_whichkey_nodes = function(mode, prefix, parent_key, maps)
-  if type(maps) == 'string' then
-    map_whichkey_node(mode, prefix, parent_key)
-  else
-    for key, lookup in pairs(maps) do
-      if key ~= 'name' then
-        map_whichkey_node(mode, prefix .. key, key)
-        Map_whichkey_nodes(mode, prefix .. key, key, lookup)
+local function mapVscWhichkeyConfig(json, binding)
+  binding = binding or ''
+  if type(json) == 'table' then
+    if #json > 0 then
+      for _, value in ipairs(json) do
+        mapVscWhichkeyConfig(value, binding)
+      end
+    else
+      if not json['key'] then
+        vim.notify('Key is nil: ' .. binding)
+      end
+      binding = binding .. json['key']
+      if json['type'] == 'bindings' then
+        map_node({ 'n', 'v' }, binding)
+        mapVscWhichkeyConfig(json['bindings'], binding)
+      elseif json['type'] == 'command' then
+        map_action({ 'n', 'v' }, binding, json['command'])
       end
     end
   end
 end
 
--------------------------------------- Basics -------------------------------------------
+local function readVscConfig()
+  local path = require('common.env').VSC_CONFIG
+  local file = io.open(path, 'r')
+  if not file then
+    vim.notify('Failed to read vscode config: ' .. path, vim.log.levels.ERROR)
+    return
+  end
+  local content = file:read '*a'
+  file:close()
+  local ok, jsonfile = pcall(vim.fn.json_decode, content)
+  if not ok then
+    vim.notify('Failed to decode vscode config: ' .. jsonfile, vim.log.levels.ERROR)
+    return
+  end
+  mapVscWhichkeyConfig(jsonfile['whichkey.bindings'], '<leader>')
+  mapVscWhichkeyConfig(jsonfile['whichkey.others'], '')
+end
 
-map_action('n', '<leader>x', 'workbench.action.closeActiveEditor')
-map_action('n', '<leader>s', 'workbench.action.files.save')
-map_action('n', '<leader>zv', 'workbench.action.splitEditorRight')
-map_action('n', '<leader>zs', 'workbench.action.splitEditorDown')
-map_action('n', '<leader>H', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
+-------------------------------------- Set keymaps --------------------------------------------
 
--- Netrw
-map_action('n', '<leader>ef', 'workbench.view.explorer')
+vscode.action('whichkey.register', { args = { bindings = { 'whichkey', 'others' } } })
 
--- Resize horizontally with Ctrl-Up and Ctrl-Down
-map_action('n', '<C-Up>', 'workbench.action.increaseViewHeight')
-map_action('n', '<C-Down>', 'workbench.action.decreaseViewHeight')
-
--- Resize vertically with Ctrl-Right and Ctrl-Left
-map_action('n', '<C-Left>', 'workbench.action.decreaseViewWidth')
-map_action('n', '<C-Right>', 'workbench.action.increaseViewWidth')
-
--------------------------------------- Aesthetics ---------------------------------------
-
-map_action('n', '<leader>zn', 'notifications.toggleDoNotDisturbMode')
-
--------------------------------------- AI -----------------------------------------------
-
-map_action('n', '<leader>cc', 'inlineChat.start')
-
-map_action('n', '<leader>ce', 'github.copilot.chat.explain.palette')
-map_action('v', '<leader>ce', 'github.copilot.chat.explain.palette')
-
-map_action('n', '<leader>cf', 'github.copilot.interactiveEditor.fix')
-map_action('v', '<leader>cf', 'github.copilot.interactiveEditor.fix')
-
--------------------------------------- Debug --------------------------------------------
-
--- Dap
--- map( "n", "<leader>dr", 'workbench.action.debug.run')
--- map( "n", "<leader>ds", 'workbench.action.debug.start')
-map_action('n', '<F5>', 'workbench.action.debug.continue')
-map_action('n', '<C-F5>', 'workbench.action.debug.stop')
-map_action('n', '<F6>', 'workbench.action.debug.pause')
-map_action('n', '<F7>', 'workbench.action.debug.stepInto')
-map_action('n', '<C-F7>', 'workbench.action.debug.stepOut')
-map_action('n', '<F8>', 'workbench.action.debug.stepOver')
-map_action('n', '<leader>bb', 'editor.debug.action.toggleBreakpoint')
-map_action('n', '[b', 'editor.debug.action.goToPreviousBreakpoint')
-map_action('n', ']b', 'editor.debug.action.goToNextBreakpoint')
-
--- DAP UI
--- TODO: add hover
-map_action('n', '<leader>bt', 'workbench.view.debug')
-
--------------------------------------- Editor -------------------------------------------
-
--- Comments
-map_action('n', '[t', 'todo-tree.goToPrevious')
-map_action('n', ']t', 'todo-tree.goToNext')
-
--- Tmux like navigation
-map_action('n', '<C-h>', 'workbench.action.navigateLeft')
-map_action('n', '<C-j>', 'workbench.action.navigateDown')
-map_action('n', '<C-k>', 'workbench.action.navigateUp')
-map_action('n', '<C-l>', 'workbench.action.navigateRight')
-
--- Undotree
-map_action('n', '<leader>u', 'timeline.toggleExcludeSource:timeline.localHistory')
-
--- Zen
-map_action('n', '<leader>zz', 'workbench.action.toggleMaximizeEditorGroup')
-
--------------------------------------- Explorer -----------------------------------------
-
-map_action('n', '<leader>ed', 'workbench.files.action.compareFileWith')
-map_action('n', '<leader>ee', 'workbench.view.explorer')
-map_action('n', '<leader>eg', 'workbench.view.scm')
-map_action('n', '<leader>es', 'outline.focus')
-map_action('n', '<leader>ex', 'workbench.action.toggleSidebarVisibility')
-map_action('n', '<leader>eyy', 'copyFilePath')
-map_action('n', '<leader>eyY', 'copyRelativeFilePath')
-
--------------------------------------- Finder -------------------------------------------
-
--- Telescope
-map_action('n', '<leader>:', 'workbench.action.showCommands')
-map_action('v', '<leader>:', 'workbench.action.showCommands')
-map_action('n', '<leader>ff', 'workbench.action.quickOpen')
-map_action('n', '<leader>fa', 'workbench.action.quickOpen')
-map_action('n', '<leader>fA', 'workbench.action.quickOpen')
-
-map_action('n', '<leader>fgd', 'gitlens.openChangedFiles')
-map_action('n', '<leader>fgb', 'git.checkout')
-map_action('n', '<leader>fgc', 'gitlens.showCommitSearch')
-map_action('n', '<leader>fgz', 'gitlens.gitCommands.stash.list')
-
-map_action('n', '<leader>fl', 'workbench.action.findInFiles')
-map_action('n', '<leader>fL', 'workbench.action.findInFiles')
-map_action('n', '<leader>/', 'fuzzySearch.activeTextEditor')
-map_action('n', '<leader>?', 'workbench.action.findInFiles')
-
-map_action('n', '<leader>fs', 'workbench.action.gotoSymbol')
-map_action('n', '<leader>fr', 'workbench.action.openRecent')
-map_action('n', '<leader>fh', 'workbench.action.showAllEditors')
-
--- Grapple
-map_action('n', '<leader>h', 'workbench.action.showAllEditors')
-
--------------------------------------- Git ----------------------------------------------
-
---Fugitive
-map_action('n', '<leader>gs', 'workbench.view.scm')
-map_action('n', '<leader>gl', 'git.viewHistory')
--- map("n", "<leader>gb", "gitlens.showQuickCommitFileDetails")
-map_action('n', '<leader>gB', 'gitlens.toggleFileBlame')
-
---LazyGit
-
--- Diffview
-map_action('n', '<leader>gd', 'workbench.view.scm')
-map_action('n', '<leader>gD', 'git.viewFileHistory')
-
--- Gitlinker
-map_action('n', '<leader>goc', 'gitlens.openCommitOnRemote')
-map_action('n', '<leader>gop', 'gitlens.openAssociatedPullRequestOnRemote')
-
--- Gitsigns
-map_action('n', '[c', 'workbench.action.editor.previousChange')
-map_action('n', ']c', 'workbench.action.editor.nextChange')
-map_action('n', '<leader>gv', 'gitlens.toggleLineBlame')
-
--- Hunk maps
-
--------------------------------------- LSP ----------------------------------------------
-
--- LSP
-map_action('n', 'gd', 'editor.action.revealDefinition')
-map_action('n', 'gD', 'editor.action.goToDeclaration')
-map_action('n', 'gi', 'editor.action.goToImplementation')
-map_action('n', 'gl', 'workbench.actions.view.problems')
-map_action('n', 'go', 'editor.action.goToTypeDefinition')
-map_action('n', '<F2>', 'editor.action.rename')
-map_action('n', '<F3>', 'editor.action.formatDocument')
-map_action('n', '<F4>', 'editor.action.quickFix')
-
--- Formatter
-map_action('n', '<leader>ls', 'editor.action.formatDocument')
-map_action('v', '<leader>ls', 'editor.action.formatSelection')
-
--- Trouble
-map_action('n', '<leader>tt', 'workbench.action.togglePanel')
-map_action('n', '<leader>td', 'workbench.actions.view.toggleProblems')
-map_action('n', '<leader>tq', 'problems.action.showQuickFixes')
-map_action('n', '<leader>k', 'editor.action.marker.prev')
-map_action('n', '<leader>j', 'editor.action.marker.next')
-map_action('n', 'gr', 'editor.action.goToReferences')
-
--------------------------------------- Refactor -----------------------------------------
-
-map_action('n', '<leader>rn', 'editor.action.refactor')
-map_action('n', '<leader>rr', 'editor.action.refactor')
-
--- Spectre
-map_action('n', '<leader>r/', 'search.action.replaceAllInFile')
-map_action('n', '<leader>r?', 'workbench.action.replaceInFiles')
-
--------------------------------------- Terminal -----------------------------------------
-
--- Terminal
-map_action('n', '<leader>;;', 'workbench.action.terminal.toggleTerminal')
-map_action('n', '<leader>;f', 'workbench.action.terminal.toggleTerminal')
-map_action('n', '<leader>f;', 'workbench.action.terminal.toggleTerminal')
-
--- Build
-map_action('n', '<leader>oo', 'workbench.action.tasks.build')
-
--------------------------------------- Workspace ----------------------------------------
-
-map_action('n', '<leader>ww', _G.workspace_select_cmd)
-map_action('n', '<leader>wx', _G.workspace_close_cmd)
-
--------------------------------------- Whichkey -----------------------------------------
+readVscConfig()
 
 map_action('n', '<leader>', 'whichkey.show')
-Map_whichkey_nodes('n', '<leader>', nil, require('common.whichkey_config').leader_maps)
+map_action('n', '<leader><leader>', 'whichkey.show', { args = { 'whichkey.others' } })
+
+-- ctrl+r: "workbench.action.chat.clearHistory"
+-- map("n", "<leader>gb", "gitlens.showQuickCommitFileDetails")

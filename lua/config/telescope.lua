@@ -164,7 +164,7 @@ M.keys = {
   { '<leader>fW', desc = 'whole_word' },
   { '<leader>Ff', desc = 'builtin' },
   { '<leader>fs', desc = 'symbols' },
-  { '<leader>wf', desc = 'find' },
+  { '<leader>wf', desc = 'find_session' },
   { '<leader>fm', desc = 'marks' },
   { '<leader>fr', desc = 'recents' },
   { '<leader>f"', desc = 'registers' },
@@ -240,7 +240,7 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'symbols' })
 
-  vim.keymap.set('n', '<leader>wf', '<cmd>Telescope resession<cr>', { desc = 'find' })
+  vim.keymap.set('n', '<leader>wf', '<cmd>Telescope resession<cr>', { desc = 'find_session' })
 
   vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'marks' })
 

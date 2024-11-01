@@ -15,8 +15,9 @@ M.DIR_NVIM = os.getenv 'DIR_NVIM' or M.HOME .. '/.config/nvim'
 M.NVIM_PLUGINS = os.getenv 'NVIM_PLUGINS' or M.HOME .. '/.nvim/local_lazy'
 M.GITIGNORE_PREFIX = os.getenv 'GITIGNORE_PREFIX'
 
+M.VSC_CONFIG = os.getenv 'VSC_CONFIG' or M.HOME .. 'AppData/Roaming/Code/User/settings.json'
+
 M.GLOBAL_STATUS = true
-M.SIDEBAR_POSITION = 'left' -- left, right
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
 M.SCREEN = 'normal' -- normal, widescreen
 

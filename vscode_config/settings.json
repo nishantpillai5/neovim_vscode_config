@@ -8,45 +8,263 @@
             "command": "vscode-neovim.escape"
         }
     },
+    "alt8.projections": {
+        "*.c": {
+            "alternate": "{}.h"
+        },
+        "*.h": {
+            "alternate": "{}.c"
+        }
+    },
+    "search.seedOnFocus": true,
+    "search.seedWithNearestWord": true,
     "whichkey.delay": 0,
+    "whichkey.others": [
+        {
+            "key": "<F2>",
+            "name": "rename",
+            "type": "command",
+            "command": "editor.action.rename"
+        },
+        {
+            "key": "<F3>",
+            "name": "format",
+            "type": "command",
+            "command": "editor.action.formatDocument"
+        },
+        {
+            "key": "<F4>",
+            "name": "code_action",
+            "type": "command",
+            "command": "editor.action.quickfix"
+        },
+        {
+            "key": "<C-h>",
+            "name": "nav_left",
+            "type": "command",
+            "command": "workbench.action.navigateLeft"
+        },
+        {
+            "key": "<C-l>",
+            "name": "nav_right",
+            "type": "command",
+            "command": "workbench.action.navigateRight"
+        },
+        {
+            "key": "<C-j>",
+            "name": "nav_up",
+            "type": "command",
+            "command": "workbench.action.navigateUp"
+        },
+        {
+            "key": "<C-k>",
+            "name": "nav_down",
+            "type": "command",
+            "command": "workbench.action.navigateDown"
+        },
+        {
+            "key": "<C-Up>",
+            "name": "height_up",
+            "type": "command",
+            "command": "workbench.action.increaseViewHeight"
+        },
+        {
+            "key": "<C-Down>",
+            "name": "height_down",
+            "type": "command",
+            "command": ""
+        },
+        {
+            "key": "<C-Left>",
+            "name": "width_left",
+            "type": "command",
+            "command": "workbench.action.decreaseViewWidth"
+        },
+        {
+            "key": "<C-Right>",
+            "name": "width_right",
+            "type": "command",
+            "command": "workbench.action.increaseViewWidth"
+        },
+        {
+            "key": "[",
+            "name": "+Prev",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "c",
+                    "name": "chunk",
+                    "type": "command",
+                    "command": "workbench.action.editor.previousChange"
+                },
+                {
+                    "key": "d",
+                    "name": "diagnostic",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "b",
+                    "name": "breakpoint",
+                    "type": "command",
+                    "command": "editor.debug.action.goToPreviousBreakpoint"
+                },
+                {
+                    "key": "i",
+                    "name": "test",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "t",
+                    "name": "todo",
+                    "type": "command",
+                    "command": "todo-tree.goToPrevious"
+                },
+                {
+                    "key": "t",
+                    "name": "todo_last",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "x",
+                    "name": "conflict",
+                    "type": "command",
+                    "command": "not implemented"
+                }
+            ]
+        },
+        {
+            "key": "]",
+            "name": "+Next",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "c",
+                    "name": "chunk",
+                    "type": "command",
+                    "command": "workbench.action.editor.nextChange"
+                },
+                {
+                    "key": "d",
+                    "name": "diagnostic",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "b",
+                    "name": "breakpoint",
+                    "type": "command",
+                    "command": "editor.debug.action.goToNextBreakpoint"
+                },
+                {
+                    "key": "i",
+                    "name": "test",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "t",
+                    "name": "todo",
+                    "type": "command",
+                    "command": "todo-tree.goToNext"
+                },
+                {
+                    "key": "t",
+                    "name": "todo_last",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "x",
+                    "name": "conflict",
+                    "type": "command",
+                    "command": "not implemented"
+                }
+            ]
+        },
+        {
+            "key": "g",
+            "name": "+g",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "d",
+                    "name": "definition",
+                    "type": "command",
+                    "command": "editor.action.revealDefinition"
+                },
+                {
+                    "key": "D",
+                    "name": "declaration",
+                    "type": "command",
+                    "command": "editor.action.goToDeclaration"
+                },
+                {
+                    "key": "i",
+                    "name": "implementation",
+                    "type": "command",
+                    "command": "editor.action.goToImplementation"
+                },
+                {
+                    "key": "l",
+                    "name": "diagnostic",
+                    "type": "command",
+                    "command": "workbench.actions.view.problems"
+                },
+                {
+                    "key": "o",
+                    "name": "symbol",
+                    "type": "command",
+                    "command": "editor.action.goToTypeDefinition"
+                },
+                {
+                    "key": "r",
+                    "name": "references",
+                    "type": "command",
+                    "command": "editor.action.goToReferences"
+                }
+            ]
+        },
+        {
+            "key": "m",
+            "name": "+Marks",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "b",
+                    "name": "breakpoint",
+                    "type": "command",
+                    "command": "editor.debug.action.toggleBreakpoint"
+                }
+            ]
+        }
+    ],
     "whichkey.bindings": [
         {
-            "key": ":",
-            "name": "find_commands",
+            "key": "a",
+            "name": "grapple_add",
             "type": "command",
-            "command": "workbench.action.showCommands"
-        },
-        {
-            "key": "?",
-            "name": "find_global",
-            "type": "command",
-            "command": "workbench.action.findInFiles"
-        },
-        {
-            "key": "/",
-            "name": "find_local",
-            "type": "command",
-            "command": "fuzzySearch.activeTextEditor"
+            "command": "not implemented"
         },
         {
             "key": "A",
             "name": "alternate_file",
             "type": "command",
-            // FIXME: use will-wow.vscode-alternate-file
-            "command": ""
+            "command": "alt8.findRelatedFiles"
         },
         {
             "key": "d",
             "name": "delete_to_clipboard",
             "type": "command",
-            // FIXME: only available through neovim
-            "command": ""
+            "command": "only available through neovim"
         },
         {
-            "key": "H",
-            "name": "buffer_prev",
+            "key": "D",
+            "name": "delete_to_void",
             "type": "command",
-            "command": "workbench.action.previousEditor"
+            "command": "only available through neovim"
         },
         {
             "key": "h",
@@ -55,18 +273,10 @@
             "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor"
         },
         {
-            "key": "I",
-            "name": "decrement",
+            "key": "H",
+            "name": "buffer_prev",
             "type": "command",
-            // FIXME: only available through neovim
-            "command": ""
-        },
-        {
-            "key": "i",
-            "name": "increment",
-            "type": "command",
-            // FIXME: only available through neovim
-            "command": ""
+            "command": "workbench.action.previousEditor"
         },
         {
             "key": "j",
@@ -75,17 +285,22 @@
             "command": "editor.action.marker.next"
         },
         {
-            "key": "J",
-            "name": "code_join",
-            "type": "command",
-            // FIXME: doesn't work 
-            "command": ""
-        },
-        {
             "key": "k",
             "name": "trouble_prev",
             "type": "command",
             "command": "editor.action.marker.prev"
+        },
+        {
+            "key": "O",
+            "name": "run_cmd",
+            "type": "command",
+            "command": "only available through neovim"
+        },
+        {
+            "key": "q",
+            "name": "switch_macro_slot",
+            "type": "command",
+            "command": "only available through neovim"
         },
         {
             "key": "s",
@@ -113,42 +328,27 @@
         },
         {
             "key": "X",
-            "name": "quit_force",
+            "name": "quit_others",
             "type": "command",
-            "command": "workbench.action.closeActiveEditor"
+            "command": "workbench.action.closeOtherEditors"
         },
         {
-            "key": "Y",
-            "name": "yank_to_clipboard",
+            "key": "/",
+            "name": "find_local",
             "type": "command",
-            // FIXME: only available through neovim
-            "command": ""
+            "command": "fuzzySearch.activeTextEditor"
         },
         {
-            "key": "y",
-            "name": "yank_to_clipboard",
+            "key": ":",
+            "name": "find_commands",
             "type": "command",
-            // FIXME: only available through neovim
-            "command": ""
+            "command": "workbench.action.showCommands"
         },
         {
-            "key": ";",
-            "name": "+Terminal",
-            "type": "bindings",
-            "bindings": [
-                {
-                    "key": ";",
-                    "name": "toggle",
-                    "type": "command",
-                    "command": "workbench.action.terminal.toggleTerminal"
-                },
-                {
-                    "key": "f",
-                    "name": "toggle",
-                    "type": "command",
-                    "command": "workbench.action.terminal.toggleTerminal"
-                }
-            ]
+            "key": "?",
+            "name": "find_global",
+            "type": "command",
+            "command": "workbench.action.findInFiles"
         },
         {
             "key": "b",
@@ -157,15 +357,21 @@
             "bindings": [
                 {
                     "key": "b",
-                    "name": "toggle",
-                    "type": "command",
-                    "command": "editor.debug.action.toggleBreakpoint"
-                },
-                {
-                    "key": "t",
                     "name": "toggle_view",
                     "type": "command",
                     "command": "workbench.view.debug"
+                },
+                {
+                    "key": "K",
+                    "name": "hover",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "z",
+                    "name": "virtual_text_toggle",
+                    "type": "command",
+                    "command": "not implemented"
                 }
             ]
         },
@@ -175,22 +381,100 @@
             "type": "bindings",
             "bindings": [
                 {
-                    "key": "c",
-                    "name": "chat",
+                    "key": "b",
+                    "name": "buffer",
                     "type": "command",
-                    "command": "inlineChat.start"
+                    "command": "workbench.action.chat.openInSidebar"
+                },
+                {
+                    "key": "c",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.chat.openInSidebar"
+                },
+                {
+                    "key": "d",
+                    "name": "diagnostic_fix",
+                    "type": "command",
+                    "command": "github.copilot.interactiveEditor.fix"
+                },
+                {
+                    "key": "D",
+                    "name": "docs",
+                    "type": "command",
+                    "command": "github.copilot.interactiveEditor.generateDocs"
                 },
                 {
                     "key": "e",
                     "name": "explain",
                     "type": "command",
-                    "command": "github.copilot.interactiveEditor.explain.palette"
+                    "command": "github.copilot.chat.explain.palette"
                 },
                 {
                     "key": "f",
-                    "name": "chat",
+                    "name": "find",
                     "type": "command",
-                    "command": "github.copilot.interactiveEditor.fix"
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "g",
+                    "name": "commit",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "G",
+                    "name": "commit_staged",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "o",
+                    "name": "optimize",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "p",
+                    "name": "pr",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "r",
+                    "name": "review",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "t",
+                    "name": "tests",
+                    "type": "command",
+                    "command": "github.copilot.interactiveEditor.generateTests"
+                },
+                {
+                    "key": "x",
+                    "name": "stop",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "X",
+                    "name": "reset",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "a",
+                    "name": "attach_selection",
+                    "type": "command",
+                    "command": "github.copilot.chat.attachSelection"
+                },
+                {
+                    "key": "A",
+                    "name": "attach_file",
+                    "type": "command",
+                    "command": "github.copilot.chat.attachFile"
                 }
             ]
         },
@@ -200,14 +484,44 @@
             "type": "bindings",
             "bindings": [
                 {
+                    "key": "b",
+                    "name": "buffers",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
                     "key": "d",
                     "name": "diff_file_current",
                     "type": "command",
                     "command": "workbench.files.action.compareFileWith"
                 },
                 {
+                    "key": "D",
+                    "name": "diff_file_select_both",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
                     "key": "e",
-                    "name": "neotree",
+                    "name": "explorer",
+                    "type": "command",
+                    "command": "workbench.view.explorer"
+                },
+                {
+                    "key": "E",
+                    "name": "open_current_file_dir",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "f",
+                    "name": "oil",
+                    "type": "command",
+                    "command": "workbench.view.explorer"
+                },
+                {
+                    "key": "F",
+                    "name": "netrw",
                     "type": "command",
                     "command": "workbench.view.explorer"
                 },
@@ -218,10 +532,28 @@
                     "command": "workbench.view.scm"
                 },
                 {
+                    "key": "i",
+                    "name": "tests",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "o",
+                    "name": "tasks",
+                    "type": "command",
+                    "command": "workbench.action.tasks.showTasks"
+                },
+                {
                     "key": "s",
                     "name": "symbols",
                     "type": "command",
                     "command": "outline.focus"
+                },
+                {
+                    "key": "S",
+                    "name": "symbols_close",
+                    "type": "command",
+                    "command": "workbench.action.toggleSidebarVisibility"
                 },
                 {
                     "key": "x",
@@ -234,6 +566,18 @@
                     "name": "+Yank",
                     "type": "bindings",
                     "bindings": [
+                        {
+                            "key": "f",
+                            "name": "filename",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "F",
+                            "name": "folder",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
                         {
                             "key": "y",
                             "name": "absolute_path",
@@ -250,12 +594,35 @@
                 }
             ]
         },
-        // FIXME: complete binds below
         {
             "key": "f",
             "name": "+Find",
             "type": "bindings",
             "bindings": [
+                {
+                    "key": "a",
+                    "name": "all",
+                    "type": "command",
+                    "command": "workbench.action.quickOpen"
+                },
+                {
+                    "key": "A",
+                    "name": "alternate",
+                    "type": "command",
+                    "command": "workbench.action.quickOpen"
+                },
+                {
+                    "key": "c",
+                    "name": "chat",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "e",
+                    "name": "explorer",
+                    "type": "command",
+                    "command": "not implemented"
+                },
                 {
                     "key": "f",
                     "name": "git_files",
@@ -263,59 +630,58 @@
                     "command": "workbench.action.quickOpen"
                 },
                 {
-                    "key": "a",
-                    "name": "git_files",
+                    "key": "F",
+                    "name": "ignored_files",
                     "type": "command",
-                    "command": "workbench.action.quickOpen"
+                    "command": "not implemented"
                 },
                 {
-                    "key": "A",
-                    "name": "git_files",
+                    "key": "h",
+                    "name": "buffers",
                     "type": "command",
-                    "command": "workbench.action.quickOpen"
-                },
-                {
-                    "key": "g",
-                    "name": "+Git",
-                    "type": "bindings",
-                    "bindings": [
-                        {
-                            "key": "d",
-                            "name": "diff",
-                            "type": "command",
-                            "command": "gitlens.openChangedFiles"
-                        },
-                        {
-                            "key": "b",
-                            "name": "branches",
-                            "type": "command",
-                            "command": "git.checkout"
-                        },
-                        {
-                            "key": "c",
-                            "name": "commits",
-                            "type": "command",
-                            "command": "gitlens.showCommitSearch"
-                        },
-                        {
-                            "key": "z",
-                            "name": "stashes",
-                            "type": "command",
-                            "command": "gitlens.gitCommands.stash.list"
-                        }
-                    ]
+                    "command": "workbench.action.showAllEditors"
                 },
                 {
                     "key": "l",
-                    "name": "live_grep",
+                    "name": "live_grep_global",
                     "type": "command",
                     "command": "workbench.action.findInFiles"
                 },
                 {
                     "key": "L",
-                    "name": "live_grep",
+                    "name": "live_grep_global_with_args",
                     "type": "command",
-                    "command": "workbench.action.findInFiles"
+                    "command": "not implemented"
+                },
+                {
+                    "key": "m",
+                    "name": "marks",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "n",
+                    "name": "notes",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "N",
+                    "name": "notifications",
+                    "type": "command",
+                    "command": "notifications.showList"
+                },
+                {
+                    "key": "o",
+                    "name": "tasks",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "r",
+                    "name": "recents",
+                    "type": "command",
+                    "command": "not implemented"
                 },
                 {
                     "key": "s",
@@ -324,16 +690,151 @@
                     "command": "workbench.action.gotoSymbol"
                 },
                 {
-                    "key": "h",
-                    "name": "symbols",
+                    "key": "t",
+                    "name": "todos_in_branch",
                     "type": "command",
-                    "command": "workbench.action.showAllEditors"
+                    "command": "not implemented"
+                },
+                {
+                    "key": "T",
+                    "name": "todos",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "w",
+                    "name": "word",
+                    "type": "command",
+                    "command": "workbench.view.search.focus"
+                },
+                {
+                    "key": "W",
+                    "name": "whole_word",
+                    "type": "command",
+                    "command": "workbench.view.search.focus"
+                },
+                {
+                    "key": "\"",
+                    "name": "registers",
+                    "type": "command",
+                    "command": "not implemented"
                 },
                 {
                     "key": ";",
                     "name": "terminal",
                     "type": "command",
-                    "command": "workbench.action.terminal.toggleTerminal"
+                    "command": "workbench.action.terminal.focusTabs"
+                },
+                {
+                    "key": "b",
+                    "name": "+Breakpoint",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "b",
+                            "name": "breakpoint",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "c",
+                            "name": "configurations",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "f",
+                            "name": "frames",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "v",
+                            "name": "variables",
+                            "type": "command",
+                            "command": "not implemented"
+                        }
+                    ]
+                },
+                {
+                    "key": "g",
+                    "name": "+Git",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "b",
+                            "name": "branches_checkout",
+                            "type": "command",
+                            "command": "git.checkout"
+                        },
+                        {
+                            "key": "c",
+                            "name": "commits_checkout",
+                            "type": "command",
+                            "command": "gitlens.showCommitSearch"
+                        },
+                        {
+                            "key": "C",
+                            "name": "commits_diff",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "d",
+                            "name": "changed_files",
+                            "type": "command",
+                            "command": "gitlens.openChangedFiles"
+                        },
+                        {
+                            "key": "D",
+                            "name": "changed_files_from_main",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "l",
+                            "name": "live_grep_changed_files",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "L",
+                            "name": "live_grep_changed_files_from_main",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "x",
+                            "name": "conflicts",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "z",
+                            "name": "stashes",
+                            "type": "command",
+                            "command": "gitlens.gitCommands.stash.list"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "key": "F",
+            "name": "+Find_Telescope",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "e",
+                    "name": "extensions",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "f",
+                    "name": "builtin",
+                    "type": "command",
+                    "command": "not implemented"
                 }
             ]
         },
@@ -343,16 +844,10 @@
             "type": "bindings",
             "bindings": [
                 {
-                    "key": "s",
-                    "name": "status",
+                    "key": "V",
+                    "name": "virtual_deleted",
                     "type": "command",
-                    "command": "workbench.view.scm"
-                },
-                {
-                    "key": "l",
-                    "name": "log",
-                    "type": "command",
-                    "command": "git.viewHistory"
+                    "command": "not implemented"
                 },
                 {
                     "key": "B",
@@ -368,12 +863,66 @@
                 },
                 {
                     "key": "D",
-                    "name": "file_history",
+                    "name": "diff_from_main",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "f",
+                    "name": "file_diff",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "F",
+                    "name": "file_diff_from_main",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "H",
+                    "name": "history",
                     "type": "command",
                     "command": "gitlens.viewFileHistory"
                 },
                 {
-                    "key": "g",
+                    "key": "l",
+                    "name": "log",
+                    "type": "command",
+                    "command": "git.viewHistory"
+                },
+                {
+                    "key": "L",
+                    "name": "lazygit",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "s",
+                    "name": "status",
+                    "type": "command",
+                    "command": "workbench.view.scm"
+                },
+                {
+                    "key": "v",
+                    "name": "virtual_blame",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "w",
+                    "name": "worktree_switch",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "W",
+                    "name": "worktree_create",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "o",
                     "name": "+Open",
                     "type": "bindings",
                     "bindings": [
@@ -382,6 +931,24 @@
                             "name": "commit",
                             "type": "command",
                             "command": "gitlens.openCommitOnRemote"
+                        },
+                        {
+                            "key": "f",
+                            "name": "file",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "j",
+                            "name": "jira",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "J",
+                            "name": "jira_current",
+                            "type": "command",
+                            "command": "not implemented"
                         },
                         {
                             "key": "p",
@@ -394,15 +961,149 @@
             ]
         },
         {
+            "key": "i",
+            "name": "+Test",
+            "type": "bindings",
+            "command": [
+                {
+                    "key": "a",
+                    "name": "attach",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "d",
+                    "name": "debug",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "f",
+                    "name": "run_file",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "i",
+                    "name": "run",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "o",
+                    "name": "open",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "p",
+                    "name": "preview",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "x",
+                    "name": "stop",
+                    "type": "command",
+                    "command": "not implemented"
+                }
+            ]
+        },
+        {
             "key": "l",
             "name": "+LSP",
             "type": "bindings",
-            "command": [
+            "bindings": [
+                {
+                    "key": "a",
+                    "name": "action",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "d",
+                    "name": "diagnostic_view",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "D",
+                    "name": "diagnostic_toggle",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "h",
+                    "name": "hints_view",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "H",
+                    "name": "hints_toggle",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "l",
+                    "name": "lsp",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "r",
+                    "name": "rename",
+                    "type": "command",
+                    "command": "not implemented"
+                },
                 {
                     "key": "s",
                     "name": "format",
                     "type": "command",
                     "command": "editor.action.formatDocument"
+                },
+                {
+                    "key": "S",
+                    "name": "format_with_lsp",
+                    "type": "command",
+                    "command": "editor.action.formatDocument"
+                }
+            ]
+        },
+        {
+            "key": "n",
+            "name": "+Notes",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "a",
+                    "name": "all",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "f",
+                    "name": "notes",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "g",
+                    "name": "git_branch",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "j",
+                    "name": "journal",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "n",
+                    "name": "current",
+                    "type": "command",
+                    "command": "not implemented"
                 }
             ]
         },
@@ -412,10 +1113,77 @@
             "type": "bindings",
             "bindings": [
                 {
+                    "key": "b",
+                    "name": "build",
+                    "type": "command",
+                    "command": "workbench.action.tasks.build"
+                },
+                {
+                    "key": "c",
+                    "name": "change_last",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "l",
+                    "name": "restart_last",
+                    "type": "command",
+                    "command": "workbench.action.tasks.reRunTask"
+                },
+                {
                     "key": "o",
                     "name": "run_from_list",
                     "type": "command",
-                    "command": "workbench.action.tasks.build"
+                    "command": "workbench.action.tasks.runTask"
+                },
+                {
+                    "key": "p",
+                    "name": "preview_last",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "r",
+                    "name": "run",
+                    "type": "command",
+                    "command": "workbench.action.debug.run"
+                },
+                {
+                    "key": "x",
+                    "name": "stop_last",
+                    "type": "command",
+                    "command": "workbench.action.tasks.terminate"
+                },
+                {
+                    "key": "X",
+                    "name": "stop_all",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "s",
+                    "name": "+Save",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "d",
+                            "name": "delete_bundle",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "l",
+                            "name": "load_bundle",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "s",
+                            "name": "save_last",
+                            "type": "command",
+                            "command": "not implemented"
+                        }
+                    ]
                 }
             ]
         },
@@ -424,6 +1192,18 @@
             "name": "+Refactor",
             "type": "bindings",
             "bindings": [
+                {
+                    "key": "n",
+                    "name": "rename",
+                    "type": "command",
+                    "command": "editor.action.refactor"
+                },
+                {
+                    "key": "w",
+                    "name": "global_word",
+                    "type": "command",
+                    "command": "not implemented"
+                },
                 {
                     "key": "/",
                     "name": "local",
@@ -435,18 +1215,6 @@
                     "name": "global",
                     "type": "command",
                     "command": "workbench.action.replaceInFiles"
-                },
-                {
-                    "key": "n",
-                    "name": "rename",
-                    "type": "command",
-                    "command": "editor.action.refactor"
-                },
-                {
-                    "key": "r",
-                    "name": "refactor",
-                    "type": "command",
-                    "command": "editor.action.refactor"
                 }
             ]
         },
@@ -456,22 +1224,58 @@
             "type": "bindings",
             "bindings": [
                 {
-                    "key": "t",
-                    "name": "toggle",
-                    "type": "command",
-                    "command": "workbench.action.togglePanel"
-                },
-                {
                     "key": "d",
                     "name": "diagnostics",
                     "type": "command",
                     "command": "workbench.actions.view.toggleProblems"
                 },
                 {
+                    "key": "D",
+                    "name": "diagnostics_global",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "f",
+                    "name": "finder",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "g",
+                    "name": "git",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "l",
+                    "name": "lsp",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "L",
+                    "name": "loclist",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
                     "key": "q",
                     "name": "quickfix",
                     "type": "command",
                     "command": "problems.action.showQuickFixes"
+                },
+                {
+                    "key": "t",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.togglePanel"
+                },
+                {
+                    "key": "T",
+                    "name": "todos",
+                    "type": "command",
+                    "command": "not implemented"
                 }
             ]
         },
@@ -481,22 +1285,64 @@
             "type": "bindings",
             "bindings": [
                 {
-                    "key": "w",
-                    "name": "select",
+                    "key": "c",
+                    "name": "configuration",
                     "type": "command",
-                    "command": ""
+                    "command": "not implemented"
                 },
                 {
-                    "key": "x",
-                    "name": "close",
+                    "key": "d",
+                    "name": "delete_session",
                     "type": "command",
-                    "command": ""
+                    "command": "not implemented"
                 },
                 {
                     "key": "f",
-                    "name": "find_project",
+                    "name": "find_session",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "l",
+                    "name": "load_session",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "L",
+                    "name": "load_manual_session",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "s",
+                    "name": "save_session",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "S",
+                    "name": "save_manual_session",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "w",
+                    "name": "select_scope",
+                    "type": "command",
+                    "command": "hqv-vscode.select"
+                },
+                {
+                    "key": "W",
+                    "name": "select_project",
                     "type": "command",
                     "command": "workbench.action.openRecent"
+                },
+                {
+                    "key": "x",
+                    "name": "close_scope",
+                    "type": "command",
+                    "command": ""
                 }
             ]
         },
@@ -506,29 +1352,34 @@
             "type": "bindings",
             "bindings": [
                 {
+                    "key": "b",
+                    "name": "debug_virtual",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "c",
+                    "name": "context_sticky",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "C",
+                    "name": "context_virtual",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "g",
+                    "name": "git_blame",
+                    "type": "command",
+                    "command": "gitlens.toggleLineBlame"
+                },
+                {
                     "key": "l",
                     "name": "line_no_relative",
                     "type": "command",
-                    // FIXME: doesn't exist
-                    "command": ""
-                },
-                {
-                    "key": "w",
-                    "name": "wrap",
-                    "type": "command",
-                    "command": "editor.action.toggleWordWrap"
-                },
-                {
-                    "key": "v",
-                    "name": "vertical_split",
-                    "type": "command",
-                    "command": "workbench.action.splitEditorRight"
-                },
-                {
-                    "key": "s",
-                    "name": "horizontal_split",
-                    "type": "command",
-                    "command": "workbench.action.splitEditorDown"
+                    "command": "not implemented"
                 },
                 {
                     "key": "n",
@@ -537,31 +1388,135 @@
                     "command": "notifications.toggleDoNotDisturbMode"
                 },
                 {
+                    "key": "q",
+                    "name": "lazyredraw_toggle",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "s",
+                    "name": "horizontal_split",
+                    "type": "command",
+                    "command": "workbench.action.splitEditorDown"
+                },
+                {
+                    "key": "t",
+                    "name": "typing_test_eng",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "T",
+                    "name": "typing_test_code",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "v",
+                    "name": "vertical_split",
+                    "type": "command",
+                    "command": "workbench.action.splitEditorRight"
+                },
+                {
+                    "key": "w",
+                    "name": "wrap",
+                    "type": "command",
+                    "command": "editor.action.toggleWordWrap"
+                },
+                {
+                    "key": "x",
+                    "name": "toggle_panels",
+                    "type": "command",
+                    "command": "workbench.action.togglePanel"
+                },
+                {
                     "key": "z",
                     "name": "zen",
                     "type": "command",
                     "command": "workbench.action.toggleMaximizeEditorGroup"
                 },
                 {
-                    "key": "p",
-                    "name": "position_sidebar",
+                    "key": "Z",
+                    "name": "zen_full",
                     "type": "command",
-                    "command": "workbench.action.toggleSidebarPosition"
+                    "command": ""
                 },
                 {
-                    "key": "g",
-                    "name": "+Git",
+                    "key": "f",
+                    "name": "+Fml",
                     "type": "bindings",
                     "bindings": [
                         {
-                            "key": "b",
-                            "name": "blame",
+                            "key": "f",
+                            "name": "fml",
                             "type": "command",
-                            "command": "gitlens.toggleLineBlame"
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "t",
+                            "name": "too_much_work",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        }
+                    ]
+                },
+                {
+                    "key": "h",
+                    "name": "+Highlight",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "h",
+                            "name": "hightlight",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "l",
+                            "name": "load",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "s",
+                            "name": "save",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "x",
+                            "name": "remove",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "X",
+                            "name": "remove_all",
+                            "type": "command",
+                            "command": "only available through neovim"
                         }
                     ]
                 }
             ]
+        },
+        {
+            "key": ";",
+            "name": "+Terminal",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": ";",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.terminal.toggleTerminal"
+                },
+                {
+                    "key": "f",
+                    "name": "toggle",
+                    "type": "command",
+                    "command": "workbench.action.terminal.focusTabs"
+                }
+            ]
         }
-    ]
+    ],
 }
