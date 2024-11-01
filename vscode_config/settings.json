@@ -93,7 +93,7 @@
             "bindings": [
                 {
                     "key": "c",
-                    "name": "chunk",
+                    "name": "hunk",
                     "type": "command",
                     "command": "workbench.action.editor.previousChange"
                 },
@@ -101,7 +101,7 @@
                     "key": "d",
                     "name": "diagnostic",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "editor.action.marker.prev"
                 },
                 {
                     "key": "b",
@@ -131,7 +131,7 @@
                     "key": "x",
                     "name": "conflict",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "merge-conflict.previous"
                 }
             ]
         },
@@ -142,7 +142,7 @@
             "bindings": [
                 {
                     "key": "c",
-                    "name": "chunk",
+                    "name": "hunk",
                     "type": "command",
                     "command": "workbench.action.editor.nextChange"
                 },
@@ -150,7 +150,7 @@
                     "key": "d",
                     "name": "diagnostic",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "editor.action.marker.next"
                 },
                 {
                     "key": "b",
@@ -180,7 +180,7 @@
                     "key": "x",
                     "name": "conflict",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "merge-conflict.next"
                 }
             ]
         },
@@ -365,7 +365,7 @@
                     "key": "K",
                     "name": "hover",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "editor.debug.action.showDebugHover"
                 },
                 {
                     "key": "z",
@@ -907,7 +907,7 @@
                     "key": "v",
                     "name": "virtual_blame",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "gitlens.toggleLineBlame"
                 },
                 {
                     "key": "w",
@@ -920,6 +920,55 @@
                     "name": "worktree_create",
                     "type": "command",
                     "command": "not implemented"
+                },
+                {
+                    "key": "h",
+                    "name": "+Hunk",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "b",
+                            "name": "blame",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "d",
+                            "name": "diff",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "r",
+                            "name": "reset",
+                            "type": "command",
+                            "command": "git.revertSelectedRanges"
+                        },
+                        {
+                            "key": "R",
+                            "name": "reset_buffer",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "s",
+                            "name": "stage",
+                            "type": "command",
+                            "command": "git.diff.stageHunk"
+                        },
+                        {
+                            "key": "S",
+                            "name": "stage_buffer",
+                            "type": "command",
+                            "command": "git.stageFile"
+                        },
+                        {
+                            "key": "u",
+                            "name": "undo_stage",
+                            "type": "command",
+                            "command": "not implemented"
+                        }
+                    ]
                 },
                 {
                     "key": "o",
@@ -936,7 +985,7 @@
                             "key": "f",
                             "name": "file",
                             "type": "command",
-                            "command": "not implemented"
+                            "command": "gitlens.openFileOnRemote"
                         },
                         {
                             "key": "j",
@@ -955,6 +1004,37 @@
                             "name": "pr",
                             "type": "command",
                             "command": "gitlens.openAssociatedPullRequestOnRemote"
+                        }
+                    ]
+                },
+                {
+                    "key": "z",
+                    "name": "+Stash",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "a",
+                            "name": "apply",
+                            "type": "command",
+                            "command": "git.stashApply"
+                        },
+                        {
+                            "key": "s",
+                            "name": "staged",
+                            "type": "command",
+                            "command": "git.stashStaged"
+                        },
+                        {
+                            "key": "z",
+                            "name": "stash",
+                            "type": "command",
+                            "command": "git.stash"
+                        },
+                        {
+                            "key": "Z",
+                            "name": "stash_untracked",
+                            "type": "command",
+                            "command": "git.stashIncludeUntracked"
                         }
                     ]
                 }
@@ -1018,7 +1098,7 @@
                     "key": "a",
                     "name": "action",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "editor.action.quickFix"
                 },
                 {
                     "key": "d",
@@ -1036,13 +1116,13 @@
                     "key": "h",
                     "name": "hints_view",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "editor.action.showHover"
                 },
                 {
                     "key": "H",
                     "name": "hints_toggle",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "clangd.inlayHints.toggle"
                 },
                 {
                     "key": "l",
@@ -1054,7 +1134,7 @@
                     "key": "r",
                     "name": "rename",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "editor.action.rename"
                 },
                 {
                     "key": "s",
@@ -1518,5 +1598,5 @@
                 }
             ]
         }
-    ],
+    ]
 }
