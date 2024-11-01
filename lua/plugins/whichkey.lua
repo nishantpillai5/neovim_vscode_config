@@ -47,6 +47,7 @@ return {
           { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
           { '<leader>go', group = 'Open', mode = { 'n', 'v' }},
           { '<leader>gx', group = 'Conflict' },
+          { '<leader>gz', group = 'Stash' },
           { '<leader>l', group = 'LSP', mode = { 'n', 'v' } },
           { '<leader>i', group = 'Test', mode = { 'n', 'v' } },
           { '<leader>n', group = 'Notes' },

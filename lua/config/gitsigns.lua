@@ -32,7 +32,7 @@ M.setup = function()
         else
           gitsigns.nav_hunk 'next'
         end
-      end, { desc = 'chunk' })
+      end, { desc = 'hunk' })
 
       map('n', '[c', function()
         if vim.wo.diff then
@@ -40,7 +40,7 @@ M.setup = function()
         else
           gitsigns.nav_hunk 'prev'
         end
-      end, { desc = 'chunk' })
+      end, { desc = 'hunk' })
 
       -- Actions
       map('n', '<leader>ghs', gitsigns.stage_hunk, { desc = 'stage' })

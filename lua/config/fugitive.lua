@@ -3,6 +3,11 @@ local M = {}
 M.keys = {
   { '<leader>gs', desc = 'status' },
   { '<leader>gl', desc = 'log' },
+  { '<leader>gza', desc = 'apply' },
+  { '<leader>gzs', desc = 'staged' },
+  { '<leader>gzp', desc = 'pop' },
+  { '<leader>gzz', desc = 'stash' },
+  { '<leader>gzZ', desc = 'stash_untracked' },
 }
 
 local toggle_fugitive = function()
@@ -22,6 +27,21 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>gl', function()
     vim.cmd 'Git log'
   end, { desc = 'log' })
+  vim.keymap.set('n', '<leader>gza', function()
+    vim.cmd 'Git stash apply'
+  end, { desc = 'apply' })
+  vim.keymap.set('n', '<leader>gzs', function()
+    vim.cmd 'Git stash push --staged'
+  end, { desc = 'staged' })
+  vim.keymap.set('n', '<leader>gzp', function()
+    vim.cmd 'Git stash pop'
+  end, { desc = 'pop' })
+  vim.keymap.set('n', '<leader>gzz', function()
+    vim.cmd 'Git stash'
+  end, { desc = 'stash' })
+  vim.keymap.set('n', '<leader>gzZ', function()
+    vim.cmd 'Git stash --include-untracked'
+  end, { desc = 'stash_untracked' })
 end
 
 M.setup = function()
