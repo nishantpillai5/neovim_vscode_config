@@ -42,7 +42,15 @@ local function mapVscWhichkeyConfig(json, binding)
         map_node({ 'n', 'v' }, binding)
         mapVscWhichkeyConfig(json['bindings'], binding)
       elseif json['type'] == 'command' then
-        map_action({ 'n', 'v' }, binding, json['command'])
+        local opts = nil
+        if json['args'] then
+          if type(json['args']) == 'table' then
+            opts = { args = json['args'] }
+          else
+            opts = { args = { json['args'] } }
+          end
+        end
+        map_action({ 'n', 'v' }, binding, json['command'], opts)
       end
     end
   end

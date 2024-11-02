@@ -690,6 +690,12 @@
                     "command": "workbench.action.gotoSymbol"
                 },
                 {
+                    "key": "S",
+                    "name": "symbols_interface",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
                     "key": "t",
                     "name": "todos_in_branch",
                     "type": "command",
@@ -1368,7 +1374,8 @@
                     "key": "c",
                     "name": "configuration",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "workbench.action.quickOpen",
+                    "args": ".vscode/"
                 },
                 {
                     "key": "d",
