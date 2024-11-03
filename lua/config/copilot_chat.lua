@@ -16,6 +16,8 @@ local pr_prompt =
 -- TODO: role based prompts cR (https://github.com/abelberhane/GPT-Scripts/tree/main/role-prompting)
 
 M.keys = {
+  { '<leader>ca', desc = 'attach_selection' },
+  { '<leader>cA', desc = 'attach_file' },
   { '<leader>cc', mode = 'n', desc = 'chat' },
   { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain' },
   { '<leader>co', mode = { 'n', 'v' }, desc = 'optimize' },
