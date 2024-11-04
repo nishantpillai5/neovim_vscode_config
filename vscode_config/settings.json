@@ -122,7 +122,7 @@
                     "command": "todo-tree.goToPrevious"
                 },
                 {
-                    "key": "t",
+                    "key": "T",
                     "name": "todo_last",
                     "type": "command",
                     "command": "not implemented"
@@ -171,7 +171,7 @@
                     "command": "todo-tree.goToNext"
                 },
                 {
-                    "key": "t",
+                    "key": "T",
                     "name": "todo_last",
                     "type": "command",
                     "command": "not implemented"
@@ -381,6 +381,18 @@
             "type": "bindings",
             "bindings": [
                 {
+                    "key": "a",
+                    "name": "attach_selection",
+                    "type": "command",
+                    "command": "github.copilot.chat.attachSelection"
+                },
+                {
+                    "key": "A",
+                    "name": "attach_file",
+                    "type": "command",
+                    "command": "github.copilot.chat.attachFile"
+                },
+                {
                     "key": "b",
                     "name": "buffer",
                     "type": "command",
@@ -463,18 +475,6 @@
                     "name": "reset",
                     "type": "command",
                     "command": "only available through neovim"
-                },
-                {
-                    "key": "a",
-                    "name": "attach_selection",
-                    "type": "command",
-                    "command": "github.copilot.chat.attachSelection"
-                },
-                {
-                    "key": "A",
-                    "name": "attach_file",
-                    "type": "command",
-                    "command": "github.copilot.chat.attachFile"
                 }
             ]
         },
