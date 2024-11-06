@@ -31,11 +31,12 @@ return {
   {
     'epwalsh/obsidian.nvim',
     version = '*',
-    -- event = {
-    --   "BufReadPre " .. NOTES_DIR .. "/**.md",
-    --   "BufNewFile " .. NOTES_DIR .. "/**.md",
-    -- },
+    event = {
+      'BufReadPre ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
+      'BufNewFile ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
+    },
     dependencies = {
+      'nvim-telescope/telescope.nvim',
       'nvim-lua/plenary.nvim',
       -- "preservim/vim-markdown"
     },

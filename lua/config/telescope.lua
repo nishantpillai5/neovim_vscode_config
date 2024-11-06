@@ -170,8 +170,6 @@ M.keys = {
   { '<leader>f"', desc = 'registers' },
   { '<leader>fh', desc = 'buffers' },
   -- { "<leader>fp", desc = "yank" },
-  { '<leader>fn', desc = 'notes' },
-  { '<leader>nf', desc = 'notes' },
   { '<leader>wc', desc = 'configurations' },
 }
 
@@ -267,14 +265,6 @@ M.keymaps = function()
   -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
   --   require("telescope").extensions.refactoring.refactors()
   -- end)
-
-  vim.keymap.set('n', '<leader>fn', function()
-    builtin.find_files { cwd = require('common.env').DIR_NOTES }
-  end, { desc = 'notes' })
-
-  vim.keymap.set('n', '<leader>nf', function()
-    builtin.find_files { cwd = require('common.env').DIR_NOTES }
-  end, { desc = 'notes' })
 
   vim.keymap.set('n', '<leader>wc', function()
     builtin.find_files {

@@ -176,4 +176,12 @@ function M.open_explorer(path)
   end
 end
 
+function M.to_unix_path(path)
+  local os = require('common.env').OS
+  if os == 'windows' then
+    return path:gsub('\\', '/')
+  end
+  return path
+end
+
 return M

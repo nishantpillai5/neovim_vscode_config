@@ -511,7 +511,7 @@
                     "key": "E",
                     "name": "open_current_file_dir",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "revealFileInOS"
                 },
                 {
                     "key": "f",
@@ -901,7 +901,7 @@
                     "key": "L",
                     "name": "lazygit",
                     "type": "command",
-                    "command": "not implemented"
+                    "command": "lazygit-vscode.toggle"
                 },
                 {
                     "key": "s",

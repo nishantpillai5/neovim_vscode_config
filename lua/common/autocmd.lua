@@ -27,8 +27,21 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 })
 
 -- Set comment string for Markdown files
--- FIXME: This is not working, cuz obsidian plugin maybe?
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "markdown",
-  command = "setlocal commentstring=<!--\\ %s\\ -->"
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  command = 'setlocal commentstring=<!--\\ %s\\ -->',
+})
+
+-- Set conceallevel to 1 for Markdown files in the notes directory
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'markdown',
+  callback = function()
+    local notes_dir = require('common.env').DIR_NOTES
+    local current_file = vim.fn.expand '%:p'
+    -- local current_file = vim.api.nvim_buf_get_name(0)
+    -- FIXME: works only when cwd is notes directory
+    if current_file:find(notes_dir, 1, true) then
+      vim.cmd 'setlocal conceallevel=1'
+    end
+  end,
 })
