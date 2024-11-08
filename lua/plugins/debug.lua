@@ -7,7 +7,6 @@ local plugins = {
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
-local HOME = require('common.env').HOME
 
 return {
   {
@@ -36,7 +35,7 @@ return {
     -- event = 'BufEnter *.py',
     cond = conds['mfussenegger/nvim-dap-python'] or false,
     config = function()
-      require('dap-python').setup(HOME .. '/.virtualenvs/debugpy/Scripts/python')
+      require('dap-python').setup(require('common.env').NVIM_PYTHON)
     end,
   },
   {

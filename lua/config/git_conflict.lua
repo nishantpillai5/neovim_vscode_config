@@ -3,10 +3,10 @@ local M = {}
 M.keys = {
   { '[x', desc = 'conflict' },
   { ']x', desc = 'conflict' },
-  { 'gxo', desc = 'ours' },
-  { 'gxt', desc = 'theirs' },
-  { 'gxb', desc = 'both' },
-  { 'gxn', desc = 'none' },
+  { '<leader>gxo', desc = 'ours' },
+  { '<leader>gxt', desc = 'theirs' },
+  { '<leader>gxb', desc = 'both' },
+  { '<leader>gxn', desc = 'none' },
 }
 
 M.cmd = { 'GitConflictPrevConflict', 'GitConflictNextConflict' }
@@ -29,6 +29,7 @@ M.keymaps = function()
 end
 
 M.setup = function()
+---@diagnostic disable-next-line: missing-fields
   require('git-conflict').setup {
     default_mappings = false,
     default_commands = true,

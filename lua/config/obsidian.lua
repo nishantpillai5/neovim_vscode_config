@@ -13,14 +13,16 @@ M.keys = {
   { '<leader>nj', ':ObsidianDailies<cr>', desc = 'journal_list' },
   { '<leader>nl', ':ObsidianLinks<cr>', desc = 'links' },
   { '<leader>nL', ':ObsidianBacklinks<cr>', desc = 'backlinks' },
-  { '<leader>nl', ':ObsidianLink<cr>', desc = 'link', mode = { 'v' } },
-  { '<leader>nL', ':ObsidianLinkNew<cr>', desc = 'link_new', mode = { 'v' } },
   { '<leader>nr', ':ObsidianRename<cr>', desc = 'rename' },
   { '<leader>np', ':ObsidianPasteImg<cr>', desc = 'paste_img' },
   { '<leader>nc', ':ObsidianNew<cr>', desc = 'create' },
   { '<leader>nC', ':ObsidianNewFromTemplate<cr>', desc = 'create_from_template' },
   { '<leader>nt', ':ObsidianTags<cr>', desc = 'tags' },
   { '<leader>ni', ':ObsidianTemplate<cr>', desc = 'insert_template' },
+
+  { '<leader>nl', ':ObsidianLink<cr>', desc = 'link_existing', mode = { 'v' } },
+  { '<leader>nL', ':ObsidianLinkNew<cr>', desc = 'link_create', mode = { 'v' } },
+  { '<leader>nc', ':ObsidianExtractNote<cr>', desc = 'create', mode = { 'v' } },
 }
 
 M.keymaps = function()

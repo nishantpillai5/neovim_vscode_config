@@ -1,5 +1,3 @@
-local HOME = require('common.env').HOME
-
 -- Line wrap
 vim.opt.wrap = false
 
@@ -24,12 +22,12 @@ vim.opt.listchars:append 'space:⋅'
 
 -- Undo
 vim.opt.undofile = true
-vim.opt.undodir = HOME .. '/.nvim/undodir'
+vim.opt.undodir = vim.fn.expand '~/.nvim/undodir'
 
 -- Backups
 -- vim.opt.backup = false
 -- vim.opt.swapfile = false
-vim.opt.backupdir = HOME .. '/.nvim/backupdir'
+vim.opt.backupdir = vim.fn.expand '~/.nvim/backupdir'
 
 -- Search
 -- vim.opt.hlsearch = false
@@ -65,3 +63,6 @@ vim.o.showtabline = 2
 -- last command in statusline
 vim.o.showcmd = true
 vim.o.showcmdloc = 'last'
+
+-- python
+vim.g.python3_host_prog = require('common.env').NVIM_PYTHON

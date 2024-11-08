@@ -178,7 +178,7 @@ M.keymaps = function()
   vim.keymap.set('n', '<leader>ff', project_files, { desc = 'git_files' })
 
   vim.keymap.set('n', '<leader>fF', function()
-    local prefix = require('common.env').GITIGNORE_PREFIX
+    local prefix = require('common.env').USER_PREFIX .. '_'
     builtin.find_files { default_text = prefix, no_ignore = true }
   end, { desc = 'ignored_files' })
 

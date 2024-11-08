@@ -1,4 +1,5 @@
 local plugins = {
+  'vhyrro/luarocks.nvim',
   'eandrju/cellular-automaton.nvim',
   'kwakzalver/duckytype.nvim',
   'dstein64/vim-startuptime',
@@ -8,6 +9,17 @@ local plugins = {
 local conds = require('common.utils').get_conds_table(plugins)
 
 return {
+  -- for installing Luarocks dependencies
+  {
+    'vhyrro/luarocks.nvim',
+    priority = 1001,
+    cond = conds['vhyrro/luarocks.nvim'] or false,
+    config = true,
+    opts = {
+      -- rocks = { 'lua-curl', 'nvim-nio', 'mimetypes', 'xml2lua', 'tiktoken_core' },
+      rocks = { 'tiktoken_core' },
+    },
+  },
   -- When nothing works
   {
     'eandrju/cellular-automaton.nvim',

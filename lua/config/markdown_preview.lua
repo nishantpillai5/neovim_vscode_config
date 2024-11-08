@@ -16,6 +16,12 @@ M.cmd = {
   'MarkdownPreviewToggleTheme',
 }
 
+M.keymaps = function()
+  vim.keymap.set('n', '<leader>zp', function()
+    vim.cmd 'MarkdownPreviewToggle'
+  end, { silent = true, noremap = true, buffer = true, desc = 'preview' })
+end
+
 M.setup = function()
   vim.g.mkdp_theme = 'dark'
   vim.api.nvim_create_user_command('MarkdownPreviewToggleTheme', toggle_theme, {})
@@ -23,6 +29,11 @@ end
 
 M.config = function()
   M.setup()
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'markdown',
+    callback = M.keymaps,
+  })
 end
 
 -- M.config()
