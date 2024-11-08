@@ -1,39 +1,39 @@
 local plugins = {
-  -- "quarto-dev/quarto-nvim",
-  -- "jmbuhr/otter.nvim",
+  'benlubas/molten-nvim',
+  -- '3rd/image.nvim',
+  'jmbuhr/otter.nvim',
+  'quarto-dev/quarto-nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
 
 return {
+
   {
-    'quarto-dev/quarto-nvim',
-    ft = 'quarto',
-    dependencies = { 'jmbuhr/otter.nvim' },
-    cond = conds['quarto-dev/quarto-nvim'] or false,
-    keys = {
-      { '<leader>qa', ':QuartoActivate<cr>', desc = 'quarto activate' },
-      { '<leader>qp', ":lua require'quarto'.quartoPreview()<cr>", desc = 'quarto preview' },
-      { '<leader>qq', ":lua require'quarto'.quartoClosePreview()<cr>", desc = 'quarto close' },
-      { '<leader>qh', ':QuartoHelp ', desc = 'quarto help' },
-      { '<leader>qe', ":lua require'otter'.export()<cr>", desc = 'quarto export' },
-      { '<leader>qE', ":lua require'otter'.export(true)<cr>", desc = 'quarto export overwrite' },
-      { '<leader>qrr', ':QuartoSendAbove<cr>', desc = 'quarto run to cursor' },
-      { '<leader>qra', ':QuartoSendAll<cr>', desc = 'quarto run all' },
-      { '<leader><cr>', ':SlimeSend<cr>', desc = 'send code chunk' },
-      { '<c-cr>', ':SlimeSend<cr>', desc = 'send code chunk' },
-      { '<c-cr>', '<esc>:SlimeSend<cr>i', mode = 'i', desc = 'send code chunk' },
-      { '<c-cr>', '<Plug>SlimeRegionSend<cr>', mode = 'v', desc = 'send code chunk' },
-      { '<cr>', '<Plug>SlimeRegionSend<cr>', mode = 'v', desc = 'send code chunk' },
-      { '<leader>ctr', ':split term://R<cr>', desc = 'terminal: R' },
-      { '<leader>cti', ':split term://ipython<cr>', desc = 'terminal: ipython' },
-      { '<leader>ctp', ':split term://python<cr>', desc = 'terminal: python' },
-      { '<leader>ctj', ':split term://julia<cr>', desc = 'terminal: julia' },
-    },
+    'benlubas/molten-nvim',
+    cond = conds['benlubas/molten-nvim'] or false,
+    cmd = { 'MoltenInit', 'MoltenEvaluateLine' },
+    version = '^1.0.0', -- use version <2.0.0 to avoid breaking changes
+    -- dependencies = { '3rd/image.nvim' },
+    build = ':UpdateRemotePlugins',
+    init = function()
+      -- these are examples, not defaults. Please see the readme
+      -- vim.g.molten_image_provider = 'none'
+      -- vim.g.molten_image_provider = 'image.nvim'
+      vim.g.molten_output_win_max_height = 20
+    end,
+  },
+  {
+    '3rd/image.nvim',
+    cond = conds['3rd/image.nvim'] or false,
     opts = {
-      lspFeatures = {
-        languages = { 'r', 'python', 'julia', 'bash', 'html', 'lua' },
-      },
+      backend = 'kitty', -- whatever backend you would like to use
+      max_width = 100,
+      max_height = 12,
+      max_height_window_percentage = math.huge,
+      max_width_window_percentage = math.huge,
+      window_overlap_clear_enabled = true, -- toggles images when windows are overlapped
+      window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
     },
   },
   {
@@ -45,5 +45,16 @@ return {
         set_filetype = true,
       },
     },
+  },
+  {
+    'quarto-dev/quarto-nvim',
+    cond = conds['quarto-dev/quarto-nvim'] or false,
+    ft = 'quarto',
+    dependencies = {
+      'jmbuhr/otter.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    keys = require('config.quarto').keys,
+    config = require('config.quarto').config,
   },
 }
