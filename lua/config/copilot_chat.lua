@@ -128,9 +128,7 @@ M.setup = function()
   require('CopilotChat').setup {
     show_help = true,
     debug = false,
-    disable_extra_info = 'no',
-    auto_follow_cursor = false, -- Auto-follow cursor in chat
-    insert_at_end = true,
+    auto_follow_cursor = false,
     language = 'English',
     context = 'buffers',
     mappings = {

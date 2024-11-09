@@ -2,6 +2,7 @@ local M = {}
 
 M.setup = function()
   -- require('nvim-treesitter.install').compilers = { 'zig', 'gcc', 'clang', 'cc', 'cl', vim.NIL }
+  ---@diagnostic disable-next-line: missing-fields
   require('nvim-treesitter.configs').setup {
     ensure_installed = {
       'c',
@@ -23,6 +24,7 @@ M.setup = function()
       'http',
       'diff',
       'graphql',
+      'latex',
     },
     sync_install = false,
     -- auto_install = false,

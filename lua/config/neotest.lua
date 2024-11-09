@@ -18,11 +18,11 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>io', function()
     neotest.output_panel.toggle()
-  end, { desc = 'open' })
+  end, { desc = 'open(test)' })
 
   vim.keymap.set('n', '<leader>ip', function()
     neotest.output.open { enter = true }
-  end, { desc = 'preview' })
+  end, { desc = 'preview(test)' })
 
   vim.keymap.set('n', ']i', function()
     neotest.jump.prev { status = 'failed' }
@@ -38,23 +38,23 @@ M.keymaps = function()
 
   vim.keymap.set('n', '<leader>ii', function()
     neotest.run.run()
-  end, { desc = 'run' })
+  end, { desc = 'run(test)' })
 
   vim.keymap.set('n', '<leader>if', function()
     neotest.run.run(vim.fn.expand '%')
-  end, { desc = 'run_file' })
+  end, { desc = 'run_file(test)' })
 
   vim.keymap.set('n', '<leader>id', function()
     neotest.run.run { strategy = 'dap' }
-  end, { desc = 'debug' })
+  end, { desc = 'debug(test)' })
 
   vim.keymap.set('n', '<leader>ix', function()
     neotest.run.stop()
-  end, { desc = 'stop' })
+  end, { desc = 'stop(test)' })
 
   vim.keymap.set('n', '<leader>ia', function()
     neotest.run.attach()
-  end, { desc = 'attach' })
+  end, { desc = 'attach(test)' })
 end
 
 M.setup = function()

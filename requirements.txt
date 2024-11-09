@@ -6,3 +6,4 @@ plotly
 kaleido
 pnglatex
 pyperclip
+jupytext

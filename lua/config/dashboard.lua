@@ -39,7 +39,7 @@ local LOGO2 = {
 }
 
 local function get_logo()
-  local context = require('common.env').CONTEXT
+  local context = require('common.env').NVIM_CONTEXT
   local logo = LOGO1
 
   if context == 'work' then
