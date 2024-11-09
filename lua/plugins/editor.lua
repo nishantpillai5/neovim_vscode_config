@@ -10,6 +10,7 @@ local plugins = {
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
   'norcalli/nvim-colorizer.lua',
+  'andrewferrier/debugprint.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -142,5 +143,13 @@ return {
         { mode = 'background' }
       )
     end,
+  },
+  -- Add debug logs
+  {
+    'andrewferrier/debugprint.nvim',
+    cond = conds['andrewferrier/debugprint.nvim'] or false,
+    keys = require('config.debugprint').keys,
+    cmd = require('config.debugprint').cmd,
+    config = require('config.debugprint').config,
   },
 }

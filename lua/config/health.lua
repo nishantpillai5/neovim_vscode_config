@@ -50,6 +50,7 @@ local check_globals = function()
     },
     lsp = {
       'pyright_settings',
+      'custom_debug_log',
     },
     git = {
       'main_branch',

@@ -86,6 +86,7 @@ return {
           { 'gr', desc = 'references' },
           { 'gh', desc = 'signature_help' },
           { 'gl', desc = 'diagnostics' },
+          { 'g?', desc = 'debugprint' },
 
           { 'K', desc = 'hover' },
           { 's', desc = 'hop_char' },
