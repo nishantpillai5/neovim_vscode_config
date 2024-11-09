@@ -1,10 +1,10 @@
-  local M = {}
+local M = {}
 
 M.keys = {
-  { '<leader>iI', desc = 'init_molten' },
+  { '<leader>wi', desc = 'kernel_select' },
 }
 
-M.ft = { 'markdown', 'python', 'quarto' }
+M.ft = { 'markdown', 'quarto' }
 
 M.init = function()
   vim.g.molten_image_provider = 'none'
@@ -19,7 +19,7 @@ end
 M.keymaps = function()
   vim.keymap.set('n', '<leader>wi', function()
     vim.cmd 'MoltenInit'
-  end, { desc = 'kernel_select(quarto)', silent = true })
+  end, { desc = 'kernel_select', silent = true })
 end
 
 local function lualine_status()
@@ -33,7 +33,12 @@ end
 
 M.lualine = function()
   local lualineZ = require('lualine').get_config().tabline.lualine_z or {}
-  table.insert(lualineZ, { lualine_status })
+  table.insert(lualineZ, {
+    lualine_status,
+    cond = function()
+      return vim.tbl_contains(M.ft, vim.bo.filetype)
+    end,
+  })
 
   require('lualine').setup { tabline = { lualine_z = lualineZ } }
 end
@@ -59,7 +64,6 @@ M.setup = function()
       enabled = false,
       default_method = 'molten',
       ft_runners = { python = 'molten' },
-      -- Takes precedence over `default_method`
       never_run = { 'yaml' },
     },
   }

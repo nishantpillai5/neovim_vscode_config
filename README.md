@@ -7,6 +7,8 @@ Notable features:
 - Use Which-key keybinds within VSCode
 - Tmux-like navigation inside VSCode
 
+Run `:checkhealth config` to see config status.
+
 ## Installation
 
 ### Linux
@@ -32,7 +34,7 @@ Notable features:
 To install the configuration:
 
 - Move the json files from `vscode_config` to [VSCode settings directory](https://code.visualstudio.com/docs/getstarted/settings#_settings-file-locations)
-- Install following extensions:
+- Recommended extensions:
   - [Whichkey (vspacecode.whichkey)](https://marketplace.visualstudio.com/items?itemName=vspacecode.whichkey)
   - [fuzzy-search (jacobdufault.fuzzy-search)](https://marketplace.visualstudio.com/items?itemName=jacobdufault.fuzzy-search)
   - [GitLens (eamodio.gitlens)](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
