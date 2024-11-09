@@ -18,7 +18,7 @@ local widescreen_settings = {
 }
 
 local normal_settings = {
--- FIXME: same
+  -- FIXME: same
   BOTTOM_HEIGHT = 0.2,
   LEFT_WIDTH = 0.1,
   RIGHT_WIDTH = 0.15,
@@ -137,6 +137,11 @@ M.setup = function()
         title = 'Watches (DAP)',
         ft = 'dapui_watches',
         size = { width = settings.DAP_LEFT_WIDTH_2 },
+      },
+      {
+        title = 'Calendar',
+        ft = 'calendar',
+        size = { width = settings.LEFT_WIDTH },
       },
     },
     right = {

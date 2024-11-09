@@ -1487,18 +1487,6 @@
                     "command": "workbench.action.splitEditorDown"
                 },
                 {
-                    "key": "t",
-                    "name": "typing_test_eng",
-                    "type": "command",
-                    "command": "not implemented"
-                },
-                {
-                    "key": "T",
-                    "name": "typing_test_code",
-                    "type": "command",
-                    "command": "not implemented"
-                },
-                {
                     "key": "v",
                     "name": "vertical_split",
                     "type": "command",
@@ -1529,8 +1517,8 @@
                     "command": ""
                 },
                 {
-                    "key": "f",
-                    "name": "+Fml",
+                    "key": "o",
+                    "name": "+Run",
                     "type": "bindings",
                     "bindings": [
                         {
@@ -1540,8 +1528,26 @@
                             "command": "only available through neovim"
                         },
                         {
-                            "key": "t",
+                            "key": "w",
                             "name": "too_much_work",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "t",
+                            "name": "typing_test_eng",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "T",
+                            "name": "typing_test_code",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "s",
+                            "name": "sheep_game",
                             "type": "command",
                             "command": "only available through neovim"
                         }

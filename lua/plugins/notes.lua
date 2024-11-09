@@ -4,6 +4,7 @@ local plugins = {
   'epwalsh/obsidian.nvim',
   -- 'mpas/marp-nvim',
   'Pocco81/HighStr.nvim',
+  'mattn/calendar-vim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -64,5 +65,18 @@ return {
     cond = conds['Pocco81/HighStr.nvim'] or false,
     keys = require('config.highlight').keys,
     config = require('config.highlight').config,
+  },
+  -- Calendar
+  {
+    'mattn/calendar-vim',
+    event = {
+      'BufReadPre ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
+      'BufNewFile ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
+    },
+    cond = conds['mattn/calendar-vim'] or false,
+    lazy = true,
+    init = require('config.calendar').init,
+    cmd = require('config.calendar').cmd,
+    config = require('config.calendar').config,
   },
 }

@@ -57,7 +57,7 @@ return {
           { '<leader>t', group = 'Trouble' },
           { '<leader>w', group = 'Workspace' },
           { '<leader>z', group = 'Visual', mode = { 'n', 'v' } },
-          { '<leader>zf', group = 'fml' },
+          { '<leader>zo', group = 'Run' },
           { '<leader>zh', group = 'Highlight', mode = { 'n', 'v' } },
           { ']', group = 'Next' },
           { '[', group = 'Prev' },
