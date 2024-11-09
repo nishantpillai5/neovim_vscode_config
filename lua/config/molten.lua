@@ -1,10 +1,6 @@
 local M = {}
 
-M.keys = {
-  { '<leader>wi', desc = 'kernel_select' },
-}
-
-M.ft = { 'markdown', 'quarto' }
+local ALLOWED_FTS = { 'markdown', 'quarto' }
 
 M.init = function()
   vim.g.molten_image_provider = 'none'
@@ -14,12 +10,6 @@ M.init = function()
   vim.g.molten_auto_open_output = false
   vim.g.molten_output_show_exec_time = true
   vim.g.molten_auto_image_popup = true
-end
-
-M.keymaps = function()
-  vim.keymap.set('n', '<leader>wi', function()
-    vim.cmd 'MoltenInit'
-  end, { desc = 'kernel_select', silent = true })
 end
 
 local function lualine_status()
@@ -36,7 +26,7 @@ M.lualine = function()
   table.insert(lualineZ, {
     lualine_status,
     cond = function()
-      return vim.tbl_contains(M.ft, vim.bo.filetype)
+      return vim.tbl_contains(ALLOWED_FTS, vim.bo.filetype)
     end,
   })
 
@@ -71,7 +61,6 @@ end
 
 M.config = function()
   M.setup()
-  M.keymaps()
   M.lualine()
 end
 

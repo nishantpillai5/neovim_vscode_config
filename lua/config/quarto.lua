@@ -1,30 +1,54 @@
 local M = {}
 
+M.ft = { 'markdown', 'quarto' }
+
 M.keys = {
-  { '<leader>zp', desc = 'preview' },
+  -- { '<leader>zp', desc = 'preview' },
+  { '<leader>wi', desc = 'kernel_select' },
 }
 
+local set_run_keymaps = function()
+  local runner = require 'quarto.runner'
+  vim.keymap.set('n', '<leader>ij', runner.run_below, { desc = 'run_below(quarto)', silent = true })
+  vim.keymap.set('n', '<leader>ik', runner.run_above, { desc = 'run_above(quarto)', silent = true })
+  vim.keymap.set('n', '<leader>ii', runner.run_cell, { desc = 'run_cell(quarto)', silent = true })
+  vim.keymap.set('n', '<leader>iI', runner.run_all, { desc = 'run_all(quarto)', silent = true })
+
+  vim.keymap.set('v', '<leader>ii', runner.run_range, { desc = 'run(quarto)', silent = true })
+  vim.keymap.set('n', '<leader>il', runner.run_line, { desc = 'run_line(quarto)', silent = true })
+end
+
+local set_preview_keymaps = function()
+  vim.keymap.set(
+    'n',
+    '<leader>zp',
+    require('quarto').quartoPreview,
+    { silent = true, noremap = true, buffer = true, desc = 'preview(quarto)' }
+  )
+end
+
 M.keymaps = function()
+  vim.keymap.set('n', '<leader>wi', function()
+    vim.cmd 'MoltenInit'
+  end, { desc = 'kernel_select', silent = true })
+
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'quarto',
-    callback = function()
-      vim.keymap.set(
-        'n',
-        '<leader>zp',
-        require('quarto').quartoPreview,
-        { silent = true, noremap = true, buffer = true, desc = 'preview(quarto)' }
-      )
-
-      local runner = require 'quarto.runner'
-      vim.keymap.set('n', '<leader>ij', runner.run_below, { desc = 'run_below(quarto)', silent = true })
-      vim.keymap.set('n', '<leader>ik', runner.run_above, { desc = 'run_above(quarto)', silent = true })
-      vim.keymap.set('n', '<leader>ii', runner.run_cell, { desc = 'run_cell(quarto)', silent = true })
-      vim.keymap.set('n', '<leader>iI', runner.run_all, { desc = 'run_all(quarto)', silent = true })
-
-      vim.keymap.set('v', '<leader>ii', runner.run_range, { desc = 'run(quarto)', silent = true })
-      vim.keymap.set('n', '<leader>il', runner.run_line, { desc = 'run_line(quarto)', silent = true })
-    end,
+    callback = set_preview_keymaps,
   })
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'markdown', 'quarto' },
+    callback = set_run_keymaps,
+  })
+
+  -- Apply keymaps if the file is already open
+  if vim.tbl_contains(M.ft, vim.bo.filetype) then
+    set_run_keymaps()
+    if vim.bo.filetype == 'markdown' then
+      set_preview_keymaps()
+    end
+  end
 end
 
 M.setup = function()

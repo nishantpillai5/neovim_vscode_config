@@ -1,8 +1,8 @@
 local plugins = {
+  'quarto-dev/quarto-nvim',
   'benlubas/molten-nvim',
   -- '3rd/image.nvim',
   'jmbuhr/otter.nvim',
-  'quarto-dev/quarto-nvim',
   'jbyuki/nabla.nvim',
   -- 'GCBallesteros/jupytext.nvim',
 }
@@ -10,11 +10,23 @@ local plugins = {
 local conds = require('common.utils').get_conds_table(plugins)
 
 return {
+  -- ipynb in nvim
+  {
+    'quarto-dev/quarto-nvim',
+    cond = conds['quarto-dev/quarto-nvim'] or false,
+    dependencies = {
+      'jmbuhr/otter.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'benlubas/molten-nvim',
+    },
+    keys = require('config.quarto').keys,
+    config = require('config.quarto').config,
+  },
   -- Code runner inside markdown
   {
     'benlubas/molten-nvim',
     cond = conds['benlubas/molten-nvim'] or false,
-    ft = require('config.molten').ft,
+    lazy = true,
     version = '^1.0.0', -- use version <2.0.0 to avoid breaking changes
     -- dependencies = { '3rd/image.nvim' },
     build = ':UpdateRemotePlugins',
@@ -45,18 +57,6 @@ return {
     },
     cond = conds['jmbuhr/otter.nvim'] or false,
     config = require('config.otter').config,
-  },
-  -- ipynb in nvim
-  {
-    'quarto-dev/quarto-nvim',
-    cond = conds['quarto-dev/quarto-nvim'] or false,
-    ft = 'quarto',
-    dependencies = {
-      'jmbuhr/otter.nvim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    keys = require('config.quarto').keys,
-    config = require('config.quarto').config,
   },
   -- preview equations
   {
