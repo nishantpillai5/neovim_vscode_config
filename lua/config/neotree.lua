@@ -17,6 +17,7 @@ local find_dir = function()
   local global_favs = {
     notes = require('common.env').DIR_NOTES,
     nvim_config = require('common.env').DIR_NVIM,
+    vsc_config = require('common.env').VSC_CONFIG:gsub('settings.json', ''),
   }
   local fav_dirs = utils.merge_table(global_favs, local_favs)
 
