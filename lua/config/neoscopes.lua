@@ -124,14 +124,16 @@ end
 
 M.keymaps = function()
   local neoscopes = require 'neoscopes'
-  vim.keymap.set('n', '<leader>ww', function()
-    M.setup(true)
-  end, { desc = 'select_scope' })
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>wx', function()
+  set_keymap('n', '<leader>ww', function()
+    M.setup(true)
+  end)
+
+  set_keymap('n', '<leader>wx', function()
     neoscopes.clear()
     refresh_workspace()
-  end, { desc = 'close_scope' })
+  end)
 end
 
 local function lualine_status()

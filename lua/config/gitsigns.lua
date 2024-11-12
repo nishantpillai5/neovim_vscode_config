@@ -5,9 +5,10 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>gB', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>gB', function()
     vim.cmd 'Gitsigns blame'
-  end, { desc = 'blame_buffer' })
+  end)
 end
 
 M.setup = function()

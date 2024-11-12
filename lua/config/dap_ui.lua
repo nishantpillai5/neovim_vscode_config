@@ -10,6 +10,7 @@ M.keys = {
 M.keymaps = function()
   local dapui = require 'dapui'
   local dapui_open = false
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
   -- FIXME: keybind not working
   local function toggle_dapui()
@@ -24,10 +25,10 @@ M.keymaps = function()
     end
   end
 
-  vim.keymap.set('n', '<leader>bb', toggle_dapui, { desc = 'toggle_view' })
-  vim.keymap.set('n', '<leader>bK', function()
+  set_keymap('n', '<leader>bb', toggle_dapui)
+  set_keymap('n', '<leader>bK', function()
     dapui.eval(vim.fn.expand '<cWORD>')
-  end, { desc = 'hover' })
+  end)
 end
 
 M.setup = function()

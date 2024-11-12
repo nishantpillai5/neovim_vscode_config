@@ -1,60 +1,61 @@
 local M = {}
 
 M.keys = {
-  { '<leader>ii', desc = 'run' },
+  { '<leader>ii', desc = 'run(test)' },
   { '<leader>ei', desc = 'tests' },
-  { '<leader>if', desc = 'run_file' },
-  { '<leader>ix', desc = 'stop' },
-  { '<leader>id', desc = 'debug' },
-  { '<leader>ia', desc = 'attach' },
-  { '<leader>ip', desc = 'preview' },
-  { '<leader>io', desc = 'open' },
+  { '<leader>if', desc = 'run_file(test)' },
+  { '<leader>ix', desc = 'stop(test)' },
+  { '<leader>id', desc = 'debug(test)' },
+  { '<leader>ia', desc = 'attach(test)' },
+  { '<leader>ip', desc = 'preview(test)' },
+  { '<leader>io', desc = 'open(test)' },
   { ']i', desc = 'test' },
   { '[i', desc = 'test' },
 }
 
 M.keymaps = function()
   local neotest = require 'neotest'
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>io', function()
+  set_keymap('n', '<leader>io', function()
     neotest.output_panel.toggle()
-  end, { desc = 'open(test)' })
+  end)
 
-  vim.keymap.set('n', '<leader>ip', function()
+  set_keymap('n', '<leader>ip', function()
     neotest.output.open { enter = true }
-  end, { desc = 'preview(test)' })
+  end)
 
-  vim.keymap.set('n', ']i', function()
+  set_keymap('n', ']i', function()
     neotest.jump.prev { status = 'failed' }
-  end, { desc = 'test' })
+  end)
 
-  vim.keymap.set('n', '[i', function()
+  set_keymap('n', '[i', function()
     neotest.jump.next { status = 'failed' }
-  end, { desc = 'test' })
+  end)
 
-  vim.keymap.set('n', '<leader>ei', function()
+  set_keymap('n', '<leader>ei', function()
     neotest.summary.toggle()
-  end, { desc = 'tests' })
+  end)
 
-  vim.keymap.set('n', '<leader>ii', function()
+  set_keymap('n', '<leader>ii', function()
     neotest.run.run()
-  end, { desc = 'run(test)' })
+  end)
 
-  vim.keymap.set('n', '<leader>if', function()
+  set_keymap('n', '<leader>if', function()
     neotest.run.run(vim.fn.expand '%')
-  end, { desc = 'run_file(test)' })
+  end)
 
-  vim.keymap.set('n', '<leader>id', function()
+  set_keymap('n', '<leader>id', function()
     neotest.run.run { strategy = 'dap' }
-  end, { desc = 'debug(test)' })
+  end)
 
-  vim.keymap.set('n', '<leader>ix', function()
+  set_keymap('n', '<leader>ix', function()
     neotest.run.stop()
-  end, { desc = 'stop(test)' })
+  end)
 
-  vim.keymap.set('n', '<leader>ia', function()
+  set_keymap('n', '<leader>ia', function()
     neotest.run.attach()
-  end, { desc = 'attach(test)' })
+  end)
 end
 
 M.setup = function()

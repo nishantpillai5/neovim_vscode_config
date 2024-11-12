@@ -87,11 +87,13 @@ function M.get_main_branch()
   return vim.fn.system(get_default_branch) or 'main'
 end
 
-local function keymap_opts(table)
-  local opts = table.opts or {}
-  opts.noremap = opts.noremap or true
-  opts.silent = opts.silent or true
-  return opts
+local function snake_to_pascal(snake_str)
+  local words = {}
+  for word in string.gmatch(snake_str, '([%a%d]+)') do
+    word = string.gsub(word, '^%l', string.upper)
+    table.insert(words, word)
+  end
+  return table.concat(words)
 end
 
 local function get_desc(lhs, table)
@@ -103,19 +105,12 @@ local function get_desc(lhs, table)
   return nil
 end
 
-local function snake_to_pascal(snake_str)
-  local words = {}
-  for word in string.gmatch(snake_str, '([%a%d]+)') do
-    word = string.gsub(word, '^%l', string.upper)
-    table.insert(words, word)
-  end
-  return table.concat(words)
-end
-
 function M.get_keymap_setter(keys)
-  return function(mode, lhs, rhs)
-    local desc = get_desc(lhs, keys)
-    vim.api.nvim_set_keymap(mode, lhs, rhs, keymap_opts { desc = desc })
+  local default_opts = { noremap = true, silent = false }
+  return function(mode, lhs, rhs, opts)
+    opts = opts or {}
+    opts['desc'] = get_desc(lhs, keys)
+    vim.keymap.set(mode, lhs, rhs, vim.tbl_extend('force', default_opts, opts))
     -- if desc ~= '' then
     --   vim.api.nvim_create_user_command('Key' .. snake_to_pascal(desc), rhs, {}) -- FIXME: desc didn't work
     -- end

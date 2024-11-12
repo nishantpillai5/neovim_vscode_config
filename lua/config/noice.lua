@@ -10,14 +10,20 @@ M.lualine = function()
   require('lualine').setup { tabline = { lualine_y = lualineY } }
 end
 
-M.keymaps = function()
-  vim.keymap.set('n', '<leader>zn', function()
-    require('noice').cmd 'disable'
-  end, { desc = 'noice_disable' })
+M.keys = {
+  { '<leader>zn', desc = 'noice_disable' },
+  { '<leader>fN', desc = 'notifications' },
+}
 
-  vim.keymap.set('n', '<leader>fN', function()
+M.keymaps = function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>zn', function()
+    require('noice').cmd 'disable'
+  end)
+
+  set_keymap('n', '<leader>fN', function()
     vim.cmd 'Telescope notify'
-  end, { desc = 'notifications' })
+  end)
 end
 
 M.setup = function()

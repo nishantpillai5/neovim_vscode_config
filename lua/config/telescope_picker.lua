@@ -7,7 +7,9 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>Fe', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<leader>Fe', function()
     if not _G.loaded_telescope_extension then
       local dap_status, _ = pcall(require, 'dap')
       if dap_status then
@@ -50,7 +52,7 @@ M.keymaps = function()
       _G.loaded_telescope_extension = true
     end
     require('telescope').extensions.picker_list.picker_list()
-  end, { desc = 'extensions' })
+  end)
 end
 
 M.config = function()

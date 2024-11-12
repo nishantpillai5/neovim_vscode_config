@@ -5,7 +5,9 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set({ 'n', 'v' }, '<leader>ls', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap({ 'n', 'v' }, '<leader>ls', function()
     require('conform').format({
       lsp_fallback = true,
       async = true,
@@ -13,7 +15,7 @@ M.keymaps = function()
     }, function()
       vim.notify 'Formatted'
     end)
-  end, { desc = 'format' })
+  end)
 end
 
 M.setup = function()

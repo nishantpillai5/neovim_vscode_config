@@ -174,80 +174,73 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>:', builtin.commands, { desc = 'find_commands' })
-  vim.keymap.set('n', '<leader>ff', project_files, { desc = 'git_files' })
+  local set_keymap = utils.get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>fF', function()
+  set_keymap('n', '<leader>:', builtin.commands)
+  set_keymap('n', '<leader>ff', project_files)
+
+  set_keymap('n', '<leader>fF', function()
     local prefix = require('common.env').USER_PREFIX .. '_'
     builtin.find_files { default_text = prefix, no_ignore = true }
-  end, { desc = 'ignored_files' })
+  end)
 
-  vim.keymap.set('n', '<leader>fa', builtin.find_files, { desc = 'all' })
+  set_keymap('n', '<leader>fa', builtin.find_files)
 
-  vim.keymap.set('n', '<leader>fA', function()
+  set_keymap('n', '<leader>fA', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
     builtin.git_files { default_text = basename }
-  end, { desc = 'alternate' })
+  end)
 
-  vim.keymap.set('n', '<leader>fgd', builtin.git_status, { desc = 'changed_files' })
-  vim.keymap.set('n', '<leader>fgb', builtin.git_branches, { desc = 'branches_checkout' })
-  -- vim.keymap.set('n', '<leader>fgB', builtin.git_branches, { desc = 'branches_diff' })
-  vim.keymap.set('n', '<leader>fgc', builtin.git_bcommits, { desc = 'commits_checkout' })
-  vim.keymap.set('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits, { desc = 'commits_diff' })
-  vim.keymap.set('n', '<leader>fgz', builtin.git_stash, { desc = 'stash' })
-  vim.keymap.set('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>', { desc = 'conflicts' })
+  set_keymap('n', '<leader>fgd', builtin.git_status)
+  set_keymap('n', '<leader>fgb', builtin.git_branches)
+  -- set_keymap('n', '<leader>fgB', builtin.git_branches)
+  set_keymap('n', '<leader>fgc', builtin.git_bcommits)
+  set_keymap('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits)
+  set_keymap('n', '<leader>fgz', builtin.git_stash)
+  set_keymap('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>')
 
-  vim.keymap.set('n', '<leader>fgl', live_grep_git_changed_files, { desc = 'live_grep_changed_files' })
-  vim.keymap.set(
-    'n',
-    '<leader>fgL',
-    live_grep_git_changed_cmp_base_branch,
-    { desc = 'live_grep_changed_files_from_main' }
-  )
+  set_keymap('n', '<leader>fgl', live_grep_git_changed_files)
+  set_keymap('n', '<leader>fgL', live_grep_git_changed_cmp_base_branch)
 
-  vim.keymap.set('n', '<leader>ft', function()
+  set_keymap('n', '<leader>ft', function()
     live_grep_git_changed_cmp_base_branch { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_branch(' .. require('common.env').TODO_CUSTOM .. ')' })
 
-  vim.keymap.set('n', '<leader>fl', builtin.live_grep, { desc = 'live_grep_global' })
+  set_keymap('n', '<leader>fl', builtin.live_grep)
 
-  vim.keymap.set('n', '<leader>fL', function()
+  set_keymap('n', '<leader>fL', function()
     require('telescope').extensions.live_grep_args.live_grep_args()
-  end, { desc = 'live_grep_global_with_args' })
+  end)
 
-  vim.keymap.set('n', '<leader>/', function()
+  set_keymap('n', '<leader>/', function()
     vim.cmd 'Telescope current_buffer_fuzzy_find'
-  end, { desc = 'find_local' })
+  end)
 
-  vim.keymap.set('n', '<leader>?', function()
+  set_keymap('n', '<leader>?', function()
     builtin.grep_string { search = vim.fn.input 'Search > ' }
-  end, { desc = 'find_global' })
+  end)
 
-  vim.keymap.set('n', '<leader>fw', function()
+  set_keymap('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
     builtin.grep_string { search = word }
-  end, { desc = 'word' })
+  end)
 
-  vim.keymap.set('n', '<leader>fW', function()
+  set_keymap('n', '<leader>fW', function()
     local word = vim.fn.expand '<cWORD>'
     builtin.grep_string { search = word }
-  end, { desc = 'whole_word' })
+  end)
 
-  vim.keymap.set('n', '<leader>Ff', '<cmd>Telescope<cr>', { desc = 'builtin' })
-
-  vim.keymap.set('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'symbols' })
-
-  vim.keymap.set('n', '<leader>wf', '<cmd>Telescope resession<cr>', { desc = 'find_session' })
-
-  vim.keymap.set('n', '<leader>fm', builtin.marks, { desc = 'marks' })
-
-  vim.keymap.set('n', '<leader>fr', function()
+  set_keymap('n', '<leader>Ff', '<cmd>Telescope<cr>')
+  set_keymap('n', '<leader>fs', builtin.lsp_document_symbols)
+  set_keymap('n', '<leader>wf', '<cmd>Telescope resession<cr>')
+  set_keymap('n', '<leader>fm', builtin.marks)
+  set_keymap('n', '<leader>fr', function()
     builtin.oldfiles { only_cwd = true }
-  end, { desc = 'recents' })
+  end)
 
-  vim.keymap.set('n', '<leader>f"', builtin.registers, { desc = 'registers' })
-  vim.keymap.set('n', '<leader>fh', function()
+  set_keymap('n', '<leader>f"', builtin.registers)
+  set_keymap('n', '<leader>fh', function()
     -- Prefer unsaved buffers
     builtin.buffers {
       sort_buffers = function(buf_a, buf_b)
@@ -259,20 +252,21 @@ M.keymaps = function()
         return buf_a < buf_b
       end,
     }
-  end, { desc = 'buffers' })
-  -- vim.keymap.set("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+  end)
+
+  -- set_keymap("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
   -- TODO: use string instead to prevent loading extensions?
-  -- vim.keymap.set({ "n", "x" }, "<leader>rr", function()
+  -- set_keymap({ "n", "x" }, "<leader>rr", function()
   --   require("telescope").extensions.refactoring.refactors()
   -- end)
 
-  vim.keymap.set('n', '<leader>wc', function()
+  set_keymap('n', '<leader>wc', function()
     builtin.find_files {
       prompt_title = 'Workspace Configuration',
       hidden = true,
       search_dirs = { '.vscode' },
     }
-  end, { desc = 'configuration' })
+  end)
 end
 
 M.setup = function()

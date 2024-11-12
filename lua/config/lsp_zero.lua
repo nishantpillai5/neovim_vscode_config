@@ -2,34 +2,33 @@ _G.pyright_settings = _G.pyright_settings or nil
 
 local M = {}
 
-local IS_WIDESCREEN = require('common.env').SCREEN == 'widescreen'
-
-local toggle_hints = function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end
-
-local toggle_diagnostics = function()
-  local current_config = vim.diagnostic.config()
-  if current_config ~= nil then
-    local current_virtual_text = current_config.virtual_text or false
-    vim.diagnostic.config { virtual_text = not current_virtual_text, signs = false }
-  end
-end
+M.keys = {
+  { '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', mode = { 'n', 'v' }, desc = 'action(F4)' },
+  { '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', mode = { 'n', 'v' }, desc = 'format_with_lsp(F3)' },
+  { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename(F2)' },
+  { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', mode = { 'n', 'v' }, desc = 'hints_view(K)' },
+  { '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', mode = { 'n', 'v' }, desc = 'diagnostic_view(gl)' },
+  { '<leader>lD', desc = 'diagnostics_toggle' },
+  { '<leader>lH', desc = 'hints_toggle' },
+}
 
 M.keymaps = function()
-  vim.keymap.set({ 'n', 'v' }, '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', { desc = 'action(F4)' })
-  vim.keymap.set({ 'n', 'v' }, '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', { desc = 'format_with_lsp(F3)' })
-  vim.keymap.set({ 'n', 'v' }, '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', { desc = 'rename(F2)' })
+  local toggle_hints = function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', { desc = 'hints_view(K)' })
-  vim.keymap.set(
-    { 'n', 'v' },
-    '<leader>ld',
-    '<cmd>lua vim.diagnostic.open_float()<CR>',
-    { desc = 'diagnostic_view(gl)' }
-  )
-  vim.keymap.set('n', '<leader>lD', toggle_diagnostics, { desc = 'diagnostics_toggle' })
-  vim.keymap.set('n', '<leader>lH', toggle_hints, { desc = 'hints_toggle' })
+  local toggle_diagnostics = function()
+    local current_config = vim.diagnostic.config()
+    if current_config ~= nil then
+      local current_virtual_text = current_config.virtual_text or false
+      vim.diagnostic.config { virtual_text = not current_virtual_text, signs = false }
+    end
+  end
+
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<leader>lD', toggle_diagnostics)
+  set_keymap('n', '<leader>lH', toggle_hints)
 end
 
 M.setup = function()
@@ -181,6 +180,7 @@ M.setup = function()
     }, {
       { name = 'cmdline' },
     }),
+    ---@diagnostic disable-next-line: missing-fields
     matching = { disallow_symbol_nonprefix_matching = false },
   })
 end
@@ -196,7 +196,7 @@ local get_logo = function(name)
   }
   local icon = logo_dict[name]
   if icon then
-    if IS_WIDESCREEN then
+    if require('common.env').SCREEN == 'widescreen' then
       return icon .. ' ' .. name
     end
     return icon

@@ -22,81 +22,82 @@ M.keys = {
 M.keymaps = function()
   local dap = require 'dap'
   -- TODO: separate json file for each build target name from neoscope
-  vim.keymap.set('n', '<F5>', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<F5>', function()
     if vim.fn.filereadable '.vscode/launch.json' then
       require('dap.ext.vscode').load_launchjs(nil, { cppdbg = { 'c', 'cpp' } })
     end
     dap.continue()
-  end, { desc = 'Debug.continue/start' })
+  end)
 
-  vim.keymap.set('n', '<C-F5>', function()
+  set_keymap('n', '<C-F5>', function()
     vim.notify 'DAP: Stop'
     dap.terminate()
-  end, { desc = 'Debug.stop' })
+  end)
 
-  vim.keymap.set('n', '<F6>', function()
+  set_keymap('n', '<F6>', function()
     vim.notify 'DAP: Pause'
     dap.pause()
-  end, { desc = 'Debug.pause' })
+  end)
 
-  vim.keymap.set('n', '<F7>', function()
+  set_keymap('n', '<F7>', function()
     vim.notify 'DAP: Step Into'
     dap.step_into()
-  end, { desc = 'Debug.step_into' })
+  end)
 
-  vim.keymap.set('n', '<C-F7>', function()
+  set_keymap('n', '<C-F7>', function()
     vim.notify 'DAP: Step Out'
     dap.step_out()
-  end, { desc = 'Debug.step_out' })
+  end)
 
-  vim.keymap.set('n', '<F8>', function()
+  set_keymap('n', '<F8>', function()
     dap.step_over()
-  end, { desc = 'Debug.step_over' })
+  end)
 
-  -- vim.keymap.set('n', 'mb', function()
+  -- set_keymap('n', 'mb', function()
   --   dap.toggle_breakpoint()
-  -- end, { desc = 'breakpoint' })
+  -- end)
   --
-  -- vim.keymap.set('n', 'mB', function()
+  -- set_keymap('n', 'mB', function()
   --   local input = vim.fn.input('Condition: ', vim.fn.expand '<cWORD>' .. '==')
   --   if input ~= '' then
   --     dap.toggle_breakpoint(input, nil, nil)
   --   end
-  -- end, { desc = 'breakpoint_conditional' })
+  -- end)
 
-  vim.keymap.set('n', '[b', function()
+  set_keymap('n', '[b', function()
     require('goto-breakpoints').prev()
-  end, { desc = 'breakpoint' })
+  end)
 
-  vim.keymap.set('n', ']b', function()
+  set_keymap('n', ']b', function()
     require('goto-breakpoints').next()
-  end, { desc = 'breakpoint' })
+  end)
 
-  vim.keymap.set('n', '<leader>zb', function()
+  set_keymap('n', '<leader>zb', function()
     require('nvim-dap-virtual-text').toggle()
-  end, { desc = 'debug_virtual' })
+  end)
 
-  vim.keymap.set('n', '<leader>bz', function()
+  set_keymap('n', '<leader>bz', function()
     require('nvim-dap-virtual-text').toggle()
-  end, { desc = 'virtual_text_toggle' })
+  end)
 
-  vim.keymap.set('n', '<leader>fbb', function()
+  set_keymap('n', '<leader>fbb', function()
     require('telescope').extensions.dap.list_breakpoints()
-  end, { desc = 'breakpoint' })
+  end)
 
-  vim.keymap.set('n', '<leader>fbc', function()
+  set_keymap('n', '<leader>fbc', function()
     require('telescope').extensions.dap.configurations()
-  end, { desc = 'configurations' })
+  end)
 
-  vim.keymap.set('n', '<leader>fbv', function()
+  set_keymap('n', '<leader>fbv', function()
     require('telescope').extensions.dap.variables()
-  end, { desc = 'variables' })
+  end)
 
-  vim.keymap.set('n', '<leader>fbf', function()
+  set_keymap('n', '<leader>fbf', function()
     require('telescope').extensions.dap.frames()
-  end, { desc = 'frames' })
+  end)
 
-  -- vim.keymap.set({ "n", "v" }, "<leader>bt", function()
+  -- set_keymap({ "n", "v" }, "<leader>bt", function()
   --   require("dap.ui.widgets").preview()
   -- end)
 end

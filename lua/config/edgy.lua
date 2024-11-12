@@ -30,13 +30,14 @@ local normal_settings = {
 local settings = require('common.env').SCREEN == 'widescreen' and widescreen_settings or normal_settings
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zx', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>zx', function()
     require('edgy').close()
-  end, { desc = 'close_panels' })
+  end)
 
-  vim.keymap.set('n', '<leader>ex', function()
+  set_keymap('n', '<leader>ex', function()
     require('edgy').close 'left'
-  end, { desc = 'close_explorers' })
+  end)
 end
 
 M.setup = function()

@@ -10,30 +10,31 @@ M.keys = {
 
 M.keymaps = function()
   local todo = require 'todo-comments'
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', ']t', function()
+  set_keymap('n', ']t', function()
     todo.jump_next { wrap = true }
-  end, { desc = 'todo' })
+  end)
 
-  vim.keymap.set('n', '[t', function()
+  set_keymap('n', '[t', function()
     todo.jump_prev { wrap = true }
-  end, { desc = 'todo' })
+  end)
 
-  vim.keymap.set('n', ']T', function()
+  set_keymap('n', ']T', function()
     todo.jump_next { last = true }
-  end, { desc = 'todo_last' })
+  end)
 
-  vim.keymap.set('n', '[T', function()
+  set_keymap('n', '[T', function()
     todo.jump_prev { last = true }
-  end, { desc = 'todo_first' })
+  end)
 
-  vim.keymap.set('n', '<leader>fT', function()
+  set_keymap('n', '<leader>fT', function()
     vim.cmd 'TodoTelescope'
-  end, { desc = 'todos_all' })
+  end)
 
-  vim.keymap.set('n', '<leader>tT', function()
+  set_keymap('n', '<leader>tT', function()
     vim.cmd 'TodoTrouble'
-  end, { desc = 'todos' })
+  end)
 end
 
 M.setup = function()

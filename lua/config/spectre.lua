@@ -8,26 +8,27 @@ M.keys = {
 
 M.keymaps = function()
   local spectre = require 'spectre'
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>r/', function()
+  set_keymap('n', '<leader>r/', function()
     spectre.open_file_search()
-  end, { desc = 'local' })
+  end)
 
-  vim.keymap.set('v', '<leader>r/', function()
+  set_keymap('v', '<leader>r/', function()
     spectre.open_file_search { select_word = true }
-  end, { desc = 'local' })
+  end)
 
-  vim.keymap.set('n', '<leader>r?', function()
+  set_keymap('n', '<leader>r?', function()
     spectre.toggle()
-  end, { desc = 'global' })
+  end)
 
-  vim.keymap.set('n', '<leader>rw', function()
+  set_keymap('n', '<leader>rw', function()
     spectre.open_visual { select_word = true }
-  end, { desc = 'global_word' })
+  end)
 
-  vim.keymap.set('v', '<leader>rw', function()
+  set_keymap('v', '<leader>rw', function()
     spectre.open_visual()
-  end, { desc = 'global_word' })
+  end)
 end
 
 M.config = function()

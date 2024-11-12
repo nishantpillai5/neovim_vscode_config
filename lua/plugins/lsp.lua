@@ -67,6 +67,7 @@ return {
       'L3MON4D3/LuaSnip',
       'folke/neodev.nvim',
     },
+    keys = require('config.lsp_zero').keys,
     cond = conds['VonHeikemen/lsp-zero.nvim'] or false,
     config = require('config.lsp_zero').config,
   },

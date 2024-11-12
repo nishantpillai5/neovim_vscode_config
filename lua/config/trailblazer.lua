@@ -24,15 +24,17 @@ end
 
 M.keymaps = function()
   local actions = require 'trailblazer.trails.actions'
-  vim.keymap.set('n', 'md', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', 'md', function()
     actions.delete_all_trail_marks(vim.api.nvim_get_current_buf())
-  end, { desc = 'delete_in_buffer' })
+  end)
 
-  vim.keymap.set('n', 'mm', function()
+  set_keymap('n', 'mm', function()
     M.mark_at_pos()
-  end, { desc = 'mark' })
+  end)
 
-  vim.keymap.set('n', 'ml', '<cmd>TrailBlazerLoadSession<cr>', { desc = 'load' })
+  set_keymap('n', 'ml', '<cmd>TrailBlazerLoadSession<cr>')
 end
 
 M.setup = function()

@@ -8,13 +8,14 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>gw', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>gw', function()
     require('telescope').extensions.git_worktree.git_worktree()
-  end, { desc = 'worktree_switch' })
+  end)
 
-  vim.keymap.set('n', '<leader>gW', function()
+  set_keymap('n', '<leader>gW', function()
     require('telescope').extensions.git_worktree.create_git_worktree()
-  end, { desc = 'worktree_create' })
+  end)
 end
 
 M.setup = function()

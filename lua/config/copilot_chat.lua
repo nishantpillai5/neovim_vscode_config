@@ -1,6 +1,7 @@
 local M = {}
 
-local explain_prompt = 'Write a concise explanation for the active selection. Don\'t explain everything in the code, just the functionality as a whole'
+local explain_prompt =
+  "Write a concise explanation for the active selection. Don't explain everything in the code, just the functionality as a whole"
 local simplify_prompt = 'Simplify and improve readablilty'
 local fix_prompt =
   'There is a problem in this code. Explain what the problem is and then rewrite the code with the bug fixed. Only generate code that needs to be changed.'
@@ -40,88 +41,88 @@ M.keys = {
 M.keymaps = function()
   local actions = require 'CopilotChat.actions'
   local select = require 'CopilotChat.select'
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>cc', function()
+  set_keymap('n', '<leader>cc', function()
     vim.cmd 'CopilotChatToggle'
-  end, { desc = 'toggle' })
+  end)
 
   -- Built-in
-
-  vim.keymap.set({ 'n', 'v' }, '<leader>ce', function()
+  set_keymap({ 'n', 'v' }, '<leader>ce', function()
     vim.cmd 'CopilotChatExplain'
-  end, { desc = 'explain' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>co', function()
+  set_keymap({ 'n', 'v' }, '<leader>co', function()
     vim.cmd 'CopilotChatOptimize'
-  end, { desc = 'optimize' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>cd', function()
+  set_keymap({ 'n', 'v' }, '<leader>cd', function()
     vim.cmd 'CopilotChatFixDiagnostic'
-  end, { desc = 'diagnostic_fix' })
+  end)
 
   -- TODO: select from a list of frameworks and make the prompt "Please generate tests for my code using the framework <framework>"
-  vim.keymap.set({ 'n', 'v' }, '<leader>cD', function()
+  set_keymap({ 'n', 'v' }, '<leader>cD', function()
     vim.cmd 'CopilotChatDocs'
-  end, { desc = 'docs' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>cg', function()
+  set_keymap({ 'n', 'v' }, '<leader>cg', function()
     vim.cmd 'CopilotChatCommit'
-  end, { desc = 'commit' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>cG', function()
+  set_keymap({ 'n', 'v' }, '<leader>cG', function()
     vim.cmd 'CopilotChatCommitStaged'
-  end, { desc = 'commit_staged' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>cr', function()
+  set_keymap({ 'n', 'v' }, '<leader>cr', function()
     vim.cmd 'CopilotChatReview'
-  end, { desc = 'review' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>ct', function()
+  set_keymap({ 'n', 'v' }, '<leader>ct', function()
     vim.cmd 'CopilotChatTests'
-  end, { desc = 'tests' })
+  end)
 
-  vim.keymap.set('n', '<leader>cx', function()
+  set_keymap('n', '<leader>cx', function()
     vim.cmd 'CopilotChatStop'
-  end, { desc = 'stop' })
+  end)
 
-  vim.keymap.set('n', '<leader>cX', function()
+  set_keymap('n', '<leader>cX', function()
     vim.cmd 'CopilotChatReset'
-  end, { desc = 'reset' })
+  end)
 
   -- Custom
 
-  vim.keymap.set('n', '<leader>cb', function()
+  set_keymap('n', '<leader>cb', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
       require('CopilotChat').ask(input, { selection = select.buffer })
     end
-  end, { desc = 'buffer' })
+  end)
 
-  vim.keymap.set('v', '<leader>cc', function()
+  set_keymap('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
       require('CopilotChat').ask(input, { select.selection })
     end
-  end, { desc = 'selection' })
+  end)
 
-  vim.keymap.set('v', '<leader>cs', function()
+  set_keymap('v', '<leader>cs', function()
     require('CopilotChat').ask(simplify_prompt, { selection = select.selection })
-  end, { desc = 'simplify' })
+  end)
 
   -- TODO: gitdiff from master instead of local
-  vim.keymap.set('n', '<leader>cp', function()
+  set_keymap('n', '<leader>cp', function()
     require('CopilotChat').ask(pr_prompt, { selection = select.gitdiff })
-  end, { desc = 'pr_changes' })
+  end)
 
   -- Telescope
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>fc', function()
+  set_keymap({ 'n', 'v' }, '<leader>fc', function()
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
-  end, { desc = 'chat' })
+  end)
 
-  vim.keymap.set({ 'n', 'v' }, '<leader>cf', function()
+  set_keymap({ 'n', 'v' }, '<leader>cf', function()
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
-  end, { desc = 'find' })
+  end)
 end
 
 M.setup = function()

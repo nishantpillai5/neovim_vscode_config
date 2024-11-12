@@ -7,18 +7,20 @@ M.keys = {
 }
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>;f', function()
-    vim.cmd [[ Telescope toggleterm_manager ]]
-  end, { desc = 'find' })
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>f;', function()
+  set_keymap('n', '<leader>;f', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
-  end, { desc = 'terminal' })
+  end)
+
+  set_keymap('n', '<leader>f;', function()
+    vim.cmd [[ Telescope toggleterm_manager ]]
+  end)
 
   -- TODO: filter only overseer
-  vim.keymap.set('n', '<leader>fo', function()
+  set_keymap('n', '<leader>fo', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
-  end, { desc = 'terminal' })
+  end)
 end
 
 M.setup = function()

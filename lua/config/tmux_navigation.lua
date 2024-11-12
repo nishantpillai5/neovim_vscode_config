@@ -11,12 +11,14 @@ M.keys = {
 
 M.keymaps = function()
   local nvim_tmux_nav = require 'nvim-tmux-navigation'
-  vim.keymap.set('n', '<C-h>', nvim_tmux_nav.NvimTmuxNavigateLeft)
-  vim.keymap.set('n', '<C-j>', nvim_tmux_nav.NvimTmuxNavigateDown)
-  vim.keymap.set('n', '<C-k>', nvim_tmux_nav.NvimTmuxNavigateUp)
-  vim.keymap.set('n', '<C-l>', nvim_tmux_nav.NvimTmuxNavigateRight)
-  vim.keymap.set('n', '<C-Space>', nvim_tmux_nav.NvimTmuxNavigateLastActive)
-  vim.keymap.set('n', '<C-\\>', nvim_tmux_nav.NvimTmuxNavigateNext)
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<C-h>', nvim_tmux_nav.NvimTmuxNavigateLeft)
+  set_keymap('n', '<C-j>', nvim_tmux_nav.NvimTmuxNavigateDown)
+  set_keymap('n', '<C-k>', nvim_tmux_nav.NvimTmuxNavigateUp)
+  set_keymap('n', '<C-l>', nvim_tmux_nav.NvimTmuxNavigateRight)
+  set_keymap('n', '<C-Space>', nvim_tmux_nav.NvimTmuxNavigateLastActive)
+  set_keymap('n', '<C-\\>', nvim_tmux_nav.NvimTmuxNavigateNext)
 end
 
 M.setup = function()

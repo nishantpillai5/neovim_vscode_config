@@ -1,5 +1,4 @@
 local M = {}
-local utils = require 'common.utils'
 
 M.keys = {
   { '<leader>fgD', desc = 'changed_files_from_main' },
@@ -8,13 +7,13 @@ M.keys = {
 M.cmd = { 'Easypick', 'KeyChangedFilesFromMain' }
 
 M.keymaps = function()
-  local set_keymap = utils.get_keymap_setter(M.keys)
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>fgD', ':Easypick changed_files<cr>')
 end
 
 M.setup = function()
   local easypick = require 'easypick'
-  local base_branch = utils.get_main_branch()
+  local base_branch = require('common.utils').get_main_branch()
 
   local command = ''
 

@@ -12,24 +12,25 @@ M.keys = {
 M.cmd = { 'GitConflictPrevConflict', 'GitConflictNextConflict' }
 
 M.keymaps = function()
-  -- vim.keymap.set('n', '[x', '<cmd>GitConflictPrevConflict<cr>', { desc = 'conflict' })
-  -- vim.keymap.set('n', ']x', '<cmd>GitConflictNextConflict<cr>', { desc = 'conflict' })
+  -- set_keymap('n', '[x', '<cmd>GitConflictPrevConflict<cr>')
+  -- set_keymap('n', ']x', '<cmd>GitConflictNextConflict<cr>')
 
-  -- vim.keymap.set('n', '[x', '<Plug>(git-conflict-prev-conflict)', { desc = 'conflict' })
-  -- vim.keymap.set('n', ']x', '<Plug>(git-conflict-next-conflict)', { desc = 'conflict' })
+  -- set_keymap('n', '[x', '<Plug>(git-conflict-prev-conflict)')
+  -- set_keymap('n', ']x', '<Plug>(git-conflict-next-conflict)')
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>gxo', '<Plug>(git-conflict-ours)', { desc = 'ours' })
-  vim.keymap.set('n', '<leader>gxt', '<Plug>(git-conflict-theirs)', { desc = 'theirs' })
-  vim.keymap.set('n', '<leader>gxb', '<Plug>(git-conflict-both)', { desc = 'both' })
-  vim.keymap.set('n', '<leader>gxn', '<Plug>(git-conflict-none)', { desc = 'none' })
+  set_keymap('n', '<leader>gxo', '<Plug>(git-conflict-ours)')
+  set_keymap('n', '<leader>gxt', '<Plug>(git-conflict-theirs)')
+  set_keymap('n', '<leader>gxb', '<Plug>(git-conflict-both)')
+  set_keymap('n', '<leader>gxn', '<Plug>(git-conflict-none)')
 
   -- TODO: fix keymaps above are not working
-  vim.keymap.set('n', '[x', '?<<<<<<<<cr>', { desc = 'conflict' })
-  vim.keymap.set('n', ']x', '/<<<<<<<<cr>', { desc = 'conflict' })
+  set_keymap('n', '[x', '?<<<<<<<<cr>')
+  set_keymap('n', ']x', '/<<<<<<<<cr>')
 end
 
 M.setup = function()
----@diagnostic disable-next-line: missing-fields
+  ---@diagnostic disable-next-line: missing-fields
   require('git-conflict').setup {
     default_mappings = false,
     default_commands = true,

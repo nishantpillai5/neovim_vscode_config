@@ -33,23 +33,25 @@ local find_dir = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>ee', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<leader>ee', function()
     vim.cmd 'Neotree reveal focus'
-  end, { desc = 'explorer' })
+  end)
 
-  vim.keymap.set('n', '<leader>eb', function()
+  set_keymap('n', '<leader>eb', function()
     vim.cmd 'Neotree reveal focus buffers'
-  end, { desc = 'buffers' })
+  end)
 
-  vim.keymap.set('n', '<leader>eg', function()
+  set_keymap('n', '<leader>eg', function()
     vim.cmd 'Neotree reveal focus git_status'
-  end, { desc = 'git' })
+  end)
 
-  -- vim.keymap.set('n', '<leader>eE', function()
+  -- set_keymap('n', '<leader>eE', function()
   --   vim.cmd 'Neotree toggle last'
-  -- end, { desc = 'toggle' })
+  -- end)
 
-  vim.keymap.set('n', '<leader>fe', find_dir, { desc = 'explorer' })
+  set_keymap('n', '<leader>fe', find_dir)
 end
 
 M.setup = function()

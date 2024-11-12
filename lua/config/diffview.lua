@@ -64,11 +64,12 @@ local file_diff_from_main_toggle = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>gd', diffview_toggle, { desc = 'diff' })
-  vim.keymap.set('n', '<leader>gD', diffview_from_main, { desc = 'diff_from_main' })
-  vim.keymap.set('n', '<leader>gH', history_toggle, { desc = 'history' })
-  vim.keymap.set('n', '<leader>gf', file_diff, { desc = 'file_diff' })
-  vim.keymap.set('n', '<leader>gF', file_diff_from_main_toggle, { desc = 'file_diff_from_main' })
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>gd', diffview_toggle)
+  set_keymap('n', '<leader>gD', diffview_from_main)
+  set_keymap('n', '<leader>gH', history_toggle)
+  set_keymap('n', '<leader>gf', file_diff)
+  set_keymap('n', '<leader>gF', file_diff_from_main_toggle)
 end
 
 M.config = function()

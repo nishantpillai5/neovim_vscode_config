@@ -28,25 +28,27 @@ end
 
 M.keymaps = function()
   local resession = require 'resession'
-  vim.keymap.set('n', '<leader>ws', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<leader>ws', function()
     workspace_session(resession.save)
-  end, { desc = 'save_session' })
+  end)
 
-  vim.keymap.set('n', '<leader>wl', function()
+  set_keymap('n', '<leader>wl', function()
     workspace_session(resession.load)
-  end, { desc = 'load_session' })
+  end)
 
-  vim.keymap.set('n', '<leader>wS', function()
+  set_keymap('n', '<leader>wS', function()
     resession.save()
-  end, { desc = 'save_manual_session' })
+  end)
 
-  vim.keymap.set('n', '<leader>wL', function()
+  set_keymap('n', '<leader>wL', function()
     resession.load()
-  end, { desc = 'load_manual_session' })
+  end)
 
-  vim.keymap.set('n', '<leader>wd', function()
+  set_keymap('n', '<leader>wd', function()
     resession.delete()
-  end, { desc = 'delete_session' })
+  end)
 end
 
 M.setup = function()

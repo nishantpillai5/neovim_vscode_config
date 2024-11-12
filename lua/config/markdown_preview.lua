@@ -16,10 +16,16 @@ M.cmd = {
   'MarkdownPreviewToggleTheme',
 }
 
+M.keys = {
+  { '<leader>zp', desc = 'preview' },
+}
+
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>zp', function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<leader>zp', function()
     vim.cmd 'MarkdownPreviewToggle'
-  end, { silent = true, noremap = true, buffer = true, desc = 'preview' })
+  end, { buffer = true })
 end
 
 M.setup = function()

@@ -27,7 +27,8 @@ local panel_align = function()
 end
 
 M.keymaps = function()
-  vim.keymap.set('n', '<leader>;;', init_or_toggle, { desc = 'toggle', silent = true })
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  set_keymap('n', '<leader>;;', init_or_toggle)
 end
 
 M.setup = function()

@@ -141,56 +141,57 @@ end
 
 M.keymaps = function()
   local overseer = require 'overseer'
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>oo', function()
+  set_keymap('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
-  end, { desc = 'run_from_list' })
+  end)
 
-  vim.keymap.set('n', '<leader>eo', toggle_sidebar, { desc = 'tasks' })
+  set_keymap('n', '<leader>eo', toggle_sidebar)
 
-  vim.keymap.set('n', '<leader>oc', function()
+  set_keymap('n', '<leader>oc', function()
     action_on_last_task(nil)
-  end, { desc = 'change_last' })
+  end)
 
-  vim.keymap.set('n', '<leader>ol', function()
+  set_keymap('n', '<leader>ol', function()
     action_on_last_task 'restart'
-  end, { desc = 'restart_last' })
+  end)
 
-  vim.keymap.set('n', '<leader>op', function()
+  set_keymap('n', '<leader>op', function()
     action_on_last_task 'open float'
-  end, { desc = 'preview_last' })
+  end)
 
-  vim.keymap.set('n', '<leader>ox', function()
+  set_keymap('n', '<leader>ox', function()
     action_on_last_task('stop', function(task)
       return M.filter_run_tasks(task) or M.filter_build_tasks(task)
     end)
-  end, { desc = 'stop_last' })
+  end)
 
-  vim.keymap.set('n', '<leader>oX', function()
+  set_keymap('n', '<leader>oX', function()
     action_on_all_tasks 'stop'
-  end, { desc = 'stop_all' })
+  end)
 
-  vim.keymap.set('n', '<leader>or', function()
+  set_keymap('n', '<leader>or', function()
     if _G.run_cmd == nil then
       vim.notify('Run Command not set', vim.log.levels.ERROR)
     else
       vim.cmd('OverseerRunCmd ' .. _G.run_cmd)
     end
-  end, { desc = 'run' })
+  end)
 
-  vim.keymap.set('n', '<leader>ob', function()
+  set_keymap('n', '<leader>ob', function()
     if _G.build_template == nil then
       vim.notify('Build template not set', vim.log.levels.ERROR)
     else
       overseer.run_template(_G.build_template)
     end
-  end, { desc = 'build' })
+  end)
 
-  vim.keymap.set('n', '<leader>oss', function()
+  set_keymap('n', '<leader>oss', function()
     action_on_last_task 'save'
-  end, { desc = 'save_last' })
+  end)
 
-  vim.keymap.set('n', '<leader>osl', function()
+  set_keymap('n', '<leader>osl', function()
     vim.ui.select(overseer.list_task_bundles(), {
       prompt = 'Load bundle',
       telescope = require('telescope.themes').get_cursor(),
@@ -200,9 +201,9 @@ M.keymaps = function()
       end
       vim.cmd('OverseerLoadBundle ' .. selected)
     end)
-  end, { desc = 'load_bundle' })
+  end)
 
-  vim.keymap.set('n', '<leader>osd', function()
+  set_keymap('n', '<leader>osd', function()
     vim.ui.select(overseer.list_task_bundles(), {
       prompt = 'Delete bundle',
       telescope = require('telescope.themes').get_cursor(),
@@ -212,7 +213,7 @@ M.keymaps = function()
       end
       vim.cmd('OverseerDeleteBundle ' .. selected)
     end)
-  end, { desc = 'delete_bundle' })
+  end)
 
   vim.api.nvim_create_user_command('OverseerList', function()
     vim.notify(vim.inspect(overseer.list_tasks()[1]))

@@ -71,16 +71,17 @@ M.keys = {
 
 M.keymaps = function()
   local global_note = require 'global-note'
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  vim.keymap.set('n', '<leader>nn', function()
+  set_keymap('n', '<leader>nn', function()
     global_note.toggle_note 'project_local'
-  end, { desc = 'current' })
+  end)
 
-  vim.keymap.set('n', '<leader>ng', function()
+  set_keymap('n', '<leader>ng', function()
     global_note.toggle_note 'git_branch_local'
-  end, { desc = 'git_branch' })
+  end)
 
-  vim.keymap.set('n', '<leader>na', global_note.toggle_note, { desc = 'all' })
+  set_keymap('n', '<leader>na', global_note.toggle_note)
 end
 
 M.setup = function()

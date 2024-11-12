@@ -6,12 +6,13 @@ M.keys = {
 }
 
 M.keymaps = function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   local toggle_virtual_blame = function()
     vim.g.gitblame_display_virtual_text = vim.g.gitblame_display_virtual_text == 0 and 1 or 0
   end
 
-  vim.keymap.set('n', '<leader>gv', toggle_virtual_blame, { desc = 'virtual_blame' })
-  vim.keymap.set('n', '<leader>zg', toggle_virtual_blame, { desc = 'git_blame' })
+  set_keymap('n', '<leader>gv', toggle_virtual_blame)
+  set_keymap('n', '<leader>zg', toggle_virtual_blame)
 end
 
 M.setup = function()
@@ -21,7 +22,7 @@ M.setup = function()
 end
 
 local function blame_text()
-  return "" .. require('gitblame').get_current_blame_text()
+  return '' .. require('gitblame').get_current_blame_text()
 end
 
 M.lualine = function()
