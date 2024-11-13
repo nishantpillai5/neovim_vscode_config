@@ -38,6 +38,11 @@ M.keys = {
   { '<leader>cf', mode = { 'n', 'v' }, desc = 'find' },
 }
 
+M.buffer_keys = {
+  '<C-p>',
+  desc = 'print_last_response',
+}
+
 M.keymaps = function()
   local actions = require 'CopilotChat.actions'
   local select = require 'CopilotChat.select'
@@ -151,13 +156,14 @@ M.setup = function()
     },
   }
 
+  local set_buf_keymap = require('common.utils').get_keymap_setter(M.buffer_keys, { buffer = true })
+
   vim.api.nvim_create_autocmd('BufEnter', {
     pattern = 'copilot-*',
     callback = function()
-      -- C-p to print last response
-      vim.keymap.set('n', '<C-p>', function()
+      set_buf_keymap('n', '<C-p>', function()
         print(require('CopilotChat').response())
-      end, { buffer = true, remap = true })
+      end)
     end,
   })
 end

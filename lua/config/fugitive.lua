@@ -10,6 +10,11 @@ M.keys = {
   { '<leader>gzZ', desc = 'stash_untracked' },
 }
 
+M.buffer_keys = {
+  '<leader>P',
+  '<leader>p',
+}
+
 local toggle_fugitive = function()
   local winids = vim.api.nvim_list_wins()
   for _, id in pairs(winids) do
@@ -47,8 +52,8 @@ end
 
 M.setup = function()
   local fugitive_augroup = vim.api.nvim_create_augroup('AUGfugitive', {})
-  local autocmd = vim.api.nvim_create_autocmd
-  autocmd('BufWinEnter', {
+  local set_buf_keymap = require('common.utils').get_keymap_setter(M.buffer_keys)
+  vim.api.nvim_create_autocmd('BufWinEnter', {
     group = fugitive_augroup,
     pattern = '*',
     callback = function()
@@ -57,13 +62,13 @@ M.setup = function()
       end
 
       local bufnr = vim.api.nvim_get_current_buf()
-      vim.keymap.set('n', '<leader>P', function()
+      set_buf_keymap('n', '<leader>P', function()
         vim.cmd [[ Git push ]]
-      end, { buffer = bufnr, remap = false, desc = 'push' })
+      end, { buffer = bufnr })
 
-      vim.keymap.set('n', '<leader>p', function()
+      set_buf_keymap('n', '<leader>p', function()
         vim.cmd [[ Git pull --rebase ]]
-      end, { buffer = bufnr, remap = false, desc = 'pull' })
+      end, { buffer = bufnr })
     end,
   })
 end

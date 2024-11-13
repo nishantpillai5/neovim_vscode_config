@@ -44,9 +44,6 @@ vim.opt.scrolloff = 8
 -- Leader
 vim.g.mapleader = ' '
 
--- jk as esc
-vim.keymap.set('i', 'jk', '<Esc>', { noremap = true, silent = true })
-
 -- Split windows
 vim.o.splitright = true
 vim.o.splitbelow = true

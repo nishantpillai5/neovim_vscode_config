@@ -42,7 +42,7 @@ local function get_logo()
   local context = require('common.env').NVIM_CONTEXT
   local logo = LOGO1
 
-  if context == 'work' then
+  if context == 'work' or context == 'present' then
     logo = _G.LOGO or LOGO2
   end
 

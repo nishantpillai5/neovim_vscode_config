@@ -44,7 +44,8 @@ return {
     },
     config = function()
       require('project_nvim').setup()
-      vim.keymap.set('n', '<leader>wW', function()
+      local set_keymap = require('common.utils').get_keymap_setter()
+      set_keymap('n', '<leader>wW', function()
         require('telescope').extensions.projects.projects()
       end, { desc = 'select_project' })
     end,

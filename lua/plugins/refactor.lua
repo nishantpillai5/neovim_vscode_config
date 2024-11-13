@@ -16,7 +16,8 @@ return {
     },
     config = function()
       require('inc_rename').setup()
-      vim.keymap.set('n', '<leader>rn', function()
+      local set_keymap = require('common.utils').get_keymap_setter()
+      set_keymap('n', '<leader>rn', function()
         return ':IncRename ' .. vim.fn.expand '<cword>'
       end, { expr = true })
     end,

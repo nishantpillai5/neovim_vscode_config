@@ -26,6 +26,12 @@ vim.api.nvim_create_autocmd('BufReadPost', {
   end,
 })
 
+-- Set comment string for log files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'log',
+  command = 'setlocal commentstring=#\\ %s',
+})
+
 -- Set comment string for Markdown files
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',

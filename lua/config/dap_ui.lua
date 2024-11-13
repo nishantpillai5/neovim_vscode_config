@@ -7,24 +7,29 @@ M.keys = {
   -- { "<leader>b?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
 }
 
+M.common_keys = {
+  { 'K', desc = 'dap_eval' },
+}
+
 M.keymaps = function()
   local dapui = require 'dapui'
   local dapui_open = false
-  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+  local set_common_keymap = require('common.utils').get_keymap_setter(M.common_keys)
 
   -- FIXME: keybind not working
   local function toggle_dapui()
     dapui.toggle()
     dapui_open = not dapui_open
     if dapui_open then
-      vim.keymap.set('n', 'K', function()
+      set_common_keymap('n', 'K', function()
         dapui.eval(vim.fn.expand '<cWORD>')
-      end, { desc = 'dap_eval' })
+      end)
     else
-      vim.api.nvim_set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<cr>', { noremap = true, silent = true })
+      set_common_keymap('n', 'K', ':lua vim.lsp.buf.hover()<cr>', { desc = 'hover' })
     end
   end
 
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>bb', toggle_dapui)
   set_keymap('n', '<leader>bK', function()
     dapui.eval(vim.fn.expand '<cWORD>')

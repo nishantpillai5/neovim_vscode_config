@@ -25,12 +25,20 @@ M.keys = {
   { '<leader>nc', ':ObsidianExtractNote<cr>', desc = 'create', mode = { 'v' } },
 }
 
+M.common_keys = {
+  { '<leader>ff', desc = 'files(notes)' },
+  { '<leader>?', desc = 'find_global(notes)' },
+  { '<leader>fs', desc = 'symbols(notes)' },
+  { '<leader>fS', desc = 'tags(notes)' },
+}
+
 M.keymaps = function()
   if is_notes_dir() then
-    vim.keymap.set('n', '<leader>ff', ':ObsidianQuickSwitch<cr>', { desc = 'files(notes)' })
-    vim.keymap.set('n', '<leader>?', ':ObsidianSearch<cr>', { desc = 'find_global(notes)' })
-    vim.keymap.set('n', '<leader>fs', ':ObsidianTOC<cr>', { desc = 'symbols(notes)' })
-    vim.keymap.set('n', '<leader>fS', ':ObsidianTags<cr>', { desc = 'tags(notes)' })
+    local set_keymap = require('common.utils').get_keymap_setter(M.common_keys)
+    set_keymap('n', '<leader>ff', ':ObsidianQuickSwitch<cr>')
+    set_keymap('n', '<leader>?', ':ObsidianSearch<cr>')
+    set_keymap('n', '<leader>fs', ':ObsidianTOC<cr>')
+    set_keymap('n', '<leader>fS', ':ObsidianTags<cr>')
   end
 end
 

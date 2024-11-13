@@ -88,6 +88,9 @@ function M.get_main_branch()
 end
 
 local function get_desc(lhs, table)
+  if table == nil or #table == 0 then
+    return 'UNKNOWN'
+  end
   for _, v in ipairs(table) do
     if v[1] == lhs then
       return v.desc
@@ -96,11 +99,13 @@ local function get_desc(lhs, table)
   return nil
 end
 
-function M.get_keymap_setter(keys)
-  local default_opts = { noremap = true, silent = true }
+function M.get_keymap_setter(keys, setter_opts)
+  keys = keys or {}
+  setter_opts = setter_opts or {}
+  local default_opts = vim.tbl_extend('force', { noremap = true, silent = true }, setter_opts)
   return function(mode, lhs, rhs, opts)
     opts = opts or {}
-    opts['desc'] = get_desc(lhs, keys)
+    opts['desc'] = opts['desc'] or get_desc(lhs, keys)
     vim.keymap.set(mode, lhs, rhs, vim.tbl_extend('force', default_opts, opts))
   end
 end

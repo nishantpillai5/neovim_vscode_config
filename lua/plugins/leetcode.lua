@@ -1,5 +1,6 @@
 local plugins = {
-  'kawre/leetcode.nvim',
+  -- 'kawre/leetcode.nvim',
+  'xeluxee/competitest.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -19,5 +20,15 @@ return {
     },
     cond = conds['kawre/leetcode.nvim'] or false,
     opts = { arg = leet_arg },
+  },
+  {
+    'xeluxee/competitest.nvim',
+    cond = conds['xeluxee/competitest.nvim'] or false,
+    cmd = 'Competitest',
+    lazy = true,
+    dependencies = 'MunifTanjim/nui.nvim',
+    config = function()
+      require('competitest').setup()
+    end,
   },
 }

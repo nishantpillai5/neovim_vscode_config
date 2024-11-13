@@ -1,16 +1,5 @@
 local M = {}
 
-local set_env = function(var)
-  return os.getenv(var) or M.defaults[var]
-end
-
-local os_from_env = os.getenv 'OS'
-if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
-  M.OS = 'windows'
-else
-  M.OS = 'linux'
-end
-
 local nvim_python_paths = {
   windows = '~/.virtualenvs/neovim/Scripts/python.exe',
   linux = '~/.virtualenvs/neovim/bin/python3',
@@ -31,6 +20,17 @@ M.defaults = {
   VSC_CONFIG = vim.fn.expand(vsc_config_paths[M.OS]),
 }
 
+local os_from_env = os.getenv 'OS'
+if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
+  M.OS = 'windows'
+else
+  M.OS = 'linux'
+end
+
+local set_env = function(var)
+  return os.getenv(var) or M.defaults[var]
+end
+
 M.NVIM_CONTEXT = set_env 'NVIM_CONTEXT'
 M.DIR_NOTES = set_env 'DIR_NOTES'
 M.DIR_NVIM = set_env 'DIR_NVIM'
@@ -45,6 +45,9 @@ M.SCREEN = 'normal' -- normal, widescreen
 if M.NVIM_CONTEXT == 'work' then
   M.SCREEN = 'widescreen'
   M.PANEL_POSITION = 'vertical'
+elseif M.NVIM_CONTEXT == 'present' then
+  M.SCREEN = 'normal'
+  M.PANEL_POSITION = 'horizontal'
 end
 
 M.USER_PREFIX = os.getenv 'USER_PREFIX' or os.getenv 'USERNAME' or 'user'

@@ -30,6 +30,7 @@ function MyCalSign(day, month, year)
 end
 
 function MyCalAction(day, month, year, _, _)
+  vim.cmd 'wincmd p'
   vim.cmd('e ' .. get_note_path(day, month, year))
 end
 

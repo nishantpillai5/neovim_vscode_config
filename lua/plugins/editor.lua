@@ -59,13 +59,14 @@ return {
           timer = 200,
         },
       }
-      vim.keymap.set({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
-      vim.keymap.set({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
-      vim.keymap.set({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
-      vim.keymap.set({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
+      local set_keymap = require('common.utils').get_keymap_setter()
+      set_keymap({ 'n', 'x' }, 'p', '<Plug>(YankyPutAfter)')
+      set_keymap({ 'n', 'x' }, 'P', '<Plug>(YankyPutBefore)')
+      set_keymap({ 'n', 'x' }, 'gp', '<Plug>(YankyGPutAfter)')
+      set_keymap({ 'n', 'x' }, 'gP', '<Plug>(YankyGPutBefore)')
 
-      vim.keymap.set('n', '<c-p>', '<Plug>(YankyPreviousEntry)')
-      vim.keymap.set('n', '<c-n>', '<Plug>(YankyNextEntry)')
+      set_keymap('n', '<c-p>', '<Plug>(YankyPreviousEntry)')
+      set_keymap('n', '<c-n>', '<Plug>(YankyNextEntry)')
     end,
   },
   -- Better join

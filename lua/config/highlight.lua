@@ -11,7 +11,7 @@ M.keys = {
 M.keymaps = function()
   -- TODO: mark_at_pos on highlight
 
-  -- vim.keymap.set({ 'n', 'v' }, '<leader>zh', function()
+  -- set_keymap({ 'n', 'v' }, '<leader>zh', function()
   --   vim.cmd [[ HSHighlight 1 ]]
   --   require('config.trailblazer').mark_at_pos()
   -- end, { desc = 'highlight' })

@@ -1,44 +1,68 @@
+local keys = {
+  { 'jk', desc = 'escape' },
+  { '<leader>zl', desc = 'line_no_relative' },
+  { '<leader>z/', desc = 'clear_search' },
+  { '<C-d>', desc = 'page_down' },
+  { '<C-u>', desc = 'page_up' },
+  { '#', desc = 'prev' },
+  { '*', desc = 'next' },
+  { 'N', desc = 'prev' },
+  { 'n', desc = 'next' },
+  { '<leader>y', desc = 'yank_to_clipboard' },
+  { '<leader>Y', desc = 'yank_line_to_clipboard' },
+  { '<leader>d', desc = 'delete_to_clipboard' },
+  { '<leader>D', desc = 'delete_to_void' },
+  { '<leader>P', desc = 'delete_then_paste_from_clipboard' },
+  { '<leader>p', desc = 'paste_from_clipboard' },
+  { '<leader>zw', desc = 'wrap' },
+  { '<leader>H', desc = 'buffer_prev' },
+  { '<leader>eF', desc = 'netrw' },
+  { 'J', desc = 'join_next_line' },
+  { '<leader>zq', desc = 'lazyredraw_toggle' },
+  { 'gco', desc = 'add_comment' },
+}
+
+local set_keymap = require('common.utils').get_keymap_setter(keys)
+
+-- jk as esc
+set_keymap('i', 'jk', '<Esc>')
+
 -- Toggle relative line numbers
-vim.keymap.set('n', '<leader>zl', ':set relativenumber!<cr>', { desc = 'line_no_relative' })
+set_keymap('n', '<leader>zl', ':set relativenumber!<cr>')
 
 -- Clear highlighted search
-vim.keymap.set('n', '<leader>z/', ':nohlsearch<cr>', { desc = 'clear_search' })
+set_keymap('n', '<leader>z/', ':nohlsearch<cr>')
 
 -- Centered navigation
-vim.keymap.set('n', '<C-d>', '<C-d>zz', { silent = true, desc = 'page_down' })
-vim.keymap.set('n', '<C-u>', '<C-u>zz', { silent = true, desc = 'page_up' })
-vim.keymap.set('n', '#', '#zz', { silent = true, desc = 'prev' })
-vim.keymap.set('n', '*', '*zz', { silent = true, desc = 'next' })
-vim.keymap.set('n', 'N', 'Nzzzv', { silent = true, desc = 'prev' })
-vim.keymap.set('n', 'n', 'nzzzv', { silent = true, desc = 'next' })
+set_keymap('n', '<C-d>', '<C-d>zz')
+set_keymap('n', '<C-u>', '<C-u>zz')
+set_keymap('n', '#', '#zz')
+set_keymap('n', '*', '*zz')
+set_keymap('n', 'N', 'Nzzzv')
+set_keymap('n', 'n', 'nzzzv')
 
 -- Yank
-vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]], { desc = 'yank_to_clipboard' })
-vim.keymap.set('n', '<leader>Y', [["+Y]], { desc = 'yank_line_to_clipboard' })
-vim.keymap.set({ 'n', 'v' }, '<leader>d', [["+d]], { desc = 'delete_to_clipboard' })
-vim.keymap.set({ 'n', 'v' }, '<leader>D', [["_d]], { desc = 'delete_to_void' })
-vim.keymap.set('x', '<leader>P', [["+dP]], { desc = 'delete_then_paste_from_clipboard' })
-vim.keymap.set('x', '<leader>p', [["+p]], { desc = 'paste_from_clipboard' })
+set_keymap({ 'n', 'v' }, '<leader>y', [["+y]])
+set_keymap('n', '<leader>Y', [["+Y]])
+set_keymap({ 'n', 'v' }, '<leader>d', [["+d]])
+set_keymap({ 'n', 'v' }, '<leader>D', [["_d]])
+set_keymap('x', '<leader>P', [["+dP]])
+set_keymap('x', '<leader>p', [["+p]])
 
 -- Line wrap
-vim.keymap.set('n', '<leader>zw', ':set wrap!<cr>', { desc = 'wrap' })
+set_keymap('n', '<leader>zw', ':set wrap!<cr>')
 
 -- Previous buffer
-vim.keymap.set('n', '<leader>H', ':b#<cr>', { desc = 'buffer_prev', silent = true })
+set_keymap('n', '<leader>H', ':b#<cr>')
 
 -- Netrw
-vim.keymap.set('n', '<leader>eF', vim.cmd.Ex, { desc = 'netrw' })
+set_keymap('n', '<leader>eF', vim.cmd.Ex)
 
 -- Spaceless join
-vim.api.nvim_set_keymap('n', 'J', 'gJ', { noremap = true, desc = 'join_next_line' })
+set_keymap('n', 'J', 'gJ')
 
 -- Do not draw macros
-vim.keymap.set('n', '<leader>zq', ':set lazyredraw!<cr>', { desc = 'lazyredraw_toggle' })
+set_keymap('n', '<leader>zq', ':set lazyredraw!<cr>')
 
 -- Add custom comment
-vim.keymap.set(
-  'n',
-  'gco',
-  'o' .. require('common.env').TODO_CUSTOM .. ': <esc>:normal gcc<cr>A',
-  { desc = 'add_comment', silent = true }
-)
+set_keymap('n', 'gco', 'o' .. require('common.env').TODO_CUSTOM .. ': <esc>:normal gcc<cr>A')

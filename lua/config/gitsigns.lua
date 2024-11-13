@@ -2,6 +2,17 @@ local M = {}
 
 M.keys = {
   { '<leader>gB', desc = 'blame_buffer' },
+  { '[c', desc = 'prev_hunk' },
+  { ']c', desc = 'next_hunk' },
+  { '<leader>ghs', desc = 'stage' },
+  { '<leader>ghr', desc = 'reset' },
+  { '<leader>ghS', desc = 'stage_buffer' },
+  { '<leader>ghu', desc = 'undo_stage' },
+  { '<leader>ghR', desc = 'reset_buffer' },
+  { '<leader>ghd', desc = 'diff' },
+  { '<leader>ghb', desc = 'blame' },
+  { '<leader>gV', desc = 'virtual_deleted' },
+  { 'ih', desc = 'select_hunk' },
 }
 
 M.keymaps = function()
@@ -18,16 +29,10 @@ M.setup = function()
       delay = 100,
     },
     on_attach = function(bufnr)
-      -- vim.keymap.set('n', '<leader>gb', gitsigns.blame_line, { desc = 'blame' })
-
-      local function map(mode, l, r, opts)
-        opts = opts or {}
-        opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
-      end
+      local set_keymap = require('common.utils').get_keymap_setter(M.keys, { buffer = bufnr })
 
       -- Navigation
-      map('n', ']c', function()
+      set_keymap('n', ']c', function()
         if vim.wo.diff then
           vim.cmd.normal { ']c', bang = true }
         else
@@ -35,7 +40,7 @@ M.setup = function()
         end
       end, { desc = 'hunk' })
 
-      map('n', '[c', function()
+      set_keymap('n', '[c', function()
         if vim.wo.diff then
           vim.cmd.normal { '[c', bang = true }
         else
@@ -44,25 +49,25 @@ M.setup = function()
       end, { desc = 'hunk' })
 
       -- Actions
-      map('n', '<leader>ghs', gitsigns.stage_hunk, { desc = 'stage' })
-      map('n', '<leader>ghr', gitsigns.reset_hunk, { desc = 'reset' })
-      map('v', '<leader>ghs', function()
+      set_keymap('n', '<leader>ghs', gitsigns.stage_hunk)
+      set_keymap('n', '<leader>ghr', gitsigns.reset_hunk)
+      set_keymap('v', '<leader>ghs', function()
         gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-      end, { desc = 'stage' })
-      map('v', '<leader>ghr', function()
+      end)
+      set_keymap('v', '<leader>ghr', function()
         gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-      end, { desc = 'reset' })
-      map('n', '<leader>ghS', gitsigns.stage_buffer, { desc = 'stage_buffer' })
-      map('n', '<leader>ghu', gitsigns.undo_stage_hunk, { desc = 'undo_stage' })
-      map('n', '<leader>ghR', gitsigns.reset_buffer, { desc = 'reset_buffer' })
-      map('n', '<leader>ghd', gitsigns.preview_hunk, { desc = 'diff' })
-      map('n', '<leader>ghb', function()
+      end)
+      set_keymap('n', '<leader>ghS', gitsigns.stage_buffer)
+      set_keymap('n', '<leader>ghu', gitsigns.undo_stage_hunk)
+      set_keymap('n', '<leader>ghR', gitsigns.reset_buffer)
+      set_keymap('n', '<leader>ghd', gitsigns.preview_hunk)
+      set_keymap('n', '<leader>ghb', function()
         gitsigns.blame_line { full = true }
-      end, { desc = 'blame' })
-      map('n', '<leader>gV', gitsigns.toggle_deleted, { desc = 'virtual_deleted' })
+      end)
+      set_keymap('n', '<leader>gV', gitsigns.toggle_deleted)
 
       -- Text object
-      map({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
+      set_keymap({ 'o', 'x' }, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
       -- Addon
       require('scrollbar.handlers.gitsigns').setup()
     end,

@@ -7,8 +7,6 @@ M.keys = {
   { '<F7>', desc = 'Debug.step_into' },
   { '<C-F7>', desc = 'Debug.step_out' },
   { '<F8>', desc = 'Debug.step_over' },
-  -- { 'mb', desc = 'breakpoint' },
-  -- { 'mB', desc = 'breakpoint_conditional' },
   { '[b', desc = 'breakpoint' },
   { ']b', desc = 'breakpoint' },
   { '<leader>fbb', desc = 'breakpoint' },
@@ -53,17 +51,6 @@ M.keymaps = function()
   set_keymap('n', '<F8>', function()
     dap.step_over()
   end)
-
-  -- set_keymap('n', 'mb', function()
-  --   dap.toggle_breakpoint()
-  -- end)
-  --
-  -- set_keymap('n', 'mB', function()
-  --   local input = vim.fn.input('Condition: ', vim.fn.expand '<cWORD>' .. '==')
-  --   if input ~= '' then
-  --     dap.toggle_breakpoint(input, nil, nil)
-  --   end
-  -- end)
 
   set_keymap('n', '[b', function()
     require('goto-breakpoints').prev()
