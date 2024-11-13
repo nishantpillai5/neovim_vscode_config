@@ -11,8 +11,8 @@ M.keys = {
 }
 
 M.buffer_keys = {
-  '<leader>P',
-  '<leader>p',
+  {'<leader>p', desc = 'pull'},
+  {'<leader>P', desc = 'push'},
 }
 
 local toggle_fugitive = function()
