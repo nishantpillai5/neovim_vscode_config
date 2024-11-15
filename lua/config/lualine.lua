@@ -3,7 +3,7 @@ local M = {}
 -- M.array = require('common.utils').string_to_array '｢｣'
 M.array = { '｢', '｣' }
 
-local EXCLUDED_FTS = { 'toggleterm' }
+local EXCLUDED_FTS = { 'toggleterm', 'TelescopePrompt' }
 local IGNORE_FTS = { 'OverseerList', 'neo-tree', 'vista', 'copilot-chat', 'TelescopePrompt', 'trouble', 'fugitive' }
 local GLOBAL_STATUS = require('common.env').GLOBAL_STATUS
 

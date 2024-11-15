@@ -1,12 +1,12 @@
 local M = {}
 
 M.keys = {
-  { '<F5>', desc = 'Debug.continue/start' },
-  { '<C-F5>', desc = 'Debug.stop' },
-  { '<F6>', desc = 'Debug.pause' },
-  { '<F7>', desc = 'Debug.step_into' },
-  { '<C-F7>', desc = 'Debug.step_out' },
-  { '<F8>', desc = 'Debug.step_over' },
+  { '<F5>', desc = 'debug_continue/start' },
+  { '<C-F5>', desc = 'debug_stop' },
+  { '<F6>', desc = 'debug_pause' },
+  { '<F7>', desc = 'debug_step_into' },
+  { '<C-F7>', desc = 'debug_step_out' },
+  { '<F8>', desc = 'debug_step_over' },
   { '[b', desc = 'breakpoint' },
   { ']b', desc = 'breakpoint' },
   { '<leader>fbb', desc = 'breakpoint' },

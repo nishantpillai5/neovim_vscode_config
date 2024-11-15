@@ -11,8 +11,8 @@ M.keys = {
 }
 
 M.buffer_keys = {
-  {'<leader>p', desc = 'pull'},
-  {'<leader>P', desc = 'push'},
+  { '<leader>p', desc = 'pull' },
+  { '<leader>P', desc = 'push' },
 }
 
 local toggle_fugitive = function()
@@ -25,6 +25,22 @@ local toggle_fugitive = function()
     end
   end
   vim.api.nvim_command 'Git'
+end
+
+local stash_with_message = function()
+  vim.ui.input({ prompt = 'Stash message: ' }, function(input)
+    if input then
+      vim.cmd('Git stash push -m "' .. input .. '"')
+    end
+  end)
+end
+
+local stash_untracked_with_message = function()
+  vim.ui.input({ prompt = 'Stash message: ' }, function(input)
+    if input then
+      vim.cmd('Git stash push --include-untracked -m "' .. input .. '"')
+    end
+  end)
 end
 
 M.keymaps = function()
@@ -42,12 +58,8 @@ M.keymaps = function()
   set_keymap('n', '<leader>gzp', function()
     vim.cmd 'Git stash pop'
   end)
-  set_keymap('n', '<leader>gzz', function()
-    vim.cmd 'Git stash'
-  end)
-  set_keymap('n', '<leader>gzZ', function()
-    vim.cmd 'Git stash --include-untracked'
-  end)
+  set_keymap('n', '<leader>gzz', stash_with_message)
+  set_keymap('n', '<leader>gzZ', stash_untracked_with_message)
 end
 
 M.setup = function()

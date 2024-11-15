@@ -45,7 +45,7 @@ return {
   {
     'm4xshen/hardtime.nvim',
     event = 'VeryLazy',
-    cond = conds['m4xshen/hardtime.nvim'] or false,
+    cond = not require('common.env').PRESENTING and (conds['m4xshen/hardtime.nvim'] or false),
     keys = {
       { '<leader>zoh', '<cmd>Hardtime toggle<cr>', desc = 'toggle_hardtime' },
     },

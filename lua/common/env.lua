@@ -50,6 +50,8 @@ elseif M.NVIM_CONTEXT == 'present' then
   M.PANEL_POSITION = 'horizontal'
 end
 
+M.PRESENTING = M.NVIM_CONTEXT == 'present'
+
 M.USER_PREFIX = os.getenv 'USER_PREFIX' or os.getenv 'USERNAME' or 'user'
 M.TODO_CUSTOM = M.USER_PREFIX:sub(1, 4):upper()
 

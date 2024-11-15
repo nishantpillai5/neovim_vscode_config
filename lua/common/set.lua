@@ -4,6 +4,7 @@ vim.opt.wrap = false
 -- Line numbers
 vim.opt.number = true
 vim.opt.relativenumber = true
+-- vim.opt.relativenumber = not require("common.env").PRESENTING
 vim.opt.signcolumn = 'yes'
 
 -- Indent

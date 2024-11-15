@@ -1,9 +1,17 @@
 local M = {}
 
 M.keys = {
-  { 'md', desc = 'delete_in_buffer' },
   { 'mm', desc = 'mark' },
-  { 'ml', desc = 'load' },
+  { '<leader>wm', desc = 'load_marks' },
+  { 'md', desc = 'delete_in_buffer' },
+  { 'mD', desc = 'delete_all' },
+  { 'mn', desc = 'nearest' },
+  { 'mp', desc = 'paste_last' },
+  { 'mP', desc = 'paste_all' },
+  { 'mx', desc = 'back' },
+  { 'M', desc = 'toggle_trail_mark_list' },
+  { '<A-PageDown>', desc = 'next_mark' },
+  { '<A-PageUp>', desc = 'previous_mark' },
 }
 
 M.mark_at_pos = function()
@@ -24,6 +32,8 @@ end
 
 M.keymaps = function()
   local actions = require 'trailblazer.trails.actions'
+
+  local motions = require 'trailblazer.trails.motions'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
   set_keymap('n', 'md', function()
@@ -34,7 +44,16 @@ M.keymaps = function()
     M.mark_at_pos()
   end)
 
-  set_keymap('n', 'ml', '<cmd>TrailBlazerLoadSession<cr>')
+  set_keymap('n', '<leader>wm', '<cmd>TrailBlazerLoadSession<cr>')
+
+  set_keymap('n', '<A-PageDown>', function()
+    motions.peek_move_next_down()
+    vim.cmd 'normal! zz'
+  end)
+  set_keymap('n', '<A-PageUp>', function()
+    motions.peek_move_previous_up()
+    vim.cmd 'normal! zz'
+  end)
 end
 
 M.setup = function()
@@ -55,8 +74,6 @@ M.setup = function()
       nv = {
         motions = {
           track_back = 'mx',
-          peek_move_next_down = '<A-PageDown>',
-          peek_move_previous_up = '<A-PageUp>',
           move_to_nearest = 'mn',
           toggle_trail_mark_list = 'M',
         },

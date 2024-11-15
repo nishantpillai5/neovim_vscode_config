@@ -3,6 +3,8 @@ local M = {}
 M.keys = {
   { '<leader>goc', '<cmd>GitBlameOpenCommitURL<cr>', mode = { 'n', 'v' }, desc = 'commit' },
   { '<leader>gof', '<cmd>GitBlameOpenFileURL<cr>', mode = { 'n', 'v' }, desc = 'file' },
+  { '<leader>gv', desc = 'virtual_blame' },
+  { '<leader>zg', desc = 'git_virtual_blame' },
 }
 
 M.keymaps = function()

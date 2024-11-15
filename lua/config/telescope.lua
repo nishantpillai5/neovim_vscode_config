@@ -1,7 +1,14 @@
+---@diagnostic disable: missing-parameter
 _G.loaded_telescope_extension = _G.loaded_telescope_extension or false
 
 local utils = require 'common.utils'
 local builtin = require 'telescope.builtin'
+local actions = require 'telescope.actions'
+local action_state = require 'telescope.actions.state'
+local previewers = require 'telescope.previewers'
+local pickers = require 'telescope.pickers'
+local sorters = require 'telescope.sorters'
+local finders = require 'telescope.finders'
 
 local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
 if not plenary_ok then
@@ -14,29 +21,12 @@ local default_opts = {
   path_display = { filename_first = { reverse_directories = true } },
 }
 
-local ripgrep_base_cmd = {
-  'rg',
-  '--color=never',
-  '--no-heading',
-}
-
-local content_ripgrep_base_cmd = utils.merge_list(ripgrep_base_cmd, {
-  '--with-filename',
-  '--line-number',
-  '--column',
-  '--smart-case',
-})
-
-local function trimGitModificationIndicator(cmd_output)
-  return cmd_output:match '[^%s]+$'
-end
-
 local function constrain_to_scope()
   local neoscopes = require 'neoscopes'
   local success, scope = pcall(neoscopes.get_current_scope)
   if not success or not scope then
     -- utils.print('no current scope')
-    return {}, {}
+    return {}, {}, false
   end
   local find_command_opts = {}
   local search_dir_opts = {}
@@ -62,13 +52,26 @@ local function constrain_to_scope()
       table.insert(find_command_opts, file_name)
     end
   end
-  return find_command_opts, search_dir_opts
+  return find_command_opts, search_dir_opts, true
 end
+
+local ripgrep_base_cmd = {
+  'rg',
+  '--color=never',
+  '--no-heading',
+}
+
+local content_ripgrep_base_cmd = utils.merge_list(ripgrep_base_cmd, {
+  '--with-filename',
+  '--line-number',
+  '--column',
+  '--smart-case',
+})
 
 local function live_grep_static_file_list(opts, file_list)
   opts = opts or {}
   opts.cwd = utils.get_root_dir()
-  local cmd_opts, dir_opts = constrain_to_scope()
+  local cmd_opts, dir_opts, is_scoped = constrain_to_scope()
 
   local vimgrep_arguments = utils.merge_list(content_ripgrep_base_cmd, {
     -- "--no-ignore", -- **This is the added flag**
@@ -80,7 +83,15 @@ local function live_grep_static_file_list(opts, file_list)
 
   opts.search_dirs = opts.search_dirs or {}
   opts.search_dirs = utils.merge_list(opts.search_dirs, dir_opts)
+  if is_scoped then
+    opts.prompt_prefix = require("config.neoscopes").icon .. '> '
+  end
+
   builtin.live_grep(opts)
+end
+
+local function trim_git_modification_indicator(cmd_output)
+  return cmd_output:match '[^%s]+$'
 end
 
 local live_grep_git_changed_files = function(opts)
@@ -92,7 +103,7 @@ local live_grep_git_changed_files = function(opts)
     on_exit = function(job)
       for _, cmd_output in ipairs(job:result()) do
         table.insert(file_list, '--glob')
-        table.insert(file_list, trimGitModificationIndicator(cmd_output))
+        table.insert(file_list, trim_git_modification_indicator(cmd_output))
       end
     end,
   }):sync()
@@ -136,6 +147,76 @@ local project_files = function()
   end
 end
 
+local changed_files = function()
+  pickers
+    .new({
+      results_title = 'Changed files',
+      finder = finders.new_oneshot_job {
+        'git',
+        'diff',
+        '--name-only',
+        '--diff-filter=ACMR',
+        '--relative',
+        'HEAD',
+      },
+      sorter = sorters.get_fuzzy_file(),
+      previewer = previewers.new_termopen_previewer {
+        get_command = function(entry)
+          return {
+            'git',
+            '-c',
+            'core.pager=delta',
+            '-c',
+            'delta.side-by-side=false',
+            'diff',
+            '--diff-filter=ACMR',
+            '--relative',
+            'HEAD',
+            '--',
+            entry.value,
+          }
+        end,
+      },
+    })
+    :find()
+end
+
+local changed_files_from_main = function()
+  local merge_base = vim.fn.system('git merge-base HEAD ' .. utils.get_main_branch()):gsub('%s+', '')
+
+  pickers
+    .new({
+      results_title = 'Changed files in branch',
+      finder = finders.new_oneshot_job {
+        'git',
+        'diff',
+        '--name-only',
+        '--diff-filter=ACMR',
+        '--relative',
+        merge_base,
+      },
+      sorter = sorters.get_fuzzy_file(),
+      previewer = previewers.new_termopen_previewer {
+        get_command = function(entry)
+          return {
+            'git',
+            '-c',
+            'core.pager=delta',
+            '-c',
+            'delta.side-by-side=false',
+            'diff',
+            '--diff-filter=ACMR',
+            '--relative',
+            merge_base,
+            '--',
+            entry.value,
+          }
+        end,
+      },
+    })
+    :find()
+end
+
 ------------------------------------------------ Public ------------------------------------------------
 
 local M = {}
@@ -147,8 +228,9 @@ M.keys = {
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
   { '<leader>fgd', desc = 'changed_files' },
+  { '<leader>fgD', desc = 'changed_files_from_main' },
   { '<leader>fgb', desc = 'branch_checkout' },
-  -- { '<leader>fgB', desc = 'branch_diff' },
+  { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
   { '<leader>fgC', desc = 'commits_diff' },
   { '<leader>fgz', desc = 'stash' },
@@ -192,9 +274,12 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end)
 
-  set_keymap('n', '<leader>fgd', builtin.git_status)
+  set_keymap('n', '<leader>fgd', changed_files)
+  set_keymap('n', '<leader>fgD', changed_files_from_main)
   set_keymap('n', '<leader>fgb', builtin.git_branches)
-  -- set_keymap('n', '<leader>fgB', builtin.git_branches)
+  set_keymap('n', '<leader>fgB', function()
+    builtin.git_branches { show_remote_tracking_branches = false }
+  end)
   set_keymap('n', '<leader>fgc', builtin.git_bcommits)
   set_keymap('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits)
   set_keymap('n', '<leader>fgz', builtin.git_stash)
@@ -321,7 +406,8 @@ M.setup = function()
         mappings = {
           i = {
             ['<C-k>'] = lga_actions.quote_prompt(),
-            ['<C-i>'] = lga_actions.quote_prompt { postfix = ' --iglob ' },
+            ['<C-i>'] = lga_actions.quote_prompt { postfix = ' --iglob **' },
+            ['<C-f>'] = actions.to_fuzzy_refine,
           },
         },
       },

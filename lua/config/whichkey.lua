@@ -4,7 +4,7 @@ M.keys = {
   {
     '<leader><leader>',
     function()
-      require('which-key').show { global = false }
+      require('which-key').show { global = true }
     end,
     desc = 'whichkey_help',
   },
@@ -16,6 +16,7 @@ M.init = function()
 end
 
 M.spec = {
+  { '<leader>', group = 'Leader' },
   { '<leader>;', group = 'Terminal' },
   { '<leader>b', group = 'Breakpoint' },
   { '<leader>c', group = 'Chat', mode = { 'n', 'v' } },
@@ -48,13 +49,19 @@ M.spec = {
   { '[d', desc = 'diagnostic' },
 
   { 'm', group = 'Marks' },
+  { 'mm', desc = 'mark' },
+  { 'ml', desc = 'load' },
   { 'md', desc = 'delete_in_buffer' },
   { 'mD', desc = 'delete_all' },
-  { 'mm', desc = 'mark' },
   { 'mn', desc = 'nearest' },
   { 'mp', desc = 'paste_last' },
   { 'mP', desc = 'paste_all' },
   { 'mx', desc = 'back' },
+  { 'M', desc = 'toggle_trail_mark_list' },
+  { '<A-PageDown>', desc = 'next_mark' },
+  { '<A-PageUp>', desc = 'previous_mark' },
+
+  { 'z', desc = 'Fold' },
 
   { '<C-h>', desc = 'move_focus_left' },
   { '<C-j>', desc = 'move_focus_down' },

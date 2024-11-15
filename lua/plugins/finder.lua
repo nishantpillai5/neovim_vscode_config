@@ -1,7 +1,7 @@
 local plugins = {
   'nvim-telescope/telescope.nvim',
   'OliverChao/telescope-picker-list.nvim',
-  'axkirillov/easypick.nvim',
+  -- 'axkirillov/easypick.nvim',
   'jemag/telescope-diff.nvim',
   'cbochs/grapple.nvim',
   'rgroli/other.nvim',

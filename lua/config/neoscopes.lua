@@ -6,6 +6,8 @@ _G.workspace_icon = _G.workspace_icon or nil
 
 local M = {}
 local icon = ' '
+-- FIXME: remove global icon
+M.icon = ' '
 local SILENT = true
 
 M.keys = {
@@ -170,6 +172,7 @@ end
 M.config = function()
   if _G.workspace_icon ~= nil then
     icon = _G.workspace_icon
+    M.icon = _G.workspace_icon
   end
 
   M.keymaps()
