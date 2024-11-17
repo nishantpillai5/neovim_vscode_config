@@ -6,8 +6,6 @@ _G.workspace_icon = _G.workspace_icon or nil
 
 local M = {}
 local icon = ' '
--- FIXME: remove global icon
-M.icon = ' '
 local SILENT = true
 
 M.keys = {
@@ -25,6 +23,42 @@ M.common_keys = {
   { '<leader>?', desc = 'grep_string(workspace)' },
 }
 
+M.constrain_to_scope = function(opts)
+  local neoscopes = require 'neoscopes'
+  local success, scope = pcall(neoscopes.get_current_scope)
+  if not success or not scope then
+    -- utils.print('no current scope')
+    return opts, {}, {}
+  end
+  local find_command_opts = {}
+  local search_dir_opts = {}
+  local pattern = '^file:///'
+  for _, dir_name in ipairs(scope.dirs) do
+    if dir_name then
+      if dir_name:find(pattern) ~= nil then
+        table.insert(find_command_opts, '--glob')
+        local file_name = dir_name:gsub(pattern, '')
+        -- require('user.utils').print(file_name)
+        -- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
+        table.insert(find_command_opts, file_name)
+      else
+        table.insert(search_dir_opts, dir_name)
+      end
+    end
+  end
+  for _, file_name in ipairs(scope.files) do
+    if file_name then
+      table.insert(find_command_opts, '--glob')
+      -- require('user.utils').print('included' .. file_name)
+      -- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
+      table.insert(find_command_opts, file_name)
+    end
+  end
+
+  opts.prompt_prefix = icon .. '> '
+  return opts, find_command_opts, search_dir_opts
+end
+
 local global_scopes = function()
   local neoscopes = require 'neoscopes'
   ---@diagnostic disable-next-line: missing-fields
@@ -35,11 +69,12 @@ end
 
 local replace_telescope_keymaps = function()
   local neoscopes = require 'neoscopes'
+  local builtin = require 'telescope.builtin'
 
   local set_keymap = require('common.utils').get_keymap_setter(M.common_keys)
 
   set_keymap('n', '<leader>ff', function()
-    require('telescope.builtin').find_files {
+    builtin.find_files {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
     }
@@ -48,7 +83,7 @@ local replace_telescope_keymaps = function()
   set_keymap('n', '<leader>fA', function()
     local bufname = vim.api.nvim_buf_get_name(0)
     local basename = vim.fn.fnamemodify(bufname, ':t:r'):lower()
-    require('telescope.builtin').find_files {
+    builtin.find_files {
       prompt_prefix = icon .. '> ',
       default_text = basename,
       search_dirs = neoscopes.get_current_dirs(),
@@ -57,7 +92,7 @@ local replace_telescope_keymaps = function()
   end)
 
   set_keymap('n', '<leader>fl', function()
-    require('telescope.builtin').live_grep {
+    builtin.live_grep {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
       additional_args = { '--follow' },
@@ -74,7 +109,7 @@ local replace_telescope_keymaps = function()
 
   set_keymap('n', '<leader>fw', function()
     local word = vim.fn.expand '<cword>'
-    require('telescope.builtin').grep_string {
+    builtin.grep_string {
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
@@ -84,7 +119,7 @@ local replace_telescope_keymaps = function()
 
   set_keymap('n', '<leader>fW', function()
     local word = vim.fn.expand '<cWORD>'
-    require('telescope.builtin').grep_string {
+    builtin.grep_string {
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
@@ -93,7 +128,7 @@ local replace_telescope_keymaps = function()
   end)
 
   set_keymap('n', '<leader>?', function()
-    require('telescope.builtin').grep_string {
+    builtin.grep_string {
       prompt_prefix = icon .. '> ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
@@ -172,7 +207,6 @@ end
 M.config = function()
   if _G.workspace_icon ~= nil then
     icon = _G.workspace_icon
-    M.icon = _G.workspace_icon
   end
 
   M.keymaps()

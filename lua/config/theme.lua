@@ -1,17 +1,17 @@
 local M = {}
 
 M.highlightSeparator = function(mode)
-  -- TODO: Get these values from the colorscheme
+  local c = require('vscode.colors').get_colors()
   if mode == 'n' then
-    vim.cmd('hi NvimSeparator guifg=' .. '#0A7ACA')
+    vim.cmd('hi NvimSeparator guifg=' .. c.vscAccentBlue)
   elseif mode == 'i' then
-    vim.cmd('hi NvimSeparator guifg=' .. '#4EC9B0')
+    vim.cmd('hi NvimSeparator guifg=' .. c.vscBlueGreen)
   elseif (mode == 'v') or (mode == 'V') then
-    vim.cmd('hi NvimSeparator guifg=' .. '#FFAF00')
+    vim.cmd('hi NvimSeparator guifg=' .. c.vscDarkYellow)
   elseif mode == 'c' then
-    vim.cmd('hi NvimSeparator guifg=' .. '#DDB6F2')
+    vim.cmd('hi NvimSeparator guifg=' .. c.vscPink)
   elseif mode == 't' then
-    vim.cmd('hi NvimSeparator guifg=' .. '#4EC9B0')
+    vim.cmd('hi NvimSeparator guifg=' .. c.vscBlueGreen)
   end
 end
 

@@ -2,58 +2,11 @@
 _G.loaded_telescope_extension = _G.loaded_telescope_extension or false
 
 local utils = require 'common.utils'
-local builtin = require 'telescope.builtin'
-local actions = require 'telescope.actions'
-local action_state = require 'telescope.actions.state'
-local previewers = require 'telescope.previewers'
-local pickers = require 'telescope.pickers'
-local sorters = require 'telescope.sorters'
-local finders = require 'telescope.finders'
-
-local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
-if not plenary_ok then
-  vim.notify 'plenary not found'
-  return
-end
 
 local default_opts = {
   follow = true,
   path_display = { filename_first = { reverse_directories = true } },
 }
-
-local function constrain_to_scope()
-  local neoscopes = require 'neoscopes'
-  local success, scope = pcall(neoscopes.get_current_scope)
-  if not success or not scope then
-    -- utils.print('no current scope')
-    return {}, {}, false
-  end
-  local find_command_opts = {}
-  local search_dir_opts = {}
-  local pattern = '^file:///'
-  for _, dir_name in ipairs(scope.dirs) do
-    if dir_name then
-      if dir_name:find(pattern) ~= nil then
-        table.insert(find_command_opts, '--glob')
-        local file_name = dir_name:gsub(pattern, '')
-        -- require('user.utils').print(file_name)
-        -- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
-        table.insert(find_command_opts, file_name)
-      else
-        table.insert(search_dir_opts, dir_name)
-      end
-    end
-  end
-  for _, file_name in ipairs(scope.files) do
-    if file_name then
-      table.insert(find_command_opts, '--glob')
-      -- require('user.utils').print('included' .. file_name)
-      -- table.insert(find_command_opts, string.gsub(dir_name, pattern, ""))
-      table.insert(find_command_opts, file_name)
-    end
-  end
-  return find_command_opts, search_dir_opts, true
-end
 
 local ripgrep_base_cmd = {
   'rg',
@@ -69,9 +22,11 @@ local content_ripgrep_base_cmd = utils.merge_list(ripgrep_base_cmd, {
 })
 
 local function live_grep_static_file_list(opts, file_list)
+  local builtin = require 'telescope.builtin'
   opts = opts or {}
   opts.cwd = utils.get_root_dir()
-  local cmd_opts, dir_opts, is_scoped = constrain_to_scope()
+  local cmd_opts, dir_opts
+  opts, cmd_opts, dir_opts = require('config.neoscopes').constrain_to_scope(opts)
 
   local vimgrep_arguments = utils.merge_list(content_ripgrep_base_cmd, {
     -- "--no-ignore", -- **This is the added flag**
@@ -83,9 +38,6 @@ local function live_grep_static_file_list(opts, file_list)
 
   opts.search_dirs = opts.search_dirs or {}
   opts.search_dirs = utils.merge_list(opts.search_dirs, dir_opts)
-  if is_scoped then
-    opts.prompt_prefix = require("config.neoscopes").icon .. '> '
-  end
 
   builtin.live_grep(opts)
 end
@@ -95,6 +47,12 @@ local function trim_git_modification_indicator(cmd_output)
 end
 
 local live_grep_git_changed_files = function(opts)
+  local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
+  if not plenary_ok then
+    vim.notify 'plenary not found'
+    return
+  end
+
   local file_list = {}
   PlenaryJob:new({
     command = 'git',
@@ -112,6 +70,11 @@ local live_grep_git_changed_files = function(opts)
 end
 
 local live_grep_git_changed_cmp_base_branch = function(opts)
+  local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
+  if not plenary_ok then
+    vim.notify 'plenary not found'
+    return
+  end
   local base_branch = utils.get_main_branch()
   local file_list = {}
   PlenaryJob:new({
@@ -132,6 +95,7 @@ local is_inside_work_tree = {}
 -- We cache the results of "git rev-parse"
 -- Process creation is expensive in Windows, so this reduces latency
 local project_files = function()
+  local builtin = require 'telescope.builtin'
   local cwd = vim.fn.getcwd()
   if is_inside_work_tree[cwd] == nil then
     vim.fn.system 'git rev-parse --is-inside-work-tree'
@@ -148,6 +112,11 @@ local project_files = function()
 end
 
 local changed_files = function()
+  local previewers = require 'telescope.previewers'
+  local pickers = require 'telescope.pickers'
+  local sorters = require 'telescope.sorters'
+  local finders = require 'telescope.finders'
+
   pickers
     .new({
       results_title = 'Changed files',
@@ -182,6 +151,11 @@ local changed_files = function()
 end
 
 local changed_files_from_main = function()
+  local previewers = require 'telescope.previewers'
+  local pickers = require 'telescope.pickers'
+  local sorters = require 'telescope.sorters'
+  local finders = require 'telescope.finders'
+
   local merge_base = vim.fn.system('git merge-base HEAD ' .. utils.get_main_branch()):gsub('%s+', '')
 
   pickers
@@ -256,6 +230,7 @@ M.keys = {
 }
 
 M.keymaps = function()
+  local builtin = require 'telescope.builtin'
   local set_keymap = utils.get_keymap_setter(M.keys)
 
   set_keymap('n', '<leader>:', builtin.commands)
@@ -386,6 +361,7 @@ M.setup = function()
   }
 
   local lga_actions = require 'telescope-live-grep-args.actions'
+  local actions = require 'telescope.actions'
   require('telescope').setup {
     defaults = default_opts,
     pickers = {
