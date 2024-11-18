@@ -37,8 +37,8 @@ return {
   -- Marks
   {
     'LeonHeidelbach/trailblazer.nvim',
-    -- event = { 'BufReadPre', 'BufNewFile' },
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
+    -- event = 'VeryLazy',
     cond = conds['LeonHeidelbach/trailblazer.nvim'] or false,
     keys = require('config.trailblazer').keys,
     config = require('config.trailblazer').config,

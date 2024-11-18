@@ -15,7 +15,8 @@ return {
   -- for installing Luarocks dependencies
   {
     'vhyrro/luarocks.nvim',
-    priority = 1001,
+    -- priority = 1001,
+    event = 'VeryLazy',
     cond = conds['vhyrro/luarocks.nvim'] or false,
     config = true,
     opts = {
@@ -44,7 +45,8 @@ return {
   -- Learn vim
   {
     'm4xshen/hardtime.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    event = 'BufReadPost',
     cond = not require('common.env').PRESENTING and (conds['m4xshen/hardtime.nvim'] or false),
     keys = {
       { '<leader>zoh', '<cmd>Hardtime toggle<cr>', desc = 'toggle_hardtime' },

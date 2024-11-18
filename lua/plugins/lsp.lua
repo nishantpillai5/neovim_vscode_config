@@ -57,6 +57,7 @@ return {
   {
     'VonHeikemen/lsp-zero.nvim',
     event = 'VeryLazy',
+    -- event = { 'BufReadPre', 'BufNewFile' },
     branch = 'v3.x',
     dependencies = {
       'williamboman/mason.nvim',
@@ -74,7 +75,8 @@ return {
   -- Linter
   {
     'mfussenegger/nvim-lint',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'VonHeikemen/lsp-zero.nvim' },
     cond = conds['mfussenegger/nvim-lint'] or false,
     config = require('config.lint').config,

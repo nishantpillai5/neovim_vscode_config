@@ -80,7 +80,8 @@ return {
   -- Statusline blame
   {
     'f-person/git-blame.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    event = 'BufReadPost',
     cond = conds['f-person/git-blame.nvim'] or false,
     keys = require('config.gitblame').keys,
     config = require('config.gitblame').config,

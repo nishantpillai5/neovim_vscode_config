@@ -127,7 +127,8 @@ return {
   -- Folds
   {
     'kevinhwang91/nvim-ufo',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'kevinhwang91/promise-async' },
     cond = conds['kevinhwang91/nvim-ufo'] or false,
     init = require('config.ufo').init,

@@ -40,7 +40,8 @@ return {
   },
   {
     'Weissle/persistent-breakpoints.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['Weissle/persistent-breakpoints.nvim'] or false,
     keys = require('config.dap_breakpoints').keys,
     config = require('config.dap_breakpoints').config,
