@@ -43,16 +43,11 @@ M.keymaps = function()
 end
 
 M.setup = function()
-  -- FIXME: remove when markdown autocmd is fixed
-  local enable = false
-  if is_notes_dir() then
-    enable = true
-  end
+  local obsidian = require 'obsidian'
 
-  -- TODO: prepend new. to new notes
-  require('obsidian').setup {
+  obsidian.setup {
     ui = {
-      enable = enable,
+      enable = true,
       checkboxes = {
         [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
         ['x'] = { char = '󰄵', hl_group = 'ObsidianDone' },
@@ -81,21 +76,15 @@ M.setup = function()
     mappings = {
       ['gf'] = {
         action = function()
-          return require('obsidian').util.gf_passthrough()
+          return obsidian.util.gf_passthrough()
         end,
-        opts = { noremap = false, expr = true, buffer = true, desc = 'file' },
-      },
-      ['mc'] = {
-        action = function()
-          return require('obsidian').util.toggle_checkbox()
-        end,
-        opts = { buffer = true, desc = 'checkbox_toggle' },
+        opts = { noremap = false, expr = true, buffer = true, desc = 'file(obsidian)' },
       },
       ['<cr>'] = {
         action = function()
-          return require('obsidian').util.smart_action()
+          return obsidian.util.smart_action()
         end,
-        opts = { buffer = true, expr = true },
+        opts = { expr = true, buffer = true, desc = 'smart_action(obsidian)' },
       },
     },
     picker = {

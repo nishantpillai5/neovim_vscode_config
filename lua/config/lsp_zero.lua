@@ -63,7 +63,9 @@ M.setup = function()
     },
   }
 
-  local capabilities = cmp_nvim_lsp.default_capabilities()
+  local lspconfig_defaults = require('lspconfig').util.default_config
+  local capabilities =
+    vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, cmp_nvim_lsp.default_capabilities())
 
   require('mason-lspconfig').setup_handlers {
     -- default handler
@@ -106,23 +108,25 @@ M.setup = function()
       require('lspconfig').lua_ls.setup {
         capabilities = capabilities,
         on_init = function(client)
-          local path = client.workspace_folders[1].name
-          if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-            return
-          end
+          if client.workspace_folders and client.workspace_folders[1] then
+            local path = client.workspace_folders[1].name
+            if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+              return
+            end
 
-          client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-            runtime = {
-              version = 'LuaJIT', -- (LuaJIT in the case of Neovim)
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
+            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+              runtime = {
+                version = 'LuaJIT', -- (LuaJIT in the case of Neovim)
               },
-            },
-          })
+              -- Make the server aware of Neovim runtime files
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                },
+              },
+            })
+          end
         end,
         settings = {
           Lua = {},

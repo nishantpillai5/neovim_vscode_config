@@ -57,7 +57,7 @@ end
 local open_sidebar = function()
   vim.cmd 'OverseerOpen'
   -- focus back to the previous window
-  vim.cmd 'wincmd p'
+  vim.cmd 'silent! wincmd p'
 end
 
 M.get_cmd = function(task)

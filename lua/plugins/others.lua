@@ -52,7 +52,9 @@ return {
       { '<leader>zoh', '<cmd>Hardtime toggle<cr>', desc = 'toggle_hardtime' },
     },
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
-    opts = {},
+    opts = {
+      disabled_filetypes = { 'qf', 'netrw', 'NvimTree', 'lazy', 'mason', 'oil', 'calendar' },
+    },
   },
   {
     'theprimeagen/vim-be-good',

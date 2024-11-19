@@ -7,6 +7,8 @@ local plugins = {
   'stevearc/conform.nvim',
   'folke/trouble.nvim',
   'mtdl9/vim-log-highlighting',
+  'folke/lazydev.nvim',
+  'Bilal2453/luvit-meta',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -66,7 +68,6 @@ return {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/nvim-cmp',
       'L3MON4D3/LuaSnip',
-      'folke/neodev.nvim',
     },
     keys = require('config.lsp_zero').keys,
     cond = conds['VonHeikemen/lsp-zero.nvim'] or false,
@@ -106,19 +107,11 @@ return {
     'mtdl9/vim-log-highlighting',
     event = { 'BufReadPre *.log', 'BufNewFile *.log' },
     cond = conds['mtdl9/vim-log-highlighting'] or false,
-    config = function()
-
-      -- TODO: create syntax for [filename.c(1234)]
-      -- vim.api.nvim_create_autocmd({ "Syntax" }, {
-      --   -- pattern = { "*.log" },
-      --   callback = function()
-      --     vim.cmd("syn match logLevelError /\\[.*\\.c\\(*/")
-      --   end,
-      -- })
-    end,
   },
+  -- Lua nvim lazy lsp
   {
     'folke/lazydev.nvim',
+    cond = conds['folke/lazydev.nvim'] or false,
     ft = 'lua',
     opts = {
       library = {
@@ -128,5 +121,9 @@ return {
       },
     },
   },
-  { 'Bilal2453/luvit-meta', lazy = true }, -- optional `vim.uv` typings
+  {
+    'Bilal2453/luvit-meta',
+    cond = conds['Bilal2453/luvit-meta'] or false,
+    lazy = true,
+  }, -- optional `vim.uv` typings
 }

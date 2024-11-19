@@ -44,8 +44,6 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     local notes_dir = require('common.env').DIR_NOTES
     local current_file = vim.fn.expand '%:p'
-    -- local current_file = vim.api.nvim_buf_get_name(0)
-    -- FIXME: works only when cwd is notes directory
     if current_file:find(notes_dir, 1, true) then
       vim.cmd 'setlocal conceallevel=1'
     end

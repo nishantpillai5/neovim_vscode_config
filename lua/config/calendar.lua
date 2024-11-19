@@ -30,8 +30,12 @@ function MyCalSign(day, month, year)
 end
 
 function MyCalAction(day, month, year, _, _)
-  vim.cmd 'wincmd p'
-  vim.cmd('e ' .. get_note_path(day, month, year))
+  vim.cmd 'silent! wincmd p'
+  vim.cmd('silent! e ' .. get_note_path(day, month, year))
+end
+
+local normalize_num = function(num_str)
+  return tostring(tonumber(num_str))
 end
 
 M.init = function()
@@ -41,17 +45,20 @@ M.init = function()
   vim.g.calendar_monday = 1
   vim.g.calendar_datetime = 'title'
   vim.g.calendar_weeknm = 5
+  vim.g.calendar_keys = { goto_next_month = '<A-PageDown>', goto_prev_month = '<A-PageUp>' }
 end
 
 M.config = function()
-  vim.api.nvim_create_autocmd('BufReadPost', {
+  vim.api.nvim_create_autocmd('BufEnter', {
     pattern = require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/journal/*.md',
     callback = function()
       local cwd = vim.fn.getcwd()
       local notes_dir = require('common.env').DIR_NOTES
-      if cwd == notes_dir then
-        vim.cmd 'Calendar'
-        vim.cmd 'wincmd p'
+      if string.find(cwd, notes_dir) then
+        local filename = vim.fn.expand '%:t'
+        local year, month, _ = filename:match '(%d+).(%d+).(%d+).md'
+        vim.cmd('silent! Calendar ' .. normalize_num(year) .. ' ' .. normalize_num(month))
+        vim.cmd 'silent! wincmd p'
       end
     end,
   })
