@@ -1,11 +1,9 @@
 local M = {}
 
--- M.array = require('common.utils').string_to_array '｢｣'
 M.array = { '｢', '｣' }
 
 local EXCLUDED_FTS = { 'toggleterm', 'TelescopePrompt' }
 local IGNORE_FTS = { 'OverseerList', 'neo-tree', 'vista', 'copilot-chat', 'TelescopePrompt', 'trouble', 'fugitive' }
-local GLOBAL_STATUS = require('common.env').GLOBAL_STATUS
 
 local unsaved_buffer_alert = function()
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
@@ -17,18 +15,14 @@ local unsaved_buffer_alert = function()
   return ''
 end
 
-local function buffer_array1()
-  if unsaved_buffer_alert() ~= '' then
-    return M.array[1]
+local get_array_component = function(n)
+  local function array_component()
+    if unsaved_buffer_alert() ~= '' then
+      return M.array[n]
+    end
+    return ''
   end
-  return ''
-end
-
-local function buffer_array2()
-  if unsaved_buffer_alert() ~= '' then
-    return M.array[2]
-  end
-  return ''
+  return array_component
 end
 
 local function cwd()
@@ -45,7 +39,7 @@ local function worktree()
 end
 
 M.init = function()
-  if GLOBAL_STATUS then
+  if require('common.env').GLOBAL_STATUS then
     vim.opt.laststatus = 3
   end
 end
@@ -54,7 +48,7 @@ M.setup = function()
   require('lualine').setup {
     extensions = { 'nvim-dap-ui' },
     options = {
-      globalstatus = GLOBAL_STATUS,
+      globalstatus = require('common.env').GLOBAL_STATUS,
       theme = 'vscode',
       section_separators = { left = '', right = '' },
       component_separators = { left = '', right = '' },
@@ -101,7 +95,7 @@ M.setup = function()
 
       lualine_x = {
         unsaved_buffer_alert,
-        buffer_array1,
+        get_array_component(1),
         {
           'buffers',
           icons_enabled = false,
@@ -122,7 +116,7 @@ M.setup = function()
             return unsaved_buffer_alert() ~= ''
           end,
         },
-        buffer_array2,
+        get_array_component(2),
       },
       lualine_y = {
         'searchcount',
