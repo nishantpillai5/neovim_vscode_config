@@ -4,12 +4,13 @@ M.keys = {
   { '<leader>zhh', ':<c-u>HSHighlight 3<CR>', mode = { 'n', 'v' }, desc = 'highlight' },
   { '<leader>zhx', ':<c-u>HSRmHighlight<CR>', mode = { 'n', 'v' }, desc = 'remove' },
   { '<leader>zhX', ':<c-u>HSRmHighlight rm_all<CR>', mode = { 'n', 'v' }, desc = 'remove_all' },
-  { '<leader>zhs', ':HSExport<CR>', desc = 'save' }, --FIXME: save doesn't remove previous highlights
+  { '<leader>zhs', ':HSExport<CR>', desc = 'save' },
   { '<leader>zhl', ':HSImport<CR>', desc = 'load' },
 }
 
 M.keymaps = function()
   -- TODO: mark_at_pos on highlight
+  -- FIXME: save doesn't remove previous highlights
 
   -- set_keymap({ 'n', 'v' }, '<leader>zh', function()
   --   vim.cmd [[ HSHighlight 1 ]]

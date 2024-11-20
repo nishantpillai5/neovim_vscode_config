@@ -18,7 +18,7 @@ local widescreen_settings = {
 }
 
 local normal_settings = {
-  -- FIXME: same
+  -- FIXME: this is same as above
   BOTTOM_HEIGHT = 0.2,
   LEFT_WIDTH = 0.1,
   RIGHT_WIDTH = 0.15,

@@ -6,7 +6,6 @@ local plugins = {
   -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
   'Wansmer/treesj',
   'folke/zen-mode.nvim',
-  -- "shortcuts/no-neck-pain.nvim", --TODO: Split doesn't work
   'RRethy/vim-illuminate',
   'kevinhwang91/nvim-ufo',
   'norcalli/nvim-colorizer.lua',
@@ -67,6 +66,7 @@ return {
 
       set_keymap('n', '<c-p>', '<Plug>(YankyPreviousEntry)')
       set_keymap('n', '<c-n>', '<Plug>(YankyNextEntry)')
+      -- set_keymap("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
     end,
   },
   -- Better join
@@ -95,14 +95,6 @@ return {
         options = { enabled = true, laststatus = 3 },
         gitsigns = { enabled = false },
       },
-    },
-  },
-  {
-    'shortcuts/no-neck-pain.nvim',
-    version = '*',
-    cond = conds['shortcuts/no-neck-pain.nvim'] or false,
-    keys = {
-      { '<leader>zz', ':NoNeckPain<cr>', desc = 'zen', silent = true },
     },
   },
   -- Highlight under cursor

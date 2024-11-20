@@ -1,7 +1,5 @@
 local M = {}
 
--- TODO: warn if same file
-
 M.keys = {
   { '<leader>ed', desc = 'diff_file_current' },
   { '<leader>eD', desc = 'diff_file_select_both' },

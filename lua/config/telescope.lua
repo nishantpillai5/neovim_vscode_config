@@ -301,9 +301,9 @@ M.keymaps = function()
 
   set_keymap('n', '<leader>f"', builtin.registers)
   set_keymap('n', '<leader>fh', function()
-    -- Prefer unsaved buffers
     builtin.buffers {
       sort_buffers = function(buf_a, buf_b)
+        -- Prefer unsaved buffers
         local a_unsaved = vim.bo[buf_a].modified
         local b_unsaved = vim.bo[buf_b].modified
         if a_unsaved ~= b_unsaved then
@@ -313,12 +313,6 @@ M.keymaps = function()
       end,
     }
   end)
-
-  -- set_keymap("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
-  -- TODO: use string instead to prevent loading extensions?
-  -- set_keymap({ "n", "x" }, "<leader>rr", function()
-  --   require("telescope").extensions.refactoring.refactors()
-  -- end)
 
   set_keymap('n', '<leader>wc', function()
     builtin.find_files {

@@ -12,11 +12,6 @@ M.keys = {
 M.cmd = { 'GitConflictPrevConflict', 'GitConflictNextConflict' }
 
 M.keymaps = function()
-  -- set_keymap('n', '[x', '<cmd>GitConflictPrevConflict<cr>')
-  -- set_keymap('n', ']x', '<cmd>GitConflictNextConflict<cr>')
-
-  -- set_keymap('n', '[x', '<Plug>(git-conflict-prev-conflict)')
-  -- set_keymap('n', ']x', '<Plug>(git-conflict-next-conflict)')
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
   set_keymap('n', '<leader>gxo', '<Plug>(git-conflict-ours)')
@@ -24,9 +19,16 @@ M.keymaps = function()
   set_keymap('n', '<leader>gxb', '<Plug>(git-conflict-both)')
   set_keymap('n', '<leader>gxn', '<Plug>(git-conflict-none)')
 
-  -- TODO: fix keymaps above are not working
   set_keymap('n', '[x', '?<<<<<<<<cr>')
   set_keymap('n', ']x', '/<<<<<<<<cr>')
+
+  -- TODO: fix keymaps below
+
+  -- set_keymap('n', '[x', '<cmd>GitConflictPrevConflict<cr>')
+  -- set_keymap('n', ']x', '<cmd>GitConflictNextConflict<cr>')
+
+  -- set_keymap('n', '[x', '<Plug>(git-conflict-prev-conflict)')
+  -- set_keymap('n', ']x', '<Plug>(git-conflict-next-conflict)')
 end
 
 M.setup = function()

@@ -12,10 +12,6 @@ local pr_prompt =
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/config.lua
 
--- TODO: add exclude dirs (journal) and files (todo.md, readme)
--- TODO: add mapping to disable/enable copilot
--- TODO: role based prompts cR (https://github.com/abelberhane/GPT-Scripts/tree/main/role-prompting)
-
 M.keys = {
   { '<leader>ca', desc = 'attach_selection' },
   { '<leader>cA', desc = 'attach_file' },
@@ -65,7 +61,6 @@ M.keymaps = function()
     vim.cmd 'CopilotChatFixDiagnostic'
   end)
 
-  -- TODO: select from a list of frameworks and make the prompt "Please generate tests for my code using the framework <framework>"
   set_keymap({ 'n', 'v' }, '<leader>cD', function()
     vim.cmd 'CopilotChatDocs'
   end)
@@ -82,7 +77,8 @@ M.keymaps = function()
     vim.cmd 'CopilotChatReview'
   end)
 
-  set_keymap({ 'n', 'v' }, '<leader>ct', function()
+  -- TODO: select from a list of frameworks and make the prompt "Please generate tests for my code using the framework <framework>"
+  set_keymap({ 'n', 'v' }, '<leader>ci', function()
     vim.cmd 'CopilotChatTests'
   end)
 
@@ -95,7 +91,6 @@ M.keymaps = function()
   end)
 
   -- Custom
-
   set_keymap('n', '<leader>cb', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
@@ -120,7 +115,6 @@ M.keymaps = function()
   end)
 
   -- Telescope
-
   set_keymap({ 'n', 'v' }, '<leader>fc', function()
     require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
   end)

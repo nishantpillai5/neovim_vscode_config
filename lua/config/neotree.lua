@@ -47,10 +47,6 @@ M.keymaps = function()
     vim.cmd 'Neotree reveal focus git_status'
   end)
 
-  -- set_keymap('n', '<leader>eE', function()
-  --   vim.cmd 'Neotree toggle last'
-  -- end)
-
   set_keymap('n', '<leader>fe', find_dir)
 end
 

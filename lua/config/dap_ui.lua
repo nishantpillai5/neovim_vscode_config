@@ -14,18 +14,23 @@ M.common_keys = {
 M.keymaps = function()
   local dapui = require 'dapui'
   local dapui_open = false
-  local set_common_keymap = require('common.utils').get_keymap_setter(M.common_keys)
+  local set_common_keymap = require('common.utils').get_keymap_setter(M.common_keys, { buffer = true })
 
-  -- FIXME: keybind not working
   local function toggle_dapui()
     dapui.toggle()
     dapui_open = not dapui_open
+    vim.notify('dapui_open: ' .. tostring(dapui_open))
     if dapui_open then
       set_common_keymap('n', 'K', function()
         dapui.eval(vim.fn.expand '<cWORD>')
       end)
+
+      set_common_keymap('v', 'K', function()
+        dapui.eval(vim.fn.getreg 'v')
+      end)
     else
       set_common_keymap('n', 'K', ':lua vim.lsp.buf.hover()<cr>', { desc = 'hover' })
+      set_common_keymap('v', 'K', ':lua vim.lsp.buf.hover()<cr>', { desc = 'hover' })
     end
   end
 
