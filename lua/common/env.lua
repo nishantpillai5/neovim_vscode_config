@@ -3,12 +3,24 @@ local M = {}
 local nvim_python_paths = {
   windows = '~/.virtualenvs/neovim/Scripts/python.exe',
   linux = '~/.virtualenvs/neovim/bin/python3',
+  mac = '~/.virtualenvs/neovim/bin/python3',
 }
 
 local vsc_config_paths = {
   windows = '~/AppData/Roaming/Code/User/settings.json',
   linux = '~/.config/Code/User/settings.json',
+  mac = '~/Library/Application Support/Code/User/settings.json',
 }
+
+local os_from_env = os.getenv 'OS'
+print(os_from_env)
+if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
+  M.OS = 'windows'
+elseif vim.fn.has 'macunix' then
+  M.OS = 'mac'
+else
+  M.OS = 'linux'
+end
 
 M.defaults = {
   NVIM_CONTEXT = 'home',
@@ -19,13 +31,6 @@ M.defaults = {
   NVIM_PYTHON = vim.fn.expand(nvim_python_paths[M.OS]),
   VSC_CONFIG = vim.fn.expand(vsc_config_paths[M.OS]),
 }
-
-local os_from_env = os.getenv 'OS'
-if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
-  M.OS = 'windows'
-else
-  M.OS = 'linux'
-end
 
 local set_env = function(var)
   return os.getenv(var) or M.defaults[var]
