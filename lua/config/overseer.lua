@@ -233,7 +233,7 @@ M.setup = function()
     },
     dap = false,
     task_list = {
-      default_detail = 2,
+      default_detail = 1,
       width = 0.13,
       bindings = {
         ['<C-h>'] = false,

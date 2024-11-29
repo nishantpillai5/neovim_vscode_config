@@ -13,7 +13,6 @@ local vsc_config_paths = {
 }
 
 local os_from_env = os.getenv 'OS'
-print(os_from_env)
 if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
   M.OS = 'windows'
 elseif vim.fn.has 'macunix' then
