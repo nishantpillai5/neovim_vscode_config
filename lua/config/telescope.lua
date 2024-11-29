@@ -134,8 +134,6 @@ local changed_files = function()
           return {
             'git',
             '-c',
-            'core.pager=delta',
-            '-c',
             'delta.side-by-side=false',
             'diff',
             '--diff-filter=ACMR',

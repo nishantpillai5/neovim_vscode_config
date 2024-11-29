@@ -26,6 +26,7 @@ M.spec = {
   { '<leader>fg', group = 'Git' },
   { '<leader>fb', group = 'Breakpoint' },
   { '<leader>F', group = 'Find_Telescope' },
+  { '<leader>gc', group = 'Debugrint' },
   { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
   { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
   { '<leader>go', group = 'Open', mode = { 'n', 'v' } },
@@ -49,19 +50,7 @@ M.spec = {
   { '[d', desc = 'diagnostic' },
 
   { 'm', group = 'Marks' },
-  { 'mm', desc = 'mark' },
-  { 'ml', desc = 'load' },
-  { 'md', desc = 'delete_in_buffer' },
-  { 'mD', desc = 'delete_all' },
-  { 'mn', desc = 'nearest' },
-  { 'mp', desc = 'paste_last' },
-  { 'mP', desc = 'paste_all' },
-  { 'mx', desc = 'back' },
-  { 'M', desc = 'toggle_trail_mark_list' },
-  { '<A-PageDown>', desc = 'next_mark' },
-  { '<A-PageUp>', desc = 'previous_mark' },
-
-  { 'z', desc = 'Fold' },
+  { 'z', group = 'Fold' },
 
   { '<C-h>', desc = 'move_focus_left' },
   { '<C-j>', desc = 'move_focus_down' },

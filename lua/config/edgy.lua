@@ -1,33 +1,22 @@
 local M = {}
 
 M.keys = {
-  { '<leader>z=', desc = 'equalize_panels' },
+  { '<leader>zr', desc = 'reset_panels' },
   { '<leader>zx', desc = 'close_panels' },
   { '<leader>ex', desc = 'close_explorers' },
 }
 
---TODO: Fix resizing when not inside edgy panel
-local widescreen_settings = {
+local settings = {
   BOTTOM_HEIGHT = 0.2,
-  LEFT_WIDTH = 0.1,
-  RIGHT_WIDTH = 0.15,
   BOTTOM_HEIGHT_2 = 0.25,
-  DAP_LEFT_WIDTH_2 = 0.2,
-  RIGHT_WIDTH_2 = 0.2,
-  LEFT_WIDTH_2 = 0.15,
-}
 
-local normal_settings = {
-  -- FIXME: this is same as above
-  BOTTOM_HEIGHT = 0.2,
   LEFT_WIDTH = 0.1,
-  RIGHT_WIDTH = 0.15,
-  BOTTOM_HEIGHT_2 = 0.25,
-  DAP_LEFT_WIDTH_2 = 0.2,
-  RIGHT_WIDTH_2 = 0.2,
   LEFT_WIDTH_2 = 0.15,
+  LEFT_WIDTH_3 = 0.2,
+
+  RIGHT_WIDTH = 0.15,
+  RIGHT_WIDTH_2 = 0.2,
 }
-local settings = require('common.env').SCREEN == 'widescreen' and widescreen_settings or normal_settings
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
@@ -61,11 +50,9 @@ M.setup = function()
       ['<C-Down>'] = function(win)
         win:resize('height', -2)
       end,
-      -- FIXME: this doesn't work
-
-      -- ['<leader>z='] = function(win)
-      --   win.view.edgebar:equalize()
-      -- end,
+      ['<leader>zr'] = function(win)
+        win.view.edgebar:equalize()
+      end,
     },
     bottom = {
       {
@@ -122,22 +109,22 @@ M.setup = function()
       {
         title = 'Scopes (DAP)',
         ft = 'dapui_scopes',
-        size = { width = settings.DAP_LEFT_WIDTH_2 },
+        size = { width = settings.LEFT_WIDTH_3 },
       },
       {
         title = 'Breakpoints (DAP)',
         ft = 'dapui_breakpoints',
-        size = { width = settings.DAP_LEFT_WIDTH_2 },
+        size = { width = settings.LEFT_WIDTH_3 },
       },
       {
         title = 'Stacks (DAP)',
         ft = 'dapui_stacks',
-        size = { width = settings.DAP_LEFT_WIDTH_2 },
+        size = { width = settings.LEFT_WIDTH_3 },
       },
       {
         title = 'Watches (DAP)',
         ft = 'dapui_watches',
-        size = { width = settings.DAP_LEFT_WIDTH_2 },
+        size = { width = settings.LEFT_WIDTH_3 },
       },
       {
         title = 'Calendar',
@@ -190,3 +177,4 @@ end
 -- M.config()
 
 return M
+-- test

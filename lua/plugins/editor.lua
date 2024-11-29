@@ -143,7 +143,6 @@ return {
     'andrewferrier/debugprint.nvim',
     cond = conds['andrewferrier/debugprint.nvim'] or false,
     keys = require('config.debugprint').keys,
-    cmd = require('config.debugprint').cmd,
     config = require('config.debugprint').config,
   },
 }

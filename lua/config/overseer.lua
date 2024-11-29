@@ -228,6 +228,9 @@ M.setup = function()
       'toggleterm',
       open_on_start = false,
     },
+    bundles = {
+      autostart_on_load = false,
+    },
     dap = false,
     task_list = {
       default_detail = 2,

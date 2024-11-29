@@ -5,7 +5,7 @@ M.cmd = {
 }
 
 M.keys = {
-  { '<leader>a', '<cmd>Grapple toggle<cr>', desc = 'grapple_add' },
+  { '<leader>a', '<cmd>Grapple tag<cr>', desc = 'grapple_add' },
   { '<leader>h', '<cmd>Grapple toggle_tags<cr>', desc = 'grapple_list' },
   { '<C-PageUp>', '<cmd>Grapple cycle_tags prev<cr>', desc = 'grapple_prev' },
   { '<C-PageDown>', '<cmd>Grapple cycle_tags next<cr>', desc = 'grapple_next' },
