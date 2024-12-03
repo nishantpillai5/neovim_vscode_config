@@ -54,6 +54,7 @@ local comp = {
         local start_time = os.date('%X', self.start_time) or ''
         local end_time = os.date('%X', self.end_time) or ''
         table.insert(lines, util.format_duration(duration) .. ' (' .. start_time .. ' - ' .. end_time .. ')')
+        table.insert(highlights, { '@label', #lines, 0, -1 })
       end,
     }
   end,

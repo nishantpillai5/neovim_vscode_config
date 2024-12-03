@@ -1,5 +1,6 @@
 local plugins = {
   'github/copilot.vim',
+  -- 'zbirenbaum/copilot.lua', -- TODO: test lua copilot
   'CopilotC-Nvim/CopilotChat.nvim',
 }
 
@@ -9,18 +10,33 @@ return {
   {
     'github/copilot.vim',
     event = { 'BufReadPre', 'BufNewFile' },
+    cmd = 'Copilot',
     cond = conds['github/copilot.vim'] or false,
   },
   {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    cond = conds['CopilotC-Nvim/CopilotChat.nvim'] or false,
-    dependencies = {
-      'vhyrro/luarocks.nvim',
-    },
-    build = function()
-      vim.notify "Please update the remote plugins by running ':UpdateRemotePlugins', then restart Neovim."
+    'zbirenbaum/copilot.lua',
+    cond = conds['zbirenbaum/copilot.lua'] or false,
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = {
+          auto_trigger = true,
+        },
+      }
     end,
+  },
+  {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    cond = conds['CopilotC-Nvim/CopilotChat.nvim'] or false,
+    branch = 'main',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'github/copilot.vim',
+      'vhyrro/luarocks.nvim',
+      -- 'zbirenbaum/copilot.lua',
+    },
+    event = 'InsertEnter',
     keys = require('config.copilot_chat').keys,
     config = require('config.copilot_chat').config,
   },

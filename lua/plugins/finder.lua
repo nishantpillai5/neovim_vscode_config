@@ -54,6 +54,15 @@ return {
     keys = require('config.telescope_diff').keys,
     config = require('config.telescope_diff').config,
   },
+  -- TODO: change cond when the plugin is fixed
+  {
+    dir = require('common.env').NVIM_PLUGINS .. '/telescope-git-hunk.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    cond = false,
+    event = 'BufReadPost',
+    keys = require('config.telescope_hunk').keys,
+    config = require('config.telescope_hunk').config,
+  },
   -- Buffer navigation
   {
     'cbochs/grapple.nvim',
