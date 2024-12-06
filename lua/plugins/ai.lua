@@ -9,9 +9,9 @@ local conds = require('common.utils').get_conds_table(plugins)
 return {
   {
     'github/copilot.vim',
+    cond = conds['github/copilot.vim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = 'Copilot',
-    cond = conds['github/copilot.vim'] or false,
   },
   {
     'zbirenbaum/copilot.lua',

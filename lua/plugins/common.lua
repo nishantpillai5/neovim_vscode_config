@@ -2,7 +2,7 @@ local plugins = {
   'smoka7/hop.nvim',
   'kylechui/nvim-surround',
   'LeonHeidelbach/trailblazer.nvim',
-  'gregorias/coerce.nvim',
+  -- 'gregorias/coerce.nvim', -- TODO: conflicts with gcc
   'monaqa/dial.nvim',
   'chrisgrieser/nvim-recorder',
   'AllenDang/nvim-expand-expr',
@@ -50,8 +50,10 @@ return {
     cond = conds['gregorias/coerce.nvim'] or false,
     keys = {
       { 'cr', desc = 'change_var_format' },
+      { 'gcr', group = 'change_var_motion', mode = 'n' },
+      { 'gcr', group = 'change_var_selection', mode = 'v' },
     },
-    opts = {},
+    config = true,
   },
   -- Better increment
   {
