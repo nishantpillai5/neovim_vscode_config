@@ -111,6 +111,17 @@ local project_files = function()
   end
 end
 
+local entry_maker = function(entry)
+  local cwd = vim.fn.getcwd()
+  local full_path = cwd .. '/' .. entry
+  return {
+    value = entry,
+    display = entry,
+    ordinal = entry,
+    filename = full_path,
+  }
+end
+
 local changed_files = function()
   local previewers = require 'telescope.previewers'
   local pickers = require 'telescope.pickers'
@@ -120,14 +131,14 @@ local changed_files = function()
   pickers
     .new({
       results_title = 'Changed files',
-      finder = finders.new_oneshot_job {
+      finder = finders.new_oneshot_job({
         'git',
         'diff',
         '--name-only',
         '--diff-filter=ACMR',
         '--relative',
         'HEAD',
-      },
+      }, { entry_maker = entry_maker }),
       sorter = sorters.get_fuzzy_file(),
       previewer = previewers.new_termopen_previewer {
         get_command = function(entry)
@@ -159,14 +170,14 @@ local changed_files_from_main = function()
   pickers
     .new({
       results_title = 'Changed files in branch',
-      finder = finders.new_oneshot_job {
+      finder = finders.new_oneshot_job({
         'git',
         'diff',
         '--name-only',
         '--diff-filter=ACMR',
         '--relative',
         merge_base,
-      },
+      }, { entry_maker = entry_maker }),
       sorter = sorters.get_fuzzy_file(),
       previewer = previewers.new_termopen_previewer {
         get_command = function(entry)
