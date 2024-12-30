@@ -148,21 +148,27 @@ M.setup = function()
   -- Completion
   local cmp = require 'cmp'
   cmp.setup {
+    enabled = function()
+      return vim.api.nvim_buf_get_option(0, 'buftype') ~= 'prompt' or require('cmp_dap').is_dap_buffer()
+    end,
     mapping = cmp.mapping.preset.insert {
       ['<CR>'] = cmp.mapping.confirm { select = true },
       ['<C-u>'] = cmp.mapping.scroll_docs(-4),
       ['<C-d>'] = cmp.mapping.scroll_docs(4),
     },
+    snippet = {
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body)
+      end,
+    },
     sources = cmp.config.sources({
+      { name = 'copilot' },
+      { name = 'luasnip' },
       { name = 'nvim_lsp' },
       {
         name = 'lazydev',
         group_index = 0, -- set group index to 0 to skip loading LuaLS completions
       },
-      -- { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
     }, {
       { name = 'buffer' },
     }),
@@ -172,6 +178,7 @@ M.setup = function()
   cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
+      { name = 'cmdline_history' },
       { name = 'buffer' },
     },
   })
@@ -180,6 +187,7 @@ M.setup = function()
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
+      { name = 'cmdline_history' },
       { name = 'path' },
     }, {
       { name = 'cmdline' },
@@ -187,6 +195,20 @@ M.setup = function()
     ---@diagnostic disable-next-line: missing-fields
     matching = { disallow_symbol_nonprefix_matching = false },
   })
+
+  cmp.setup.cmdline('@', {
+    sources = {
+      { name = 'cmdline_history' },
+    },
+  })
+
+  require('cmp').setup.filetype({ 'dap-repl', 'dapui_watches', 'dapui_hover' }, {
+    sources = {
+      { name = 'dap' },
+    },
+  })
+
+  require('luasnip.loaders.from_vscode').lazy_load()
 end
 
 local get_logo = function(name)
