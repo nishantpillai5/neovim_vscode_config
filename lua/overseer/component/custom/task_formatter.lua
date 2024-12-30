@@ -25,6 +25,18 @@ local comp = {
         self.start_time = nil
         self.end_time = nil
       end,
+      ---@return nil|boolean
+      on_pre_start = function(self, task)
+        for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+          if
+            vim.api.nvim_get_option_value('modifiable', { buf = buf })
+            and vim.api.nvim_get_option_value('modified', { buf = buf })
+          then
+            vim.notify('Running task with unsaved changes', 'warn')
+            break
+          end
+        end
+      end,
       on_start = function(self)
         if not timer then
           timer = assert(vim.loop.new_timer())

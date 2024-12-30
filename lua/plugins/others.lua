@@ -4,7 +4,7 @@ local plugins = {
   'kwakzalver/duckytype.nvim',
   'dstein64/vim-startuptime',
   'subnut/nvim-ghost.nvim',
-  'm4xshen/hardtime.nvim',
+  -- 'm4xshen/hardtime.nvim',
   'theprimeagen/vim-be-good',
   'seandewar/killersheep.nvim',
 }

@@ -215,9 +215,9 @@ M.keymaps = function()
     end)
   end)
 
-  vim.api.nvim_create_user_command('OverseerList', function()
-    vim.notify(vim.inspect(overseer.list_tasks()[1]))
-  end, {})
+  -- vim.api.nvim_create_user_command('OverseerList', function()
+  --   vim.notify(vim.inspect(overseer.list_tasks()[1]))
+  -- end, {})
 end
 
 M.setup = function()
