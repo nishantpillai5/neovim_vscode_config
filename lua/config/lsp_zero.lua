@@ -162,7 +162,6 @@ M.setup = function()
       end,
     },
     sources = cmp.config.sources({
-      { name = 'copilot' },
       { name = 'luasnip' },
       { name = 'nvim_lsp' },
       {

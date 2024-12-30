@@ -71,7 +71,6 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/nvim-cmp',
       'rcarriga/cmp-dap',
-      'hrsh7th/cmp-copilot',
       {
         'L3MON4D3/LuaSnip',
         dependencies = { 'rafamadriz/friendly-snippets' },

@@ -7,14 +7,15 @@ local fix_prompt =
   'There is a problem in this code. Explain what the problem is and then rewrite the code with the bug fixed. Only generate code that needs to be changed.'
 local pr_prompt =
   'Generate a list of bullet points for a PR description that reflects the changes made. The points should be concise, clear and should reflect the change in functionality rather than the minor details. The PR description should begin with Changes:'
+local attach_selection_prompt = 'Attach the selected code to the chat. Only reply with "CONTEXT RECEIVED"'
 
 -- find other default prompts here
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/config.lua
 
 M.keys = {
-  { '<leader>ca', desc = 'attach_selection' },
-  { '<leader>cA', desc = 'attach_file' },
+  { '<leader>ca', desc = 'attach_selection', mode = 'v' },
+  { '<leader>cA', desc = 'attach_file', mode = 'v' },
   { '<leader>cc', mode = 'n', desc = 'chat' },
   { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain' },
   { '<leader>co', mode = { 'n', 'v' }, desc = 'optimize' },
@@ -112,6 +113,14 @@ M.keymaps = function()
   -- TODO: gitdiff from master instead of local
   set_keymap('n', '<leader>cp', function()
     require('CopilotChat').ask(pr_prompt, { selection = select.gitdiff })
+  end)
+
+  set_keymap('v', '<leader>ca', function()
+    require('CopilotChat').ask(attach_selection_prompt, { selection = select.selection })
+  end)
+
+  set_keymap('v', '<leader>cA', function()
+    require('CopilotChat').ask(attach_selection_prompt, { selection = select.buffer })
   end)
 
   -- Telescope
