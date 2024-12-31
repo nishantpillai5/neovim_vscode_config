@@ -3,6 +3,7 @@ local plugins = {
   'OliverChao/telescope-picker-list.nvim',
   -- 'axkirillov/easypick.nvim',
   'jemag/telescope-diff.nvim',
+  'nishantpillai5/telescope-git-hunk',
   'cbochs/grapple.nvim',
   'rgroli/other.nvim',
 }
@@ -54,12 +55,10 @@ return {
     keys = require('config.telescope_diff').keys,
     config = require('config.telescope_diff').config,
   },
-  -- TODO: change cond when the plugin is fixed
   {
-    dir = require('common.env').NVIM_PLUGINS .. '/telescope-git-hunk.nvim',
+    'nishantpillai5/telescope-git-hunk',
     dependencies = { 'nvim-telescope/telescope.nvim' },
-    cond = false,
-    event = 'BufReadPost',
+    cond = conds['nishantpillai5/telescope-git-hunk'] or false,
     keys = require('config.telescope_hunk').keys,
     config = require('config.telescope_hunk').config,
   },
