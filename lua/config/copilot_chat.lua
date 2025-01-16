@@ -102,21 +102,21 @@ M.keymaps = function()
   set_keymap('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      require('CopilotChat').ask(input, { select.selection })
+      require('CopilotChat').ask(input)
     end
   end)
 
   set_keymap('v', '<leader>cs', function()
-    require('CopilotChat').ask(simplify_prompt, { selection = select.selection })
+    require('CopilotChat').ask(simplify_prompt)
   end)
 
   -- TODO: gitdiff from master instead of local
   set_keymap('n', '<leader>cp', function()
-    require('CopilotChat').ask(pr_prompt, { selection = select.gitdiff })
+    require('CopilotChat').ask(pr_prompt, { context = { 'git:staged' } })
   end)
 
   set_keymap('v', '<leader>ca', function()
-    require('CopilotChat').ask(attach_selection_prompt, { selection = select.selection })
+    require('CopilotChat').ask(attach_selection_prompt, { selection = select.visual })
   end)
 
   set_keymap('v', '<leader>cA', function()
