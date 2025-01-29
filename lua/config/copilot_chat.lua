@@ -41,9 +41,22 @@ M.buffer_keys = {
 }
 
 M.keymaps = function()
+  local copilot = require 'CopilotChat'
   local actions = require 'CopilotChat.actions'
   local select = require 'CopilotChat.select'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  local default_selection = function(source)
+    return select.visual(source) or select.buffer(source)
+  end
+
+  local buffer_selection = function(source)
+    return select.visual(source) or select.buffer(source)
+  end
+
+  local visual_selection = function(source)
+    return select.visual(source)
+  end
 
   set_keymap('n', '<leader>cc', function()
     vim.cmd 'CopilotChatToggle'
@@ -95,32 +108,32 @@ M.keymaps = function()
   set_keymap('n', '<leader>cb', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      require('CopilotChat').ask(input, { selection = select.buffer })
+      copilot.ask(input, { selection = buffer_selection })
     end
   end)
 
   set_keymap('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      require('CopilotChat').ask(input)
+      copilot.ask(input, { selection = default_selection })
     end
   end)
 
   set_keymap('v', '<leader>cs', function()
-    require('CopilotChat').ask(simplify_prompt)
+    copilot.ask(simplify_prompt, { selection = visual_selection })
   end)
 
   -- TODO: gitdiff from master instead of local
   set_keymap('n', '<leader>cp', function()
-    require('CopilotChat').ask(pr_prompt, { context = { 'git:staged' } })
+    copilot.ask(pr_prompt, { context = { 'git:staged' } })
   end)
 
   set_keymap('v', '<leader>ca', function()
-    require('CopilotChat').ask(attach_selection_prompt, { selection = select.visual })
+    copilot.ask(attach_selection_prompt, { selection = visual_selection })
   end)
 
   set_keymap('v', '<leader>cA', function()
-    require('CopilotChat').ask(attach_selection_prompt, { selection = select.buffer })
+    copilot.ask(attach_selection_prompt, { selection = buffer_selection })
   end)
 
   -- Telescope
@@ -134,7 +147,8 @@ M.keymaps = function()
 end
 
 M.setup = function()
-  require('CopilotChat').setup {
+  local copilot = require 'CopilotChat'
+  copilot.setup {
     show_help = true,
     debug = false,
     auto_follow_cursor = false,
@@ -165,7 +179,7 @@ M.setup = function()
     pattern = 'copilot-*',
     callback = function()
       set_buf_keymap('n', '<C-p>', function()
-        print(require('CopilotChat').response())
+        print(copilot.response())
       end)
     end,
   })
