@@ -3,19 +3,22 @@ _G.worktree_create_callback = _G.worktree_create_callback or nil
 local M = {}
 
 M.keys = {
-  { '<leader>gw', desc = 'worktree_switch' },
-  { '<leader>gW', desc = 'worktree_create' },
+  { '<leader>wg', desc = 'worktree_switch' },
+  { '<leader>wG', desc = 'worktree_create' },
 }
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
-  set_keymap('n', '<leader>gw', function()
-    require('telescope').extensions.git_worktree.git_worktree()
-  end)
 
-  set_keymap('n', '<leader>gW', function()
+  local switch_worktree = function()
+    require('telescope').extensions.git_worktree.git_worktree()
+  end
+  local create_worktree = function()
     require('telescope').extensions.git_worktree.create_git_worktree()
-  end)
+  end
+
+  set_keymap('n', '<leader>wG', create_worktree)
+  set_keymap('n', '<leader>wg', switch_worktree)
 end
 
 M.setup = function()

@@ -2,7 +2,7 @@ local M = {}
 
 M.keys = {
   { '<leader>gs', desc = 'status' },
-  { '<leader>gl', desc = 'log' },
+  { '<leader>gL', desc = 'log' },
   { '<leader>gza', desc = 'apply' },
   { '<leader>gzs', desc = 'staged' },
   { '<leader>gzp', desc = 'pop' },
@@ -46,7 +46,7 @@ end
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>gs', toggle_fugitive)
-  set_keymap('n', '<leader>gl', function()
+  set_keymap('n', '<leader>gL', function()
     vim.cmd 'Git log'
   end)
   set_keymap('n', '<leader>gza', function()

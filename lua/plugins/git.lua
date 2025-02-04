@@ -32,7 +32,7 @@ return {
       'LazyGitFilterCurrentFile',
     },
     keys = {
-      { '<leader>gL', '<cmd>LazyGit<cr>', desc = 'lazygit' },
+      { '<leader>gl', '<cmd>LazyGit<cr>', desc = 'lazygit' },
     },
   },
   -- Diff
