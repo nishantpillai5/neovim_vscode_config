@@ -79,17 +79,19 @@ M.setup = function()
     },
     tabline = {
       lualine_a = {},
-      lualine_b = {},
-      lualine_c = {
+      lualine_b = {
         {
           'filename',
-          path = require('common.env').SCREEN == 'widescreen' and 0 or 1,
+          -- path = require('common.env').SCREEN == 'widescreen' and 0 or 1,
+          path = 1,
           symbols = {
             modified = '●',
             readonly = '',
             directory = '',
           },
         },
+      },
+      lualine_c = {
         'diff',
       },
 

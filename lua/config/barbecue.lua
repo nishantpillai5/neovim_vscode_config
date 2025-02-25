@@ -2,11 +2,13 @@ local M = {}
 
 M.setup = function()
   require('barbecue').setup {
-    -- theme = {
-    --   normal = { bg = '#262626' },
-    -- },
-    show_basename = require('common.env').SCREEN == 'widescreen',
-    show_dirname = require('common.env').SCREEN == 'widescreen',
+    theme = {
+      basename = { bold = true },
+    },
+    show_basename = true,
+    show_dirname = false,
+    show_navic = false,
+    show_modified = true,
   }
 end
 
