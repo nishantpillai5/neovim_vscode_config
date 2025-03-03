@@ -88,12 +88,19 @@ M.spec = {
 
 M.setup = function()
   local wk = require 'which-key'
+  local os = require('common.env').OS
+
+  local triggers = os == 'windows'
+      and {
+        { '<auto>', mode = 'nixsotc' },
+        { '<leader>', mode = { 'n', 'v' } },
+        { 'm', mode = { 'n', 'v' } },
+      }
+    or nil
+
   wk.setup {
     icons = { rules = false },
-    triggers = {
-      { '<auto>', mode = 'nixsotc' },
-      { 'm', mode = { 'n', 'v' } },
-    },
+    triggers = triggers,
     sort = { 'local', 'order', 'group', 'alphanum', 'mod', 'lower', 'icase' },
     spec = M.spec,
   }

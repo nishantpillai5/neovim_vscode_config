@@ -80,7 +80,7 @@ M.setup = function()
         end,
         opts = { noremap = false, expr = true, buffer = true, desc = 'file(obsidian)' },
       },
-      ['<cr>'] = {
+      ['mc'] = {
         action = function()
           return obsidian.util.smart_action()
         end,
