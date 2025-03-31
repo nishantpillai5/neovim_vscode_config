@@ -17,7 +17,7 @@ return {
     event = 'VeryLazy',
     dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = require('common.env').OS == 'windows' and 'mingw32-make' or 'make' },
       'nvim-telescope/telescope-live-grep-args.nvim',
       'paopaol/telescope-git-diffs.nvim',
       'scottmckendry/telescope-resession.nvim',

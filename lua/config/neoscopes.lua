@@ -77,6 +77,8 @@ local replace_telescope_keymaps = function()
     builtin.find_files {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
+      follow = true,
+      no_ignore = true,
     }
   end)
 
@@ -87,7 +89,8 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       default_text = basename,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '--follow' },
+      follow = true,
+      no_ignore = true,
     }
   end)
 
@@ -95,7 +98,8 @@ local replace_telescope_keymaps = function()
     builtin.live_grep {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '--follow' },
+      follow = true,
+      no_ignore = true,
     }
   end)
 
@@ -103,7 +107,8 @@ local replace_telescope_keymaps = function()
     require('telescope').extensions.live_grep_args.live_grep_args {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '--follow' },
+      follow = true,
+      no_ignore = true,
     }
   end)
 
@@ -113,7 +118,8 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '--follow' },
+      follow = true,
+      no_ignore = true,
     }
   end)
 
@@ -123,7 +129,8 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '--follow' },
+      follow = true,
+      no_ignore = true,
     }
   end)
 
@@ -132,7 +139,8 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '--follow' },
+      follow = true,
+      no_ignore = true,
     }
   end)
 end
@@ -159,6 +167,7 @@ end
 
 M.setup = function(selecting)
   local neoscopes = require 'neoscopes'
+---@diagnostic disable-next-line: missing-fields
   neoscopes.setup {
     neoscopes_config_filename = _G.scope_config_file,
     on_scope_selected = refresh_workspace,
