@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Generate Whichkey maps",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/scripts"
+            },
+            "command": "python",
+            "args": [
+                "${workspaceFolder}/scripts/map_to_json.py"
+            ],
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            },
+            "isBackground": true
+        }
+        ]
+}

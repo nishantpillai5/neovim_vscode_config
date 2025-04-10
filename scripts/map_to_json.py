@@ -1,3 +1,8 @@
+# "verbose show file which produce remap keybinding
+# :redir! > scripts/nmap.txt
+# :silent verbose nmap
+# :redir END
+
 # convert nmap to vsc whichkey config
 import json
 
