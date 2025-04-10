@@ -2,6 +2,7 @@ local M = {}
 
 M.keys = {
   { '<leader>gs', desc = 'status' },
+  { '<leader>gb', desc = 'branch' },
   { '<leader>gL', desc = 'log' },
   { '<leader>gza', desc = 'apply' },
   { '<leader>gzs', desc = 'staged' },
@@ -46,6 +47,19 @@ end
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>gs', toggle_fugitive)
+
+  -- FIXME: only map if unmapped
+
+  -- if vim.fn.mapcheck('<leader>gb', 'n') == '' then
+  --   set_keymap('n', '<leader>gb', function()
+  --     vim.ui.input({ prompt = 'Branch name: ' }, function(input)
+  --       if input then
+  --         vim.cmd('Git branch ' .. input)
+  --       end
+  --     end)
+  --   end)
+  -- end
+
   set_keymap('n', '<leader>gL', function()
     vim.cmd 'Git log'
   end)

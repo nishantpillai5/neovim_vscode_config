@@ -98,7 +98,7 @@ local replace_telescope_keymaps = function()
     builtin.live_grep {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L' }
+      additional_args = { '-L', '--no-ignore' }
     }
   end)
 
@@ -106,7 +106,7 @@ local replace_telescope_keymaps = function()
     require('telescope').extensions.live_grep_args.live_grep_args {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L' }
+      additional_args = { '-L', '--no-ignore' }
     }
   end)
 
@@ -116,7 +116,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L' }
+      additional_args = { '-L', '--no-ignore' }
     }
   end)
 
@@ -126,7 +126,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L' }
+      additional_args = { '-L', '--no-ignore' }
     }
   end)
 
@@ -135,7 +135,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L' }
+      additional_args = { '-L', '--no-ignore' }
     }
   end)
 end
