@@ -1,3 +1,4 @@
+_G.custom_formatters_by_ft = _G.custom_formatters_by_ft or {}
 local M = {}
 
 M.keys = {
@@ -20,7 +21,7 @@ end
 
 M.setup = function()
   require('conform').setup {
-    formatters_by_ft = {
+    formatters_by_ft = require('common.utils').merge_table({
       lua = { 'stylua' },
       json = { 'prettier' },
       javascript = { 'prettier' },
@@ -31,7 +32,7 @@ M.setup = function()
       cpp = { 'clang-format' },
       markdown = { 'prettier' },
       ['_'] = { 'trim_whitespace' },
-    },
+    }, _G.custom_formatters_by_ft),
   }
   require('mason-conform').setup()
 end

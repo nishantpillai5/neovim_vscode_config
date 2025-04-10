@@ -1,3 +1,5 @@
+_G.other_mappings = _G.other_mappings or nil
+
 local M = {}
 
 M.keys = {
@@ -5,9 +7,7 @@ M.keys = {
 }
 M.setup = function()
   require('other-nvim').setup {
-    mappings = {
-      'c',
-    },
+    mappings = require('common.utils').merge_table({ 'c' }, _G.other_mappings),
   }
 end
 
