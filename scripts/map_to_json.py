@@ -4,28 +4,30 @@
 # :redir END
 
 # convert nmap to vsc whichkey config
+import pynvim
 import json
 
-MODES = ["n","x","v","t"]
+MODES = ["n", "x", "v", "t"]
 
 node_desc = {
-  ';' : 'Terminal',
-  'b' : 'Breakpoint',
-  'c' : 'Chat',
-  'e' : 'Explorer',
-  'y' : 'Yank',
-  'f' : 'Find',
-  'F' : 'Find_Telescope',
-  'g' : 'Git',
-  'h' : 'Hunk',
-  'l' : 'LSP',
-  'n' : 'Notes',
-  'o' : 'Tasks',
-  'r' : 'Refactor',
-  't' : 'Trouble',
-  'w' : 'Workspace',
-  'z' : 'Visual',
+    ";": "Terminal",
+    "b": "Breakpoint",
+    "c": "Chat",
+    "e": "Explorer",
+    "y": "Yank",
+    "f": "Find",
+    "F": "Find_Telescope",
+    "g": "Git",
+    "h": "Hunk",
+    "l": "LSP",
+    "n": "Notes",
+    "o": "Tasks",
+    "r": "Refactor",
+    "t": "Trouble",
+    "w": "Workspace",
+    "z": "Visual",
 }
+
 
 def find_desc_for_node(key):
     try:
@@ -33,8 +35,9 @@ def find_desc_for_node(key):
     except:
         return "NA"
 
+
 def gen_keymap_dict(filename):
-    with open(filename, 'r') as file:
+    with open(filename, "r") as file:
         lines = file.readlines()
 
     keymaps = {}
@@ -42,11 +45,11 @@ def gen_keymap_dict(filename):
 
     for i in range(len(lines)):
         # skip empty lines
-        if lines[i].strip() == '':
+        if lines[i].strip() == "":
             continue
 
-        text_list = lines[i].split(' ')
-        text_list = [text for text in lines[i].split(' ') if text != '']
+        text_list = lines[i].split(" ")
+        text_list = [text for text in lines[i].split(" ") if text != ""]
         mode = text_list[0]
 
         if mode not in MODES:
@@ -54,7 +57,7 @@ def gen_keymap_dict(filename):
             continue
 
         key = text_list[1]
-        cmd = ''.join(text_list[2:])
+        cmd = "".join(text_list[2:])
 
         if "<Nop>" in cmd:
             continue
@@ -68,12 +71,14 @@ def gen_keymap_dict(filename):
 
     return keymaps
 
+
 def print_items_between_keys(data_dict, n, m):
     keys = list(data_dict.keys())
     keys.sort()
     for i, key in enumerate(keys):
         if n <= i <= m:
             print(f'{key}: {data_dict[key]["cmd"]}')
+
 
 def tokenize(key):
     lst = []
@@ -92,52 +97,66 @@ def tokenize(key):
 
     return lst
 
+
 count = 0
 
-def add_to_tree(item,tree,level=0):
-    if len(item['tokens']) == 0:
+
+def add_to_tree(item, tree, level=0):
+    if len(item["tokens"]) == 0:
         return
-    if len(item['tokens']) == level+1:
+    if len(item["tokens"]) == level + 1:
         add_this = {
-            "key": item['tokens'][level],
+            "key": item["tokens"][level],
             "type": "command",
             # "command": item['cmd'],
         }
         try:
-            add_this['desc'] = item['desc']
+            add_this["desc"] = item["desc"]
         except:
-            add_this['desc'] = "NA"
+            add_this["desc"] = "NA"
         tree.append(add_this)
         global count
         count += 1
         return
     else:
         for i in tree:
-            if i['key'] == item['tokens'][level]:
+            if i["key"] == item["tokens"][level]:
                 # if i["bindings"] is a list, make sure it doesn't fail if i["bindings"] doesn't exist
                 try:
                     if type(i["bindings"]) is list:
-                        add_to_tree(item, i["bindings"], level+1)
+                        add_to_tree(item, i["bindings"], level + 1)
                         return
                 except:
                     i["bindings"] = []
-                    add_to_tree(item, i["bindings"], level+1)
+                    add_to_tree(item, i["bindings"], level + 1)
                     return
         # if not found, add the item
         add_this = {
-            "key": item['tokens'][level],
+            "key": item["tokens"][level],
             "type": "bindings",
             # "desc": "TEST",
-            "desc": find_desc_for_node(item['tokens'][level]),
-            "bindings": []
+            "desc": find_desc_for_node(item["tokens"][level]),
+            "bindings": [],
         }
         tree.append(add_this)
-        add_to_tree(item, tree[-1]["bindings"], level+1)
+        add_to_tree(item, tree[-1]["bindings"], level + 1)
 
     return tree
 
-if __name__ == "__main__":
-    nmap = gen_keymap_dict('nmap.txt')
+
+def main():
+
+    nvim = pynvim.attach("child", argv=["nvim"])
+    nmap_output = nvim.command_output("silent verbose nmap")
+
+    output_file = "nmap.txt"
+    with open(output_file, "w") as f:
+        f.write(nmap_output)
+
+    print(f"Key mappings saved to {output_file}")
+    return
+
+    nmap = gen_keymap_dict(output_file)
     # vmap = gen_keymap_dict('vmap.txt')
     # print_items_between_keys(nmap, 0, 1000)
     # print(len(list(nmap.keys())))
@@ -148,13 +167,18 @@ if __name__ == "__main__":
         nmap_count += 1
 
     from pprint import pprint
+
     pprint(json_lst)
     print("is equal? tree vs nmap", count, nmap_count)
-    leader_maps = [x for x in json_lst if x['key'] == "<Space>"][0]["bindings"]
+    leader_maps = [x for x in json_lst if x["key"] == "<Space>"][0]["bindings"]
     print("leader maps count", len(leader_maps))
 
-    with open("output.json", "w") as f:
-        json.dump({"whichkey.bindings": leader_maps}, f, indent = 2)
+    with open("whichkey_settings.json", "w") as f:
+        json.dump({"whichkey.bindings": leader_maps}, f, indent=2)
 
-    with open("output_all.json", "w") as f:
-        json.dump(json_lst, f, indent = 2)
+    # with open("whichkey_settings_ALL.json", "w") as f:
+    #     json.dump(json_lst, f, indent = 2)
+
+
+if __name__ == "__main__":
+    main()

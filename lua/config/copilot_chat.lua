@@ -115,7 +115,7 @@ M.keymaps = function()
   set_keymap('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      copilot.ask(input, { selection = default_selection })
+      copilot.ask(input, { selection = visual_selection })
     end
   end)
 

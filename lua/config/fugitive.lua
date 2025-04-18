@@ -2,7 +2,7 @@ local M = {}
 
 M.keys = {
   { '<leader>gs', desc = 'status' },
-  { '<leader>gb', desc = 'branch' },
+  -- { '<leader>gb', desc = 'branch' },
   { '<leader>gL', desc = 'log' },
   { '<leader>gza', desc = 'apply' },
   { '<leader>gzs', desc = 'staged' },
