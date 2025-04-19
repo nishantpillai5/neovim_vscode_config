@@ -2,17 +2,24 @@ local M = {}
 
 M.highlightSeparator = function(mode)
   local c = require('vscode.colors').get_colors()
-  if mode == 'n' then
-    vim.cmd('hi NvimSeparator guifg=' .. c.vscAccentBlue)
-  elseif mode == 'i' then
-    vim.cmd('hi NvimSeparator guifg=' .. c.vscBlueGreen)
-  elseif (mode == 'v') or (mode == 'V') then
-    vim.cmd('hi NvimSeparator guifg=' .. c.vscDarkYellow)
-  elseif mode == 'c' then
-    vim.cmd('hi NvimSeparator guifg=' .. c.vscPink)
-  elseif mode == 't' then
-    vim.cmd('hi NvimSeparator guifg=' .. c.vscBlueGreen)
+
+  local mode_colors = {
+    n = c.vscAccentBlue,
+    i = c.vscBlueGreen,
+    v = c.vscDarkYellow,
+    V = c.vscDarkYellow,
+    c = c.vscYellow,
+    o = c.vscYellow,
+    r = c.vscYellow,
+    s = c.vscYellow,
+    t = c.vscBlueGreen,
+  }
+
+  if mode == 'c' then
+    vim.cmd 'redraw'
   end
+
+  vim.cmd('hi NvimSeparator guifg=' .. require('common.utils').get_with_default(mode_colors, mode, c.vscAccentBlue))
 end
 
 M.setup = function()

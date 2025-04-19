@@ -154,4 +154,11 @@ function M.to_unix_path(path)
   return path
 end
 
+function M.get_with_default(t, key, default)
+  if t[key] ~= nil then
+    return t[key]
+  end
+  return default
+end
+
 return M
