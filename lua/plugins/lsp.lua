@@ -3,6 +3,7 @@ local plugins = {
   'nvim-treesitter/nvim-treesitter-context',
   'code-biscuits/nvim-biscuits',
   'VonHeikemen/lsp-zero.nvim',
+  'L3MON4D3/LuaSnip',
   'mfussenegger/nvim-lint',
   'stevearc/conform.nvim',
   'folke/trouble.nvim',
@@ -71,16 +72,23 @@ return {
       'hrsh7th/cmp-path',
       'hrsh7th/nvim-cmp',
       'rcarriga/cmp-dap',
-      {
-        'L3MON4D3/LuaSnip',
-        dependencies = { 'rafamadriz/friendly-snippets' },
-      },
+      'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       'dmitmel/cmp-cmdline-history',
     },
     keys = require('config.lsp_zero').keys,
     cond = conds['VonHeikemen/lsp-zero.nvim'] or false,
     config = require('config.lsp_zero').config,
+  },
+  -- Snippets
+  {
+    'L3MON4D3/LuaSnip',
+    event = 'VeryLazy',
+    dependencies = { 'rafamadriz/friendly-snippets' },
+    cond = conds['L3MON4D3/LuaSnip'] or false,
+    config = function()
+      require('luasnip.loaders.from_vscode').lazy_load()
+    end,
   },
   -- Linter
   {
