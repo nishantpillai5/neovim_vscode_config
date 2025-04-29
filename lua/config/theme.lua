@@ -15,11 +15,11 @@ M.highlightSeparator = function(mode)
     t = c.vscBlueGreen,
   }
 
+  vim.cmd('hi NvimSeparator guifg=' .. require('common.utils').get_with_default(mode_colors, mode, c.vscAccentBlue))
+
   if mode == 'c' then
     vim.cmd 'redraw'
   end
-
-  vim.cmd('hi NvimSeparator guifg=' .. require('common.utils').get_with_default(mode_colors, mode, c.vscAccentBlue))
 end
 
 M.setup = function()
