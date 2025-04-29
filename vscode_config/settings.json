@@ -793,9 +793,22 @@
                         },
                         {
                             "key": "D",
-                            "name": "changed_files_from_main",
-                            "type": "command",
-                            "command": "not implemented"
+                            "name": "+Changed_files",
+                            "type": "bindings",
+                            "bindings": [
+                                {
+                                    "key": "D",
+                                    "name": "changed_files_from_main",
+                                    "type": "command",
+                                    "command": "not implemented"
+                                },
+                                {
+                                    "key": "d",
+                                    "name": "changed_files_from_branch",
+                                    "type": "command",
+                                    "command": "not implemented"
+                                }
+                            ]
                         },
                         {
                             "key": "l",
@@ -869,9 +882,22 @@
                 },
                 {
                     "key": "D",
-                    "name": "diff_from_main",
-                    "type": "command",
-                    "command": "not implemented"
+                    "name": "+Diff",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "D",
+                            "name": "diff_from_main",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "d",
+                            "name": "diff_from_branch",
+                            "type": "command",
+                            "command": "not implemented"
+                        }
+                    ]
                 },
                 {
                     "key": "f",

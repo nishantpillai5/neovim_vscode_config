@@ -2,7 +2,8 @@ local M = {}
 
 M.keys = {
   { '<leader>gd', desc = 'diff' },
-  { '<leader>gD', desc = 'diff_from_main' },
+  { '<leader>gDD', desc = 'diff_from_main' },
+  { '<leader>gDd', desc = 'diff_from_branch' },
   { '<leader>gH', desc = 'history' },
   { '<leader>gf', desc = 'file_diff' },
   { '<leader>gF', desc = 'file_diff_from_main' },
@@ -35,6 +36,22 @@ local diffview_from_main = close_wrapper(function()
   vim.cmd('DiffviewOpen origin/' .. require('common.utils').get_main_branch() .. '...HEAD')
 end)
 
+local diffview_from_branch = close_wrapper(function()
+  require('telescope.builtin').git_branches {
+    attach_mappings = function(_, map)
+      local open_diffview = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local branch = action_state.get_selected_entry().name
+        require('telescope.actions').close(prompt_bufnr)
+        vim.cmd('DiffviewOpen origin/' .. branch .. '...HEAD')
+      end
+      map('i', '<CR>', open_diffview)
+      map('n', '<CR>', open_diffview)
+      return true
+    end,
+  }
+end)
+
 local history_toggle = close_wrapper(function()
   vim.cmd 'DiffviewFileHistory %'
 end)
@@ -58,7 +75,8 @@ end)
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>gd', diffview_toggle)
-  set_keymap('n', '<leader>gD', diffview_from_main)
+  set_keymap('n', '<leader>gDD', diffview_from_main)
+  set_keymap('n', '<leader>gDd', diffview_from_branch)
   set_keymap('n', '<leader>gH', history_toggle)
   set_keymap('n', '<leader>gf', file_diff)
   set_keymap('n', '<leader>gF', file_diff_from_main_toggle)

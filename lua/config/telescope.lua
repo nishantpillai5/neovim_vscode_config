@@ -130,7 +130,7 @@ local changed_files = function()
 
   pickers
     .new({
-      results_title = 'Changed files',
+      prompt_title = 'Changed files',
       finder = finders.new_oneshot_job({
         'git',
         'diff',
@@ -159,17 +159,17 @@ local changed_files = function()
     :find()
 end
 
-local changed_files_from_main = function()
+local changed_files_from = function(branch)
   local previewers = require 'telescope.previewers'
   local pickers = require 'telescope.pickers'
   local sorters = require 'telescope.sorters'
   local finders = require 'telescope.finders'
 
-  local merge_base = vim.fn.system('git merge-base HEAD ' .. utils.get_main_branch()):gsub('%s+', '')
+  local merge_base = vim.fn.system('git merge-base HEAD ' .. branch):gsub('%s+', '')
 
   pickers
     .new({
-      results_title = 'Changed files in branch',
+      prompt_title = 'Changed files from ' .. branch,
       finder = finders.new_oneshot_job({
         'git',
         'diff',
@@ -200,6 +200,26 @@ local changed_files_from_main = function()
     :find()
 end
 
+local changed_files_from_main = function()
+  changed_files_from(utils.get_main_branch())
+end
+
+local changed_files_from_branch = function()
+  require('telescope.builtin').git_branches {
+    attach_mappings = function(_, map)
+      local select_branch = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local branch = action_state.get_selected_entry().name
+        require('telescope.actions').close(prompt_bufnr)
+        changed_files_from(branch)
+      end
+      map('i', '<CR>', select_branch)
+      map('n', '<CR>', select_branch)
+      return true
+    end,
+  }
+end
+
 ------------------------------------------------ Public ------------------------------------------------
 
 local M = {}
@@ -211,7 +231,8 @@ M.keys = {
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
   { '<leader>fgd', desc = 'changed_files' },
-  { '<leader>fgD', desc = 'changed_files_from_main' },
+  { '<leader>fgDD', desc = 'changed_files_from_main' },
+  { '<leader>fgDd', desc = 'changed_files_from_branch' },
   { '<leader>fgb', desc = 'branch_checkout' },
   { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
@@ -259,7 +280,8 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>fgd', changed_files)
-  set_keymap('n', '<leader>fgD', changed_files_from_main)
+  set_keymap('n', '<leader>fgDD', changed_files_from_main)
+  set_keymap('n', '<leader>fgDd', changed_files_from_branch)
   set_keymap('n', '<leader>fgb', builtin.git_branches)
   set_keymap('n', '<leader>fgB', function()
     builtin.git_branches { show_remote_tracking_branches = false }
