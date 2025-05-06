@@ -3,20 +3,33 @@ local M = {}
 local nvim_python_paths = {
   windows = '~/.virtualenvs/neovim/Scripts/python.exe',
   linux = '~/.virtualenvs/neovim/bin/python3',
+  wsl = '~/.virtualenvs/neovim/bin/python3',
   mac = '~/.virtualenvs/neovim/bin/python3',
 }
 
 local vsc_config_paths = {
   windows = '~/AppData/Roaming/Code/User/settings.json',
   linux = '~/.config/Code/User/settings.json',
+  wsl = '~/.config/Code/User/settings.json',
   mac = '~/Library/Application Support/Code/User/settings.json',
 }
 
-local os_from_env = os.getenv 'OS'
-if os_from_env ~= nil and string.match(os_from_env:lower(), 'windows') then
-  M.OS = 'windows'
-elseif vim.fn.has 'macunix' then
-  M.OS = 'mac'
+local os_from_env = vim.loop.os_uname().sysname
+local is_windows = os_from_env:find 'Windows' and true or false
+local is_mac = os_from_env == 'Darwin'
+local is_linux = os_from_env == 'Linux'
+local is_wsl = is_linux and vim.loop.os_uname().release:lower():find 'microsoft' and true or false
+
+if os_from_env ~= nil then
+  if is_windows then
+    M.OS = 'windows'
+  elseif is_mac then
+    M.OS = 'mac'
+  elseif is_wsl then
+    M.OS = 'wsl'
+  else
+    M.OS = 'linux'
+  end
 else
   M.OS = 'linux'
 end

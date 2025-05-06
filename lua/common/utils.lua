@@ -137,11 +137,11 @@ function M.open_explorer(path)
   local os = require('common.env').OS
   if os == 'mac' then
     vim.fn.jobstart({ 'xdg-open', '-g', path }, { detach = true })
-  end
-  if os == 'linux' then
+  elseif os == 'linux' then
     vim.fn.jobstart({ 'xdg-open', path }, { detach = true })
-  end
-  if os == 'windows' then
+  elseif os == 'wsl' then
+    vim.fn.jobstart({ 'wsl-open', path }, { detach = true })
+  elseif os == 'windows' then
     vim.cmd('silent !start explorer ' .. path)
   end
 end
