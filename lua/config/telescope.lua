@@ -349,7 +349,10 @@ M.keymaps = function()
     builtin.find_files {
       prompt_title = 'Workspace Configuration',
       hidden = true,
+      no_ignore = true,
+      no_ignore_parent = true,
       search_dirs = { '.vscode' },
+      find_command = { 'fd', '--follow', '--exclude', '.git' },
     }
   end)
 end
