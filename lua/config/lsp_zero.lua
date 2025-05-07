@@ -47,8 +47,13 @@ M.setup = function()
     }
   end)
 
+  local lspconfig_defaults = require('lspconfig').util.default_config
+  local capabilities =
+    vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, cmp_nvim_lsp.default_capabilities())
+
   require('mason').setup {}
   require('mason-lspconfig').setup {
+    automatic_enable = true,
     ensure_installed = {
       -- "typos_lsp",
       'clangd',
@@ -61,88 +66,83 @@ M.setup = function()
       -- "markdown_oxide",
       'ts_ls',
     },
-  }
+    handlers = {
+      -- default handler
+      function(server_name)
+        require('lspconfig')[server_name].setup {}
+      end,
 
-  local lspconfig_defaults = require('lspconfig').util.default_config
-  local capabilities =
-    vim.tbl_deep_extend('force', lspconfig_defaults.capabilities, cmp_nvim_lsp.default_capabilities())
+      -- C
+      ['clangd'] = function()
+        require('lspconfig').clangd.setup {
+          capabilities = capabilities,
+          cmd = {
+            'clangd',
+            '--offset-encoding=utf-16',
+            '--background-index',
+          },
+        }
+      end,
 
-  require('mason-lspconfig').setup_handlers {
-    -- default handler
-    function(server_name)
-      require('lspconfig')[server_name].setup {}
-    end,
+      -- Python
+      ['pyright'] = function()
+        require('lspconfig').pyright.setup {
+          capabilities = capabilities,
+          settings = _G.pyright_settings or {},
+        }
+      end,
 
-    -- C
-    ['clangd'] = function()
-      require('lspconfig').clangd.setup {
-        capabilities = capabilities,
-        cmd = {
-          'clangd',
-          '--offset-encoding=utf-16',
-          '--background-index',
-        },
-      }
-    end,
+      -- ['ruff_lsp'] = function()
+      --   require('lspconfig').ruff_lsp.setup {
+      --     init_options = {
+      --       settings = {
+      --         args = {},
+      --       },
+      --     },
+      --   }
+      -- end,
 
-    -- Python
-    ['pyright'] = function()
-      require('lspconfig').pyright.setup {
-        capabilities = capabilities,
-        settings = _G.pyright_settings or {},
-      }
-    end,
+      -- Lua
+      ['lua_ls'] = function()
+        require('lspconfig').lua_ls.setup {
+          capabilities = capabilities,
+          on_init = function(client)
+            if client.workspace_folders and client.workspace_folders[1] then
+              local path = client.workspace_folders[1].name
+              if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
+                return
+              end
 
-    -- ['ruff_lsp'] = function()
-    --   require('lspconfig').ruff_lsp.setup {
-    --     init_options = {
-    --       settings = {
-    --         args = {},
-    --       },
-    --     },
-    --   }
-    -- end,
-
-    -- Lua
-    ['lua_ls'] = function()
-      require('lspconfig').lua_ls.setup {
-        capabilities = capabilities,
-        on_init = function(client)
-          if client.workspace_folders and client.workspace_folders[1] then
-            local path = client.workspace_folders[1].name
-            if vim.loop.fs_stat(path .. '/.luarc.json') or vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-              return
-            end
-
-            client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
-              runtime = {
-                version = 'LuaJIT', -- (LuaJIT in the case of Neovim)
-              },
-              -- Make the server aware of Neovim runtime files
-              workspace = {
-                checkThirdParty = false,
-                library = {
-                  vim.env.VIMRUNTIME,
+              client.config.settings.Lua = vim.tbl_deep_extend('force', client.config.settings.Lua, {
+                runtime = {
+                  version = 'LuaJIT', -- (LuaJIT in the case of Neovim)
                 },
-              },
-            })
-          end
-        end,
-        settings = {
-          Lua = {},
-        },
-      }
-    end,
+                -- Make the server aware of Neovim runtime files
+                workspace = {
+                  checkThirdParty = false,
+                  library = {
+                    vim.env.VIMRUNTIME,
+                  },
+                },
+              })
+            end
+          end,
+          settings = {
+            Lua = {},
+          },
+        }
+      end,
 
-    ['ts_ls'] = function()
-      require('lspconfig').ts_ls.setup {
-        capabilities = capabilities,
-        -- on_attach = function(client, bufnr)
-        -- Disable tsserver formatting if you use another formatter
-        -- client.resolved_capabilities.document_formatting = false
-        -- end,
-      }
-    end,
+      ['ts_ls'] = function()
+        require('lspconfig').ts_ls.setup {
+          capabilities = capabilities,
+          -- on_attach = function(client, bufnr)
+          -- Disable tsserver formatting if you use another formatter
+          -- client.resolved_capabilities.document_formatting = false
+          -- end,
+        }
+      end,
+    },
   }
 
   -- Completion
