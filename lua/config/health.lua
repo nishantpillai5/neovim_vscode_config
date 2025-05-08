@@ -3,7 +3,7 @@ local M = {}
 local check_var = function(var, default)
   local value = os.getenv(var)
   if value == nil then
-    vim.health.info(var .. ' missing. Defaulted to => "' .. default .. '"')
+    vim.health.warn(var .. ' missing. Defaulted to => "' .. default .. '"')
   else
     vim.health.ok(var .. ' => "' .. value .. '"')
   end
@@ -29,7 +29,7 @@ local check_global = function(var)
   if _G[var] then
     vim.health.ok('_G.' .. var .. ' is set')
   else
-    vim.health.info('_G.' .. var .. ' is not set')
+    vim.health.warn('_G.' .. var .. ' is not set')
   end
 end
 
@@ -56,6 +56,7 @@ local check_globals = function()
       'main_branch',
       'worktree_create_callback',
       'gitlinker_config',
+      'fugitive_create_branch'
     },
     tasks = {
       'filter_build_tasks',
