@@ -24,6 +24,7 @@ M.setup = function()
     formatters_by_ft = require('common.utils').merge_table({
       lua = { 'stylua' },
       json = { 'prettier' },
+      jsonc = { 'prettier' },
       javascript = { 'prettier' },
       typescript = { 'prettier' },
       c = { 'clang-format' },

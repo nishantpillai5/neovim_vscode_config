@@ -14,6 +14,27 @@ end
 
 M.config = function()
   M.setup()
+
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'vista',
+    callback = function()
+      vim.defer_fn(function()
+        vim.keymap.set('n', 's', '<cmd>HopChar2<cr>', { buffer = true, desc = 'hop_char', noremap = true })
+        vim.keymap.set(
+          'n',
+          '<leader>s',
+          ':<C-U>call vista#Sort()<CR>',
+          { buffer = true, desc = 'VISTA_sort', noremap = true }
+        )
+        vim.keymap.set(
+          'n',
+          '<leader>p',
+          ':<C-U>call vista#cursor#TogglePreview()<CR>',
+          { buffer = true, desc = 'VISTA_preview', noremap = true }
+        )
+      end, 300) -- delay to allow vista to load
+    end,
+  })
 end
 
 -- M.config()

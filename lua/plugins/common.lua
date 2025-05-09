@@ -20,6 +20,7 @@ return {
       { 's', '<cmd>HopChar2<cr>', mode = { 'n', 'x' }, desc = 'hop_char' },
       { 'S', '<cmd>HopNodes<cr>', mode = { 'n' }, desc = 'hop_node' },
     },
+    cmd = { 'HopChar2', 'HopNodes' },
     opts = {
       multi_windows = true,
       uppercase_labels = true,
