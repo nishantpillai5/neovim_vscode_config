@@ -8,6 +8,7 @@ M.keys = {
   { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename(F2)' },
   { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', mode = { 'n', 'v' }, desc = 'hints_view(K)' },
   { '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', mode = { 'n', 'v' }, desc = 'diagnostic_view(gl)' },
+  { '<leader>lx', desc = 'refresh' },
   { '<leader>lD', desc = 'diagnostics_toggle' },
   { '<leader>lH', desc = 'hints_toggle' },
 }
@@ -29,6 +30,12 @@ M.keymaps = function()
 
   set_keymap('n', '<leader>lD', toggle_diagnostics)
   set_keymap('n', '<leader>lH', toggle_hints)
+
+  set_keymap('n', '<leader>lx', function()
+    local client = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })[1]
+    vim.cmd('LspRestart ' .. client.id)
+    vim.notify('LSP restarted: ' .. client.name)
+  end)
 end
 
 M.setup = function()

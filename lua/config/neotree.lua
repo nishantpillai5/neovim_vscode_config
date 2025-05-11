@@ -91,6 +91,13 @@ M.setup = function()
       end,
     },
   }
+
+  vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+    pattern = 'neo-tree',
+    callback = function()
+      vim.cmd 'normal! zz'
+    end,
+  })
 end
 
 M.config = function()

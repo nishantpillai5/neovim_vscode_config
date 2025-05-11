@@ -17,7 +17,7 @@ M.config = function()
 
   vim.api.nvim_create_autocmd('FileType', {
     pattern = 'vista',
-    callback = function()
+    callback = function(opts)
       vim.defer_fn(function()
         vim.keymap.set('n', 's', '<cmd>HopChar2<cr>', { buffer = true, desc = 'hop_char', noremap = true })
         vim.keymap.set(
@@ -33,6 +33,26 @@ M.config = function()
           { buffer = true, desc = 'VISTA_preview', noremap = true }
         )
       end, 300) -- delay to allow vista to load
+
+      -- Save cursor position on buffer leave
+      vim.api.nvim_create_autocmd('BufLeave', {
+        buffer = opts.buf,
+        callback = function(opts)
+          local cursor_pos = vim.api.nvim_win_get_cursor(0)
+          vim.b[opts.buf].vista_cursor_pos = cursor_pos
+        end,
+      })
+
+      -- Restore cursor position on buffer enter
+      vim.api.nvim_create_autocmd('BufEnter', {
+        buffer = opts.buf,
+        callback = function(opts)
+          local cursor_pos = vim.b[opts.buf].vista_cursor_pos
+          if cursor_pos then
+            vim.api.nvim_win_set_cursor(0, cursor_pos)
+          end
+        end,
+      })
     end,
   })
 end
