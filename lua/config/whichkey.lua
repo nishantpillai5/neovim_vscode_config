@@ -27,7 +27,7 @@ M.spec = {
   { '<leader>fgD', group = 'Changed_files' },
   { '<leader>fb', group = 'Breakpoint' },
   { '<leader>F', group = 'Find_Telescope' },
-  { '<leader>gc', group = 'Debugrint' },
+  { '<leader>gc', group = 'Debugprint', mode = { 'n', 'v' } },
   { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
   { '<leader>gD', group = 'Diff' },
   { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
