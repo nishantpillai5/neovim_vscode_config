@@ -19,7 +19,7 @@ local find_dir = function()
     nvim_config = require('common.env').DIR_NVIM,
     vsc_config = require('common.env').VSC_CONFIG:gsub('settings.json', ''),
   }
-  local fav_dirs = utils.merge_table(global_favs, local_favs)
+  local fav_dirs = vim.tbl_deep_extend("force", global_favs, local_favs)
 
   vim.ui.select(utils.get_keys(fav_dirs), {
     prompt = 'Favorite directories',

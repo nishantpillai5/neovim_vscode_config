@@ -95,7 +95,7 @@ M.setup = function()
       ['pyright'] = function()
         require('lspconfig').pyright.setup {
           capabilities = capabilities,
-          settings = _G.pyright_settings or {},
+          settings = vim.tbl_deep_extend('force', {}, _G.pyright_settings),
         }
       end,
 

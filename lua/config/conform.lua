@@ -21,7 +21,7 @@ end
 
 M.setup = function()
   require('conform').setup {
-    formatters_by_ft = require('common.utils').merge_table({
+    formatters_by_ft = vim.tbl_deep_extend('force', {
       lua = { 'stylua' },
       json = { 'prettier' },
       jsonc = { 'prettier' },
