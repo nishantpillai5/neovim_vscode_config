@@ -7,12 +7,15 @@ M.setup = function()
       color = c.vscPopupHighlightGray,
     },
     marks = {
-      Search = { color = c.vscViolet },
-      Error = { color = c.vscRed },
-      Warn = { color = c.vscOrange },
-      Info = { color = c.vscYellow },
-      Hint = { color = c.vscYellow },
-      Misc = { color = c.vscYellow },
+      Search = { text = { '', '' }, color = c.vscViolet },
+      Error = { text = { '', '' }, color = c.vscRed },
+      Warn = { text = { '', '' }, color = c.vscOrange },
+      Info = { text = { '', '' }, color = c.vscYellow },
+      Hint = { text = { '', '' }, color = c.vscYellow },
+      Misc = { text = { '-', '=' }, color = c.vscYellow },
+      GitAdd = { text = '▌', color = c.vscGreen },
+      GitChange = { text = '▌', color = c.vscYellow },
+      GitDelete = { text = '▌', color = c.vscRed },
     },
   }
 end
