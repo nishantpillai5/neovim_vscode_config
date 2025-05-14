@@ -2,7 +2,7 @@ local plugins = {
   'aymericbeaumet/vim-symlink',
   'smartpde/neoscopes',
   'stevearc/resession.nvim',
-  'ahmedkhalf/project.nvim',
+  'nvim-telescope/telescope-project.nvim',
   'klen/nvim-config-local',
 }
 
@@ -35,18 +35,17 @@ return {
   },
   -- Find other project directories
   {
-    'ahmedkhalf/project.nvim',
+    'nvim-telescope/telescope-project.nvim',
     event = 'VeryLazy',
     dependencies = { 'nvim-telescope/telescope.nvim' },
-    cond = conds['ahmedkhalf/project.nvim'] or false,
+    cond = conds['nvim-telescope/telescope-project.nvim'] or false,
     keys = {
       { '<leader>wW', desc = 'select_project' },
     },
     config = function()
-      require('project_nvim').setup()
       local set_keymap = require('common.utils').get_keymap_setter()
       set_keymap('n', '<leader>wW', function()
-        require('telescope').extensions.projects.projects()
+        require('telescope').extensions.project.project()
       end, { desc = 'select_project' })
     end,
   },

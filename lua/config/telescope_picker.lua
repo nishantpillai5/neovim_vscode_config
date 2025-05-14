@@ -16,9 +16,9 @@ M.keymaps = function()
         require('telescope').load_extension 'dap'
       end
 
-      local project_status, _ = pcall(require, 'project_nvim')
+      local project_status, _ = pcall(require, 'telescope.extensions.project')
       if project_status then
-        require('telescope').load_extension 'projects'
+        require('telescope').load_extension 'project'
       end
 
       local worktree_status, _ = pcall(require, 'git-worktree')
@@ -31,6 +31,7 @@ M.keymaps = function()
         require('telescope').load_extension 'rest'
       end
 
+      -- TODO: check pcalls
       require('telescope').load_extension 'conflicts'
       require('telescope').load_extension 'emoji'
       require('telescope').load_extension 'nerdy'
