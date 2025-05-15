@@ -48,7 +48,7 @@ end
 
 M.setup = function()
   require('grapple').setup {
-    scope = 'git',
+    scope = 'git_branch',
     win_opts = {
       width = 0.8,
     },
