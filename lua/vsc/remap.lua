@@ -56,9 +56,10 @@ local function mapVscWhichkeyConfig(json, binding)
   end
 end
 
-local function remove_comments(json_str)
-  local clean_str = json_str:gsub('//[^\n]*', ''):gsub('/%*.-%*/', '')
-  return clean_str
+local function sanitize_json(json_str)
+  local remove_comments = json_str:gsub('//[^\n]*', ''):gsub('/%*.-%*/', '')
+  local remove_trailing_commas = remove_comments:gsub(',(%s*[%]}])', '%1')
+  return remove_trailing_commas
 end
 
 local function readVscConfig()
@@ -71,7 +72,7 @@ local function readVscConfig()
   local content = file:read '*a'
   file:close()
 
-  local clean_content = remove_comments(content)
+  local clean_content = sanitize_json(content)
   local ok, jsonfile = pcall(vim.fn.json_decode, clean_content)
   if not ok then
     vim.notify('Failed to decode vscode config: ' .. jsonfile, vim.log.levels.ERROR)
