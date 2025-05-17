@@ -5,6 +5,7 @@ local plugins = {
   -- 'mpas/marp-nvim',
   'Pocco81/HighStr.nvim',
   'mattn/calendar-vim',
+  'nfrid/due.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -78,5 +79,22 @@ return {
     init = require('config.calendar').init,
     cmd = require('config.calendar').cmd,
     config = require('config.calendar').config,
+  },
+  {
+    'NFrid/due.nvim',
+    event = {
+      'BufReadPre *todo*.md',
+      'BufReadPre *todo*.txt',
+      'BufNewFile *todo*.md',
+      'BufNewFile *todo*.txt',
+    },
+    cond = conds['nfrid/due.nvim'] or false,
+    config = function()
+      require('due_nvim').setup {
+        ft = '*todo*.md,*todo*.txt',
+        pattern_start = 'due:',
+        pattern_end = '',
+      }
+    end,
   },
 }
