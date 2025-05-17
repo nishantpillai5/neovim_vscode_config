@@ -39,6 +39,7 @@ M.spec = {
   { '<leader>n', group = 'Notes', mode = { 'n', 'v' } },
   { '<leader>o', group = 'Tasks' },
   { '<leader>os', group = 'Save' },
+  { '<leader>O', group = 'Leet' },
   { '<leader>r', group = 'Refactor' },
   { '<leader>t', group = 'Trouble' },
   { '<leader>w', group = 'Workspace' },

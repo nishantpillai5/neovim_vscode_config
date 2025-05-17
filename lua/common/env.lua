@@ -14,6 +14,13 @@ local vsc_config_paths = {
   mac = '~/Library/Application Support/Code/User/settings.json',
 }
 
+local leet_paths = {
+  windows = '~/Documents/work/leetcode',
+  linux = '~/work/leetcode',
+  wsl = '~/work/leetcode',
+  mac = '~/work/leetcode',
+}
+
 local os_from_env = vim.loop.os_uname().sysname
 local is_windows = os_from_env:find 'Windows' and true or false
 local is_mac = os_from_env == 'Darwin'
@@ -42,6 +49,7 @@ M.defaults = {
   USER_PREFIX = os.getenv 'USER_PREFIX' or os.getenv 'USERNAME' or 'user',
   NVIM_PYTHON = vim.fn.expand(nvim_python_paths[M.OS]),
   VSC_CONFIG = vim.fn.expand(vsc_config_paths[M.OS]),
+  DIR_LEET = vim.fn.expand(leet_paths[M.OS]),
 }
 
 local set_env = function(var)
@@ -54,6 +62,7 @@ M.DIR_NVIM = set_env 'DIR_NVIM'
 M.NVIM_PLUGINS = set_env 'NVIM_PLUGINS'
 M.NVIM_PYTHON = set_env 'NVIM_PYTHON'
 M.VSC_CONFIG = set_env 'VSC_CONFIG'
+M.DIR_LEET = set_env 'DIR_LEET'
 
 M.GLOBAL_STATUS = true
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
