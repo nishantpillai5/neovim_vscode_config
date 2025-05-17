@@ -2,6 +2,8 @@ local plugins = {
   'akinsho/nvim-toggleterm.lua',
   'ryanmsnyder/toggleterm-manager.nvim',
   'stevearc/overseer.nvim',
+  'andythigpen/nvim-coverage',
+  'pianocomposer321/officer.nvim',
   'sbulav/nredir.nvim',
 }
 
@@ -39,6 +41,41 @@ return {
     cmd = require('config.overseer').cmd,
     keys = require('config.overseer').keys,
     config = require('config.overseer').config,
+  },
+  -- Coverage
+  {
+    'andythigpen/nvim-coverage',
+    version = '*',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    cond = conds['andythigpen/nvim-coverage'] or false,
+    cmd = {
+      'Coverage',
+      'CoverageLoad',
+      'CoverageLoadLcov',
+      'CoverageShow',
+      'CoverageHide',
+      'CoverageToggle',
+      'CoverageClear',
+      'CoverageSummary',
+    },
+    config = function()
+      require('coverage').setup {
+        auto_reload = true,
+      }
+    end,
+  },
+  -- Build task using makeprg
+  {
+    'pianocomposer321/officer.nvim',
+    dependencies = { 'stevearc/overseer.nvim' },
+    cond = conds['pianocomposer321/officer.nvim'] or false,
+    cmd = { 'Make', 'Run' },
+    config = function()
+      -- TODO: If you set `:set makeprg=pytest\ %`, running `:make` will run `pytest` on the current file.
+      require('officer').setup {
+        create_mappings = false,
+      }
+    end,
   },
   -- Redir commands to buffer
   {
