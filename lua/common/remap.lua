@@ -20,12 +20,41 @@ local keys = {
   { 'J', desc = 'join_next_line' },
   { '<leader>zq', desc = 'lazyredraw_toggle' },
   { 'gco', desc = 'add_comment' },
+  { 'H', desc = 'beginning_of_line' },
+  { 'L', desc = 'end_of_line' },
+  { '<Tab>', desc = 'matching_bracket' },
+  -- { 'dd', desc = 'delete_line' },
+  -- { 'yc', desc = 'yank_comment' },
 }
 
 local set_keymap = require('common.utils').get_keymap_setter(keys)
 
 -- jk as esc
 set_keymap('i', 'jk', '<Esc>')
+
+-- H L as ^ and $
+-- By default, H and L moves to the first visible line in the window
+set_keymap({ 'n', 'o', 'v' }, 'H', '^')
+set_keymap({ 'n', 'o', 'v' }, 'L', '$')
+
+-- Tab as %
+-- By default, Tab moves to the next tabstop
+set_keymap({ 'n', 'o', 'v' }, '<Tab>', '%')
+
+-- TODO: doesn't work
+-- Delete line but if empty don't put it in any regiester
+-- set_keymap('n', 'dd', function()
+--   if vim.api.nvim_get_current_line():match '^%s*$' then
+--     return '"_dd'
+--   end
+--   return 'dd'
+-- end)
+
+-- TODO: doesn't work
+-- Duplicate a line and comment out the first line
+vim.keymap.set({ 'n','o' }, 'yc', function()
+  vim.cmd('normal! yygccp')
+end)
 
 -- Toggle relative line numbers
 set_keymap('n', '<leader>zl', ':set relativenumber!<cr>')
@@ -46,8 +75,8 @@ set_keymap({ 'n', 'v' }, '<leader>y', [["+y]])
 set_keymap('n', '<leader>Y', [["+Y]])
 set_keymap({ 'n', 'v' }, '<leader>d', [["+d]])
 set_keymap({ 'n', 'v' }, '<leader>D', [["_d]])
-set_keymap('x', '<leader>P', [["+dP]])
-set_keymap('x', '<leader>p', [["+p]])
+set_keymap({ 'n', 'x' }, '<leader>P', [["+dP]])
+set_keymap({ 'n', 'x' }, '<leader>p', [["+p]])
 
 -- Line wrap
 set_keymap('n', '<leader>zw', ':set wrap!<cr>')

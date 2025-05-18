@@ -19,6 +19,10 @@ M.keymaps = function()
   set_keymap('n', '<leader>gxb', '<Plug>(git-conflict-both)')
   set_keymap('n', '<leader>gxn', '<Plug>(git-conflict-none)')
 
+  -- nmap('<leader>gcu', 'dd/|||<CR>0v/>>><CR>$x', '[G]it [C]onflict Choose [U]pstream')
+  -- nmap('<leader>gcb', '0v/|||<CR>$x/====<CR>0v/>>><CR>$x', '[G]it [C]onflict Choose [B]ase')
+  -- nmap('<leader>gcs', '0v/====<CR>$x/>>><CR>dd', '[G]it [C]onflict Choose [S]tashed')
+
   set_keymap('n', '[x', '?<<<<<<<<cr>')
   set_keymap('n', ']x', '/<<<<<<<<cr>')
 
