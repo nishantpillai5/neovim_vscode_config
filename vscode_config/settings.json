@@ -726,7 +726,7 @@
                     "command": "not implemented"
                 },
                 {
-                    "key": ";",
+                    "key": "O",
                     "name": "terminal",
                     "type": "command",
                     "command": "workbench.action.terminal.focusTabs"
@@ -1619,12 +1619,12 @@
             ]
         },
         {
-            "key": ";",
+            "key": "O",
             "name": "+Terminal",
             "type": "bindings",
             "bindings": [
                 {
-                    "key": ";",
+                    "key": "o",
                     "name": "toggle",
                     "type": "command",
                     "command": "workbench.action.terminal.toggleTerminal"

@@ -17,7 +17,7 @@ end
 
 M.spec = {
   { '<leader>', group = 'Leader' },
-  { '<leader>;', group = 'Terminal' },
+  { '<leader>;', group = 'Leet' },
   { '<leader>b', group = 'Breakpoint' },
   { '<leader>c', group = 'Chat', mode = { 'n', 'v' } },
   { '<leader>e', group = 'Explorer' },
@@ -39,7 +39,7 @@ M.spec = {
   { '<leader>n', group = 'Notes', mode = { 'n', 'v' } },
   { '<leader>o', group = 'Tasks' },
   { '<leader>os', group = 'Save' },
-  { '<leader>O', group = 'Leet' },
+  { '<leader>O', group = 'Terminal' },
   { '<leader>r', group = 'Refactor' },
   { '<leader>t', group = 'Trouble' },
   { '<leader>w', group = 'Workspace' },

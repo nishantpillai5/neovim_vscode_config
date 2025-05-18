@@ -24,6 +24,7 @@ return {
   {
     'xeluxee/competitest.nvim',
     cond = conds['xeluxee/competitest.nvim'] or false,
+    event = require('config.competitest').event,
     cmd = require('config.competitest').cmd,
     dependencies = { 'MunifTanjim/nui.nvim' },
     keys = require('config.competitest').keys,
