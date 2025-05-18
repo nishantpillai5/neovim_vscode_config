@@ -15,10 +15,10 @@ local vsc_config_paths = {
 }
 
 local leet_paths = {
-  windows = '~/Documents/work/leetcode',
-  linux = '~/work/leetcode',
-  wsl = '~/work/leetcode',
-  mac = '~/work/leetcode',
+  windows = '~/Documents/work/leet',
+  linux = '~/work/leet',
+  wsl = '~/work/leet',
+  mac = '~/work/leet',
 }
 
 local os_from_env = vim.loop.os_uname().sysname
