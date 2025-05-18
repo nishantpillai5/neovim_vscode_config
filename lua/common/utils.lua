@@ -58,6 +58,7 @@ function M.get_keymap_setter(keys, setter_opts)
   keys = keys or {}
   setter_opts = setter_opts or {}
   local default_opts = vim.tbl_extend('force', { noremap = true, silent = true }, setter_opts)
+  -- TODO: get mode from M.keys as well
   return function(mode, lhs, rhs, opts)
     opts = opts or {}
     opts['desc'] = opts['desc'] or get_desc(lhs, keys)
