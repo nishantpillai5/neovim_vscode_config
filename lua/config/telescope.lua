@@ -255,8 +255,8 @@ M.keys = {
   { '<leader>fr', desc = 'recents' },
   { '<leader>f"', desc = 'registers' },
   { '<leader>fh', desc = 'buffers' },
-  -- { "<leader>fp", desc = "yank" },
   { '<leader>wc', desc = 'configurations' },
+  { '<leader>f=', desc = 'spellcheck' },
 }
 
 M.keymaps = function()
@@ -355,6 +355,8 @@ M.keymaps = function()
       find_command = { 'fd', '--follow', '--exclude', '.git' },
     }
   end)
+
+  set_keymap('n', '<leader>f=', builtin.spell_suggest)
 end
 
 M.setup = function()

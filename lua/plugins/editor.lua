@@ -3,7 +3,7 @@ local plugins = {
   'folke/todo-comments.nvim',
   'alexghergh/nvim-tmux-navigation',
   'mbbill/undotree',
-  -- "gbprod/yanky.nvim", -- WARN: irresponsive when switching into terminal
+  'gbprod/yanky.nvim',
   'Wansmer/treesj',
   'folke/zen-mode.nvim',
   'RRethy/vim-illuminate',
@@ -52,6 +52,15 @@ return {
     'gbprod/yanky.nvim',
     event = 'VeryLazy',
     cond = conds['gbprod/yanky.nvim'] or false,
+    keys = {
+      { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, desc = 'yank_after' },
+      { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, desc = 'yank_before' },
+      { 'gp', '<Plug>(YankyGPutAfter)', mode = { 'n', 'x' }, desc = 'yank_gput_after' },
+      { 'gP', '<Plug>(YankyGPutBefore)', mode = { 'n', 'x' }, desc = 'yank_gput_before' },
+      { '<c-p>', '<Plug>(YankyPreviousEntry)', desc = 'yank_prev' },
+      { '<c-n>', '<Plug>(YankyNextEntry)', desc = 'yank_next' },
+      { '<leader>fp', desc = 'yank' },
+    },
     config = function()
       require('yanky').setup {
         highlight = {
@@ -66,7 +75,7 @@ return {
 
       set_keymap('n', '<c-p>', '<Plug>(YankyPreviousEntry)')
       set_keymap('n', '<c-n>', '<Plug>(YankyNextEntry)')
-      -- set_keymap("n", "<leader>fp", "<cmd>Telescope yank_history<cr>")
+      set_keymap('n', '<leader>fp', '<cmd>Telescope yank_history<cr>')
     end,
   },
   -- Better join
