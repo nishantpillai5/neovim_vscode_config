@@ -291,8 +291,8 @@
             "command": "editor.action.marker.prev"
         },
         {
-            "key": "O",
-            "name": "run_cmd",
+            "key": ";",
+            "name": "Leet",
             "type": "command",
             "command": "only available through neovim"
         },
@@ -348,7 +348,7 @@
             "key": "?",
             "name": "find_global",
             "type": "command",
-            "command": "workbench.action.findInFiles"
+            "command": "hqv-mower.search"
         },
         {
             "key": "b",
@@ -627,7 +627,7 @@
                     "key": "f",
                     "name": "git_files",
                     "type": "command",
-                    "command": "workbench.action.quickOpen"
+                    "command": "hqv-mower.quickPick"
                 },
                 {
                     "key": "F",
@@ -1443,7 +1443,7 @@
                     "key": "w",
                     "name": "select_scope",
                     "type": "command",
-                    "command": "hqv-vscode.select"
+                    "command": "hqv-mower.select"
                 },
                 {
                     "key": "W",
@@ -1631,7 +1631,7 @@
                 },
                 {
                     "key": "f",
-                    "name": "toggle",
+                    "name": "find",
                     "type": "command",
                     "command": "workbench.action.terminal.focusTabs"
                 }

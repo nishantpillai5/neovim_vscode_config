@@ -1,3 +1,4 @@
+# open nvim with "nvim -V1"
 # "verbose show file which produce remap keybinding
 # :redir! > scripts/nmap.txt
 # :silent verbose nmap
@@ -52,7 +53,7 @@ def gen_keymap_dict(filename):
         text_list = [text for text in lines[i].split(" ") if text != ""]
         mode = text_list[0]
 
-        if mode not in MODES:
+        if mode not in MODES and prev_key != "":
             keymaps[prev_key]["desc"] = "".join(text_list)[:-1]
             continue
 
@@ -144,8 +145,7 @@ def add_to_tree(item, tree, level=0):
     return tree
 
 
-def main():
-
+def generate_nmap():
     nvim = pynvim.attach("child", argv=["nvim"])
     nmap_output = nvim.command_output("silent verbose nmap")
 
@@ -154,12 +154,19 @@ def main():
         f.write(nmap_output)
 
     print(f"Key mappings saved to {output_file}")
-    return
 
+
+def main():
+    # generate_nmap()
+    output_file = "nmap.txt"
+
+    # TODO: fix incorrect desc
     nmap = gen_keymap_dict(output_file)
+
     # vmap = gen_keymap_dict('vmap.txt')
     # print_items_between_keys(nmap, 0, 1000)
     # print(len(list(nmap.keys())))
+
     json_lst = []
     nmap_count = 0
     for key in nmap.keys():

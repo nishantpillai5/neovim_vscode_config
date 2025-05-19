@@ -52,33 +52,39 @@
         // "when": "activityBarFocus",
         "command": "workbench.action.focusSideBar"
     },
-    // Grapple
+    // Grapple / Tab Navigation
     {
-        "key": "ctrl+tab",
+        "key": "ctrl+pagedown",
         "command": "workbench.action.moveEditorRightInGroup"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "workbench.action.moveEditorLeftInGroup"
     },
     {
         "key": "ctrl+shift+pagedown",
         "command": "-workbench.action.moveEditorRightInGroup"
     },
     {
-        "key": "ctrl+shift+tab",
-        "command": "workbench.action.moveEditorLeftInGroup"
-    },
-    {
         "key": "ctrl+shift+pageup",
         "command": "-workbench.action.moveEditorLeftInGroup"
     },
     {
-        "key": "ctrl+shift+tab",
-        "command": "-workbench.action.quickOpenLeastRecentlyUsedEditorInGroup",
-        "when": "!activeEditorGroupEmpty"
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup"
     },
     {
-        "key": "ctrl+tab",
-        "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
-        "when": "!activeEditorGroupEmpty"
-    }
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "-workbench.action.previousEditor"
+    },
     // Cycle through panels like tabs
     {
         "key": "ctrl+pageDown",
