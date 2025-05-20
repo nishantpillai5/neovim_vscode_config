@@ -69,17 +69,17 @@ local live_grep_git_changed_files = function(opts)
   live_grep_static_file_list(opts, file_list)
 end
 
-local live_grep_git_changed_cmp_base_branch = function(opts)
+-- FIXME: broken
+local live_grep_git_changed_base = function(branch, opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
     vim.notify 'plenary not found'
     return
   end
-  local base_branch = utils.get_main_branch()
   local file_list = {}
   PlenaryJob:new({
     command = 'git',
-    args = { 'diff', '--name-only', base_branch .. '..HEAD' },
+    args = { 'diff', '--name-only', branch .. '..HEAD' },
     cwd = utils.get_root_dir(),
     on_exit = function(job)
       for _, cmd_output in ipairs(job:result()) do
@@ -89,6 +89,27 @@ local live_grep_git_changed_cmp_base_branch = function(opts)
     end,
   }):sync()
   live_grep_static_file_list(opts, file_list)
+end
+
+local live_grep_git_changed_main_branch = function(opts)
+  live_grep_git_changed_base(utils.get_main_branch(), opts)
+end
+
+local live_grep_git_changed_select_branch = function(opts)
+  local builtin = require 'telescope.builtin'
+  builtin.git_branches {
+    attach_mappings = function(_, map)
+      local select_branch = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local branch = action_state.get_selected_entry().name
+        require('telescope.actions').close(prompt_bufnr)
+        live_grep_git_changed_base(branch, opts)
+      end
+      map('i', '<CR>', select_branch)
+      map('n', '<CR>', select_branch)
+      return true
+    end,
+  }
 end
 
 local is_inside_work_tree = {}
@@ -230,17 +251,18 @@ M.keys = {
   { '<leader>fF', desc = 'ignored_files' },
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
-  { '<leader>fgd', desc = 'changed_files' },
-  { '<leader>fgDD', desc = 'changed_files_from_main' },
-  { '<leader>fgDd', desc = 'changed_files_from_branch' },
+  { '<leader>fgj', desc = 'changed_files' },
+  { '<leader>fgk', desc = 'changed_files_from_main' },
+  { '<leader>fgl', desc = 'changed_files_from_branch' },
   { '<leader>fgb', desc = 'branch_checkout' },
   { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
   { '<leader>fgC', desc = 'commits_diff' },
   { '<leader>fgz', desc = 'stash' },
   { '<leader>fgx', desc = 'conflicts' },
-  { '<leader>fgl', desc = 'live_grep_changed_files' },
-  { '<leader>fgL', desc = 'live_grep_changed_files_from_main' },
+  { '<leader>fgJ', desc = 'live_grep_changed_files' },
+  { '<leader>fgK', desc = 'live_grep_changed_files_from_main' },
+  { '<leader>fgL', desc = 'live_grep_changed_files_from_branch' },
   { '<leader>ft', desc = 'todos' },
   { '<leader>fl', desc = 'live_grep_global' },
   { '<leader>fL', desc = 'live_grep_global_with_args' },
@@ -279,9 +301,9 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end)
 
-  set_keymap('n', '<leader>fgd', changed_files)
-  set_keymap('n', '<leader>fgDD', changed_files_from_main)
-  set_keymap('n', '<leader>fgDd', changed_files_from_branch)
+  set_keymap('n', '<leader>fgj', changed_files)
+  set_keymap('n', '<leader>fgk', changed_files_from_main)
+  set_keymap('n', '<leader>fgl', changed_files_from_branch)
   set_keymap('n', '<leader>fgb', builtin.git_branches)
   set_keymap('n', '<leader>fgB', function()
     builtin.git_branches { show_remote_tracking_branches = false }
@@ -291,11 +313,12 @@ M.keymaps = function()
   set_keymap('n', '<leader>fgz', builtin.git_stash)
   set_keymap('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>')
 
-  set_keymap('n', '<leader>fgl', live_grep_git_changed_files)
-  set_keymap('n', '<leader>fgL', live_grep_git_changed_cmp_base_branch)
+  set_keymap('n', '<leader>fgJ', live_grep_git_changed_files)
+  set_keymap('n', '<leader>fgK', live_grep_git_changed_main_branch)
+  set_keymap('n', '<leader>fgL', live_grep_git_changed_select_branch)
 
   set_keymap('n', '<leader>ft', function()
-    live_grep_git_changed_cmp_base_branch { default_text = require('common.env').TODO_CUSTOM .. ':' }
+    live_grep_git_changed_main_branch { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_branch(' .. require('common.env').TODO_CUSTOM .. ')' })
 
   set_keymap('n', '<leader>fl', builtin.live_grep)

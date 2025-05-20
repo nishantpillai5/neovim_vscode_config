@@ -786,39 +786,38 @@
                             "command": "not implemented"
                         },
                         {
-                            "key": "d",
+                            "key": "j",
                             "name": "changed_files",
                             "type": "command",
                             "command": "gitlens.openChangedFiles"
                         },
                         {
-                            "key": "D",
-                            "name": "+Changed_files",
-                            "type": "bindings",
-                            "bindings": [
-                                {
-                                    "key": "D",
-                                    "name": "changed_files_from_main",
-                                    "type": "command",
-                                    "command": "not implemented"
-                                },
-                                {
-                                    "key": "d",
-                                    "name": "changed_files_from_branch",
-                                    "type": "command",
-                                    "command": "not implemented"
-                                }
-                            ]
+                            "key": "k",
+                            "name": "changed_files_from_main",
+                            "type": "command",
+                            "command": "not implemented"
                         },
                         {
                             "key": "l",
+                            "name": "changed_files_from_branch",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "J",
                             "name": "live_grep_changed_files",
                             "type": "command",
                             "command": "not implemented"
                         },
                         {
-                            "key": "L",
+                            "key": "K",
                             "name": "live_grep_changed_files_from_main",
+                            "type": "command",
+                            "command": "not implemented"
+                        },
+                        {
+                            "key": "L",
+                            "name": "live_grep_changed_files_from_branch",
                             "type": "command",
                             "command": "not implemented"
                         },
@@ -875,29 +874,22 @@
                     "command": "gitlens.toggleFileBlame"
                 },
                 {
-                    "key": "d",
+                    "key": "j",
                     "name": "diff",
                     "type": "command",
                     "command": "workbench.view.scm"
                 },
                 {
-                    "key": "D",
-                    "name": "+Diff",
-                    "type": "bindings",
-                    "bindings": [
-                        {
-                            "key": "D",
-                            "name": "diff_from_main",
-                            "type": "command",
-                            "command": "not implemented"
-                        },
-                        {
-                            "key": "d",
-                            "name": "diff_from_branch",
-                            "type": "command",
-                            "command": "not implemented"
-                        }
-                    ]
+                    "key": "k",
+                    "name": "diff_from_main",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "l",
+                    "name": "diff_from_branch",
+                    "type": "command",
+                    "command": "not implemented"
                 },
                 {
                     "key": "f",
@@ -918,13 +910,13 @@
                     "command": "gitlens.viewFileHistory"
                 },
                 {
-                    "key": "l",
+                    "key": ";",
                     "name": "log",
                     "type": "command",
                     "command": "git.viewHistory"
                 },
                 {
-                    "key": "L",
+                    "key": ":",
                     "name": "lazygit",
                     "type": "command",
                     "command": "lazygit-vscode.toggle"
@@ -1627,7 +1619,7 @@
                     "key": "o",
                     "name": "toggle",
                     "type": "command",
-                    "command": "workbench.action.terminal.toggleTerminal"
+                    "command": "workbench.action.togglePanel"
                 },
                 {
                     "key": "f",
