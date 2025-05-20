@@ -11,16 +11,8 @@ return {
   {
     'smjonas/inc-rename.nvim',
     cond = conds['smjonas/inc-rename.nvim'] or false,
-    keys = {
-      { '<leader>rn', desc = 'rename' },
-    },
-    config = function()
-      require('inc_rename').setup()
-      local set_keymap = require('common.utils').get_keymap_setter()
-      set_keymap('n', '<leader>rn', function()
-        return ':IncRename ' .. vim.fn.expand '<cword>'
-      end, { expr = true })
-    end,
+    keys = require('config.increname').keys,
+    config = require('config.increname').config,
   },
   {
     'ThePrimeagen/refactoring.nvim',

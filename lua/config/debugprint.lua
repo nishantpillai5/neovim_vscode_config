@@ -25,7 +25,7 @@ M.keys = {
 }
 
 M.keymaps = function()
-  local set_keymap = require('common.utils').get_keymap_setter()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>gcf', '<cmd>SearchDebugPrints<cr>', { desc = 'search' })
   set_keymap('n', '<leader>gct', '<cmd>ToggleCommentDebugPrints<cr>', { desc = 'toggle' })
   set_keymap('n', '<leader>gcd', '<cmd>DeleteDebugPrints<cr>', { desc = 'delete' })

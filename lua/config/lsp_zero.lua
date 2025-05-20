@@ -6,6 +6,7 @@ M.keys = {
   { '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', mode = { 'n', 'v' }, desc = 'action(F4)' },
   { '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', mode = { 'n', 'v' }, desc = 'format_with_lsp(F3)' },
   { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename(F2)' },
+  { '<leader>rl', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename_with_lsp(F2)' },
   { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', mode = { 'n', 'v' }, desc = 'hints_view(K)' },
   { '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', mode = { 'n', 'v' }, desc = 'diagnostic_view(gl)' },
   { '<leader>lx', desc = 'refresh' },

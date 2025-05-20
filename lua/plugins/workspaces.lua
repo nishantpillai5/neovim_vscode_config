@@ -39,15 +39,8 @@ return {
     event = 'VeryLazy',
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['nvim-telescope/telescope-project.nvim'] or false,
-    keys = {
-      { '<leader>wW', desc = 'select_project' },
-    },
-    config = function()
-      local set_keymap = require('common.utils').get_keymap_setter()
-      set_keymap('n', '<leader>wW', function()
-        require('telescope').extensions.project.project()
-      end, { desc = 'select_project' })
-    end,
+    keys = require('config.telescope_project').keys,
+    config = require('config.telescope_project').config,
   },
   -- Local config
   {
