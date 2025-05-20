@@ -89,9 +89,9 @@ M.setup = function()
           key = 'w',
         },
         {
-          desc = ' Workspace',
+          desc = ' Project',
           group = 'Label',
-          action = 'Telescope projects',
+          action = 'Telescope project',
           key = 'W',
         },
         {
