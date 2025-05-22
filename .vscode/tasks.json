@@ -1,37 +1,39 @@
 {
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "Generate Whichkey maps",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/scripts"
-            },
-            "command": "python",
-            "args": [
-                "${workspaceFolder}/scripts/map_to_json.py"
-            ],
-            "presentation": {
-                "reveal": "silent",
-                "clear": true
-            },
-            "isBackground": true
-        },
-        {
-            "label": "Plot Whichkey maps",
-            "type": "shell",
-            "options": {
-                "cwd": "${workspaceFolder}/scripts"
-            },
-            "command": "python",
-            "args": [
-                "${workspaceFolder}/scripts/plot_json_graph.py"
-            ],
-            "presentation": {
-                "reveal": "silent",
-                "clear": true
-            },
-            "isBackground": true
-        }
-        ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Generate whichkey maps",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/scripts"
+      },
+      "command": "${workspaceFolder}/scripts/.venv/bin/python",
+      "args": ["${workspaceFolder}/scripts/map_to_json.py"],
+      "windows": {
+        "command": "${workspaceFolder}/scripts/.venv/Scripts/python.exe"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "clear": true
+      },
+      "isBackground": true
+    },
+    {
+      "label": "Plot whichkey maps",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}/scripts"
+      },
+      "command": "${workspaceFolder}/scripts/.venv/bin/python",
+      "args": ["${workspaceFolder}/scripts/plot_json_graph.py"],
+      "windows": {
+        "command": "${workspaceFolder}/scripts/.venv/Scripts/python.exe"
+      },
+      "presentation": {
+        "reveal": "silent",
+        "clear": true
+      },
+      "isBackground": true
+    }
+  ]
 }

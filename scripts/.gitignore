@@ -1,2 +1,3 @@
-*.txt
+*map.txt
 *.json
+.venv

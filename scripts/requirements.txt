@@ -1,0 +1,4 @@
+networkx
+pynvim
+plotly
+numpy

@@ -1,9 +1,3 @@
-# open nvim with "nvim -V1"
-# "verbose show file which produce remap keybinding
-# :redir! > scripts/nmap.txt
-# :silent verbose nmap
-# :redir END
-
 # convert nmap to vsc whichkey config
 import pynvim
 import json
@@ -53,6 +47,10 @@ def gen_keymap_dict(filename):
     for i in range(len(lines)):
         # skip empty lines
         if lines[i].strip() == "":
+            continue
+
+        # skip lines that includes "Last set from"
+        if "Last set from" in lines[i]:
             continue
 
         text_list = lines[i].split(" ")
@@ -162,11 +160,20 @@ def generate_nmap():
 
 
 if __name__ == "__main__":
-    # TODO: doesn't work
+    # FIXME: doesn't work, fix and remove instructions
     # generate_nmap()
 
-    # TODO: fix incorrect desc
-    nmap = gen_keymap_dict(MAPPING_FILE)
+    try:
+        nmap = gen_keymap_dict(MAPPING_FILE)
+    except FileNotFoundError:
+        print(f"File {MAPPING_FILE} not found.")
+        # print instructions to generate the file
+        print("Run the following command in nvim:")
+        print(":redir! > scripts/nmap.txt")
+        print(":silent verbose nmap")
+        print(":redir END")
+        print("Then run this script again.")
+        exit(1)
 
     if not SILENT:
         print_items_between_keys(nmap, 0, 1000)
@@ -178,12 +185,12 @@ if __name__ == "__main__":
         add_to_tree(nmap[key], json_lst)
         nmap_count += 1
 
+    leader_maps = [x for x in json_lst if x["key"] == "<Space>"][0]["bindings"]
     if not SILENT:
         from pprint import pprint
 
         pprint(json_lst)
         print("is equal? tree vs nmap", count, nmap_count)
-        leader_maps = [x for x in json_lst if x["key"] == "<Space>"][0]["bindings"]
         print("leader maps count", len(leader_maps))
 
     with open(OUTPUT_FILE, "w") as f:

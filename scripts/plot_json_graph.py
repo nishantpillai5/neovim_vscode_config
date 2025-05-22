@@ -88,7 +88,6 @@ for node in G.nodes():
 fig = go.Figure(data=[edge_trace, node_trace],
                 layout=go.Layout(
                     title='Network graph of nested JSON',
-                    titlefont_size=16,
                     showlegend=False,
                     hovermode='closest',
                     margin=dict(t=50, l=25, r=25, b=25),
