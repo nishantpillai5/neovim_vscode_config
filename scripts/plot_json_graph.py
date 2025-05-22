@@ -2,8 +2,10 @@ import json
 import networkx as nx
 import plotly.graph_objects as go
 
+INPUT_FILE = 'whichkey_settings_all.json'
+
 # Load JSON data from a file
-with open('scripts/output_all.json', 'r') as f:
+with open(INPUT_FILE, 'r') as f:
     data = json.load(f)
 
 # Function to traverse JSON and extract edges and node values for the network graph

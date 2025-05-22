@@ -16,6 +16,22 @@
                 "clear": true
             },
             "isBackground": true
+        },
+        {
+            "label": "Plot Whichkey maps",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}/scripts"
+            },
+            "command": "python",
+            "args": [
+                "${workspaceFolder}/scripts/plot_json_graph.py"
+            ],
+            "presentation": {
+                "reveal": "silent",
+                "clear": true
+            },
+            "isBackground": true
         }
         ]
 }

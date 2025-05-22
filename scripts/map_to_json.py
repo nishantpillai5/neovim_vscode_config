@@ -9,9 +9,13 @@ import pynvim
 import json
 
 MODES = ["n", "x", "v", "t"]
+MAPPING_FILE = "nmap.txt"
+OUTPUT_FILE = "whichkey_settings.json"
+OUTPUT_FILE_ALL = "whichkey_settings_all.json"
+SILENT = True
 
 node_desc = {
-    ";": "Terminal",
+    ";": "Leet",
     "b": "Breakpoint",
     "c": "Chat",
     "e": "Explorer",
@@ -20,9 +24,11 @@ node_desc = {
     "F": "Find_Telescope",
     "g": "Git",
     "h": "Hunk",
+    "i": "Test",
     "l": "LSP",
     "n": "Notes",
     "o": "Tasks",
+    "O": "Terminal",
     "r": "Refactor",
     "t": "Trouble",
     "w": "Workspace",
@@ -135,7 +141,6 @@ def add_to_tree(item, tree, level=0):
         add_this = {
             "key": item["tokens"][level],
             "type": "bindings",
-            # "desc": "TEST",
             "desc": find_desc_for_node(item["tokens"][level]),
             "bindings": [],
         }
@@ -149,23 +154,23 @@ def generate_nmap():
     nvim = pynvim.attach("child", argv=["nvim"])
     nmap_output = nvim.command_output("silent verbose nmap")
 
-    output_file = "nmap.txt"
-    with open(output_file, "w") as f:
+    with open(MAPPING_FILE, "w") as f:
         f.write(nmap_output)
 
-    print(f"Key mappings saved to {output_file}")
+    if not SILENT:
+        print(f"Key mappings saved to {MAPPING_FILE}")
 
 
-def main():
+if __name__ == "__main__":
+    # TODO: doesn't work
     # generate_nmap()
-    output_file = "nmap.txt"
 
     # TODO: fix incorrect desc
-    nmap = gen_keymap_dict(output_file)
+    nmap = gen_keymap_dict(MAPPING_FILE)
 
-    # vmap = gen_keymap_dict('vmap.txt')
-    # print_items_between_keys(nmap, 0, 1000)
-    # print(len(list(nmap.keys())))
+    if not SILENT:
+        print_items_between_keys(nmap, 0, 1000)
+        print(len(list(nmap.keys())))
 
     json_lst = []
     nmap_count = 0
@@ -173,19 +178,16 @@ def main():
         add_to_tree(nmap[key], json_lst)
         nmap_count += 1
 
-    from pprint import pprint
+    if not SILENT:
+        from pprint import pprint
 
-    pprint(json_lst)
-    print("is equal? tree vs nmap", count, nmap_count)
-    leader_maps = [x for x in json_lst if x["key"] == "<Space>"][0]["bindings"]
-    print("leader maps count", len(leader_maps))
+        pprint(json_lst)
+        print("is equal? tree vs nmap", count, nmap_count)
+        leader_maps = [x for x in json_lst if x["key"] == "<Space>"][0]["bindings"]
+        print("leader maps count", len(leader_maps))
 
-    with open("whichkey_settings.json", "w") as f:
+    with open(OUTPUT_FILE, "w") as f:
         json.dump({"whichkey.bindings": leader_maps}, f, indent=2)
 
-    # with open("whichkey_settings_ALL.json", "w") as f:
-    #     json.dump(json_lst, f, indent = 2)
-
-
-if __name__ == "__main__":
-    main()
+    with open(OUTPUT_FILE_ALL, "w") as f:
+        json.dump(json_lst, f, indent = 2)
