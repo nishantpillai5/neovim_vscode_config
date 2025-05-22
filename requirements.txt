@@ -1,9 +1,0 @@
-pynvim
-debugpy
-jupyter_client
-cairosvg
-plotly
-kaleido
-pnglatex
-pyperclip
-jupytext
