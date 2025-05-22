@@ -30,6 +30,7 @@ M.spec = {
   { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
   { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
   { '<leader>go', group = 'Open', mode = { 'n', 'v' } },
+  { '<leader>gR', group = 'Reset', mode = 'n' },
   { '<leader>gx', group = 'Conflict' },
   { '<leader>gz', group = 'Stash' },
   { '<leader>l', group = 'LSP', mode = { 'n', 'v' } },
@@ -46,7 +47,6 @@ M.spec = {
   { '<leader>zh', group = 'Highlight', mode = { 'n', 'v' } },
   { ']', group = 'Next' },
   { '[', group = 'Prev' },
-
   { ']d', desc = 'diagnostic' },
   { '[d', desc = 'diagnostic' },
 
@@ -69,6 +69,7 @@ M.spec = {
   { '<C-k>', desc = 'move_focus_up' },
   { '<C-l>', desc = 'move_focus_right' },
 
+  { 'g', group = 'G_Operator'},
   { 'gd', desc = 'definition' },
   { 'gD', desc = 'declaration' },
   { 'gi', desc = 'implementation' },
@@ -100,9 +101,9 @@ M.setup = function()
     or nil
 
   wk.setup {
-    icons = { rules = false },
+    icons = { rules = false, group = '' },
     triggers = triggers,
-    sort = { 'local', 'order', 'group', 'alphanum', 'mod', 'lower', 'icase' },
+    sort = { 'local', 'order', 'alphanum', 'mod', 'lower', 'icase' },
     spec = M.spec,
   }
 end

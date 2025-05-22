@@ -46,7 +46,7 @@ local function trim_git_modification_indicator(cmd_output)
   return cmd_output:match '[^%s]+$'
 end
 
-local live_grep_git_changed_files = function(opts)
+local live_grep_changed_files = function(opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
     vim.notify 'plenary not found'
@@ -70,7 +70,7 @@ local live_grep_git_changed_files = function(opts)
 end
 
 -- FIXME: broken
-local live_grep_git_changed_base = function(branch, opts)
+local live_grep_changed_files_from = function(branch, opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
     vim.notify 'plenary not found'
@@ -91,11 +91,11 @@ local live_grep_git_changed_base = function(branch, opts)
   live_grep_static_file_list(opts, file_list)
 end
 
-local live_grep_git_changed_main_branch = function(opts)
-  live_grep_git_changed_base(utils.get_main_branch(), opts)
+local live_grep_changed_files_from_main = function(opts)
+  live_grep_changed_files_from(utils.get_main_branch(), opts)
 end
 
-local live_grep_git_changed_select_branch = function(opts)
+local live_grep_changed_files_from_branch = function(opts)
   local builtin = require 'telescope.builtin'
   builtin.git_branches {
     attach_mappings = function(_, map)
@@ -103,7 +103,7 @@ local live_grep_git_changed_select_branch = function(opts)
         local action_state = require 'telescope.actions.state'
         local branch = action_state.get_selected_entry().name
         require('telescope.actions').close(prompt_bufnr)
-        live_grep_git_changed_base(branch, opts)
+        live_grep_changed_files_from(branch, opts)
       end
       map('i', '<CR>', select_branch)
       map('n', '<CR>', select_branch)
@@ -241,6 +241,37 @@ local changed_files_from_branch = function()
   }
 end
 
+local reset_file_to = function(branch)
+  local file = vim.fn.expand '%:p'
+  local cmd = 'Git checkout ' .. branch .. ' -- ' .. file
+  vim.cmd(cmd)
+end
+
+local reset_file_to_fork = function()
+  local merge_base = vim.fn.system('git merge-base HEAD ' .. utils.get_main_branch()):gsub('%s+', '')
+  reset_file_to(merge_base)
+end
+
+local reset_file_to_main = function()
+  reset_file_to(utils.get_main_branch())
+end
+
+local reset_file_to_branch = function()
+  require('telescope.builtin').git_branches {
+    attach_mappings = function(_, map)
+      local select_branch = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local branch = action_state.get_selected_entry().name
+        require('telescope.actions').close(prompt_bufnr)
+        reset_file_to(branch)
+      end
+      map('i', '<CR>', select_branch)
+      map('n', '<CR>', select_branch)
+      return true
+    end,
+  }
+end
+
 ------------------------------------------------ Public ------------------------------------------------
 
 local M = {}
@@ -279,6 +310,9 @@ M.keys = {
   { '<leader>fh', desc = 'buffers' },
   { '<leader>wc', desc = 'configurations' },
   { '<leader>f=', desc = 'spellcheck' },
+  { '<leader>gRj', desc = 'reset_file_to_fork' },
+  { '<leader>gRk', desc = 'reset_file_to_main' },
+  { '<leader>gRl', desc = 'reset_file_to_branch' },
 }
 
 M.keymaps = function()
@@ -313,12 +347,16 @@ M.keymaps = function()
   set_keymap('n', '<leader>fgz', builtin.git_stash)
   set_keymap('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>')
 
-  set_keymap('n', '<leader>fgJ', live_grep_git_changed_files)
-  set_keymap('n', '<leader>fgK', live_grep_git_changed_main_branch)
-  set_keymap('n', '<leader>fgL', live_grep_git_changed_select_branch)
+  set_keymap('n', '<leader>fgJ', live_grep_changed_files)
+  set_keymap('n', '<leader>fgK', live_grep_changed_files_from_main)
+  set_keymap('n', '<leader>fgL', live_grep_changed_files_from_branch)
+
+  set_keymap('n', '<leader>gRj', reset_file_to_fork)
+  set_keymap('n', '<leader>gRk', reset_file_to_main)
+  set_keymap('n', '<leader>gRl', reset_file_to_branch)
 
   set_keymap('n', '<leader>ft', function()
-    live_grep_git_changed_main_branch { default_text = require('common.env').TODO_CUSTOM .. ':' }
+    live_grep_changed_files_from_main { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_branch(' .. require('common.env').TODO_CUSTOM .. ')' })
 
   set_keymap('n', '<leader>fl', builtin.live_grep)

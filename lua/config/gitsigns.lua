@@ -12,7 +12,7 @@ M.keys = {
   { '<leader>ghd', desc = 'diff' },
   { '<leader>ghb', desc = 'blame' },
   { '<leader>gV', desc = 'virtual_deleted' },
-  { 'ih', desc = 'select_hunk' },
+  { 'ih', mode = { 'o', 'x' }, desc = 'select_hunk' },
 }
 
 M.keymaps = function()
