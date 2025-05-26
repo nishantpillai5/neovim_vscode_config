@@ -276,6 +276,10 @@ end
 
 local M = {}
 
+M.cmd = {
+  'Telescope',
+}
+
 M.keys = {
   { '<leader>:', desc = 'find_commands' },
   { '<leader>ff', desc = 'git_files' },

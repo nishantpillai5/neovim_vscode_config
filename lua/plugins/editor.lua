@@ -50,7 +50,7 @@ return {
   -- Better yank
   {
     'gbprod/yanky.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     cond = conds['gbprod/yanky.nvim'] or false,
     keys = require('config.yanky').keys,
     config = require('config.yanky').config,

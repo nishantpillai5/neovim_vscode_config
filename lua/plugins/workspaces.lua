@@ -36,7 +36,7 @@ return {
   -- Find other project directories
   {
     'nvim-telescope/telescope-project.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['nvim-telescope/telescope-project.nvim'] or false,
     keys = require('config.telescope_project').keys,

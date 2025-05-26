@@ -15,6 +15,7 @@ return {
   {
     'nvim-telescope/telescope.nvim',
     event = 'VeryLazy',
+    cmd = require('config.telescope').cmd,
     dependencies = {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', build = require('common.env').OS == 'windows' and 'mingw32-make' or 'make' },

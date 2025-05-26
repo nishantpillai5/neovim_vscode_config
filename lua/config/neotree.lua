@@ -5,6 +5,8 @@ local M = {}
 local utils = require 'common.utils'
 local EXCLUDED_FTS = { 'terminal', 'Trouble', 'qf', 'edgy' }
 
+M.cmd = { 'Neotree' }
+
 M.keys = {
   { '<leader>ee', desc = 'explorer' },
   { '<leader>eb', desc = 'buffers' },

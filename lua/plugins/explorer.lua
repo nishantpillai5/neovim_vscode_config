@@ -10,10 +10,11 @@ return {
   -- Explorer
   {
     'nvim-neo-tree/neo-tree.nvim',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-tree/nvim-web-devicons', 'MunifTanjim/nui.nvim' },
     branch = 'v3.x',
     cond = conds['nvim-neo-tree/neo-tree.nvim'] or false,
+    cmd = require('config.neotree').cmd,
     keys = require('config.neotree').keys,
     config = require('config.neotree').config,
   },
