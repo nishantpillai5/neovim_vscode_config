@@ -9,9 +9,11 @@ M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
   set_keymap('n', '<leader>gg', function()
+    vim.cmd('vsplit')
     require('gitgraph').draw({}, { all = false, max_count = 5000 })
   end)
   set_keymap('n', '<leader>gG', function()
+    vim.cmd('vsplit')
     require('gitgraph').draw({}, { all = true, max_count = 5000 })
   end)
 end
