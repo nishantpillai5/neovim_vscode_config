@@ -71,7 +71,7 @@ local live_grep_changed_files = function(opts)
 end
 
 -- FIXME: broken
-local live_grep_changed_files_from = function(branch, opts)
+local live_grep_changed_files_from = function(ref, opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
     vim.notify 'plenary not found'
@@ -81,7 +81,7 @@ local live_grep_changed_files_from = function(branch, opts)
   ---@diagnostic disable-next-line: missing-fields
   PlenaryJob:new({
     command = 'git',
-    args = { 'diff', '--name-only', branch .. '..HEAD' },
+    args = { 'diff', '--name-only', ref .. '..HEAD' },
     cwd = utils.get_root_dir(),
     on_exit = function(job)
       for _, cmd_output in ipairs(job:result()) do
@@ -149,7 +149,7 @@ local entry_maker = function(entry)
   }
 end
 
-local changed_files = function()
+local changed_files_from = function(ref)
   local previewers = require 'telescope.previewers'
   local pickers = require 'telescope.pickers'
   local sorters = require 'telescope.sorters'
@@ -157,53 +157,14 @@ local changed_files = function()
 
   pickers
     .new({
-      prompt_title = 'Changed files',
+      prompt_title = 'Changed files from ' .. ref,
       finder = finders.new_oneshot_job({
         'git',
         'diff',
         '--name-only',
         '--diff-filter=ACMR',
         '--relative',
-        'HEAD',
-      }, { entry_maker = entry_maker }),
-      sorter = sorters.get_fuzzy_file(),
-      previewer = previewers.new_termopen_previewer {
-        get_command = function(entry)
-          return {
-            'git',
-            '-c',
-            'delta.side-by-side=false',
-            'diff',
-            '--diff-filter=ACMR',
-            '--relative',
-            'HEAD',
-            '--',
-            entry.value,
-          }
-        end,
-      },
-    })
-    :find()
-end
-
-local changed_files_from = function(branch)
-  local previewers = require 'telescope.previewers'
-  local pickers = require 'telescope.pickers'
-  local sorters = require 'telescope.sorters'
-  local finders = require 'telescope.finders'
-
-  local merge_base = utils.get_merge_base()
-
-  pickers
-    .new({
-      prompt_title = 'Changed files from ' .. branch,
-      finder = finders.new_oneshot_job({
-        'git',
-        'diff',
-        '--name-only',
-        '--diff-filter=ACMR',
-        '--relative',
-        merge_base,
+        ref,
       }, { entry_maker = entry_maker }),
       sorter = sorters.get_fuzzy_file(),
       previewer = previewers.new_termopen_previewer {
@@ -217,7 +178,7 @@ local changed_files_from = function(branch)
             'diff',
             '--diff-filter=ACMR',
             '--relative',
-            merge_base,
+            ref,
             '--',
             entry.value,
           }
@@ -225,6 +186,10 @@ local changed_files_from = function(branch)
       },
     })
     :find()
+end
+
+local changed_files = function()
+  changed_files_from 'HEAD'
 end
 
 local changed_files_from_fork = function()
@@ -251,9 +216,9 @@ local changed_files_from_branch = function()
   }
 end
 
-local reset_file_to = function(branch)
+local reset_file_to = function(ref)
   local file = vim.fn.expand '%:p'
-  local cmd = 'Git checkout ' .. branch .. ' -- ' .. file
+  local cmd = 'Git checkout ' .. ref .. ' -- ' .. file
   vim.cmd(cmd)
 end
 
