@@ -54,6 +54,7 @@ local live_grep_changed_files = function(opts)
   end
 
   local file_list = {}
+  ---@diagnostic disable-next-line: missing-fields
   PlenaryJob:new({
     command = 'git',
     args = { 'status', '--porcelain', '-u' },
@@ -77,6 +78,7 @@ local live_grep_changed_files_from = function(branch, opts)
     return
   end
   local file_list = {}
+  ---@diagnostic disable-next-line: missing-fields
   PlenaryJob:new({
     command = 'git',
     args = { 'diff', '--name-only', branch .. '..HEAD' },
@@ -89,6 +91,10 @@ local live_grep_changed_files_from = function(branch, opts)
     end,
   }):sync()
   live_grep_static_file_list(opts, file_list)
+end
+
+local live_grep_changed_files_from_fork = function(opts)
+  live_grep_changed_files_from(utils.get_merge_base(), opts)
 end
 
 local live_grep_changed_files_from_main = function(opts)
@@ -186,7 +192,7 @@ local changed_files_from = function(branch)
   local sorters = require 'telescope.sorters'
   local finders = require 'telescope.finders'
 
-  local merge_base = vim.fn.system('git merge-base HEAD ' .. branch):gsub('%s+', '')
+  local merge_base = utils.get_merge_base()
 
   pickers
     .new({
@@ -221,6 +227,10 @@ local changed_files_from = function(branch)
     :find()
 end
 
+local changed_files_from_fork = function()
+  changed_files_from(utils.get_merge_base())
+end
+
 local changed_files_from_main = function()
   changed_files_from(utils.get_main_branch())
 end
@@ -248,8 +258,7 @@ local reset_file_to = function(branch)
 end
 
 local reset_file_to_fork = function()
-  local merge_base = vim.fn.system('git merge-base HEAD ' .. utils.get_main_branch()):gsub('%s+', '')
-  reset_file_to(merge_base)
+  reset_file_to(utils.get_merge_base())
 end
 
 local reset_file_to_main = function()
@@ -287,8 +296,9 @@ M.keys = {
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
   { '<leader>fgj', desc = 'changed_files' },
-  { '<leader>fgk', desc = 'changed_files_from_main' },
-  { '<leader>fgl', desc = 'changed_files_from_branch' },
+  { '<leader>fgk', desc = 'changed_files_from_fork' },
+  { '<leader>fgl', desc = 'changed_files_from_main' },
+  { '<leader>fg;', desc = 'changed_files_from_branch' },
   { '<leader>fgb', desc = 'branch_checkout' },
   { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
@@ -296,8 +306,9 @@ M.keys = {
   { '<leader>fgz', desc = 'stash' },
   { '<leader>fgx', desc = 'conflicts' },
   { '<leader>fgJ', desc = 'live_grep_changed_files' },
-  { '<leader>fgK', desc = 'live_grep_changed_files_from_main' },
-  { '<leader>fgL', desc = 'live_grep_changed_files_from_branch' },
+  { '<leader>fgK', desc = 'live_grep_changed_files_from_fork' },
+  { '<leader>fgL', desc = 'live_grep_changed_files_from_main' },
+  { '<leader>fg:', desc = 'live_grep_changed_files_from_branch' },
   { '<leader>ft', desc = 'todos' },
   { '<leader>fl', desc = 'live_grep_global' },
   { '<leader>fL', desc = 'live_grep_global_with_args' },
@@ -314,9 +325,9 @@ M.keys = {
   { '<leader>fh', desc = 'buffers' },
   { '<leader>wc', desc = 'configurations' },
   { '<leader>f=', desc = 'spellcheck' },
-  { '<leader>gRj', desc = 'reset_file_to_fork' },
-  { '<leader>gRk', desc = 'reset_file_to_main' },
-  { '<leader>gRl', desc = 'reset_file_to_branch' },
+  { '<leader>gRk', desc = 'reset_file_to_fork' },
+  { '<leader>gRl', desc = 'reset_file_to_main' },
+  { '<leader>gR;', desc = 'reset_file_to_branch' },
 }
 
 M.keymaps = function()
@@ -340,8 +351,9 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>fgj', changed_files)
-  set_keymap('n', '<leader>fgk', changed_files_from_main)
-  set_keymap('n', '<leader>fgl', changed_files_from_branch)
+  set_keymap('n', '<leader>fgk', changed_files_from_fork)
+  set_keymap('n', '<leader>fgl', changed_files_from_main)
+  set_keymap('n', '<leader>fg;', changed_files_from_branch)
   set_keymap('n', '<leader>fgb', builtin.git_branches)
   set_keymap('n', '<leader>fgB', function()
     builtin.git_branches { show_remote_tracking_branches = false }
@@ -352,12 +364,13 @@ M.keymaps = function()
   set_keymap('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>')
 
   set_keymap('n', '<leader>fgJ', live_grep_changed_files)
-  set_keymap('n', '<leader>fgK', live_grep_changed_files_from_main)
-  set_keymap('n', '<leader>fgL', live_grep_changed_files_from_branch)
+  set_keymap('n', '<leader>fgK', live_grep_changed_files_from_fork)
+  set_keymap('n', '<leader>fgL', live_grep_changed_files_from_main)
+  set_keymap('n', '<leader>fg:', live_grep_changed_files_from_branch)
 
-  set_keymap('n', '<leader>gRj', reset_file_to_fork)
-  set_keymap('n', '<leader>gRk', reset_file_to_main)
-  set_keymap('n', '<leader>gRl', reset_file_to_branch)
+  set_keymap('n', '<leader>gRk', reset_file_to_fork)
+  set_keymap('n', '<leader>gRl', reset_file_to_main)
+  set_keymap('n', '<leader>gR;', reset_file_to_branch)
 
   set_keymap('n', '<leader>ft', function()
     live_grep_changed_files_from_main { default_text = require('common.env').TODO_CUSTOM .. ':' }

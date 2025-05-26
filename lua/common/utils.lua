@@ -42,6 +42,10 @@ function M.get_main_branch()
   return vim.fn.system(get_default_branch) or 'main'
 end
 
+function M.get_merge_base()
+  return vim.fn.system('git merge-base HEAD ' .. M.get_main_branch()):gsub('%s+', '')
+end
+
 local function get_desc(lhs, table)
   if table == nil or #table == 0 then
     return 'UNKNOWN'

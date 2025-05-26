@@ -2,8 +2,9 @@ local M = {}
 
 M.keys = {
   { '<leader>gj', desc = 'diff' },
-  { '<leader>gk', desc = 'diff_from_main' },
-  { '<leader>gl', desc = 'diff_from_branch' },
+  { '<leader>gk', desc = 'diff_from_fork' },
+  { '<leader>gl', desc = 'diff_from_main' },
+  { '<leader>g;', desc = 'diff_from_branch' },
   { '<leader>gH', desc = 'history' },
   { '<leader>gf', desc = 'file_diff' },
   { '<leader>gF', desc = 'file_diff_from_main' },
@@ -30,6 +31,10 @@ end
 
 local diffview_toggle = close_wrapper(function()
   vim.cmd.DiffviewOpen()
+end)
+
+local diffview_from_fork = close_wrapper(function()
+  vim.cmd('DiffviewOpen ' .. require('common.utils').get_merge_base() .. '...HEAD')
 end)
 
 local diffview_from_main = close_wrapper(function()
@@ -75,8 +80,9 @@ end)
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   set_keymap('n', '<leader>gj', diffview_toggle)
-  set_keymap('n', '<leader>gk', diffview_from_main)
-  set_keymap('n', '<leader>gl', diffview_from_branch)
+  set_keymap('n', '<leader>gk', diffview_from_fork)
+  set_keymap('n', '<leader>gl', diffview_from_main)
+  set_keymap('n', '<leader>g;', diffview_from_branch)
   set_keymap('n', '<leader>gH', history_toggle)
   set_keymap('n', '<leader>gf', file_diff)
   set_keymap('n', '<leader>gF', file_diff_from_main_toggle)

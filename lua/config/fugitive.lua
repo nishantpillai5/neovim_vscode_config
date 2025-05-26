@@ -3,7 +3,7 @@ local M = {}
 M.keys = {
   { '<leader>gs', desc = 'status' },
   { '<leader>gb', desc = 'branch' },
-  { '<leader>g:', desc = 'log' },
+  { '<leader>g"', desc = 'log' },
   { '<leader>gza', desc = 'apply' },
   { '<leader>gzs', desc = 'staged' },
   { '<leader>gzp', desc = 'pop' },
@@ -69,7 +69,7 @@ M.keymaps = function()
 
   set_keymap('n', '<leader>gb', _G.fugitive_create_branch)
 
-  set_keymap('n', '<leader>g:', function()
+  set_keymap('n', '<leader>g"', function()
     vim.cmd 'vertical Git log'
   end)
   set_keymap('n', '<leader>gza', function()

@@ -9,6 +9,7 @@ M.keys = {
   { '<leader>ghS', desc = 'stage_buffer' },
   { '<leader>ghu', desc = 'undo_stage' },
   { '<leader>ghR', desc = 'reset_buffer' },
+  { '<leader>gRj', desc = 'reset_file' },
   { '<leader>ghd', desc = 'diff' },
   { '<leader>ghb', desc = 'blame' },
   { '<leader>gV', desc = 'virtual_deleted' },
@@ -60,6 +61,7 @@ M.setup = function()
       set_keymap('n', '<leader>ghS', gitsigns.stage_buffer)
       set_keymap('n', '<leader>ghu', gitsigns.undo_stage_hunk)
       set_keymap('n', '<leader>ghR', gitsigns.reset_buffer)
+      set_keymap('n', '<leader>gRj', gitsigns.reset_buffer)
       set_keymap('n', '<leader>ghd', gitsigns.preview_hunk)
       set_keymap('n', '<leader>ghb', function()
         gitsigns.blame_line { full = true }
