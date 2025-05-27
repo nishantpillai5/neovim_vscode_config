@@ -70,7 +70,6 @@ local live_grep_changed_files = function(opts)
   live_grep_static_file_list(opts, file_list)
 end
 
--- FIXME: broken
 local live_grep_changed_files_from = function(ref, opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
@@ -154,6 +153,7 @@ local changed_files_from = function(ref)
   local pickers = require 'telescope.pickers'
   local sorters = require 'telescope.sorters'
   local finders = require 'telescope.finders'
+  local action_state = require 'telescope.actions.state'
 
   pickers
     .new({
@@ -184,6 +184,21 @@ local changed_files_from = function(ref)
           }
         end,
       },
+      attach_mappings = function(prompt_bufnr, map)
+        map({ 'i', 'n' }, '<C-i>', function()
+          local picker = action_state.get_current_picker(prompt_bufnr)
+          picker:refresh(
+            finders.new_oneshot_job({
+              'git',
+              'ls-files',
+              '--others',
+              '--exclude-standard',
+            }, { entry_maker = entry_maker }),
+            { reset_prompt = false }
+          )
+        end, { desc = 'include_untracked_files' })
+        return true
+      end,
     })
     :find()
 end
