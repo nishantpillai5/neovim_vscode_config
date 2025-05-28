@@ -52,9 +52,7 @@ M.config = function()
   vim.api.nvim_create_autocmd('BufEnter', {
     pattern = require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/journal/*.md',
     callback = function()
-      local cwd = vim.fn.getcwd()
-      local notes_dir = require('common.env').DIR_NOTES
-      if string.find(cwd, notes_dir) then
+      if vim.fn.getcwd() == vim.fn.expand(require('common.env').DIR_NOTES) then
         local filename = vim.fn.expand '%:t'
         local year, month, _ = filename:match '(%d+).(%d+).(%d+).md'
         vim.cmd('silent! Calendar ' .. normalize_num(year) .. ' ' .. normalize_num(month))

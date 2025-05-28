@@ -277,20 +277,24 @@ M.keys = {
   { '<leader>fF', desc = 'ignored_files' },
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
-  { '<leader>fgj', desc = 'changed_files' },
-  { '<leader>fgk', desc = 'changed_files_from_fork' },
-  { '<leader>fgl', desc = 'changed_files_from_main' },
-  { '<leader>fg;', desc = 'changed_files_from_branch' },
+  { '<leader>fgj', desc = 'files_from_head' },
+  { '<leader>fgk', desc = 'files_from_fork' },
+  { '<leader>fgl', desc = 'files_from_main' },
+  { '<leader>fg;', desc = 'files_from_branch' },
   { '<leader>fgb', desc = 'branch_checkout' },
   { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
   { '<leader>fgC', desc = 'commits_diff' },
   { '<leader>fgz', desc = 'stash' },
   { '<leader>fgx', desc = 'conflicts' },
-  { '<leader>fgJ', desc = 'live_grep_changed_files' },
-  { '<leader>fgK', desc = 'live_grep_changed_files_from_fork' },
-  { '<leader>fgL', desc = 'live_grep_changed_files_from_main' },
-  { '<leader>fg:', desc = 'live_grep_changed_files_from_branch' },
+  { '<leader>fgJ', desc = 'grep_from_head' },
+  { '<leader>fgK', desc = 'grep_from_fork' },
+  { '<leader>fgL', desc = 'grep_from_main' },
+  { '<leader>fg:', desc = 'grep_from_branch' },
+  { '<leader>gJ', desc = 'grep_from_head' },
+  { '<leader>gK', desc = 'grep_from_fork' },
+  { '<leader>gL', desc = 'grep_from_main' },
+  { '<leader>g:', desc = 'grep_from_branch' },
   { '<leader>ft', desc = 'todos' },
   { '<leader>fl', desc = 'live_grep_global' },
   { '<leader>fL', desc = 'live_grep_global_with_args' },
@@ -344,6 +348,11 @@ M.keymaps = function()
   set_keymap('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits)
   set_keymap('n', '<leader>fgz', builtin.git_stash)
   set_keymap('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>')
+
+  set_keymap('n', '<leader>gJ', live_grep_changed_files)
+  set_keymap('n', '<leader>gK', live_grep_changed_files_from_fork)
+  set_keymap('n', '<leader>gL', live_grep_changed_files_from_main)
+  set_keymap('n', '<leader>g:', live_grep_changed_files_from_branch)
 
   set_keymap('n', '<leader>fgJ', live_grep_changed_files)
   set_keymap('n', '<leader>fgK', live_grep_changed_files_from_fork)

@@ -1,10 +1,9 @@
 local M = {}
 
--- TODO: fail quietly
-
 M.setup = function()
   local lint = require 'lint'
   lint.linters_by_ft = {
+    -- WARN: cppcheck doesn't work https://github.com/mfussenegger/nvim-lint/issues/745
     c = { 'cppcheck' },
     typescript = { 'eslint_d' },
     javascript = { 'eslint_d' },

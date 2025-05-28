@@ -28,6 +28,7 @@ M.spec = {
   { '<leader>F', group = 'Find_Telescope' },
   { '<leader>gc', group = 'Debugprint', mode = { 'n', 'v' } },
   { '<leader>g', group = 'Git', mode = { 'n', 'v' } },
+  { '<leader>gf', group = 'File_diff' },
   { '<leader>gh', group = 'Hunk', mode = { 'n', 'v' } },
   { '<leader>go', group = 'Open', mode = { 'n', 'v' } },
   { '<leader>gR', group = 'Reset', mode = 'n' },

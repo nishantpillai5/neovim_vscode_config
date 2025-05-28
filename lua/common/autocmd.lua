@@ -43,7 +43,8 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = 'markdown',
   callback = function()
     local notes_dir = require('common.env').DIR_NOTES
-    local current_file = vim.fn.expand '%:p'
+    local current_file = vim.fn.expand('%:p'):gsub('\\', '/'):lower()
+    notes_dir = notes_dir:gsub('\\', '/'):lower()
     if current_file:find(notes_dir, 1, true) then
       vim.cmd 'setlocal conceallevel=1'
     end
