@@ -64,20 +64,20 @@ local branch_project_name = function()
 end
 
 M.keys = {
-  { '<leader>nn', desc = 'current' },
-  { '<leader>na', desc = 'all' },
-  { '<leader>ng', desc = 'git_branch' },
+  { '<leader>nN', desc = 'note_project' },
+  { '<leader>na', desc = 'note_global' },
+  { '<leader>nn', desc = 'note_git_branch' },
 }
 
 M.keymaps = function()
   local global_note = require 'global-note'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  set_keymap('n', '<leader>nn', function()
+  set_keymap('n', '<leader>nN', function()
     global_note.toggle_note 'project_local'
   end)
 
-  set_keymap('n', '<leader>ng', function()
+  set_keymap('n', '<leader>nn', function()
     global_note.toggle_note 'git_branch_local'
   end)
 
@@ -87,38 +87,36 @@ end
 M.setup = function()
   local global_note = require 'global-note'
   local DIR_NOTES = require('common.env').DIR_NOTES
-  local get_project_name = cwd_project_name
-  local get_git_branch = branch_project_name
 
   global_note.setup {
-    filename = 'current.md',
+    filename = 'project.md',
     directory = DIR_NOTES,
     title = 'GLOBAL NOTE',
     additional_presets = {
       project_local = {
         command_name = 'PROJECT NOTE',
         filename = function()
-          return 'current_' .. get_project_name() .. '.md'
+          return 'project.' .. cwd_project_name() .. '.md'
         end,
 
-        title = 'Project note',
+        title = function()
+          return cwd_project_name()
+        end,
       },
       git_branch_local = {
         command_name = 'GIT BRANCH NOTE',
-
-        directory = function()
-          return vim.fn.stdpath 'data' .. '/global-note/' .. get_project_name()
-        end,
-
         filename = function()
-          local git_branch = get_git_branch()
+          local git_branch = branch_project_name()
           if git_branch == nil then
             return nil
           end
-          return get_git_branch():gsub('[^%w-]', '-') .. '.md'
+          local git_branch_sanitized = git_branch:gsub('[^%w-]', '-')
+          return 'project.' .. cwd_project_name() .. '.' .. git_branch_sanitized .. '.md'
         end,
 
-        title = get_git_branch,
+        title = function()
+          return cwd_project_name() .. ' | ' .. branch_project_name()
+        end,
       },
     },
   }
