@@ -12,6 +12,7 @@ return {
     cond = conds['github/copilot.vim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = 'Copilot',
+    keys = require('config.copilot').keys,
     config = require('config.copilot').config,
   },
   {

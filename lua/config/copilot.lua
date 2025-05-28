@@ -1,5 +1,15 @@
 local M = {}
 
+M.keys = {
+  {
+    '<leader>cj',
+    function()
+      vim.cmd 'Copilot panel'
+    end,
+    desc = 'copilot_suggestions',
+  },
+}
+
 M.config = function()
   local augroup = vim.api.nvim_create_augroup('copilot-disable-patterns', { clear = true })
   local disable_dirs = {
