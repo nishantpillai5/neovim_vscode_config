@@ -70,6 +70,7 @@ local live_grep_changed_files = function(opts)
   live_grep_static_file_list(opts, file_list)
 end
 
+-- FIXME: the above works but this doesn't
 local live_grep_changed_files_from = function(ref, opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
@@ -85,6 +86,7 @@ local live_grep_changed_files_from = function(ref, opts)
     on_exit = function(job)
       for _, cmd_output in ipairs(job:result()) do
         table.insert(file_list, '--glob')
+        -- FIXME: maybe trim_git_modification_indicator?
         table.insert(file_list, cmd_output)
       end
     end,
