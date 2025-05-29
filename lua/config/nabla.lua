@@ -1,7 +1,7 @@
 local M = {}
 
 M.keys = {
-  { '<leader>iP', desc = 'preview_math(quarto)' },
+  { '<leader>iP', desc = 'quarto-preview_math' },
 }
 
 M.ft = { 'markdown', 'quarto' }

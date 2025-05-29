@@ -1,14 +1,14 @@
 local M = {}
 
 M.keys = {
-  { '<leader>ii', desc = 'run(test)' },
+  { '<leader>ii', desc = 'test-run' },
   { '<leader>ei', desc = 'tests' },
-  { '<leader>if', desc = 'run_file(test)' },
-  { '<leader>ix', desc = 'stop(test)' },
-  { '<leader>id', desc = 'debug(test)' },
-  { '<leader>ia', desc = 'attach(test)' },
-  { '<leader>ip', desc = 'preview(test)' },
-  { '<leader>io', desc = 'open(test)' },
+  { '<leader>iI', desc = 'test-run_all' },
+  { '<leader>ix', desc = 'test-stop' },
+  { '<leader>id', desc = 'test-debug' },
+  { '<leader>ia', desc = 'test-attach' },
+  { '<leader>ip', desc = 'test-preview' },
+  { '<leader>io', desc = 'test-open' },
   { ']i', desc = 'test' },
   { '[i', desc = 'test' },
 }
@@ -41,7 +41,7 @@ M.keymaps = function()
     neotest.run.run()
   end)
 
-  set_keymap('n', '<leader>if', function()
+  set_keymap('n', '<leader>iI', function()
     neotest.run.run(vim.fn.expand '%')
   end)
 

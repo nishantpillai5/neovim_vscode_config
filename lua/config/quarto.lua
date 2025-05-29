@@ -7,13 +7,13 @@ M.keys = {
 }
 
 M.buffer_keys = {
-  { '<leader>ij', desc = 'run_below(quarto)' },
-  { '<leader>ik', desc = 'run_above(quarto)' },
-  { '<leader>ii', desc = 'run_cell(quarto)' },
-  { '<leader>iI', desc = 'run_all(quarto)' },
-  { '<leader>ii', desc = 'run(quarto)' },
-  { '<leader>il', desc = 'run_line(quarto)' },
-  { '<leader>zp', desc = 'preview(quarto)' },
+  { '<leader>ij', desc = 'quarto-run_below' },
+  { '<leader>ik', desc = 'quarto-run_above' },
+  { '<leader>ii', desc = 'quarto-run_cell' },
+  { '<leader>iI', desc = 'quarto-run_all' },
+  { '<leader>ii', desc = 'quarto-run' },
+  { '<leader>il', desc = 'quarto-run_line' },
+  { '<leader>zp', desc = 'quarto-preview' },
 }
 
 local set_run_keymaps = function()
