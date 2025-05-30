@@ -62,5 +62,8 @@ vim.o.showtabline = 2
 vim.o.showcmd = true
 vim.o.showcmdloc = 'last'
 
+-- Disable auto changing directory
+vim.o.autochdir = false
+
 -- python
 vim.g.python3_host_prog = require('common.env').NVIM_PYTHON

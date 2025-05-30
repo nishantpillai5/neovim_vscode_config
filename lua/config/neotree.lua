@@ -9,28 +9,30 @@ M.cmd = { 'Neotree' }
 
 M.keys = {
   { '<leader>ee', desc = 'explorer' },
+  { '<leader>eE', desc = 'explorer_cwd' },
   { '<leader>eb', desc = 'buffers' },
   { '<leader>eg', desc = 'git' },
   { '<leader>fe', desc = 'explorer' },
+  { '<leader>fE', desc = 'explorer_outside' },
 }
 
-local find_dir = function()
+local select_dir = function(prompt, callback)
   local local_favs = _G.fav_dirs or {}
   local global_favs = {
     notes = require('common.env').DIR_NOTES,
     nvim_config = require('common.env').DIR_NVIM,
     vsc_config = require('common.env').VSC_CONFIG:gsub('settings.json', ''),
   }
-  local fav_dirs = vim.tbl_deep_extend("force", global_favs, local_favs)
+  local fav_dirs = vim.tbl_deep_extend('force', global_favs, local_favs)
 
   vim.ui.select(utils.get_keys(fav_dirs), {
-    prompt = 'Favorite directories',
+    prompt = prompt,
     telescope = require('telescope.themes').get_cursor(),
   }, function(selected)
     if selected == nil then
       return
     end
-    vim.cmd('Neotree reveal focus' .. ' dir=' .. fav_dirs[selected])
+    callback(fav_dirs[selected])
   end)
 end
 
@@ -41,6 +43,10 @@ M.keymaps = function()
     vim.cmd 'Neotree reveal focus'
   end)
 
+  set_keymap('n', '<leader>eE', function()
+    vim.cmd('Neotree reveal focus dir=' .. vim.fn.getcwd())
+  end)
+
   set_keymap('n', '<leader>eb', function()
     vim.cmd 'Neotree reveal focus buffers'
   end)
@@ -49,12 +55,23 @@ M.keymaps = function()
     vim.cmd 'Neotree reveal focus git_status'
   end)
 
-  set_keymap('n', '<leader>fe', find_dir)
+  set_keymap('n', '<leader>fe', function()
+    select_dir('Favorite directories', function(selected)
+      vim.cmd('Neotree reveal focus' .. ' dir=' .. selected)
+    end)
+  end)
+
+  set_keymap('n', '<leader>fE', function()
+    select_dir('Favorite directories', function(selected)
+      require('common.utils').open_explorer(selected)
+    end)
+  end)
 end
 
 M.setup = function()
   require('neo-tree').setup {
     open_files_do_not_replace_types = EXCLUDED_FTS,
+    bind_to_cwd = false,
     close_if_last_window = true,
     filesystem = {
       follow_current_file = {
@@ -89,6 +106,11 @@ M.setup = function()
       system_open = function(state)
         local node = state.tree:get_node()
         local path = node:get_id()
+        local stat = vim.loop.fs_stat(path)
+        -- If the node is a file, open its parent directory
+        if stat and stat.type == 'file' then
+          path = vim.fn.fnamemodify(path, ':h')
+        end
         require('common.utils').open_explorer(path)
       end,
     },

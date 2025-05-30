@@ -25,6 +25,9 @@ local keys = {
   { '<Tab>', desc = 'matching_bracket' },
   -- { 'dd', desc = 'delete_line' },
   -- { 'yc', desc = 'yank_comment' },
+
+  { '<leader>ew', desc = 'cd_to_current_file' },
+  { '<leader>we', desc = 'cd_to_current_file' },
 }
 
 local set_keymap = require('common.utils').get_keymap_setter(keys)
@@ -52,8 +55,8 @@ set_keymap({ 'n', 'o', 'v' }, '<Tab>', '%')
 
 -- TODO: doesn't work
 -- Duplicate a line and comment out the first line
-vim.keymap.set({ 'n','o' }, 'yc', function()
-  vim.cmd('normal! yygccp')
+vim.keymap.set({ 'n', 'o' }, 'yc', function()
+  vim.cmd 'normal! yygccp'
 end)
 
 -- Toggle relative line numbers
@@ -95,3 +98,18 @@ set_keymap('n', '<leader>zq', ':set lazyredraw!<cr>')
 
 -- Add custom comment
 set_keymap('n', 'gco', 'o' .. require('common.env').TODO_CUSTOM .. ': <esc>:normal gcc<cr>A')
+
+-- cd to current file
+local function cd_to_current_file()
+  local file = vim.fn.expand '%:p'
+  if file == '' then
+    vim.notify('No file to cd to', vim.log.levels.WARN)
+    return
+  end
+  local dir = vim.fn.fnamemodify(file, ':p:h')
+  vim.cmd('cd ' .. dir)
+  vim.notify('Changed directory to: ' .. dir)
+end
+
+set_keymap('n', '<leader>ew', cd_to_current_file)
+set_keymap('n', '<leader>we', cd_to_current_file)

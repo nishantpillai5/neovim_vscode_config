@@ -509,6 +509,12 @@
                 },
                 {
                     "key": "E",
+                    "name": "explorer_cwd",
+                    "type": "command",
+                    "command": "workbench.view.explorer"
+                },
+                {
+                    "key": "O",
                     "name": "open_current_file_dir",
                     "type": "command",
                     "command": "revealFileInOS"
@@ -554,6 +560,12 @@
                     "name": "symbols_close",
                     "type": "command",
                     "command": "workbench.action.toggleSidebarVisibility"
+                },
+                {
+                    "key": "w",
+                    "name": "cd_to_current_file",
+                    "type": "command",
+                    "command": "Not Implemented"
                 },
                 {
                     "key": "x",
@@ -620,6 +632,12 @@
                 {
                     "key": "e",
                     "name": "explorer",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "E",
+                    "name": "explorer_open",
                     "type": "command",
                     "command": "not implemented"
                 },
@@ -1408,6 +1426,12 @@
                     "command": "not implemented"
                 },
                 {
+                    "key": "e",
+                    "name": "cd_to_current_file",
+                    "type": "command",
+                    "command": "Not Implemented"
+                },
+                {
                     "key": "l",
                     "name": "load_session",
                     "type": "command",
@@ -1442,6 +1466,18 @@
                     "name": "select_project",
                     "type": "command",
                     "command": "workbench.action.openRecent"
+                },
+                {
+                    "key": "g",
+                    "name": "worktree_switch",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "G",
+                    "name": "worktree_create",
+                    "type": "command",
+                    "command": "not implemented"
                 },
                 {
                     "key": "x",

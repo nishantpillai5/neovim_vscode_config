@@ -11,7 +11,7 @@ local keys = {
   { '<C-Down>', desc = 'horizontal_resize_down' },
   { '<Esc>', desc = 'exit_terminal' },
 
-  { '<leader>eE', desc = 'open_explorer' },
+  { '<leader>eO', desc = 'open_explorer' },
   { '<leader>eyy', desc = 'yank_absolute_path' },
   { '<leader>eyY', desc = 'yank_relative_path' },
   { '<leader>eyf', desc = 'yank_filename' },
@@ -42,7 +42,7 @@ set_keymap('n', '<C-Down>', ':resize +2<cr>')
 set_keymap('t', '<Esc>', '<C-\\><C-n>')
 
 -- Open file in explorer
-set_keymap('n', '<leader>eE', function()
+set_keymap('n', '<leader>eO', function()
   local path = vim.fn.expand '%:p:h'
   vim.notify('Opening: ' .. path)
   require('common.utils').open_explorer(path)
