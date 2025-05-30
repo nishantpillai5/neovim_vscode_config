@@ -111,6 +111,7 @@ end
 
 M.setup = function()
   require('trouble').setup {
+    auto_refresh = false,
     modes = {
       diagnostics_buffer = {
         mode = 'diagnostics',

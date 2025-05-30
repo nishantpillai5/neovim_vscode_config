@@ -82,7 +82,6 @@ M.setup = function()
       lualine_b = {
         {
           'filename',
-          -- path = require('common.env').SCREEN == 'widescreen' and 0 or 1,
           path = 1,
           symbols = {
             modified = '●',
