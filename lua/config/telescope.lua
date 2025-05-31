@@ -3,6 +3,8 @@ _G.loaded_telescope_extension = _G.loaded_telescope_extension or false
 
 local utils = require 'common.utils'
 
+local MAX_GREPPED_FILES = 500 -- The limitation is due to command-line length.
+
 local default_opts = {
   follow = true,
   path_display = { filename_first = { reverse_directories = true } },
@@ -67,6 +69,8 @@ local live_grep_changed_files = function(opts)
     end,
   }):sync()
 
+  opts = opts or {}
+  opts.prompt_title = 'Live Grep Changed Files from HEAD'
   live_grep_static_file_list(opts, file_list)
 end
 
@@ -88,19 +92,29 @@ local live_grep_changed_files_from = function(ref, opts)
       end
     end,
   }):sync()
+  local max_files = MAX_GREPPED_FILES
+  if #file_list > max_files then
+    vim.notify('Too many files (' .. #file_list .. '). This operation might fail, limiting to first ' .. max_files, vim.log.levels.WARN)
+    file_list = vim.list_slice(file_list, 1, max_files)
+  end
   live_grep_static_file_list(opts, file_list)
 end
 
 local live_grep_changed_files_from_fork = function(opts)
+  opts = opts or {}
+  opts.prompt_title = 'Live Grep Changed Files from Fork'
   live_grep_changed_files_from(utils.get_merge_base(), opts)
 end
 
 local live_grep_changed_files_from_main = function(opts)
-  -- TODO: also change prompt
-  live_grep_changed_files_from(utils.get_main_branch(), opts)
+  opts = opts or {}
+  local main_branch = utils.get_main_branch()
+  opts.prompt_title = 'Live Grep Changed Files from ' .. main_branch
+  live_grep_changed_files_from(main_branch, opts)
 end
 
 local live_grep_changed_files_from_branch = function(opts)
+  opts = opts or {}
   local builtin = require 'telescope.builtin'
   builtin.git_branches {
     attach_mappings = function(_, map)
@@ -108,6 +122,7 @@ local live_grep_changed_files_from_branch = function(opts)
         local action_state = require 'telescope.actions.state'
         local branch = action_state.get_selected_entry().name
         require('telescope.actions').close(prompt_bufnr)
+        opts.prompt_title = 'Live Grep Changed Files from ' .. branch
         live_grep_changed_files_from(branch, opts)
       end
       map('i', '<CR>', select_branch)
