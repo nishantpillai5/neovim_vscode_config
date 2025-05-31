@@ -32,12 +32,13 @@ local function live_grep_static_file_list(opts, file_list)
     -- "--no-ignore", -- **This is the added flag**
     '--hidden', -- **Also this flag. The combination of the two is the same as `-uu`**
   })
-  vimgrep_arguments = utils.merge_list(vimgrep_arguments, file_list)
   vimgrep_arguments = utils.merge_list(vimgrep_arguments, cmd_opts)
   opts.vimgrep_arguments = vimgrep_arguments
 
   opts.search_dirs = opts.search_dirs or {}
   opts.search_dirs = utils.merge_list(opts.search_dirs, dir_opts)
+  -- FIXME: remove files outside scope
+  opts.search_dirs = utils.merge_list(opts.search_dirs, file_list)
 
   builtin.live_grep(opts)
 end
@@ -61,7 +62,6 @@ local live_grep_changed_files = function(opts)
     cwd = utils.get_root_dir(),
     on_exit = function(job)
       for _, cmd_output in ipairs(job:result()) do
-        table.insert(file_list, '--glob')
         table.insert(file_list, trim_git_modification_indicator(cmd_output))
       end
     end,
@@ -70,7 +70,6 @@ local live_grep_changed_files = function(opts)
   live_grep_static_file_list(opts, file_list)
 end
 
--- FIXME: the above works but this doesn't
 local live_grep_changed_files_from = function(ref, opts)
   local plenary_ok, PlenaryJob = pcall(require, 'plenary.job')
   if not plenary_ok then
@@ -85,8 +84,6 @@ local live_grep_changed_files_from = function(ref, opts)
     cwd = utils.get_root_dir(),
     on_exit = function(job)
       for _, cmd_output in ipairs(job:result()) do
-        table.insert(file_list, '--glob')
-        -- FIXME: maybe trim_git_modification_indicator?
         table.insert(file_list, cmd_output)
       end
     end,
@@ -99,6 +96,7 @@ local live_grep_changed_files_from_fork = function(opts)
 end
 
 local live_grep_changed_files_from_main = function(opts)
+  -- TODO: also change prompt
   live_grep_changed_files_from(utils.get_main_branch(), opts)
 end
 
@@ -364,8 +362,8 @@ M.keymaps = function()
   set_keymap('n', '<leader>gR;', reset_file_to_branch)
 
   set_keymap('n', '<leader>ft', function()
-    live_grep_changed_files_from_main { default_text = require('common.env').TODO_CUSTOM .. ':' }
-  end, { desc = 'todos_in_branch(' .. require('common.env').TODO_CUSTOM .. ')' })
+    live_grep_changed_files_from_fork { default_text = require('common.env').TODO_CUSTOM .. ':' }
+  end, { desc = 'todos_in_fork(' .. require('common.env').TODO_CUSTOM .. ')' })
 
   set_keymap('n', '<leader>fl', builtin.live_grep)
 
