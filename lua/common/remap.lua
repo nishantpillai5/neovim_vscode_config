@@ -44,20 +44,19 @@ set_keymap({ 'n', 'o', 'v' }, 'L', '$')
 -- By default, Tab moves to the next tabstop
 set_keymap({ 'n', 'o', 'v' }, '<Tab>', '%')
 
--- TODO: doesn't work
 -- Delete line but if empty don't put it in any regiester
--- set_keymap('n', 'dd', function()
---   if vim.api.nvim_get_current_line():match '^%s*$' then
---     return '"_dd'
---   end
---   return 'dd'
--- end)
+set_keymap('n', 'dd', function()
+  if vim.api.nvim_get_current_line():match '^%s*$' then
+    return '"_dd'
+  end
+  return 'dd'
+end, { expr = true, noremap = false })
 
 -- TODO: doesn't work
 -- Duplicate a line and comment out the first line
-vim.keymap.set({ 'n', 'o' }, 'yc', function()
-  vim.cmd 'normal! yygccp'
-end)
+-- vim.keymap.set({ 'n', 'o' }, 'yc', function()
+--   vim.cmd 'normal! yygccp'
+-- end, { expr = true, noremap = false })
 
 -- Toggle relative line numbers
 set_keymap('n', '<leader>zl', ':set relativenumber!<cr>')

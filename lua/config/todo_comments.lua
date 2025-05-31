@@ -4,7 +4,7 @@ M.keys = {
   { '[t', desc = 'todo' },
   { ']T', desc = 'todo_last' },
   { '[T', desc = 'todo_first' },
-  { '<leader>fT', desc = 'todos_all' },
+  { '<leader>ft', desc = 'todos' },
   { '<leader>tT', desc = 'todos' },
 }
 

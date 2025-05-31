@@ -714,13 +714,13 @@
                     "command": "not implemented"
                 },
                 {
-                    "key": "t",
-                    "name": "todos_in_branch",
+                    "key": "T",
+                    "name": "todos_in_fork",
                     "type": "command",
                     "command": "not implemented"
                 },
                 {
-                    "key": "T",
+                    "key": "t",
                     "name": "todos",
                     "type": "command",
                     "command": "not implemented"

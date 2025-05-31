@@ -33,8 +33,7 @@ M.keymaps = function()
 
   set_keymap('n', '<leader>wh', function()
     vim.ui.select(scopes_options, {
-      -- TODO: show current scope in prompt
-      prompt = 'Select grapple scope:',
+      prompt = "Current scope: " .. require('grapple').app().settings.scope .. " | Change scope to :",
       format_item = function(item)
         return string.format('%s: %s', item.key, item.desc)
       end,

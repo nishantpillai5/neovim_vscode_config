@@ -39,7 +39,7 @@ local function live_grep_static_file_list(opts, file_list)
 
   opts.search_dirs = opts.search_dirs or {}
   opts.search_dirs = utils.merge_list(opts.search_dirs, dir_opts)
-  -- FIXME: remove files outside scope
+  -- FIXME: remove files outside scope, and add icon
   opts.search_dirs = utils.merge_list(opts.search_dirs, file_list)
 
   builtin.live_grep(opts)
@@ -308,7 +308,7 @@ M.keys = {
   { '<leader>gK', desc = 'grep_from_fork' },
   { '<leader>gL', desc = 'grep_from_main' },
   { '<leader>g:', desc = 'grep_from_branch' },
-  { '<leader>ft', desc = 'todos' },
+  { '<leader>fT', desc = 'todos_in_fork' },
   { '<leader>fl', desc = 'live_grep_global' },
   { '<leader>fL', desc = 'live_grep_global_with_args' },
   { '<leader>/', desc = 'find_local' },
@@ -376,7 +376,7 @@ M.keymaps = function()
   set_keymap('n', '<leader>gRl', reset_file_to_main)
   set_keymap('n', '<leader>gR;', reset_file_to_branch)
 
-  set_keymap('n', '<leader>ft', function()
+  set_keymap('n', '<leader>fT', function()
     live_grep_changed_files_from_fork { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_fork(' .. require('common.env').TODO_CUSTOM .. ')' })
 
