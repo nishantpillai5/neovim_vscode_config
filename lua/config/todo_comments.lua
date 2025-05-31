@@ -28,7 +28,7 @@ M.keymaps = function()
     todo.jump_prev { last = true }
   end)
 
-  set_keymap('n', '<leader>fT', function()
+  set_keymap('n', '<leader>ft', function()
     vim.cmd 'TodoTelescope'
   end)
 
