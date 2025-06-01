@@ -31,13 +31,15 @@ M.keymaps = function()
         require('telescope').load_extension 'rest'
       end
 
-      -- TODO: check pcalls
-      require('telescope').load_extension 'conflicts'
-      require('telescope').load_extension 'emoji'
-      require('telescope').load_extension 'nerdy'
-      require('telescope').load_extension 'diff'
-      -- require("telescope").load_extension("yank_history")
-      -- require("telescope").load_extension("refactoring")
+      local emoji_status, _ = pcall(require, 'telescope-emoji')
+      if emoji_status then
+        require('telescope').load_extension 'emoji'
+      end
+
+      local yanky_status, _ = pcall(require, 'yanky')
+      if yanky_status then
+        require('telescope').load_extension 'yank_history'
+      end
 
       local notify_status, _ = pcall(require, 'notify')
       if notify_status then
@@ -48,6 +50,23 @@ M.keymaps = function()
       if noice_status then
         require('telescope').load_extension 'noice'
       end
+
+      local diff_status, _ = pcall(require, 'telescope-diff')
+      if diff_status then
+        require('telescope').load_extension 'diff'
+      end
+
+      local conflicts_status, _ = pcall(require, 'telescope-git-conflicts')
+      if conflicts_status then
+        require('telescope').load_extension 'conflicts'
+      end
+
+      local nerdy_status, _ = pcall(require, 'nerdy')
+      if nerdy_status then
+        require('telescope').load_extension 'nerdy'
+      end
+
+      -- require("telescope").load_extension("refactoring")
 
       require('telescope').load_extension 'picker_list'
       _G.loaded_telescope_extension = true

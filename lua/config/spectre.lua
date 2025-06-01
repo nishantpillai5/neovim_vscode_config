@@ -1,9 +1,9 @@
 local M = {}
 
 M.keys = {
-  { '<leader>r/', desc = 'local' },
-  { '<leader>r?', desc = 'global' },
-  { '<leader>rw', desc = 'global_word' },
+  { '<leader>r/', desc = 'spectre_local', mode = { 'n', 'v' } },
+  { '<leader>r?', desc = 'spectre_global' },
+  { '<leader>rw', desc = 'spectre_global_word', mode = { 'n', 'v' } },
 }
 
 M.keymaps = function()

@@ -1,6 +1,6 @@
 local plugins = {
   'smjonas/inc-rename.nvim',
-  -- 'ThePrimeagen/refactoring.nvim', WARN: not tested
+  'ThePrimeagen/refactoring.nvim',
   'nvim-pack/nvim-spectre',
 }
 
@@ -17,10 +17,12 @@ return {
   {
     'ThePrimeagen/refactoring.nvim',
     cond = conds['ThePrimeagen/refactoring.nvim'] or false,
-    keys = {
-      { '<leader>rr', desc = 'refactor' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
     },
-    opts = {},
+    keys = require('config.refactoring').keys,
+    config = require('config.refactoring').config,
   },
   -- Find and replace
   {
