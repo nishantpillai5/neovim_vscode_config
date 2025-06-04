@@ -94,7 +94,10 @@ local live_grep_changed_files_from = function(ref, opts)
   }):sync()
   local max_files = MAX_GREPPED_FILES
   if #file_list > max_files then
-    vim.notify('Too many files (' .. #file_list .. '). This operation might fail, limiting to first ' .. max_files, vim.log.levels.WARN)
+    vim.notify(
+      'Too many files (' .. #file_list .. '). This operation might fail, limiting to first ' .. max_files,
+      vim.log.levels.WARN
+    )
     file_list = vim.list_slice(file_list, 1, max_files)
   end
   live_grep_static_file_list(opts, file_list)
@@ -218,8 +221,116 @@ local changed_files_from = function(ref)
     :find()
 end
 
+-- TODO: This function is slower since it runs two separate git commands
+local slower_changed_files_from = function(ref, include_untracked)
+  include_untracked = include_untracked or false
+  local previewers = require 'telescope.previewers'
+  local pickers = require 'telescope.pickers'
+  local sorters = require 'telescope.sorters'
+  local finders = require 'telescope.finders'
+  local action_state = require 'telescope.actions.state'
+
+  local function get_diff_files()
+    local handle = io.popen(
+      string.format(
+        'git diff --name-only --diff-filter=ACMR --relative %s',
+        ref
+      )
+    )
+    if not handle then return {} end
+    local result = {}
+    for line in handle:lines() do
+      table.insert(result, line)
+    end
+    handle:close()
+    return result
+  end
+
+  local function get_untracked_files()
+    local handle = io.popen('git ls-files --others --exclude-standard')
+    if not handle then return {} end
+    local result = {}
+    for line in handle:lines() do
+      table.insert(result, line)
+    end
+    handle:close()
+    return result
+  end
+
+  local files
+  if include_untracked then
+    local diff_files = get_diff_files()
+    local untracked_files = get_untracked_files()
+    local seen = {}
+    files = {}
+    for _, f in ipairs(diff_files) do
+      if not seen[f] then
+        table.insert(files, f)
+        seen[f] = true
+      end
+    end
+    for _, f in ipairs(untracked_files) do
+      if not seen[f] then
+        table.insert(files, f)
+        seen[f] = true
+      end
+    end
+  else
+    files = get_diff_files()
+  end
+
+  pickers
+    .new({
+      prompt_title = 'Changed files from ' .. ref .. ' (including untracked)',
+      finder = finders.new_table {
+        results = files,
+        entry_maker = entry_maker,
+      },
+      sorter = sorters.get_fuzzy_file(),
+      previewer = previewers.new_termopen_previewer {
+        get_command = function(entry)
+            return { 'cat', entry.value }
+        end,
+      },
+      attach_mappings = function(prompt_bufnr, map)
+        map({ 'i', 'n' }, '<C-i>', function()
+          local picker = action_state.get_current_picker(prompt_bufnr)
+          local diff_files = get_diff_files()
+          local untracked_files = get_untracked_files()
+          local seen = {}
+          local all_files = {}
+          for _, f in ipairs(diff_files) do
+            if not seen[f] then
+              table.insert(all_files, f)
+              seen[f] = true
+            end
+          end
+          for _, f in ipairs(untracked_files) do
+            if not seen[f] then
+              table.insert(all_files, f)
+              seen[f] = true
+            end
+          end
+          picker:refresh(
+            finders.new_table {
+              results = all_files,
+              entry_maker = entry_maker,
+            },
+            { reset_prompt = false }
+          )
+        end, { desc = 'include_untracked_files' })
+        return true
+      end,
+    })
+    :find()
+end
+
 local changed_files = function()
-  changed_files_from 'HEAD'
+  changed_files_from "HEAD"
+end
+
+local changed_files_with_untracked = function()
+  slower_changed_files_from("HEAD", true)
 end
 
 local changed_files_from_fork = function()
@@ -291,6 +402,7 @@ M.keys = {
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
   { '<leader>fgj', desc = 'files_from_head' },
+  { '<leader>fgi', desc = 'files_from_head_include_untracked' },
   { '<leader>fgk', desc = 'files_from_fork' },
   { '<leader>fgl', desc = 'files_from_main' },
   { '<leader>fg;', desc = 'files_from_branch' },
@@ -350,6 +462,7 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>fgj', changed_files)
+  set_keymap('n', '<leader>fgi', changed_files_with_untracked)
   set_keymap('n', '<leader>fgk', changed_files_from_fork)
   set_keymap('n', '<leader>fgl', changed_files_from_main)
   set_keymap('n', '<leader>fg;', changed_files_from_branch)
