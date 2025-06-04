@@ -53,6 +53,7 @@
         "command": "workbench.action.focusSideBar"
     },
     // Grapple / Tab Navigation
+    // TODO: change trailblazer away from homerow
     {
         "key": "ctrl+pagedown",
         "command": "workbench.action.moveEditorRightInGroup"

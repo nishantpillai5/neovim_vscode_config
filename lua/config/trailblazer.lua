@@ -10,8 +10,8 @@ M.keys = {
   { 'mP', desc = 'paste_all' },
   { 'mx', desc = 'back' },
   { 'M', desc = 'toggle_trail_mark_list' },
-  { '<A-PageDown>', desc = 'next_mark' },
-  { '<A-PageUp>', desc = 'previous_mark' },
+  { '<C-PageDown>', desc = 'next_mark' },
+  { '<C-PageUp>', desc = 'previous_mark' },
 }
 
 M.mark_at_pos = function()
@@ -46,11 +46,11 @@ M.keymaps = function()
 
   set_keymap('n', '<leader>wm', '<cmd>TrailBlazerLoadSession<cr>')
 
-  set_keymap('n', '<A-PageDown>', function()
+  set_keymap('n', '<C-PageDown>', function()
     motions.peek_move_next_down()
     vim.cmd 'normal! zz'
   end)
-  set_keymap('n', '<A-PageUp>', function()
+  set_keymap('n', '<C-PageUp>', function()
     motions.peek_move_previous_up()
     vim.cmd 'normal! zz'
   end)

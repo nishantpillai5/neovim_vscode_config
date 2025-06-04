@@ -8,8 +8,8 @@ M.keys = {
   { '<leader>a', '<cmd>Grapple tag<cr>', desc = 'grapple_add' },
   { '<leader>h', '<cmd>Grapple toggle_tags<cr>', desc = 'grapple_list' },
   { '<leader>wh', desc = 'grapple_select_scope' },
-  { '<C-PageUp>', '<cmd>Grapple cycle_tags prev<cr>', desc = 'grapple_prev' },
-  { '<C-PageDown>', '<cmd>Grapple cycle_tags next<cr>', desc = 'grapple_next' },
+  { '<A-PageUp>', '<cmd>Grapple cycle_tags prev<cr>', desc = 'grapple_prev' },
+  { '<A-PageDown>', '<cmd>Grapple cycle_tags next<cr>', desc = 'grapple_next' },
 }
 
 M.lualine = function()

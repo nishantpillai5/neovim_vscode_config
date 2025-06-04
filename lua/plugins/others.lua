@@ -7,6 +7,7 @@ local plugins = {
   -- 'm4xshen/hardtime.nvim',
   'theprimeagen/vim-be-good',
   'seandewar/killersheep.nvim',
+  'niuiic/code-shot.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -49,7 +50,7 @@ return {
     event = 'BufReadPost',
     cond = not require('common.env').PRESENTING and (conds['m4xshen/hardtime.nvim'] or false),
     keys = {
-      { '<leader>zoh', '<cmd>Hardtime toggle<cr>', desc = 'toggle_hardtime' },
+      { '<leader>zOh', '<cmd>Hardtime toggle<cr>', desc = 'toggle_hardtime' },
     },
     dependencies = { 'MunifTanjim/nui.nvim', 'nvim-lua/plenary.nvim' },
     opts = {
@@ -68,8 +69,8 @@ return {
     cond = conds['eandrju/cellular-automaton.nvim'] or false,
     cmd = 'CellularAutomaton',
     keys = {
-      { '<leader>zof', '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'fml' },
-      { '<leader>zow', '<cmd>CellularAutomaton scramble<cr>', desc = 'too_much_work' },
+      { '<leader>zOf', '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'fml' },
+      { '<leader>zOw', '<cmd>CellularAutomaton scramble<cr>', desc = 'too_much_work' },
     },
   },
   -- Typing test
@@ -78,8 +79,8 @@ return {
     cond = conds['kwakzalver/duckytype.nvim'] or false,
     cmd = 'DuckyType',
     keys = {
-      { '<leader>zot', '<cmd>DuckyType english_common<cr>', desc = 'typing_test_eng' },
-      { '<leader>zoT', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test_code' },
+      { '<leader>zOt', '<cmd>DuckyType english_common<cr>', desc = 'typing_test_eng' },
+      { '<leader>zOT', '<cmd>DuckyType cpp_keywords<cr>', desc = 'typing_test_code' },
     },
     opts = {},
   },
@@ -89,7 +90,7 @@ return {
     cond = conds['seandewar/killersheep.nvim'] or false,
     cmd = 'KillKillKill',
     keys = {
-      { '<leader>zos', '<cmd>KillKillKill<cr>', desc = 'sheep_game' },
+      { '<leader>zOs', '<cmd>KillKillKill<cr>', desc = 'sheep_game' },
     },
     lazy = true,
     opts = {
@@ -100,5 +101,13 @@ return {
         shoot = '<Space>',
       },
     },
+  },
+  {
+    'epwalsh/pomo.nvim',
+    version = '*', -- Recommended, use latest release instead of latest commit
+    dependencies = { 'rcarriga/nvim-notify' },
+    cmd = require('config.pomodoro').cmd,
+    keys = require('config.pomodoro').keys,
+    config = require('config.pomodoro').config,
   },
 }

@@ -10,6 +10,8 @@ local plugins = {
   'kevinhwang91/nvim-ufo',
   'norcalli/nvim-colorizer.lua',
   'andrewferrier/debugprint.nvim',
+  'mawkler/demicolon.nvim',
+  -- 'jinh0/eyeliner.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -131,5 +133,46 @@ return {
     cmd = require('config.debugprint').cmd,
     keys = require('config.debugprint').keys,
     config = require('config.debugprint').config,
+  },
+  -- Repeat ]d
+  {
+    'mawkler/demicolon.nvim',
+    cond = conds['mawkler/demicolon.nvim'] or false,
+    keys = {']', '[' },
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
+    opts = {},
+  },
+  -- Visualize jumps
+  {
+    'jinh0/eyeliner.nvim',
+    cond = conds['jinh0/eyeliner.nvim'] or false,
+    -- keys = { 't', 'f', 'T', 'F' },
+    config = function()
+      require('eyeliner').setup {
+        highlight_on_key = true,
+        default_keymaps = false,
+        dim = true, -- Optional
+        disabled_filetypes = { 'dashboard' },
+      }
+
+      local function eyeliner_jump(key)
+        local forward = vim.list_contains({ 't', 'f' }, key)
+        return function()
+          require('eyeliner').highlight { forward = forward }
+          return require('demicolon.jump').horizontal_jump(key)()
+        end
+      end
+
+      local nxo = { 'n', 'x', 'o' }
+      local opts = { expr = true }
+
+      vim.keymap.set(nxo, 'f', eyeliner_jump 'f', opts)
+      vim.keymap.set(nxo, 'F', eyeliner_jump 'F', opts)
+      vim.keymap.set(nxo, 't', eyeliner_jump 't', opts)
+      vim.keymap.set(nxo, 'T', eyeliner_jump 'T', opts)
+    end,
   },
 }

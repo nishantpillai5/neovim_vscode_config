@@ -2,6 +2,7 @@ local plugins = {
   'nvim-neo-tree/neo-tree.nvim',
   'stevearc/oil.nvim',
   'liuchengxu/vista.vim',
+  -- 'hedyhli/outline.nvim', -- WARN: too slow
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -37,5 +38,16 @@ return {
     cond = conds['liuchengxu/vista.vim'] or false,
     keys = require('config.vista').keys,
     config = require('config.vista').config,
+  },
+  {
+    'hedyhli/outline.nvim',
+    cond = conds['hedyhli/outline.nvim'] or false,
+    cmd = { 'Outline', 'OutlineOpen' },
+    keys = { -- Example mapping to toggle outline
+      { '<leader>es', '<cmd>topleft Outline!<CR>', desc = 'outline' },
+    },
+    opts = {
+      -- Your setup opts here
+    },
   },
 }

@@ -1572,6 +1572,37 @@
                 },
                 {
                     "key": "o",
+                    "name": "+Pomodoro",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "f",
+                            "name": "find",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "o",
+                            "name": "start",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "p",
+                            "name": "pause",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "r",
+                            "name": "resume",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        }
+                    ]
+                },
+                {
+                    "key": "O",
                     "name": "+Run",
                     "type": "bindings",
                     "bindings": [
