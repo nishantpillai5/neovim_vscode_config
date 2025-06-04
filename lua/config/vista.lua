@@ -5,6 +5,8 @@ M.keys = {
   { '<leader>eS', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols_close' },
 }
 
+M.cmd = { 'Vista' }
+
 M.setup = function()
   vim.g.vista_echo_cursor = 0
   vim.g.vista_echo_cursor_strategy = 'floating_win'

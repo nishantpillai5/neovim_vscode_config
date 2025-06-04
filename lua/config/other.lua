@@ -7,7 +7,7 @@ M.keys = {
 }
 M.setup = function()
   require('other-nvim').setup {
-    mappings = require('common.utils').merge_table({ 'c' }, _G.other_mappings),
+    mappings = vim.tbl_deep_extend('force', { 'c' }, _G.other_mappings),
   }
 end
 

@@ -36,6 +36,8 @@ return {
   {
     'liuchengxu/vista.vim',
     cond = conds['liuchengxu/vista.vim'] or false,
+    init = require('config.vista').init,
+    cmd = require('config.vista').cmd,
     keys = require('config.vista').keys,
     config = require('config.vista').config,
   },
@@ -46,8 +48,6 @@ return {
     keys = { -- Example mapping to toggle outline
       { '<leader>es', '<cmd>topleft Outline!<CR>', desc = 'outline' },
     },
-    opts = {
-      -- Your setup opts here
-    },
+    opts = {},
   },
 }

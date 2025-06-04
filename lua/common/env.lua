@@ -68,9 +68,12 @@ M.GLOBAL_STATUS = true
 M.PANEL_POSITION = 'horizontal' -- horizontal, vertical
 M.SCREEN = 'normal' -- normal, widescreen
 
+M.SIDEBAR_POSITION = 'right' -- left, right
+
 if M.NVIM_CONTEXT == 'work' then
   M.SCREEN = 'widescreen'
   M.PANEL_POSITION = 'vertical'
+  M.SIDEBAR_POSITION = 'left'
 elseif M.NVIM_CONTEXT == 'present' then
   M.SCREEN = 'normal'
   M.PANEL_POSITION = 'horizontal'

@@ -57,6 +57,7 @@ M.setup = function()
   require('dashboard').setup {
     theme = 'hyper',
     change_to_vcs_root = true,
+    shortcuts_left_side = true,
     config = {
       header = get_logo(),
       week_header = { enable = false },
