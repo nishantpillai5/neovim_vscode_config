@@ -75,6 +75,7 @@ return {
       'L3MON4D3/LuaSnip',
       'saadparwaiz1/cmp_luasnip',
       'dmitmel/cmp-cmdline-history',
+      'b0o/schemastore.nvim',
     },
     keys = require('config.lsp_zero').keys,
     cond = conds['VonHeikemen/lsp-zero.nvim'] or false,

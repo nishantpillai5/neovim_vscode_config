@@ -150,6 +150,31 @@ M.setup = function()
           -- end,
         }
       end,
+      ['jsonls'] = function()
+        require('lspconfig').jsonls.setup {
+          settings = {
+            json = {
+              schemas = require('schemastore').json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        }
+      end,
+      ['yamlls'] = function()
+        require('lspconfig').yamlls.setup {
+          settings = {
+            yaml = {
+              schemaStore = {
+                -- Disable built-in schemaStore support for the schemaStore plugin
+                enable = false,
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = '',
+              },
+              schemas = require('schemastore').yaml.schemas(),
+            },
+          },
+        }
+      end,
     },
   }
 
