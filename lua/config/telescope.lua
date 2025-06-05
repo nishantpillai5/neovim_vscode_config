@@ -231,13 +231,10 @@ local slower_changed_files_from = function(ref, include_untracked)
   local action_state = require 'telescope.actions.state'
 
   local function get_diff_files()
-    local handle = io.popen(
-      string.format(
-        'git diff --name-only --diff-filter=ACMR --relative %s',
-        ref
-      )
-    )
-    if not handle then return {} end
+    local handle = io.popen(string.format('git diff --name-only --diff-filter=ACMR --relative %s', ref))
+    if not handle then
+      return {}
+    end
     local result = {}
     for line in handle:lines() do
       table.insert(result, line)
@@ -247,8 +244,10 @@ local slower_changed_files_from = function(ref, include_untracked)
   end
 
   local function get_untracked_files()
-    local handle = io.popen('git ls-files --others --exclude-standard')
-    if not handle then return {} end
+    local handle = io.popen 'git ls-files --others --exclude-standard'
+    if not handle then
+      return {}
+    end
     local result = {}
     for line in handle:lines() do
       table.insert(result, line)
@@ -289,7 +288,7 @@ local slower_changed_files_from = function(ref, include_untracked)
       sorter = sorters.get_fuzzy_file(),
       previewer = previewers.new_termopen_previewer {
         get_command = function(entry)
-            return { 'cat', entry.value }
+          return { 'cat', entry.value }
         end,
       },
       attach_mappings = function(prompt_bufnr, map)
@@ -326,11 +325,11 @@ local slower_changed_files_from = function(ref, include_untracked)
 end
 
 local changed_files = function()
-  changed_files_from "HEAD"
+  changed_files_from 'HEAD'
 end
 
 local changed_files_with_untracked = function()
-  slower_changed_files_from("HEAD", true)
+  slower_changed_files_from('HEAD', true)
 end
 
 local changed_files_from_fork = function()
@@ -595,6 +594,31 @@ M.setup = function()
       live_grep = default_opts,
       grep_string = default_opts,
       git_files = default_opts,
+      git_branches = {
+        mappings = {
+          i = {
+            ['<cr>'] = actions.git_switch_branch,
+          },
+          n = {
+            ['<cr>'] = actions.git_switch_branch,
+            ['d'] = actions.git_delete_branch,
+            ['R'] = actions.git_rebase_branch,
+            ['r'] = actions.git_rename_branch,
+            ['m'] = actions.git_merge_branch,
+            ['c'] = actions.git_checkout,
+            ['C'] = actions.git_create_branch,
+            ['y'] = function(prompt_bufnr)
+              local action_state = require 'telescope.actions.state'
+              local entry = action_state.get_selected_entry()
+              if entry then
+                vim.fn.setreg('+', entry.value)
+                vim.notify('Copied branch name: ' .. entry.value, vim.log.levels.INFO)
+              end
+              actions.close(prompt_bufnr)
+            end,
+          },
+        },
+      },
     },
     extensions = {
       fzf = {
