@@ -12,6 +12,7 @@ return {
   -- Follow symlinks
   {
     'aymericbeaumet/vim-symlink',
+    lazy = true,
     event = 'VeryLazy',
     dependencies = { 'moll/vim-bbye' },
     cond = conds['aymericbeaumet/vim-symlink'] or false,
@@ -19,6 +20,7 @@ return {
   -- Scoped finder
   {
     'smartpde/neoscopes',
+    lazy = true,
     event = 'VeryLazy',
     dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
     cond = conds['smartpde/neoscopes'] or false,
@@ -28,6 +30,7 @@ return {
   -- Session manager
   {
     'stevearc/resession.nvim',
+    lazy = true,
     cond = conds['stevearc/resession.nvim'] or false,
     dependencies = { 'cbochs/grapple.nvim' },
     keys = require('config.resession').keys,
@@ -36,6 +39,7 @@ return {
   -- Find other project directories
   {
     'nvim-telescope/telescope-project.nvim',
+    lazy = true,
     -- event = 'VeryLazy',
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['nvim-telescope/telescope-project.nvim'] or false,
@@ -45,8 +49,8 @@ return {
   -- Local config
   {
     'klen/nvim-config-local',
-    priority = 999,
     lazy = false,
+    priority = 999,
     cond = conds['klen/nvim-config-local'] or false,
     config = function()
       require('config-local').setup {

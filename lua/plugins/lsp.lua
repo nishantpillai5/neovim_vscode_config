@@ -18,6 +18,7 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = true,
     event = 'VeryLazy',
     cond = conds['nvim-treesitter/nvim-treesitter'] or false,
     build = ':TSUpdate',
@@ -26,6 +27,7 @@ return {
   -- Code context
   {
     'nvim-treesitter/nvim-treesitter-context',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     keys = {
@@ -36,6 +38,7 @@ return {
   -- Virtual context brackets
   {
     'code-biscuits/nvim-biscuits',
+    lazy = true,
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     cond = conds['code-biscuits/nvim-biscuits'] or false,
     keys = {
@@ -59,8 +62,9 @@ return {
   -- LSP
   {
     'VonHeikemen/lsp-zero.nvim',
-    event = 'VeryLazy',
-    -- event = { 'BufReadPre', 'BufNewFile' },
+    lazy = true,
+    -- event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     branch = 'v3.x',
     dependencies = {
       'williamboman/mason.nvim',
@@ -84,7 +88,8 @@ return {
   -- Snippets
   {
     'L3MON4D3/LuaSnip',
-    event = 'VeryLazy',
+    lazy = true,
+    -- event = 'VeryLazy',
     dependencies = { 'rafamadriz/friendly-snippets' },
     cond = conds['L3MON4D3/LuaSnip'] or false,
     config = function()
@@ -94,6 +99,7 @@ return {
   -- Linter
   {
     'mfussenegger/nvim-lint',
+    lazy = true,
     -- event = 'VeryLazy',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'VonHeikemen/lsp-zero.nvim' },
@@ -103,6 +109,7 @@ return {
   -- Formatter
   {
     'zapling/mason-conform.nvim',
+    lazy = true,
     dependencies = {
       'williamboman/mason.nvim',
       'stevearc/conform.nvim',
@@ -114,6 +121,7 @@ return {
   -- Diagnostic panel
   {
     'folke/trouble.nvim',
+    lazy = true,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     ft = { 'qf' },
     cond = conds['folke/trouble.nvim'] or false,
@@ -123,12 +131,14 @@ return {
   -- Log Highlighting
   {
     'mtdl9/vim-log-highlighting',
+    lazy = true,
     event = { 'BufReadPre *.log', 'BufNewFile *.log' },
     cond = conds['mtdl9/vim-log-highlighting'] or false,
   },
   -- Lua nvim lazy lsp
   {
     'folke/lazydev.nvim',
+    lazy = true,
     cond = conds['folke/lazydev.nvim'] or false,
     ft = 'lua',
     opts = {
@@ -141,7 +151,7 @@ return {
   },
   {
     'Bilal2453/luvit-meta',
-    cond = conds['Bilal2453/luvit-meta'] or false,
     lazy = true,
+    cond = conds['Bilal2453/luvit-meta'] or false,
   }, -- optional `vim.uv` typings
 }

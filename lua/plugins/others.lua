@@ -16,6 +16,7 @@ return {
   -- for installing Luarocks dependencies
   {
     'vhyrro/luarocks.nvim',
+    lazy = true,
     -- priority = 1001,
     event = 'VeryLazy',
     cond = conds['vhyrro/luarocks.nvim'] or false,
@@ -28,6 +29,7 @@ return {
   -- Check startup time stats
   {
     'dstein64/vim-startuptime',
+    lazy = true,
     cond = conds['dstein64/vim-startuptime'] or false,
     cmd = 'StartupTime',
     init = function()
@@ -37,6 +39,7 @@ return {
   -- Use nvim to type online
   {
     'subnut/nvim-ghost.nvim',
+    lazy = true,
     cond = conds['subnut/nvim-ghost.nvim'] or false,
     cmd = 'GhostTextStart',
     init = function()
@@ -46,6 +49,7 @@ return {
   -- Learn vim
   {
     'm4xshen/hardtime.nvim',
+    lazy = true,
     -- event = 'VeryLazy',
     event = 'BufReadPost',
     cond = not require('common.env').PRESENTING and (conds['m4xshen/hardtime.nvim'] or false),
@@ -59,13 +63,14 @@ return {
   },
   {
     'theprimeagen/vim-be-good',
+    lazy = true,
     cond = conds['theprimeagen/vim-be-good'] or false,
     cmd = 'VimBeGood',
-    lazy = true,
   },
   -- When nothing works
   {
     'eandrju/cellular-automaton.nvim',
+    lazy = true,
     cond = conds['eandrju/cellular-automaton.nvim'] or false,
     cmd = 'CellularAutomaton',
     keys = {
@@ -76,6 +81,7 @@ return {
   -- Typing test
   {
     'kwakzalver/duckytype.nvim',
+    lazy = true,
     cond = conds['kwakzalver/duckytype.nvim'] or false,
     cmd = 'DuckyType',
     keys = {
@@ -87,12 +93,12 @@ return {
   -- GOTY
   {
     'seandewar/killersheep.nvim',
+    lazy = true,
     cond = conds['seandewar/killersheep.nvim'] or false,
     cmd = 'KillKillKill',
     keys = {
       { '<leader>zOs', '<cmd>KillKillKill<cr>', desc = 'sheep_game' },
     },
-    lazy = true,
     opts = {
       gore = true,
       keymaps = {
@@ -104,6 +110,7 @@ return {
   },
   {
     'epwalsh/pomo.nvim',
+    lazy = true,
     version = '*', -- Recommended, use latest release instead of latest commit
     dependencies = { 'rcarriga/nvim-notify' },
     cmd = require('config.pomodoro').cmd,

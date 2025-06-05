@@ -13,6 +13,7 @@ return {
   -- Panel
   {
     'akinsho/nvim-toggleterm.lua',
+    lazy = true,
     cond = conds['akinsho/nvim-toggleterm.lua'] or false,
     keys = require('config.toggleterm').keys,
     config = require('config.toggleterm').config,
@@ -20,6 +21,7 @@ return {
   -- Manager
   {
     'ryanmsnyder/toggleterm-manager.nvim',
+    lazy = true,
     dependencies = {
       'akinsho/nvim-toggleterm.lua',
       'nvim-telescope/telescope.nvim',
@@ -32,6 +34,7 @@ return {
   -- Tasks
   {
     'stevearc/overseer.nvim',
+    lazy = true,
     dependencies = {
       'akinsho/nvim-toggleterm.lua',
       'nvim-telescope/telescope.nvim',
@@ -45,6 +48,7 @@ return {
   -- Coverage
   {
     'andythigpen/nvim-coverage',
+    lazy = true,
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = conds['andythigpen/nvim-coverage'] or false,
@@ -67,6 +71,7 @@ return {
   -- Build task using makeprg
   {
     'pianocomposer321/officer.nvim',
+    lazy = true,
     dependencies = { 'stevearc/overseer.nvim' },
     cond = conds['pianocomposer321/officer.nvim'] or false,
     cmd = { 'Make', 'Run' },
@@ -80,6 +85,7 @@ return {
   -- Redir commands to buffer
   {
     'sbulav/nredir.nvim',
+    lazy = true,
     cond = conds['sbulav/nredir.nvim'] or false,
     cmd = { 'Nredir' },
     keys = {

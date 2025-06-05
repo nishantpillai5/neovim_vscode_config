@@ -20,6 +20,7 @@ return {
   -- Autoclose
   {
     'windwp/nvim-autopairs',
+    lazy = true,
     event = { 'InsertEnter' },
     cond = conds['windwp/nvim-autopairs'] or false,
     opts = {},
@@ -27,6 +28,7 @@ return {
   -- Todo comments
   {
     'nishantpillai5/todo-comments.nvim', -- WARN: Circular todos not merged, using my fork
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-lua/plenary.nvim' },
     keys = require('config.todo_comments').keys,
@@ -36,6 +38,7 @@ return {
   -- Tmux like navigation
   {
     'alexghergh/nvim-tmux-navigation',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['alexghergh/nvim-tmux-navigation'] or false,
     keys = require('config.tmux_navigation').keys,
@@ -44,6 +47,7 @@ return {
   -- Better undo
   {
     'mbbill/undotree',
+    lazy = true,
     keys = {
       { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'undotree' },
     },
@@ -52,6 +56,7 @@ return {
   -- Better yank
   {
     'gbprod/yanky.nvim',
+    lazy = true,
     -- event = 'VeryLazy',
     cond = conds['gbprod/yanky.nvim'] or false,
     keys = require('config.yanky').keys,
@@ -60,6 +65,7 @@ return {
   -- Better join
   {
     'Wansmer/treesj',
+    lazy = true,
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     cond = conds['Wansmer/treesj'] or false,
     keys = {
@@ -72,6 +78,7 @@ return {
   -- Focus window
   {
     'folke/zen-mode.nvim',
+    lazy = true,
     cond = conds['folke/zen-mode.nvim'] or false,
     keys = {
       { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'zen' },
@@ -88,6 +95,7 @@ return {
   -- Highlight under cursor
   {
     'RRethy/vim-illuminate',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['RRethy/vim-illuminate'] or false,
     config = function()
@@ -107,6 +115,7 @@ return {
   -- Folds
   {
     'kevinhwang91/nvim-ufo',
+    lazy = true,
     -- event = 'VeryLazy',
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'kevinhwang91/promise-async' },
@@ -117,6 +126,7 @@ return {
   -- Highlight color info inline
   {
     'norcalli/nvim-colorizer.lua',
+    lazy = true,
     event = 'VeryLazy',
     cond = conds['norcalli/nvim-colorizer.lua'] or false,
     config = function()
@@ -129,6 +139,7 @@ return {
   -- Add debug logs
   {
     'andrewferrier/debugprint.nvim',
+    lazy = true,
     cond = conds['andrewferrier/debugprint.nvim'] or false,
     cmd = require('config.debugprint').cmd,
     keys = require('config.debugprint').keys,
@@ -137,6 +148,7 @@ return {
   -- Repeat ]d
   {
     'mawkler/demicolon.nvim',
+    lazy = true,
     cond = conds['mawkler/demicolon.nvim'] or false,
     keys = {']', '[' },
     dependencies = {
@@ -148,6 +160,7 @@ return {
   -- Visualize jumps
   {
     'jinh0/eyeliner.nvim',
+    lazy = true,
     cond = conds['jinh0/eyeliner.nvim'] or false,
     -- keys = { 't', 'f', 'T', 'F' },
     config = function()

@@ -16,6 +16,7 @@ return {
   -- Git
   {
     'tpope/vim-fugitive',
+    lazy = true,
     cond = conds['tpope/vim-fugitive'] or false,
     keys = require('config.fugitive').keys,
     config = require('config.fugitive').config,
@@ -23,6 +24,7 @@ return {
   -- Visual Git
   {
     'kdheepak/lazygit.nvim',
+    lazy = true,
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = conds['kdheepak/lazygit.nvim'] or false,
     cmd = {
@@ -39,6 +41,7 @@ return {
   -- Diff
   {
     'sindrets/diffview.nvim',
+    lazy = true,
     cond = conds['sindrets/diffview.nvim'] or false,
     cmd = require('config.diffview').cmd,
     keys = require('config.diffview').keys,
@@ -47,6 +50,7 @@ return {
   -- Git sign column
   {
     'lewis6991/gitsigns.nvim',
+    lazy = true,
     cond = conds['lewis6991/gitsigns.nvim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     keys = require('config.gitsigns').keys,
@@ -55,6 +59,7 @@ return {
   -- Open git link
   {
     'linrongbin16/gitlinker.nvim',
+    lazy = true,
     cond = conds['linrongbin16/gitlinker.nvim'] or false,
     cmd = require('config.gitlinker').cmd,
     keys = require('config.gitlinker').keys,
@@ -63,6 +68,7 @@ return {
   -- Conflict
   {
     'akinsho/git-conflict.nvim',
+    lazy = true,
     version = '*',
     cond = conds['akinsho/git-conflict.nvim'] or false,
     cmd = require('config.git_conflict').cmd,
@@ -72,6 +78,7 @@ return {
   -- Worktree
   {
     'polarmutex/git-worktree.nvim',
+    lazy = true,
     version = '^2',
     dependencies = { 'nvim-lua/plenary.nvim', 'stevearc/overseer.nvim' },
     cond = conds['polarmutex/git-worktree.nvim'] or false,
@@ -81,6 +88,7 @@ return {
   -- Statusline blame
   {
     'f-person/git-blame.nvim',
+    lazy = true,
     event = 'BufReadPost',
     cond = conds['f-person/git-blame.nvim'] or false,
     keys = require('config.gitblame').keys,
@@ -89,6 +97,7 @@ return {
   -- Git graph
   {
     'isakbm/gitgraph.nvim',
+    lazy = true,
     cond = conds['isakbm/gitgraph.nvim'] or false,
     dependencies = { 'sindrets/diffview.nvim' },
     keys = require('config.git_graph').keys,

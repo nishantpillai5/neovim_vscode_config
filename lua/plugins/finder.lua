@@ -14,7 +14,8 @@ return {
   -- Finder
   {
     'nvim-telescope/telescope.nvim',
-    event = 'VeryLazy',
+    lazy = true,
+    -- event = 'VeryLazy',
     cmd = require('config.telescope').cmd,
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -30,6 +31,7 @@ return {
   -- Finder extensions
   {
     'OliverChao/telescope-picker-list.nvim',
+    lazy = true,
     dependencies = {
       'nvim-telescope/telescope.nvim',
       'Snikimonkd/telescope-git-conflicts.nvim',
@@ -43,6 +45,7 @@ return {
   },
   {
     'axkirillov/easypick.nvim',
+    lazy = true,
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['axkirillov/easypick.nvim'] or false,
     cmd = require('config.easypick').cmd,
@@ -51,6 +54,7 @@ return {
   },
   {
     'jemag/telescope-diff.nvim',
+    lazy = true,
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['jemag/telescope-diff.nvim'] or false,
     keys = require('config.telescope_diff').keys,
@@ -58,6 +62,7 @@ return {
   },
   {
     'nishantpillai5/telescope-git-hunk',
+    lazy = true,
     dependencies = { 'nvim-telescope/telescope.nvim' },
     cond = conds['nishantpillai5/telescope-git-hunk'] or false,
     keys = require('config.telescope_hunk').keys,
@@ -66,6 +71,7 @@ return {
   -- Buffer navigation
   {
     'cbochs/grapple.nvim',
+    lazy = true,
     event = { 'BufReadPost', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     cond = conds['cbochs/grapple.nvim'] or false,
@@ -76,6 +82,7 @@ return {
   -- Change to alternate file
   {
     'rgroli/other.nvim',
+    lazy = true,
     cond = conds['rgroli/other.nvim'] or false,
     keys = require('config.other').keys,
     config = require('config.other').config,

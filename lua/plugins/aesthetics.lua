@@ -27,6 +27,7 @@ return {
   -- Scrollbar
   {
     'petertriho/nvim-scrollbar',
+    lazy = true,
     event = { 'BufReadPre' },
     cond = conds['petertriho/nvim-scrollbar'] or false,
     config = require('config.scrollbar').config,
@@ -34,6 +35,7 @@ return {
   -- Scrollbar search indicators
   {
     'kevinhwang91/nvim-hlslens',
+    lazy = true,
     event = { 'BufReadPre' },
     cond = conds['kevinhwang91/nvim-hlslens'] or false,
     config = function()
@@ -45,6 +47,7 @@ return {
   -- Windows Separator
   {
     'nvim-zh/colorful-winsep.nvim',
+    lazy = true,
     event = { 'BufReadPre' },
     cond = conds['nvim-zh/colorful-winsep.nvim'] or false,
     config = function()
@@ -55,6 +58,7 @@ return {
   -- Context breadcrumbs
   {
     'utilyre/barbecue.nvim',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'SmiteshP/nvim-navic',
@@ -77,8 +81,10 @@ return {
   -- Statusline
   {
     'nvim-lualine/lualine.nvim',
+    lazy = true,
     event = 'VeryLazy',
-    dependencies = { 'nvim-tree/nvim-web-devicons', 'tpope/vim-fugitive' },
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    -- dependencies = { 'nvim-tree/nvim-web-devicons', 'tpope/vim-fugitive' },
     cond = conds['nvim-lualine/lualine.nvim'] or false,
     init = require('config.lualine').init,
     config = require('config.lualine').config,
@@ -86,6 +92,7 @@ return {
   -- Indentation guides
   {
     'lukas-reineke/indent-blankline.nvim',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'HiPhish/rainbow-delimiters.nvim' },
     cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
@@ -94,12 +101,14 @@ return {
   -- Better UI
   {
     'rcarriga/nvim-notify',
+    lazy = true,
     event = 'VeryLazy',
     cond = conds['rcarriga/nvim-notify'] or false,
     config = require('config.notify').config,
   },
   {
     'folke/noice.nvim',
+    lazy = true,
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
@@ -111,12 +120,14 @@ return {
   },
   {
     'stevearc/dressing.nvim',
+    lazy = true,
     event = 'VeryLazy',
     cond = conds['stevearc/dressing.nvim'] or false,
     opts = {},
   },
   {
     'folke/edgy.nvim',
+    lazy = true,
     cond = conds['folke/edgy.nvim'] or false,
     event = 'VeryLazy',
     keys = require('config.edgy').keys,

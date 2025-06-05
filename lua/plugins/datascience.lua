@@ -13,6 +13,7 @@ return {
   -- ipynb in nvim
   {
     'quarto-dev/quarto-nvim',
+    lazy = true,
     cond = conds['quarto-dev/quarto-nvim'] or false,
     dependencies = {
       'jmbuhr/otter.nvim',
@@ -25,8 +26,8 @@ return {
   -- Code runner inside markdown
   {
     'benlubas/molten-nvim',
-    cond = conds['benlubas/molten-nvim'] or false,
     lazy = true,
+    cond = conds['benlubas/molten-nvim'] or false,
     version = '^1.0.0', -- use version <2.0.0 to avoid breaking changes
     -- dependencies = { '3rd/image.nvim' },
     build = ':UpdateRemotePlugins',
@@ -36,6 +37,7 @@ return {
   -- Image previewer
   {
     '3rd/image.nvim',
+    lazy = true,
     cond = conds['3rd/image.nvim'] or false,
     opts = {
       backend = 'kitty',
@@ -50,6 +52,7 @@ return {
   -- LSP in markdown
   {
     'jmbuhr/otter.nvim',
+    lazy = true,
     ft = require('config.otter').ft,
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
@@ -61,6 +64,7 @@ return {
   -- preview equations
   {
     'jbyuki/nabla.nvim',
+    lazy = true,
     cond = conds['jbyuki/nabla.nvim'] or false,
     ft = require('config.nabla').ft,
     keys = require('config.nabla').keys,
@@ -69,8 +73,8 @@ return {
   -- convert ipynb to qmd
   {
     'GCBallesteros/jupytext.nvim',
+    lazy = true,
     cond = conds['GCBallesteros/jupytext.nvim'] or false,
     config = true,
-    lazy = false,
   },
 }

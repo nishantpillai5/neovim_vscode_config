@@ -15,6 +15,7 @@ return {
   -- Hop around text
   {
     'smoka7/hop.nvim',
+    lazy = true,
     cond = conds['smoka7/hop.nvim'] or false,
     keys = {
       { 's', '<cmd>HopChar2<cr>', mode = { 'n', 'x' }, desc = 'hop_char' },
@@ -30,6 +31,7 @@ return {
   -- Surround
   {
     'kylechui/nvim-surround',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     version = '*',
     cond = conds['kylechui/nvim-surround'] or false,
@@ -38,6 +40,7 @@ return {
   -- Marks
   {
     'LeonHeidelbach/trailblazer.nvim',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     -- event = 'VeryLazy',
     cond = conds['LeonHeidelbach/trailblazer.nvim'] or false,
@@ -47,6 +50,7 @@ return {
   -- Change variable case format
   {
     'gregorias/coerce.nvim',
+    lazy = true,
     tag = 'v1.0',
     cond = conds['gregorias/coerce.nvim'] or false,
     keys = {
@@ -59,6 +63,7 @@ return {
   -- Better increment
   {
     'monaqa/dial.nvim',
+    lazy = true,
     cond = conds['monaqa/dial.nvim'] or false,
     keys = require('config.dial').keys,
     config = require('config.dial').config,
@@ -66,6 +71,7 @@ return {
   -- Better macros
   {
     'chrisgrieser/nvim-recorder',
+    lazy = true,
     cond = conds['chrisgrieser/nvim-recorder'] or false,
     keys = require('config.recorder').keys,
     config = require('config.recorder').config,
@@ -73,6 +79,7 @@ return {
   -- Inline macros
   {
     'AllenDang/nvim-expand-expr',
+    lazy = true,
     cond = conds['AllenDang/nvim-expand-expr'] or false,
     keys = {
       { '<leader>Q', ":lua require('expand_expr').expand()<cr>", desc = 'inline_macro' },
@@ -81,6 +88,7 @@ return {
   -- Align expressions
   {
     'echasnovski/mini.align',
+    lazy = true,
     event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['echasnovski/mini.align'] or false,
     opts = {},

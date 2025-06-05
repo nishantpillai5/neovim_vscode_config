@@ -9,6 +9,7 @@ return {
   -- Keymap helper
   {
     'folke/which-key.nvim',
+    lazy = true,
     event = 'VeryLazy',
     cond = conds['folke/which-key.nvim'] or false,
     init = require('config.whichkey').init,
@@ -18,6 +19,7 @@ return {
   -- Find keymap conflicts
   {
     'tris203/hawtkeys.nvim',
+    lazy = true,
     cond = conds['tris203/hawtkeys.nvim'] or false,
     dependencies = {
       'nvim-lua/plenary.nvim',

@@ -8,6 +8,7 @@ return {
   -- Test REST APIs
   {
     'rest-nvim/rest.nvim',
+    lazy = true,
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     cond = conds['rest-nvim/rest.nvim'] or false,
     ft = 'http',

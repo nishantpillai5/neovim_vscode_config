@@ -11,6 +11,7 @@ local conds = require('common.utils').get_conds_table(plugins)
 return {
   {
     'mfussenegger/nvim-dap',
+    lazy = true,
     dependencies = {
       'ofirgall/goto-breakpoints.nvim',
       'stevearc/overseer.nvim',
@@ -23,6 +24,7 @@ return {
   },
   {
     'rcarriga/nvim-dap-ui',
+    lazy = true,
     dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' },
     cond = conds['rcarriga/nvim-dap-ui'] or false,
     keys = require('config.dap_ui').keys,
@@ -30,6 +32,7 @@ return {
   },
   {
     'mfussenegger/nvim-dap-python',
+    lazy = true,
     dependencies = { 'mfussenegger/nvim-dap' },
     -- FIXME: load it on f5 on a python file
     -- event = 'BufEnter *.py',
@@ -40,6 +43,7 @@ return {
   },
   {
     'Weissle/persistent-breakpoints.nvim',
+    lazy = true,
     -- event = 'VeryLazy',
     event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['Weissle/persistent-breakpoints.nvim'] or false,
@@ -48,6 +52,7 @@ return {
   },
   {
     'nvim-neotest/neotest',
+    lazy = true,
     dependencies = {
       'nvim-neotest/nvim-nio',
       'nvim-lua/plenary.nvim',

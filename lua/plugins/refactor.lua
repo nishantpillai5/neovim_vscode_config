@@ -10,12 +10,14 @@ return {
   -- Refactor
   {
     'smjonas/inc-rename.nvim',
+    lazy = true,
     cond = conds['smjonas/inc-rename.nvim'] or false,
     keys = require('config.increname').keys,
     config = require('config.increname').config,
   },
   {
     'ThePrimeagen/refactoring.nvim',
+    lazy = true,
     cond = conds['ThePrimeagen/refactoring.nvim'] or false,
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -27,6 +29,7 @@ return {
   -- Find and replace
   {
     'nvim-pack/nvim-spectre',
+    lazy = true,
     cond = conds['nvim-pack/nvim-spectre'] or false,
     keys = require('config.spectre').keys,
     config = require('config.spectre').config,

@@ -9,6 +9,7 @@ local conds = require('common.utils').get_conds_table(plugins)
 return {
   {
     'github/copilot.vim',
+    lazy = true,
     cond = conds['github/copilot.vim'] or false,
     event = { 'BufReadPre', 'BufNewFile' },
     cmd = 'Copilot',
@@ -17,6 +18,7 @@ return {
   },
   {
     'zbirenbaum/copilot.lua',
+    lazy = true,
     cond = conds['zbirenbaum/copilot.lua'] or false,
     cmd = 'Copilot',
     event = 'InsertEnter',
@@ -30,7 +32,9 @@ return {
   },
   {
     'CopilotC-Nvim/CopilotChat.nvim',
+    lazy = true,
     cond = conds['CopilotC-Nvim/CopilotChat.nvim'] or false,
+    event = 'InsertEnter',
     branch = 'main',
     dependencies = {
       'nvim-lua/plenary.nvim',
@@ -38,7 +42,6 @@ return {
       'vhyrro/luarocks.nvim',
       -- 'zbirenbaum/copilot.lua',
     },
-    event = 'InsertEnter',
     keys = require('config.copilot_chat').keys,
     config = require('config.copilot_chat').config,
   },

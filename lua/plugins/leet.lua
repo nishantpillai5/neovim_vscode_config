@@ -23,6 +23,7 @@ return {
   },
   {
     'xeluxee/competitest.nvim',
+    lazy = true,
     cond = conds['xeluxee/competitest.nvim'] or false,
     event = require('config.competitest').event,
     cmd = require('config.competitest').cmd,

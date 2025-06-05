@@ -14,6 +14,7 @@ return {
   -- Global note
   {
     'backdround/global-note.nvim',
+    lazy = true,
     cond = conds['backdround/global-note.nvim'] or false,
     keys = require('config.global_note').keys,
     config = require('config.global_note').config,
@@ -21,6 +22,7 @@ return {
   -- Preview markdown files
   {
     'iamcco/markdown-preview.nvim',
+    lazy = true,
     cond = conds['iamcco/markdown-preview.nvim'] or false,
     ft = { 'markdown' },
     build = function()
@@ -32,6 +34,7 @@ return {
   -- Notes management
   {
     'epwalsh/obsidian.nvim',
+    lazy = true,
     version = '*',
     event = {
       'BufReadPre ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
@@ -49,6 +52,7 @@ return {
   -- Presentation
   {
     'mpas/marp-nvim',
+    lazy = true,
     cond = conds['mpas/marp-nvim'] or false,
     cmd = { 'MarpToggle', 'MarpStatus' },
     config = function()
@@ -63,6 +67,7 @@ return {
   -- Highlight
   {
     'Pocco81/HighStr.nvim',
+    lazy = true,
     cond = conds['Pocco81/HighStr.nvim'] or false,
     keys = require('config.highlight').keys,
     config = require('config.highlight').config,
@@ -70,6 +75,7 @@ return {
   -- Calendar
   {
     'mattn/calendar-vim',
+    lazy = true,
     event = {
       'BufReadPre ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
       'BufNewFile ' .. require('common.utils').to_unix_path(require('common.env').DIR_NOTES) .. '/**.md',
@@ -82,6 +88,7 @@ return {
   },
   {
     'NFrid/due.nvim',
+    lazy = true,
     event = {
       'BufReadPre *todo*.md',
       'BufReadPre *todo*.txt',

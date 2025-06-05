@@ -23,6 +23,11 @@ M.common_keys = {
   { '<leader>?', desc = 'grep_string(workspace)' },
 }
 
+-- FIXME: Telescope keymaps are not replaced
+-- key map lazy load doesn't work
+-- VeryLazy loading for now
+vim.list_extend(M.keys, M.common_keys)
+
 M.constrain_to_scope = function(opts)
   local neoscopes = require 'neoscopes'
   local success, scope = pcall(neoscopes.get_current_scope)
