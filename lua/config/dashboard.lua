@@ -57,7 +57,8 @@ M.setup = function()
   require('dashboard').setup {
     theme = 'hyper',
     change_to_vcs_root = true,
-    shortcuts_left_side = true,
+    shortcuts_left_side = false,
+    shortcut_type = 'number',
     config = {
       header = get_logo(),
       week_header = { enable = false },
@@ -102,7 +103,8 @@ M.setup = function()
           key = 'l',
         },
       },
-      footer = { get_datetime() },
+      -- footer = { get_datetime() },
+      footer = {},
     },
   }
 end

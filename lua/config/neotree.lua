@@ -13,7 +13,7 @@ M.keys = {
   { '<leader>eb', desc = 'buffers' },
   { '<leader>eg', desc = 'git' },
   { '<leader>fe', desc = 'explorer' },
-  { '<leader>fE', desc = 'explorer_outside' },
+  { '<leader>fE', desc = 'explorer_open' },
 }
 
 local select_dir = function(prompt, callback)
