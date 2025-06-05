@@ -16,8 +16,8 @@ M.keys = {
 M.common_keys = {
   { '<leader>ff', desc = 'find_files(workspace)' },
   { '<leader>fA', desc = 'find_alternate(workspace)' },
-  { '<leader>fl', desc = 'live_grep(workspace)' },
-  { '<leader>fL', desc = 'live_grep_args(workspace)' },
+  { '<leader>f/', desc = 'live_grep(workspace)' },
+  { '<leader>f?', desc = 'live_grep_args(workspace)' },
   { '<leader>fw', desc = 'grep_word(workspace)' },
   { '<leader>fW', desc = 'grep_whole_word(workspace)' },
   { '<leader>?', desc = 'grep_string(workspace)' },
@@ -94,7 +94,7 @@ local replace_telescope_keymaps = function()
     }
   end)
 
-  set_keymap('n', '<leader>fl', function()
+  set_keymap('n', '<leader>f/', function()
     builtin.live_grep {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
@@ -102,7 +102,7 @@ local replace_telescope_keymaps = function()
     }
   end)
 
-  set_keymap('n', '<leader>fL', function()
+  set_keymap('n', '<leader>f?', function()
     require('telescope').extensions.live_grep_args.live_grep_args {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),

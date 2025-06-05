@@ -23,8 +23,8 @@ M.setup = function()
   require('gitgraph').setup {
     ---@diagnostic disable-next-line: missing-fields
     symbols = {
-      merge_commit = 'M',
-      commit = '*',
+      merge_commit = '',
+      commit = '',
     },
     format = {
       timestamp = '%H:%M:%S %d-%m-%Y',

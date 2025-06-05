@@ -401,28 +401,28 @@ M.keys = {
   { '<leader>fF', desc = 'ignored_files' },
   { '<leader>fa', desc = 'all' },
   { '<leader>fA', desc = 'alternate' },
-  { '<leader>fgj', desc = 'files_from_head' },
-  { '<leader>fgi', desc = 'files_from_head_include_untracked' },
-  { '<leader>fgk', desc = 'files_from_fork' },
-  { '<leader>fgl', desc = 'files_from_main' },
-  { '<leader>fg;', desc = 'files_from_branch' },
+  { '<leader>fi', desc = 'files_from_head_include_untracked' },
+  { '<leader>fj', desc = 'files_from_head' },
+  { '<leader>fk', desc = 'files_from_fork' },
+  { '<leader>fl', desc = 'files_from_main' },
+  { '<leader>f;', desc = 'files_from_branch' },
+  { '<leader>fJ', desc = 'grep_from_head' },
+  { '<leader>fK', desc = 'grep_from_fork' },
+  { '<leader>fL', desc = 'grep_from_main' },
+  { '<leader>f:', desc = 'grep_from_branch' },
   { '<leader>fgb', desc = 'branch_checkout' },
   { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
   { '<leader>fgC', desc = 'commits_diff' },
   { '<leader>fgz', desc = 'stash' },
   { '<leader>fgx', desc = 'conflicts' },
-  { '<leader>fgJ', desc = 'grep_from_head' },
-  { '<leader>fgK', desc = 'grep_from_fork' },
-  { '<leader>fgL', desc = 'grep_from_main' },
-  { '<leader>fg:', desc = 'grep_from_branch' },
   { '<leader>gJ', desc = 'grep_from_head' },
   { '<leader>gK', desc = 'grep_from_fork' },
   { '<leader>gL', desc = 'grep_from_main' },
   { '<leader>g:', desc = 'grep_from_branch' },
   { '<leader>fT', desc = 'todos_in_fork' },
-  { '<leader>fl', desc = 'live_grep_global' },
-  { '<leader>fL', desc = 'live_grep_global_with_args' },
+  { '<leader>f/', desc = 'live_grep_global' },
+  { '<leader>f?', desc = 'live_grep_global_with_args' },
   { '<leader>/', desc = 'find_local' },
   { '<leader>?', desc = 'find_global' },
   { '<leader>fw', desc = 'word' },
@@ -461,11 +461,17 @@ M.keymaps = function()
     builtin.git_files { default_text = basename }
   end)
 
-  set_keymap('n', '<leader>fgj', changed_files)
-  set_keymap('n', '<leader>fgi', changed_files_with_untracked)
-  set_keymap('n', '<leader>fgk', changed_files_from_fork)
-  set_keymap('n', '<leader>fgl', changed_files_from_main)
-  set_keymap('n', '<leader>fg;', changed_files_from_branch)
+  set_keymap('n', '<leader>fi', changed_files_with_untracked)
+  set_keymap('n', '<leader>fj', changed_files)
+  set_keymap('n', '<leader>fk', changed_files_from_fork)
+  set_keymap('n', '<leader>fl', changed_files_from_main)
+  set_keymap('n', '<leader>f;', changed_files_from_branch)
+
+  set_keymap('n', '<leader>fJ', live_grep_changed_files)
+  set_keymap('n', '<leader>fK', live_grep_changed_files_from_fork)
+  set_keymap('n', '<leader>fL', live_grep_changed_files_from_main)
+  set_keymap('n', '<leader>f:', live_grep_changed_files_from_branch)
+
   set_keymap('n', '<leader>fgb', builtin.git_branches)
   set_keymap('n', '<leader>fgB', function()
     builtin.git_branches { show_remote_tracking_branches = false }
@@ -480,11 +486,6 @@ M.keymaps = function()
   set_keymap('n', '<leader>gL', live_grep_changed_files_from_main)
   set_keymap('n', '<leader>g:', live_grep_changed_files_from_branch)
 
-  set_keymap('n', '<leader>fgJ', live_grep_changed_files)
-  set_keymap('n', '<leader>fgK', live_grep_changed_files_from_fork)
-  set_keymap('n', '<leader>fgL', live_grep_changed_files_from_main)
-  set_keymap('n', '<leader>fg:', live_grep_changed_files_from_branch)
-
   set_keymap('n', '<leader>gRk', reset_file_to_fork)
   set_keymap('n', '<leader>gRl', reset_file_to_main)
   set_keymap('n', '<leader>gR;', reset_file_to_branch)
@@ -493,9 +494,9 @@ M.keymaps = function()
     live_grep_changed_files_from_fork { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_fork(' .. require('common.env').TODO_CUSTOM .. ')' })
 
-  set_keymap('n', '<leader>fl', builtin.live_grep)
+  set_keymap('n', '<leader>f/', builtin.live_grep)
 
-  set_keymap('n', '<leader>fL', function()
+  set_keymap('n', '<leader>f?', function()
     require('telescope').extensions.live_grep_args.live_grep_args()
   end)
 

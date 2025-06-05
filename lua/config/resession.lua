@@ -54,7 +54,7 @@ end
 M.setup = function()
   require('resession').setup {
     extensions = {
-      -- overseer = { recent_first = true },
+      overseer = { recent_first = true },
       -- grapple = {},
     },
   }
