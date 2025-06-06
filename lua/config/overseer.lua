@@ -54,12 +54,6 @@ local toggle_sidebar = function()
   vim.cmd 'OverseerToggle'
 end
 
-local open_sidebar = function()
-  vim.cmd 'OverseerOpen'
-  -- focus back to the previous window
-  vim.cmd 'silent! wincmd p'
-end
-
 M.get_cmd = function(task)
   if type(task.cmd) == 'string' then
     return task.cmd
@@ -263,11 +257,6 @@ M.setup = function()
     },
   }
 
-  -- FIXME: broken with dependent task queues
-  -- open sidebar when any task is started
-  -- require('overseer').add_template_hook({ name = '.*' }, function(_, _)
-  --   open_sidebar()
-  -- end)
 end
 
 M.lualine = function()

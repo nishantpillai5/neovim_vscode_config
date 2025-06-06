@@ -556,6 +556,8 @@ end
 
 M.setup = function()
   local action_layout = require 'telescope.actions.layout'
+  local lga_actions = require 'telescope-live-grep-args.actions'
+  local actions = require 'telescope.actions'
 
   local open_with_trouble = function(opts)
     require('trouble.sources.telescope').open(opts)
@@ -563,6 +565,16 @@ M.setup = function()
 
   local add_to_trouble = function(opts)
     require('trouble.sources.telescope').add(opts)
+  end
+
+  local yank_name = function(prompt_bufnr)
+    local action_state = require 'telescope.actions.state'
+    local entry = action_state.get_selected_entry()
+    if entry then
+      vim.fn.setreg('+', entry.value)
+      vim.notify('Copied : ' .. entry.value, vim.log.levels.INFO)
+    end
+    actions.close(prompt_bufnr)
   end
 
   default_opts = {
@@ -573,20 +585,14 @@ M.setup = function()
     },
     mappings = {
       n = {
-        ['<M-p>'] = action_layout.toggle_preview,
-        ['<C-q>'] = open_with_trouble,
-        ['<M-q>'] = add_to_trouble,
-      },
-      i = {
-        ['<M-p>'] = action_layout.toggle_preview,
-        ['<C-q>'] = open_with_trouble,
-        ['<M-q>'] = add_to_trouble,
+        ['p'] = action_layout.toggle_preview,
+        ['T'] = open_with_trouble,
+        ['t'] = add_to_trouble,
+        ['y'] = yank_name,
       },
     },
   }
 
-  local lga_actions = require 'telescope-live-grep-args.actions'
-  local actions = require 'telescope.actions'
   require('telescope').setup {
     defaults = default_opts,
     pickers = {
@@ -607,15 +613,8 @@ M.setup = function()
             ['m'] = actions.git_merge_branch,
             ['c'] = actions.git_checkout,
             ['C'] = actions.git_create_branch,
-            ['y'] = function(prompt_bufnr)
-              local action_state = require 'telescope.actions.state'
-              local entry = action_state.get_selected_entry()
-              if entry then
-                vim.fn.setreg('+', entry.value)
-                vim.notify('Copied branch name: ' .. entry.value, vim.log.levels.INFO)
-              end
-              actions.close(prompt_bufnr)
-            end,
+            ['p'] = action_layout.toggle_preview,
+            ['y'] = yank_name,
           },
         },
       },
