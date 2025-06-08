@@ -1,9 +1,11 @@
 _G.custom_formatters_by_ft = _G.custom_formatters_by_ft or {}
 local M = {}
 
-M.keys = {
-  { '<leader>ls', mode = { 'n', 'v' }, desc = 'format' },
+M.keys_all = {
+  { '<leader>ls', mode = { 'n', 'v' }, desc = 'format', vsc_cmd = 'editor.action.formatDocument' },
 }
+
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

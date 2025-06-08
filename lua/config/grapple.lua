@@ -4,13 +4,14 @@ M.cmd = {
   'Grapple',
 }
 
-M.keys = {
+M.keys_all = {
   { '<leader>a', '<cmd>Grapple tag<cr>', desc = 'grapple_add' },
-  { '<leader>h', '<cmd>Grapple toggle_tags<cr>', desc = 'grapple_list' },
+  { '<leader>h', '<cmd>Grapple toggle_tags<cr>', desc = 'grapple_list', vsc_cmd = 'workbench.action.quickOpenPreviousRecentlyUsedEditor' },
   { '<leader>wh', desc = 'grapple_select_scope' },
   { '<A-PageUp>', '<cmd>Grapple cycle_tags prev<cr>', desc = 'grapple_prev' },
   { '<A-PageDown>', '<cmd>Grapple cycle_tags next<cr>', desc = 'grapple_next' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.lualine = function()
   local lualineA = require('lualine').get_config().tabline.lualine_a or {}
@@ -33,7 +34,7 @@ M.keymaps = function()
 
   set_keymap('n', '<leader>wh', function()
     vim.ui.select(scopes_options, {
-      prompt = "Current scope: " .. require('grapple').app().settings.scope .. " | Change scope to :",
+      prompt = 'Current scope: ' .. require('grapple').app().settings.scope .. ' | Change scope to :',
       format_item = function(item)
         return string.format('%s: %s', item.key, item.desc)
       end,

@@ -1,8 +1,9 @@
 local M = {}
 
-M.keys = {
-  { '<leader>wW', desc = 'select_project' },
+M.keys_all = {
+  { '<leader>wW', desc = 'select_project', vsc_cmd = 'workbench.action.openRecent' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

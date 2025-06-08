@@ -221,7 +221,7 @@ local changed_files_from = function(ref)
     :find()
 end
 
--- TODO: This function is slower since it runs two separate git commands
+-- WARN: This function is slower since it runs two separate git commands
 local slower_changed_files_from = function(ref, include_untracked)
   include_untracked = include_untracked or false
   local previewers = require 'telescope.previewers'
@@ -394,14 +394,14 @@ M.cmd = {
   'Telescope',
 }
 
-M.keys = {
-  { '<leader>:', desc = 'find_commands' },
-  { '<leader>ff', desc = 'git_files' },
+M.keys_all = {
+  { '<leader>:', desc = 'find_commands', vsc_cmd = 'workbench.action.showCommands' },
+  { '<leader>ff', desc = 'git_files', vsc_cmd = 'hqv-mower.quickPick' },
   { '<leader>fF', desc = 'ignored_files' },
-  { '<leader>fa', desc = 'all' },
-  { '<leader>fA', desc = 'alternate' },
+  { '<leader>fa', desc = 'all', vsc_cmd = 'workbench.action.quickOpen' },
+  { '<leader>fA', desc = 'alternate', vsc_cmd = 'workbench.action.quickOpen' },
   { '<leader>fi', desc = 'files_from_head_include_untracked' },
-  { '<leader>fj', desc = 'files_from_head' },
+  { '<leader>fj', desc = 'files_from_head', vsc_cmd = 'gitlens.openChangedFiles' },
   { '<leader>fk', desc = 'files_from_fork' },
   { '<leader>fl', desc = 'files_from_main' },
   { '<leader>f;', desc = 'files_from_branch' },
@@ -409,37 +409,38 @@ M.keys = {
   { '<leader>fK', desc = 'grep_from_fork' },
   { '<leader>fL', desc = 'grep_from_main' },
   { '<leader>f:', desc = 'grep_from_branch' },
-  { '<leader>fgb', desc = 'branch_checkout' },
-  { '<leader>fgB', desc = 'branch_checkout_local' },
-  { '<leader>fgc', desc = 'commits_checkout' },
+  { '<leader>fgb', desc = 'branch_checkout', vsc_cmd = 'git.checkout' },
+  { '<leader>fgB', desc = 'branch_checkout_local', vsc_cmd = 'git.checkout' },
+  { '<leader>fgc', desc = 'commits_checkout', vsc_cmd = 'gitlens.showCommitSearch' },
   { '<leader>fgC', desc = 'commits_diff' },
-  { '<leader>fgz', desc = 'stash' },
+  { '<leader>fgz', desc = 'stash', vsc_cmd = 'gitlens.gitCommands.stash.list' },
   { '<leader>fgx', desc = 'conflicts' },
   { '<leader>gJ', desc = 'grep_from_head' },
   { '<leader>gK', desc = 'grep_from_fork' },
   { '<leader>gL', desc = 'grep_from_main' },
   { '<leader>g:', desc = 'grep_from_branch' },
   { '<leader>fT', desc = 'todos_in_fork' },
-  { '<leader>f/', desc = 'live_grep_global' },
+  { '<leader>f/', desc = 'live_grep_global', vsc_cmd = 'workbench.action.findInFiles' },
   { '<leader>f?', desc = 'live_grep_global_with_args' },
-  { '<leader>/', desc = 'find_local' },
-  { '<leader>?', desc = 'find_global' },
-  { '<leader>fw', desc = 'word' },
-  { '<leader>fW', desc = 'whole_word' },
+  { '<leader>/', desc = 'find_local', vsc_cmd = 'fuzzySearch.activeTextEditor' },
+  { '<leader>?', desc = 'find_global', vsc_cmd = 'hqv-mower.search' },
+  { '<leader>fw', desc = 'word', vsc_cmd = 'workbench.view.search.focus' },
+  { '<leader>fW', desc = 'whole_word', vsc_cmd = 'workbench.view.search.focus' },
   { '<leader>Ff', desc = 'builtin' },
-  { '<leader>fs', desc = 'symbols' },
+  { '<leader>fs', desc = 'symbols', vsc_cmd = 'workbench.action.gotoSymbol' },
   { '<leader>wf', desc = 'find_session' },
   { '<leader>fm', desc = 'marks' },
   { '<leader>fr', desc = 'recents' },
   { '<leader>f"', desc = 'registers' },
-  { '<leader>fh', desc = 'buffers' },
-  { '<leader>wc', desc = 'configurations' },
+  { '<leader>fh', desc = 'buffers', vsc_cmd = 'workbench.action.showAllEditors' },
+  { '<leader>wc', desc = 'configurations', vsc_cmd = 'workbench.action.quickOpen', vsc_args = '.vscode/' },
   { '<leader>f=', desc = 'spellcheck' },
   { '<leader>gRk', desc = 'reset_file_to_fork' },
   { '<leader>gRl', desc = 'reset_file_to_main' },
   { '<leader>gR;', desc = 'reset_file_to_branch' },
 }
 
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 M.keymaps = function()
   local builtin = require 'telescope.builtin'
   local set_keymap = utils.get_keymap_setter(M.keys)

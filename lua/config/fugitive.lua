@@ -1,16 +1,17 @@
 local M = {}
 
-M.keys = {
-  { '<leader>gs', desc = 'status' },
+M.keys_all = {
+  { '<leader>gs', desc = 'status', vsc_cmd = 'workbench.view.scm' },
   { '<leader>gb', desc = 'branch' },
-  { '<leader>g"', desc = 'log' },
-  { '<leader>gza', desc = 'apply' },
-  { '<leader>gzs', desc = 'staged' },
+  { '<leader>g"', desc = 'log', vsc_cmd = 'git.viewHistory' },
+  { '<leader>gza', desc = 'apply', vsc_cmd = 'git.stashApply' },
+  { '<leader>gzs', desc = 'staged', vsc_cmd = 'git.stashStaged' },
   { '<leader>gzp', desc = 'pop' },
-  { '<leader>gzz', desc = 'stash' },
-  { '<leader>gzZ', desc = 'stash_untracked' },
+  { '<leader>gzz', desc = 'stash', vsc_cmd = 'git.stash' },
+  { '<leader>gzZ', desc = 'stash_untracked', vsc_cmd = 'git.stashIncludeUntracked' },
   { '<leader>gr', desc = 'reload' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.buffer_keys = {
   { '<leader>p', desc = 'pull' },

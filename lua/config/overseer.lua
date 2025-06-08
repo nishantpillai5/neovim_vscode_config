@@ -7,20 +7,22 @@ _G.build_template = _G.build_template or nil
 
 M.cmd = { 'OverseerList' }
 
-M.keys = {
-  { '<leader>oo', desc = 'run_from_list' },
-  { '<leader>eo', desc = 'tasks' },
+M.keys_all = {
+  { '<leader>oo', desc = 'run_from_list', vsc_cmd = 'workbench.action.tasks.runTask' },
+  { '<leader>eo', desc = 'tasks', vsc_cmd = 'workbench.action.tasks.showTasks' },
   { '<leader>oc', desc = 'change_last' },
-  { '<leader>ol', desc = 'restart_last' },
+  { '<leader>ol', desc = 'restart_last', vsc_cmd = 'workbench.action.tasks.reRunTask' },
   { '<leader>op', desc = 'preview_last' },
-  { '<leader>ox', desc = 'stop_last' },
+  { '<leader>ox', desc = 'stop_last', vsc_cmd = 'workbench.action.tasks.terminate' },
   { '<leader>oX', desc = 'stop_all' },
-  { '<leader>or', desc = 'run' },
+  { '<leader>or', desc = 'run', vsc_cmd = 'workbench.action.debug.run' },
   { '<leader>ob', desc = 'build' },
   { '<leader>oss', desc = 'save_last' },
   { '<leader>osl', desc = 'load_bundle' },
   { '<leader>osd', desc = 'delete_bundle' },
 }
+
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 local action_on_all_tasks = function(action)
   local overseer = require 'overseer'
@@ -256,7 +258,6 @@ M.setup = function()
       },
     },
   }
-
 end
 
 M.lualine = function()

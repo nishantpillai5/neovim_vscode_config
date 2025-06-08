@@ -1,11 +1,12 @@
 local M = {}
 
-M.keys = {
+M.keys_all = {
   { '<leader>goc', '<cmd>GitBlameOpenCommitURL<cr>', mode = { 'n', 'v' }, desc = 'commit' },
   { '<leader>gof', '<cmd>GitBlameOpenFileURL<cr>', mode = { 'n', 'v' }, desc = 'file' },
   { '<leader>gv', desc = 'virtual_blame' },
-  { '<leader>zg', desc = 'git_virtual_blame' },
+  { '<leader>zg', desc = 'git_virtual_blame', vsc_cmd = 'gitlens.toggleLineBlame' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

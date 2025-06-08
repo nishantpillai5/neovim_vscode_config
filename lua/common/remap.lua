@@ -1,4 +1,5 @@
-local keys = {
+local M = {}
+M.keys_all = {
   { 'jk', desc = 'escape' },
   { '<leader>zl', desc = 'line_no_relative' },
   { '<leader>z/', desc = 'clear_search' },
@@ -14,9 +15,9 @@ local keys = {
   { '<leader>D', desc = 'delete_to_void' },
   { '<leader>P', desc = 'delete_then_paste_from_clipboard' },
   { '<leader>p', desc = 'paste_from_clipboard' },
-  { '<leader>zw', desc = 'wrap' },
-  { '<leader>H', desc = 'buffer_prev' },
-  { '<leader>eF', desc = 'netrw' },
+  { '<leader>zw', desc = 'wrap', vsc_cmd = 'editor.action.toggleWordWrap' },
+  { '<leader>H', desc = 'buffer_prev', vsc_cmd = 'workbench.action.previousEditor' },
+  { '<leader>eF', desc = 'netrw', vsc_cmd = 'workbench.view.explorer' },
   { 'J', desc = 'join_next_line' },
   { '<leader>zq', desc = 'lazyredraw_toggle' },
   { 'gco', desc = 'add_comment' },
@@ -30,7 +31,8 @@ local keys = {
   { '<leader>we', desc = 'cd_to_current_file' },
 }
 
-local set_keymap = require('common.utils').get_keymap_setter(keys)
+M.keys = require('common.utils').filter_keymap(M.keys_all)
+local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
 -- jk as esc
 set_keymap('i', 'jk', '<Esc>')
@@ -112,3 +114,5 @@ end
 
 set_keymap('n', '<leader>ew', cd_to_current_file)
 set_keymap('n', '<leader>we', cd_to_current_file)
+
+return M

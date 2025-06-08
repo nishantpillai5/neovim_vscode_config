@@ -8,10 +8,11 @@ local M = {}
 local icon = ' '
 local SILENT = true
 
-M.keys = {
-  { '<leader>ww', desc = 'select_scope' },
+M.keys_all = {
+  { '<leader>ww', desc = 'select_scope', vsc_cmd = 'hqv-mower.select' },
   { '<leader>wx', desc = 'close_scope' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.common_keys = {
   { '<leader>ff', desc = 'find_files(workspace)' },
@@ -103,7 +104,7 @@ local replace_telescope_keymaps = function()
     builtin.live_grep {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -111,7 +112,7 @@ local replace_telescope_keymaps = function()
     require('telescope').extensions.live_grep_args.live_grep_args {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -121,7 +122,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -131,7 +132,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -140,7 +141,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 end

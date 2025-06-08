@@ -1,8 +1,9 @@
 local M = {}
 
-M.keys = {
-  { '<leader>rn', desc = 'rename' },
+M.keys_all = {
+  { '<leader>rn', desc = 'rename', vsc_cmd = 'editor.action.refactor' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

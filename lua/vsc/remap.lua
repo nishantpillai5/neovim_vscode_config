@@ -82,11 +82,71 @@ local function readVscConfig()
   mapVscWhichkeyConfig(jsonfile['whichkey.others'], '')
 end
 
+local function readNvimKeys()
+  local scan = require 'plenary.scandir'
+  local Path = require 'plenary.path'
+  local modules = {}
+  local seen_keys = {}
+
+  local config_dir = vim.fn.stdpath 'config' .. '/lua'
+  scan.scan_dir(config_dir, {
+    depth = 10,
+    on_insert = function(entry)
+      if entry:match '%.lua$' then
+        local rel_path = Path:new(entry):make_relative(config_dir)
+        local mod_name = rel_path:gsub('%.lua$', ''):gsub('/', '.'):gsub('\\', '.')
+        table.insert(modules, mod_name)
+      end
+    end,
+  })
+  vim.notify('Found ' .. #modules .. ' modules in ' .. config_dir, vim.log.levels.INFO)
+
+  for _, mod in ipairs(modules) do
+    local ok, loaded = pcall(require, mod)
+    local keymaps = nil
+    if ok and type(loaded) == 'table' and loaded.M and loaded.M.keys_all then
+      keymaps = loaded.M.keys_all
+    elseif ok and type(loaded) == 'table' and loaded.keys_all then
+      keymaps = loaded.keys_all
+    end
+    if keymaps then
+      for _, keymap in ipairs(keymaps) do
+        if keymap[1] then
+          if not keymap.vsc_cmd then
+            keymap.vsc_cmd = 'not implemented'
+          end
+          local mode = keymap.mode or { 'n' }
+          local hash = table.concat(keymap.mode) .. keymap[1]
+          if seen_keys[hash] then
+            vim.notify(
+              string.format(
+                "Overwriting keymap for '%s' (previous vsc_cmd: %s, new vsc_cmd: %s)",
+                keymap[1],
+                seen_keys[keymap[1]],
+                keymap.vsc_cmd
+              ),
+              vim.log.levels.WARN
+            )
+          end
+          seen_keys[hash] = keymap.vsc_cmd
+          if keymap.vsc_cmd ~= 'not implemented' then
+            map_action(mode, keymap[1], keymap.vsc_cmd)
+          end
+        end
+      end
+    end
+  end
+
+  -- TODO: Export json file
+end
+
 -------------------------------------- Set keymaps --------------------------------------------
 
 vscode.action('whichkey.register', { args = { bindings = { 'whichkey', 'others' } } })
 
-readVscConfig()
+-- readVscConfig()
+
+readNvimKeys()
 
 map_action('n', '<leader>', 'whichkey.show')
 map_action('n', '<leader><leader>', 'whichkey.show', { args = { 'whichkey.others' } })

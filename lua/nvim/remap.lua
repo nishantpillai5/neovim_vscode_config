@@ -1,24 +1,26 @@
-local keys = {
-  { '<leader>s', desc = 'save' },
-  { '<leader>S', desc = 'save_force' },
-  { '<leader>x', desc = 'quit' },
-  { '<leader>X', desc = 'buffer_delete' },
-  { '<leader>zv', desc = 'vertical_split' },
-  { '<leader>zs', desc = 'horizontal_split' },
+local M = {}
+M.keys_all = {
+  { '<leader>s', desc = 'save', vsc_cmd = 'workbench.action.files.save' },
+  { '<leader>S', desc = 'save_force', vsc_cmd = 'workbench.action.files.save' },
+  { '<leader>x', desc = 'quit', vsc_cmd = 'workbench.action.closeActiveEditor' },
+  { '<leader>X', desc = 'buffer_delete', vsc_cmd = 'workbench.action.closeActiveEditor' },
+  { '<leader>zv', desc = 'vertical_split', vsc_cmd = 'workbench.action.splitEditorRight' },
+  { '<leader>zs', desc = 'horizontal_split', vsc_cmd = 'workbench.action.splitEditorDown' },
   { '<C-Right>', desc = 'vertical_resize_right' },
   { '<C-Left>', desc = 'vertical_resize_left' },
   { '<C-Up>', desc = 'vertical_resize_up' },
   { '<C-Down>', desc = 'horizontal_resize_down' },
   { '<Esc>', desc = 'exit_terminal' },
 
-  { '<leader>eO', desc = 'open_explorer' },
-  { '<leader>eyy', desc = 'yank_absolute_path' },
-  { '<leader>eyY', desc = 'yank_relative_path' },
+  { '<leader>eO', desc = 'open_explorer', vsc_cmd = 'revealFileInOS' },
+  { '<leader>eyy', desc = 'yank_absolute_path', vsc_cmd = 'copyFilePath' },
+  { '<leader>eyY', desc = 'yank_relative_path', vsc_cmd = 'copyRelativeFilePath' },
   { '<leader>eyf', desc = 'yank_filename' },
   { '<leader>eyF', desc = 'yank_folder' },
 }
 
-local set_keymap = require('common.utils').get_keymap_setter(keys)
+M.keys = require('common.utils').filter_keymap(M.keys_all)
+local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
 -- Editor
 set_keymap('n', '<leader>s', ':w<cr>')
@@ -64,3 +66,4 @@ for key, lookup in pairs(names) do
     vim.notify('Yanked: ' .. value)
   end)
 end
+return M

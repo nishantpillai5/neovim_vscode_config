@@ -7,14 +7,15 @@ local EXCLUDED_FTS = { 'terminal', 'Trouble', 'qf', 'edgy' }
 
 M.cmd = { 'Neotree' }
 
-M.keys = {
-  { '<leader>ee', desc = 'explorer' },
-  { '<leader>eE', desc = 'explorer_cwd' },
+M.keys_all = {
+  { '<leader>ee', desc = 'explorer', vsc_cmd = 'workbench.view.explorer' },
+  { '<leader>eE', desc = 'explorer_cwd', vsc_cmd = 'workbench.view.explorer' },
   { '<leader>eb', desc = 'buffers' },
-  { '<leader>eg', desc = 'git' },
+  { '<leader>eg', desc = 'git', vsc_cmd = 'workbench.view.scm' },
   { '<leader>fe', desc = 'explorer' },
   { '<leader>fE', desc = 'explorer_open' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 local select_dir = function(prompt, callback)
   local local_favs = _G.fav_dirs or {}

@@ -13,27 +13,29 @@ local attach_selection_prompt = 'Attach the selected code to the chat. Only repl
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/prompts.lua
 -- https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/canary/lua/CopilotChat/config.lua
 
-M.keys = {
-  { '<leader>ca', desc = 'attach_selection', mode = 'v' },
-  { '<leader>cA', desc = 'attach_file', mode = 'v' },
-  { '<leader>cc', mode = 'n', desc = 'chat' },
-  { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain' },
+M.keys_all = {
+  { '<leader>ca', desc = 'attach_selection', mode = 'v', vsc_cmd = 'github.copilot.chat.attachSelection' },
+  { '<leader>cA', desc = 'attach_file', mode = 'v', vsc_cmd = 'github.copilot.chat.attachFile' },
+  { '<leader>cc', mode = 'n', desc = 'chat', vsc_cmd = 'workbench.action.chat.openInSidebar' },
+  { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain', vsc_cmd = 'github.copilot.chat.explain.palette' },
   { '<leader>co', mode = { 'n', 'v' }, desc = 'optimize' },
-  { '<leader>cd', mode = { 'n', 'v' }, desc = 'diagnostic_fix' },
-  { '<leader>cD', mode = { 'n', 'v' }, desc = 'docs' },
+  { '<leader>cd', mode = { 'n', 'v' }, desc = 'diagnostic_fix', vsc_cmd = 'github.copilot.interactiveEditor.fix' },
+  { '<leader>cD', mode = { 'n', 'v' }, desc = 'docs', vsc_cmd = 'github.copilot.interactiveEditor.generateDocs' },
   { '<leader>cg', mode = { 'n', 'v' }, desc = 'commit' },
   { '<leader>cG', mode = { 'n', 'v' }, desc = 'commit_staged' },
   { '<leader>cr', mode = { 'n', 'v' }, desc = 'review' },
-  { '<leader>ct', mode = { 'n', 'v' }, desc = 'tests' },
+  { '<leader>ct', mode = { 'n', 'v' }, desc = 'tests', vsc_cmd = 'github.copilot.interactiveEditor.generateTests' },
   { '<leader>cx', desc = 'stop' },
   { '<leader>cX', desc = 'reset' },
-  { '<leader>cb', desc = 'buffer' },
+  { '<leader>cb', desc = 'buffer', vsc_cmd = 'workbench.action.chat.openInSidebar' },
   { '<leader>cc', mode = 'v', desc = 'selection' },
   { '<leader>cs', mode = 'v', desc = 'simplify' },
   { '<leader>cp', mode = 'n', desc = 'pr_changes' },
   { '<leader>fc', mode = { 'n', 'v' }, desc = 'chat' },
   { '<leader>cf', mode = { 'n', 'v' }, desc = 'find' },
 }
+
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.buffer_keys = {
   '<C-p>',

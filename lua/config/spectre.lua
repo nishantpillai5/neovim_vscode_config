@@ -1,10 +1,11 @@
 local M = {}
 
-M.keys = {
-  { '<leader>r/', desc = 'spectre_local', mode = { 'n', 'v' } },
-  { '<leader>r?', desc = 'spectre_global' },
+M.keys_all = {
+  { '<leader>r/', desc = 'spectre_local', mode = { 'n', 'v' }, vsc_cmd = 'search.action.replaceAllInFile' },
+  { '<leader>r?', desc = 'spectre_global', vsc_cmd = 'workbench.action.replaceInFiles' },
   { '<leader>rw', desc = 'spectre_global_word', mode = { 'n', 'v' } },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local spectre = require 'spectre'

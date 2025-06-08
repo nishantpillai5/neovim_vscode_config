@@ -2,17 +2,42 @@ _G.pyright_settings = _G.pyright_settings or nil
 
 local M = {}
 
-M.keys = {
-  { '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', mode = { 'n', 'v' }, desc = 'action(F4)' },
-  { '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', mode = { 'n', 'v' }, desc = 'format_with_lsp(F3)' },
-  { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename(F2)' },
+M.keys_all = {
+  {
+    '<leader>la',
+    '<cmd>lua vim.lsp.buf.code_action()<CR>',
+    mode = { 'n', 'v' },
+    desc = 'action(F4)',
+    vsc_cmd = 'editor.action.quickFix',
+  },
+  {
+    '<leader>lS',
+    '<cmd>lua vim.lsp.buf.format()<CR>',
+    mode = { 'n', 'v' },
+    desc = 'format_with_lsp(F3)',
+    vsc_cmd = 'editor.action.formatDocument',
+  },
+  {
+    '<leader>lr',
+    '<cmd>lua vim.lsp.buf.rename()<CR>',
+    mode = { 'n', 'v' },
+    desc = 'rename(F2)',
+    vsc_cmd = 'editor.action.rename',
+  },
   { '<leader>rl', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename_with_lsp(F2)' },
-  { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', mode = { 'n', 'v' }, desc = 'hints_view(K)' },
+  {
+    '<leader>lh',
+    '<cmd>lua vim.lsp.buf.hover()<CR>',
+    mode = { 'n', 'v' },
+    desc = 'hints_view(K)',
+    vsc_cmd = 'editor.action.showHover',
+  },
   { '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', mode = { 'n', 'v' }, desc = 'diagnostic_view(gl)' },
   { '<leader>lx', desc = 'refresh' },
   { '<leader>lD', desc = 'diagnostics_toggle' },
-  { '<leader>lH', desc = 'hints_toggle' },
+  { '<leader>lH', desc = 'hints_toggle', vsc_cmd = 'clangd.inlayHints.toggle' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local toggle_hints = function()

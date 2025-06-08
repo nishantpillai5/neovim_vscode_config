@@ -1,11 +1,12 @@
 local M = {}
 
-M.keys = {
-  { '<leader>bb', desc = 'toggle_view' },
-  { '<leader>bK', desc = 'hover' },
+M.keys_all = {
+  { '<leader>bb', desc = 'toggle_view', vsc_cmd = 'workbench.view.debug' },
+  { '<leader>bK', desc = 'hover', vsc_cmd = 'editor.debug.action.showDebugHover' },
   -- { "<leader>bK", "<cmd>lua require('dap.ui.variables').visual_hover()<cr>", mode = "v", desc = "Breakpoint.hover" },
   -- { "<leader>b?", "<cmd>lua require('dap.ui.variables').scopes()<cr>", mode = "v", desc = "Breakpoint.hover" },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.common_keys = {
   { 'K', desc = 'dap_eval' },

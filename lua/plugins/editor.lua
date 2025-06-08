@@ -48,9 +48,7 @@ return {
   {
     'mbbill/undotree',
     lazy = true,
-    keys = {
-      { '<leader>u', '<cmd>UndotreeToggle<cr>', desc = 'undotree' },
-    },
+    keys = require('config.undo_tree').keys,
     cond = conds['mbbill/undotree'] or false,
   },
   -- Better yank
@@ -80,10 +78,7 @@ return {
     'folke/zen-mode.nvim',
     lazy = true,
     cond = conds['folke/zen-mode.nvim'] or false,
-    keys = {
-      { '<leader>zz', "<cmd>lua require('zen-mode').toggle()<cr>", desc = 'zen' },
-      { '<leader>zZ', "<cmd>lua require('zen-mode').toggle({window = { width = 1 }})<cr>", desc = 'zen_full' },
-    },
+    keys = require('config.zen_mode').keys,
     opts = {
       window = { width = 0.95 },
       plugins = {
@@ -150,7 +145,7 @@ return {
     'mawkler/demicolon.nvim',
     lazy = true,
     cond = conds['mawkler/demicolon.nvim'] or false,
-    keys = {']', '[' },
+    keys = { ']', '[' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'nvim-treesitter/nvim-treesitter-textobjects',

@@ -1,7 +1,7 @@
 local M = {}
 
-M.keys = {
-  { '<leader>gj', desc = 'diff_from_head' },
+M.keys_all = {
+  { '<leader>gj', desc = 'diff_from_head', vsc_cmd = 'workbench.view.scm' },
   { '<leader>gk', desc = 'diff_from_fork' },
   { '<leader>gl', desc = 'diff_from_main' },
   { '<leader>g;', desc = 'diff_from_branch' },
@@ -13,6 +13,7 @@ M.keys = {
   { '<leader>gzh', desc = 'stash_file_history' },
   { '<leader>gzH', desc = 'stash_history' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.cmd = {
   'DiffviewOpen',
@@ -68,11 +69,11 @@ local file_diff = close_wrapper(function()
 end)
 
 local file_diff_from_fork = close_wrapper(function()
-  vim.cmd('DiffviewOpen ' .. require('common.utils').get_merge_base() .. '...HEAD -- %' )
+  vim.cmd('DiffviewOpen ' .. require('common.utils').get_merge_base() .. '...HEAD -- %')
 end)
 
 local file_diff_from_main = close_wrapper(function()
-  vim.cmd('DiffviewOpen origin/' .. require('common.utils').get_main_branch() .. '...HEAD -- %' )
+  vim.cmd('DiffviewOpen origin/' .. require('common.utils').get_main_branch() .. '...HEAD -- %')
 end)
 
 local file_diff_from_branch = close_wrapper(function()

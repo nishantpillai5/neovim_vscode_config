@@ -1,23 +1,24 @@
 local M = {}
 
-M.keys = {
-  { '<leader>tt', desc = 'toggle' },
-  { '<leader>td', desc = 'diagnostics' },
+M.keys_all = {
+  { '<leader>tt', desc = 'toggle', vsc_cmd = 'workbench.action.togglePanel' },
+  { '<leader>td', desc = 'diagnostics', vsc_cmd = 'workbench.actions.view.toggleProblems' },
   { '<leader>tD', desc = 'diagnostics_global' },
-  { '<leader>tq', desc = 'quickfix' },
+  { '<leader>tq', desc = 'quickfix', vsc_cmd = 'problems.action.showQuickFixes' },
   { '<leader>tL', desc = 'loclist' },
   { '<leader>tg', desc = 'git' },
   { '<leader>tl', desc = 'lsp' },
   { '<leader>ll', desc = 'lsp' },
   { '<leader>tf', desc = 'finder' },
-  { '<leader>j', desc = 'trouble_next' },
-  { '<leader>k', desc = 'trouble_prev' },
+  { '<leader>j', desc = 'trouble_next', vsc_cmd = 'editor.action.marker.next' },
+  { '<leader>k', desc = 'trouble_prev', vsc_cmd = 'editor.action.marker.prev' },
   { '<leader>J', desc = 'trouble_next_jump_to_hunk' },
   { '<leader>K', desc = 'trouble_prev_jump_to_hunk' },
   { '<M-j>', desc = 'trouble_next' },
   { '<M-k>', desc = 'trouble_prev' },
   { 'gr', desc = 'references' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.use_trouble = function()
   local trouble = require 'trouble'

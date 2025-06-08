@@ -27,16 +27,8 @@ return {
     lazy = true,
     dependencies = { 'nvim-lua/plenary.nvim' },
     cond = conds['kdheepak/lazygit.nvim'] or false,
-    cmd = {
-      'LazyGit',
-      'LazyGitConfig',
-      'LazyGitCurrentFile',
-      'LazyGitFilter',
-      'LazyGitFilterCurrentFile',
-    },
-    keys = {
-      { '<leader>g\'', '<cmd>LazyGit<cr>', desc = 'lazygit' },
-    },
+    cmd = require('config.lazy_git').cmd,
+    keys = require('config.lazy_git').keys,
   },
   -- Diff
   {

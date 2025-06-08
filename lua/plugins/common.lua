@@ -93,4 +93,9 @@ return {
     cond = conds['echasnovski/mini.align'] or false,
     opts = {},
   },
+  -- Need plenary.nvim for remaping vscode commands
+  {
+    'nvim-lua/plenary.nvim',
+    lazy = false,
+  },
 }

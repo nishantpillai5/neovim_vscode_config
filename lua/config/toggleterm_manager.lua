@@ -1,10 +1,11 @@
 local M = {}
 
-M.keys = {
-  { '<leader>fO', desc = 'terminals_manual' },
-  { '<leader>fo', desc = 'terminals_all' },
-  { '<leader>Of', desc = 'find' },
+M.keys_all = {
+  { '<leader>fO', desc = 'terminals_manual', vsc_cmd = 'workbench.action.terminal.focusTabs' },
+  { '<leader>fo', desc = 'terminals_all', vsc_cmd = 'workbench.action.terminal.focusTabs' },
+  { '<leader>Of', desc = 'find', vsc_cmd = 'workbench.action.terminal.focusTabs' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

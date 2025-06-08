@@ -1,12 +1,12 @@
 local M = {}
 
-M.keys = {
+M.keys_all = {
   { '<leader>gB', desc = 'blame_buffer' },
   { '[c', desc = 'prev_hunk' },
   { ']c', desc = 'next_hunk' },
-  { '<leader>ghs', desc = 'stage' },
-  { '<leader>ghr', desc = 'reset' },
-  { '<leader>ghS', desc = 'stage_buffer' },
+  { '<leader>ghs', desc = 'stage', vsc_cmd = 'git.diff.stageHunk' },
+  { '<leader>ghr', desc = 'reset', vsc_cmd = 'git.revertSelectedRanges' },
+  { '<leader>ghS', desc = 'stage_buffer', vsc_cmd = 'git.stageFile' },
   { '<leader>ghu', desc = 'undo_stage' },
   { '<leader>ghR', desc = 'reset_buffer' },
   { '<leader>gRj', desc = 'reset_file' },
@@ -15,6 +15,7 @@ M.keys = {
   { '<leader>gV', desc = 'virtual_deleted' },
   { 'ih', mode = { 'o', 'x' }, desc = 'select_hunk' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

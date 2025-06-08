@@ -12,6 +12,12 @@ function M.get_keys(t)
   return keys
 end
 
+function M.filter_keymap(keys)
+  return vim.tbl_filter(function(key)
+    return not key.vsc_cmd
+  end, keys)
+end
+
 function M.merge_list(t1, t2)
   local new_list = {}
   for _, v in ipairs(t1) do

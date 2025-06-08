@@ -2,12 +2,13 @@ local starts_with = require('common.utils').starts_with
 
 local M = {}
 
-M.keys = {
+M.keys_all = {
   { '<leader>zr', desc = 'reset_ui' },
-  { '<leader>zx', desc = 'close_ui' },
-  { '<leader>ex', desc = 'close_sidebar' },
-  { '<leader>Ox', desc = 'close_panel' },
+  { '<leader>zx', desc = 'close_ui', vsc_cmd = 'workbench.action.togglePanel' },
+  { '<leader>ex', desc = 'close_sidebar', vsc_cmd = 'workbench.action.toggleSidebarVisibility' },
+  { '<leader>Ox', desc = 'close_panel', vsc_cmd = 'workbench.action.togglePanel' },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 local settings = {
   bottom_height = 0.2,

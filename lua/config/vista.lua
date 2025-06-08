@@ -1,9 +1,16 @@
 local M = {}
 
-M.keys = {
-  { '<leader>es', '<cmd>Vista focus<cr>', mode = 'n', desc = 'symbols' },
-  { '<leader>eS', '<cmd>Vista!!<cr>', mode = 'n', desc = 'symbols_close' },
+M.keys_all = {
+  { '<leader>es', '<cmd>Vista focus<cr>', mode = 'n', desc = 'symbols', vsc_cmd = 'outline.focus' },
+  {
+    '<leader>eS',
+    '<cmd>Vista!!<cr>',
+    mode = 'n',
+    desc = 'symbols_close',
+    vsc_cmd = 'workbench.action.toggleSidebarVisibility',
+  },
 }
+M.keys = require('common.utils').filter_keymap(M.keys_all)
 
 M.cmd = { 'Vista' }
 
