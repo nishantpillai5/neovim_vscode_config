@@ -6,8 +6,11 @@ M.keys = {
   { '<leader>A', '<cmd>Other<cr>', desc = 'alternate_file' },
 }
 M.setup = function()
+  local mappings = { 'c' }
+  vim.list_extend(mappings, _G.other_mappings or {})
+
   require('other-nvim').setup {
-    mappings = vim.tbl_deep_extend('force', { 'c' }, _G.other_mappings),
+    mappings = mappings,
   }
 end
 

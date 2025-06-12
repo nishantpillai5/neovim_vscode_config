@@ -36,7 +36,7 @@ local diffview_toggle = close_wrapper(function()
 end)
 
 local diffview_from_fork = close_wrapper(function()
-  vim.cmd('DiffviewOpen ' .. require('common.utils').get_merge_base() .. '...HEAD')
+  vim.cmd('DiffviewOpen ' .. require('common.utils').get_fork_point() .. '...HEAD')
 end)
 
 local diffview_from_main = close_wrapper(function()

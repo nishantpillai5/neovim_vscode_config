@@ -62,8 +62,9 @@ return {
   -- LSP
   {
     'VonHeikemen/lsp-zero.nvim',
+    lazy = true,
     event = 'VeryLazy',
-    event = { 'BufReadPre', 'BufNewFile' },
+    -- event = { 'BufReadPre', 'BufNewFile' },
     branch = 'v3.x',
     dependencies = {
       'williamboman/mason.nvim',

@@ -49,6 +49,13 @@ function M.get_merge_base(branch)
   return vim.fn.system('git merge-base HEAD ' .. branch):gsub('%s+', '')
 end
 
+function M.get_fork_point(branch)
+  if not branch or branch == '' then
+    branch = M.get_main_branch()
+  end
+  return vim.fn.system('git merge-base --fork-point ' .. branch .. " HEAD"):gsub('%s+', '')
+end
+
 local function get_desc(lhs, table)
   if table == nil or #table == 0 then
     return 'UNKNOWN'

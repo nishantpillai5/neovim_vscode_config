@@ -106,7 +106,7 @@ end
 local live_grep_changed_files_from_fork = function(opts)
   opts = opts or {}
   opts.prompt_title = 'Live Grep Changed Files from Fork'
-  live_grep_changed_files_from(utils.get_merge_base(), opts)
+  live_grep_changed_files_from(utils.get_fork_point(), opts)
 end
 
 local live_grep_changed_files_from_main = function(opts)
@@ -333,7 +333,7 @@ local changed_files_with_untracked = function()
 end
 
 local changed_files_from_fork = function()
-  changed_files_from(utils.get_merge_base())
+  changed_files_from(utils.get_fork_point())
 end
 
 local changed_files_from_main = function()
@@ -363,7 +363,7 @@ local reset_file_to = function(ref)
 end
 
 local reset_file_to_fork = function()
-  reset_file_to(utils.get_merge_base())
+  reset_file_to(utils.get_fork_point())
 end
 
 local reset_file_to_main = function()
