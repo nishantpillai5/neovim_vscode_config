@@ -4,7 +4,7 @@ M.keys = {
   { '[t', desc = 'todo' },
   { ']T', desc = 'todo_last' },
   { '[T', desc = 'todo_first' },
-  { '<leader>ft', desc = 'todos' },
+  { '<leader>fT', desc = 'todos' },
   { '<leader>tT', desc = 'todos' },
 }
 
@@ -28,7 +28,7 @@ M.keymaps = function()
     todo.jump_prev { last = true }
   end)
 
-  set_keymap('n', '<leader>ft', function()
+  set_keymap('n', '<leader>fT', function()
     vim.cmd 'TodoTelescope'
   end)
 

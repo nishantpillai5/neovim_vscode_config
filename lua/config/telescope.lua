@@ -419,7 +419,7 @@ M.keys = {
   { '<leader>gK', desc = 'grep_from_fork' },
   { '<leader>gL', desc = 'grep_from_main' },
   { '<leader>g:', desc = 'grep_from_branch' },
-  { '<leader>fT', desc = 'todos_in_fork' },
+  { '<leader>ft', desc = 'todos_in_fork' },
   { '<leader>f/', desc = 'live_grep_global' },
   { '<leader>f?', desc = 'live_grep_global_with_args' },
   { '<leader>/', desc = 'find_local' },
@@ -489,7 +489,7 @@ M.keymaps = function()
   set_keymap('n', '<leader>gRl', reset_file_to_main)
   set_keymap('n', '<leader>gR;', reset_file_to_branch)
 
-  set_keymap('n', '<leader>fT', function()
+  set_keymap('n', '<leader>ft', function()
     live_grep_changed_files_from_fork { default_text = require('common.env').TODO_CUSTOM .. ':' }
   end, { desc = 'todos_in_fork(' .. require('common.env').TODO_CUSTOM .. ')' })
 
