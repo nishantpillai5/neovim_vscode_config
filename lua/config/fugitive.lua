@@ -27,6 +27,7 @@ local toggle_fugitive = function()
     end
   end
   vim.api.nvim_command 'Git'
+  vim.cmd 'normal! gg'
 end
 
 local stash_with_message = function()
@@ -53,6 +54,7 @@ local reload_fugitive_buffer = function()
     if vim.bo[buf].filetype == 'fugitive' then
       vim.api.nvim_buf_delete(buf, { force = true })
       vim.cmd 'Git'
+      vim.cmd 'normal! gg'
       if should_go_back then
         vim.cmd 'wincmd p'
       end
