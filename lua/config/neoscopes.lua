@@ -26,7 +26,7 @@ M.common_keys = {
 -- FIXME: Telescope keymaps are not replaced
 -- key map lazy load doesn't work
 -- VeryLazy loading for now
-vim.list_extend(M.keys, M.common_keys)
+-- vim.list_extend(M.keys, M.common_keys)
 
 M.constrain_to_scope = function(opts)
   local neoscopes = require 'neoscopes'

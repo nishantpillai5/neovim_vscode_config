@@ -46,11 +46,17 @@ local stash_untracked_with_message = function()
 end
 
 local reload_fugitive_buffer = function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local should_go_back = vim.bo[bufnr].filetype ~= 'fugitive'
+
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
     if vim.bo[buf].filetype == 'fugitive' then
       vim.api.nvim_buf_delete(buf, { force = true })
       vim.cmd 'Git'
-      vim.cmd 'wincmd p'
+      if should_go_back then
+        vim.cmd 'wincmd p'
+      end
+      return
     end
   end
 end

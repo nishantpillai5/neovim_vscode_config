@@ -2,7 +2,7 @@ local M = {}
 _G.filter_build_tasks = _G.filter_build_tasks or nil
 _G.filter_run_tasks = _G.filter_run_tasks or nil
 _G.task_formatter = _G.task_formatter or nil
-_G.run_cmd = _G.run_cmd or nil
+_G.run_template = _G.run_template or nil
 _G.build_template = _G.build_template or nil
 
 M.cmd = { 'OverseerList' }
@@ -166,10 +166,10 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>or', function()
-    if _G.run_cmd == nil then
-      vim.notify('Run Command not set', vim.log.levels.ERROR)
+    if _G.run_template == nil then
+      vim.notify('Run template not set', vim.log.levels.ERROR)
     else
-      vim.cmd('OverseerRunCmd ' .. _G.run_cmd)
+      overseer.run_template(_G.run_template)
     end
   end)
 
