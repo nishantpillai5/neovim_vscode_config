@@ -24,7 +24,7 @@ M.keys = {
   { '<leader>cg', mode = { 'n', 'v' }, desc = 'commit' },
   { '<leader>cG', mode = { 'n', 'v' }, desc = 'commit_staged' },
   { '<leader>cr', mode = { 'n', 'v' }, desc = 'review' },
-  { '<leader>ct', mode = { 'n', 'v' }, desc = 'tests' },
+  { '<leader>ci', mode = { 'n', 'v' }, desc = 'tests' },
   { '<leader>cx', desc = 'stop' },
   { '<leader>cX', desc = 'reset' },
   { '<leader>cb', desc = 'buffer' },
