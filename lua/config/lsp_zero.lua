@@ -33,9 +33,19 @@ M.keymaps = function()
   set_keymap('n', '<leader>lH', toggle_hints)
 
   set_keymap('n', '<leader>lx', function()
-    local client = vim.lsp.get_clients({ bufnr = vim.api.nvim_get_current_buf() })[1]
-    vim.cmd('LspRestart ' .. client.id)
-    vim.notify('LSP restarted: ' .. client.name)
+    local clients = vim.lsp.get_clients { bufnr = vim.api.nvim_get_current_buf() }
+    local found = false
+    for _, client in ipairs(clients) do
+      if client.name ~= 'GitHub Copilot' then
+        vim.cmd('LspRestart ' .. client.id)
+        vim.notify('LSP restarted: ' .. client.name)
+        found = true
+        break
+      end
+    end
+    if not found then
+      vim.notify 'No LSP clients found for this buffer.'
+    end
   end)
 end
 
