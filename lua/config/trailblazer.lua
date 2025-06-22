@@ -9,7 +9,7 @@ M.keys = {
   { 'mp', desc = 'paste_last' },
   { 'mP', desc = 'paste_all' },
   { 'mx', desc = 'back' },
-  { 'M', desc = 'toggle_trail_mark_list' },
+  { '<leader>m', desc = 'toggle_trail_mark_list' },
   { '<C-PageDown>', desc = 'next_mark' },
   { '<C-PageUp>', desc = 'previous_mark' },
 }
@@ -75,7 +75,7 @@ M.setup = function()
         motions = {
           track_back = 'mx',
           move_to_nearest = 'mn',
-          toggle_trail_mark_list = 'M',
+          toggle_trail_mark_list = '<leader>m',
         },
         actions = {
           delete_all_trail_marks = 'mD',

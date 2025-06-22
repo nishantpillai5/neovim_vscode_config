@@ -60,7 +60,7 @@ M.spec = {
   { 'mp', desc = 'paste_last' },
   { 'mP', desc = 'paste_all' },
   { 'mx', desc = 'back' },
-  { 'M', desc = 'toggle_trail_mark_list' },
+  { '<leader>m', desc = 'toggle_trail_mark_list' },
   { '<A-PageDown>', desc = 'next_mark' },
   { '<A-PageUp>', desc = 'previous_mark' },
 
