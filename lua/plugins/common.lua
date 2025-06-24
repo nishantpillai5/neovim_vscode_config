@@ -1,4 +1,5 @@
 local plugins = {
+  'chrisgrieser/nvim-spider',
   'smoka7/hop.nvim',
   'kylechui/nvim-surround',
   'LeonHeidelbach/trailblazer.nvim',
@@ -12,6 +13,24 @@ local plugins = {
 local conds = require('common.utils').get_conds_table(plugins)
 
 return {
+  {
+    'chrisgrieser/nvim-spider',
+    lazy = true,
+    cond = conds['chrisgrieser/nvim-spider'] or false,
+    keys = {
+      { 'W', "<cmd>lua require('spider').motion('w')<CR>", mode = { 'n', 'o', 'x' } },
+      { 'E', "<cmd>lua require('spider').motion('e')<CR>", mode = { 'n', 'o', 'x' } },
+      { 'B', "<cmd>lua require('spider').motion('b')<CR>", mode = { 'n', 'o', 'x' } },
+    },
+    config = function()
+      require('spider').setup {
+        skipInsignificantPunctuation = true,
+        consistentOperatorPending = false,
+        subwordMovement = true,
+        customPatterns = {},
+      }
+    end,
+  },
   -- Hop around text
   {
     'smoka7/hop.nvim',
