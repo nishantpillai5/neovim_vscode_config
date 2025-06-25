@@ -41,10 +41,11 @@ M.setup = function()
         return vim.o.columns * 0.30
       end
     end,
-    close_on_exit = true,
+    close_on_exit = false,
     start_in_insert = false,
     hide_numbers = true,
     persist_size = false,
+    auto_scroll = false,
   }
 end
 

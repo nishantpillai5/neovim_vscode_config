@@ -3,10 +3,10 @@ local M = {}
 M.cmd = { 'TimerStart', 'TimerRepeat', 'TimerSession' }
 
 M.keys = {
-  { '<leader>zoo', desc = 'start' },
-  { '<leader>zor', desc = 'resume' },
-  { '<leader>zop', desc = 'pause' },
-  { '<leader>zof', desc = 'find' },
+  { '<leader>zps', desc = 'start' },
+  { '<leader>zpr', desc = 'resume' },
+  { '<leader>zpp', desc = 'pause' },
+  { '<leader>zpf', desc = 'find' },
 }
 
 local function pomodoro_text()
@@ -34,11 +34,11 @@ M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
   require('telescope').load_extension 'pomodori'
 
-  set_keymap('n', '<leader>zoo', '<cmd>TimerSession pomodoro<cr>')
-  set_keymap('n', '<leader>zor', '<cmd>TimerResume<cr>')
-  set_keymap('n', '<leader>zop', '<cmd>TimerPause<cr>')
+  set_keymap('n', '<leader>zps', '<cmd>TimerSession pomodoro<cr>')
+  set_keymap('n', '<leader>zpr', '<cmd>TimerResume<cr>')
+  set_keymap('n', '<leader>zpp', '<cmd>TimerPause<cr>')
 
-  set_keymap('n', '<leader>zof', function()
+  set_keymap('n', '<leader>zpf', function()
     require('telescope').extensions.pomodori.timers()
   end)
 end
@@ -67,5 +67,7 @@ M.config = function()
   M.keymaps()
   M.lualine()
 end
+
+-- M.config()
 
 return M

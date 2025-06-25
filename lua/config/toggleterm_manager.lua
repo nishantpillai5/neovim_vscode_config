@@ -1,23 +1,12 @@
 local M = {}
 
 M.keys = {
-  { '<leader>fO', desc = 'terminals_manual' },
-  { '<leader>fo', desc = 'terminals_all' },
+  { '<leader>fO', desc = 'terminals' },
+  -- { '<leader>fo', desc = 'terminals_all' },
   { '<leader>Of', desc = 'find' },
 }
 
-M.keymaps = function()
-  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
-
-  set_keymap('n', '<leader>Of', function()
-    vim.cmd [[ Telescope toggleterm_manager ]]
-  end)
-
-  set_keymap('n', '<leader>fO', function()
-    vim.cmd [[ Telescope toggleterm_manager ]]
-  end)
-
-  set_keymap('n', '<leader>fo', function()
+local function pick_terminal()
     local pickers = require 'telescope.pickers'
     local finders = require 'telescope.finders'
     local conf = require('telescope.config').values
@@ -81,7 +70,20 @@ M.keymaps = function()
         end,
       })
       :find()
+  end
+
+M.keymaps = function()
+  local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<leader>Of', function()
+    vim.cmd [[ Telescope toggleterm_manager ]]
   end)
+
+  set_keymap('n', '<leader>fO', function()
+    vim.cmd [[ Telescope toggleterm_manager ]]
+  end)
+
+  -- set_keymap('n', '<leader>fo', pick_terminal)
 end
 
 M.setup = function()

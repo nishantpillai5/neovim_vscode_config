@@ -9,7 +9,11 @@ M.cmd = { 'OverseerList' }
 
 M.keys = {
   { '<leader>oo', desc = 'run_from_list' },
+  { '<leader>oO', desc = 'run_cmd' },
   { '<leader>eo', desc = 'tasks' },
+  { '<leader>of', desc = 'change_task' },
+  { '<leader>fo', desc = 'tasks' },
+  { '<leader>on', desc = 'new' },
   { '<leader>oc', desc = 'change_last' },
   { '<leader>ol', desc = 'restart_last' },
   { '<leader>op', desc = 'preview_last' },
@@ -141,7 +145,21 @@ M.keymaps = function()
     vim.cmd 'OverseerRun'
   end)
 
+  set_keymap('n', '<leader>oO', ":OverseerRunCmd ")
+
   set_keymap('n', '<leader>eo', toggle_sidebar)
+
+  set_keymap('n', '<leader>of', function()
+    vim.cmd 'OverseerTaskAction'
+  end)
+
+  set_keymap('n', '<leader>fo', function()
+    vim.cmd 'OverseerTaskAction'
+  end)
+
+  set_keymap('n', '<leader>on', function()
+    vim.cmd 'OverseerBuild'
+  end)
 
   set_keymap('n', '<leader>oc', function()
     action_on_last_task(nil)
@@ -256,7 +274,6 @@ M.setup = function()
       },
     },
   }
-
 end
 
 M.lualine = function()

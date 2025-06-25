@@ -1259,6 +1259,24 @@
                     "command": "workbench.action.tasks.runTask"
                 },
                 {
+                    "key": "O",
+                    "name": "run_cmd",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "f",
+                    "name": "change_task",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": "n",
+                    "name": "new",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
                     "key": "p",
                     "name": "preview_last",
                     "type": "command",
@@ -1571,7 +1589,7 @@
                     "command": ""
                 },
                 {
-                    "key": "o",
+                    "key": "p",
                     "name": "+Pomodoro",
                     "type": "bindings",
                     "bindings": [
@@ -1582,7 +1600,7 @@
                             "command": "only available through neovim"
                         },
                         {
-                            "key": "o",
+                            "key": "s",
                             "name": "start",
                             "type": "command",
                             "command": "only available through neovim"
@@ -1596,6 +1614,25 @@
                         {
                             "key": "r",
                             "name": "resume",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        }
+                    ]
+                },
+                {
+                    "key": "o",
+                    "name": "+Source_Config",
+                    "type": "bindings",
+                    "bindings": [
+                        {
+                            "key": "o",
+                            "name": "source_config_current_file",
+                            "type": "command",
+                            "command": "only available through neovim"
+                        },
+                        {
+                            "key": "f",
+                            "name": "source_config_full",
                             "type": "command",
                             "command": "only available through neovim"
                         }
