@@ -66,6 +66,13 @@ M.keymaps = function()
         require('telescope').load_extension 'nerdy'
       end
 
+      local color_names_status, _ = pcall(require, 'telescope-color-names')
+      -- TODO: module name is incorrect
+      -- vim.notify('Color names status: ' .. tostring(color_names_status), vim.log.levels.INFO)
+      if color_names_status or true then
+        require('telescope').load_extension 'color_names'
+      end
+
       -- require("telescope").load_extension("refactoring")
 
       require('telescope').load_extension 'picker_list'

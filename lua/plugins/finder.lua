@@ -38,6 +38,7 @@ return {
       'xiyaowong/telescope-emoji.nvim',
       '2KAbhishek/nerdy.nvim',
       'jemag/telescope-diff.nvim',
+      'nishantpillai5/telescope-color-names.nvim',
     },
     cond = conds['OliverChao/telescope-picker-list.nvim'] or false,
     keys = require('config.telescope_picker').keys,
