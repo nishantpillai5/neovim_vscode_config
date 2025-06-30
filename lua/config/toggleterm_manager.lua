@@ -3,7 +3,7 @@ local M = {}
 M.keys = {
   { '<leader>fO', desc = 'terminals' },
   -- { '<leader>fo', desc = 'terminals_all' },
-  { '<leader>Of', desc = 'find' },
+  { '<leader>oF', desc = 'find' },
 }
 
 local function pick_terminal()
@@ -75,11 +75,11 @@ local function pick_terminal()
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  set_keymap('n', '<leader>Of', function()
+  set_keymap('n', '<leader>fO', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
   end)
 
-  set_keymap('n', '<leader>fO', function()
+  set_keymap('n', '<leader>oF', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
   end)
 

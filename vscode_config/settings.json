@@ -1324,6 +1324,12 @@
                             "command": "not implemented"
                         }
                     ]
+                },
+                {
+                    "key": "y",
+                    "name": "yank_terminal",
+                    "type": "command",
+                    "command": "not implemented"
                 }
             ]
         },
@@ -1620,23 +1626,16 @@
                     ]
                 },
                 {
-                    "key": "o",
-                    "name": "+Source_Config",
-                    "type": "bindings",
-                    "bindings": [
-                        {
-                            "key": "o",
-                            "name": "source_config_current_file",
-                            "type": "command",
-                            "command": "only available through neovim"
-                        },
-                        {
-                            "key": "f",
-                            "name": "source_config_full",
-                            "type": "command",
-                            "command": "only available through neovim"
-                        }
-                    ]
+                    "key": ";",
+                    "name": "source_config_current_file",
+                    "type": "command",
+                    "command": "only available through neovim"
+                },
+                {
+                    "key": ":",
+                    "name": "source_config_full",
+                    "type": "command",
+                    "command": "only available through neovim"
                 },
                 {
                     "key": "O",

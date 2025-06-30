@@ -16,6 +16,7 @@ local keys = {
   { '<leader>eyY', desc = 'yank_relative_path' },
   { '<leader>eyf', desc = 'yank_filename' },
   { '<leader>eyF', desc = 'yank_folder' },
+  { '<leader>oy', desc = 'yank_terminal' },
 }
 
 local set_keymap = require('common.utils').get_keymap_setter(keys)
@@ -64,3 +65,41 @@ for key, lookup in pairs(names) do
     vim.notify('Yanked: ' .. value)
   end)
 end
+
+set_keymap('n', '<leader>oy', function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  if vim.bo[bufnr].buftype ~= 'terminal' then
+    vim.notify('Not a terminal buffer', vim.log.levels.WARN)
+    return
+  end
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  while #lines > 0 and lines[#lines]:match('^%s*$') do
+    table.remove(lines, #lines)
+  end
+  local term_name = vim.api.nvim_buf_get_name(bufnr)
+  local output_name = term_name .. '.output'
+
+  -- Check if a buffer with the same name exists
+  local existing_buf = nil
+  for _, b in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_get_name(b) == output_name then
+      existing_buf = b
+      break
+    end
+  end
+
+  local new_buf = existing_buf or vim.api.nvim_create_buf(true, false) -- listed, not scratch
+
+  -- Set buffer options to avoid save prompts
+  vim.bo[new_buf].buftype = 'nofile'
+  vim.bo[new_buf].bufhidden = 'hide'
+  vim.bo[new_buf].swapfile = false
+  vim.bo[new_buf].modifiable = true
+
+  vim.api.nvim_buf_set_lines(new_buf, 0, -1, false, lines)
+  vim.api.nvim_buf_set_name(new_buf, output_name)
+  vim.api.nvim_set_current_buf(new_buf)
+  vim.api.nvim_win_set_cursor(0, { vim.api.nvim_buf_line_count(new_buf), 0 })
+
+  vim.bo[new_buf].filetype = 'log'
+end)

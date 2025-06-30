@@ -9,7 +9,7 @@ M.cmd = { 'OverseerList' }
 
 M.keys = {
   { '<leader>oo', desc = 'run_from_list' },
-  { '<leader>oO', desc = 'run_cmd' },
+  { '<leader>oRr', desc = 'run_cmd_with_template' },
   { '<leader>eo', desc = 'tasks' },
   { '<leader>of', desc = 'change_task' },
   { '<leader>fo', desc = 'tasks' },
@@ -145,7 +145,7 @@ M.keymaps = function()
     vim.cmd 'OverseerRun'
   end)
 
-  set_keymap('n', '<leader>oO', ":OverseerRunCmd ")
+  set_keymap('n', '<leader>oRr', ":OverseerRunCmd ")
 
   set_keymap('n', '<leader>eo', toggle_sidebar)
 

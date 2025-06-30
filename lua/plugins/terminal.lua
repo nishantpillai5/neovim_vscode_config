@@ -89,7 +89,7 @@ return {
     cond = conds['sbulav/nredir.nvim'] or false,
     cmd = { 'Nredir' },
     keys = {
-      { '<leader>oR', ':Nredir !', desc = 'run_cmd_to_buffer' },
+      { '<leader>oRR', ':Nredir !', desc = 'run_cmd_to_buffer' },
     },
   },
 }

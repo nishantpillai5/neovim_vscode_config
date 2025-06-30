@@ -5,8 +5,9 @@ local M = {}
 M.keys = {
   { '<leader>zr', desc = 'reset_ui' },
   { '<leader>zx', desc = 'close_ui' },
+  { '<leader>zo', desc = 'close_panel' },
   { '<leader>ex', desc = 'close_sidebar' },
-  { '<leader>Ox', desc = 'close_panel' },
+  { '<leader>ze', desc = 'close_sidebar' },
 }
 
 local settings = {
@@ -146,11 +147,15 @@ M.keymaps = function()
     require('edgy').close()
   end)
 
-  set_keymap('n', '<leader>Ox', function()
+  set_keymap('n', '<leader>zo', function()
     require('edgy').close 'bottom'
   end)
 
   set_keymap('n', '<leader>ex', function()
+    require('edgy').close(require('common.env').SIDEBAR_POSITION)
+  end)
+
+  set_keymap('n', '<leader>ze', function()
     require('edgy').close(require('common.env').SIDEBAR_POSITION)
   end)
 end

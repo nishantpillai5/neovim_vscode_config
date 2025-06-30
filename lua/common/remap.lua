@@ -29,8 +29,8 @@ local keys = {
   { '<leader>ew', desc = 'cd_to_current_file' },
   { '<leader>we', desc = 'cd_to_current_file' },
 
-  { '<leader>zoo', desc = 'source_config_current_file' },
-  { '<leader>zof', desc = 'source_config_full' },
+  { '<leader>z;', desc = 'source_config_current_file' },
+  { '<leader>z:', desc = 'source_config_full' },
 }
 
 local set_keymap = require('common.utils').get_keymap_setter(keys)
@@ -117,7 +117,7 @@ set_keymap('n', '<leader>ew', cd_to_current_file)
 set_keymap('n', '<leader>we', cd_to_current_file)
 
 
-set_keymap('n', '<leader>zoo', function()
+set_keymap('n', '<leader>z;', function()
   local file = vim.fn.expand '%:p'
   if file == '' then
     vim.notify('No file to source', vim.log.levels.WARN)
@@ -127,7 +127,7 @@ set_keymap('n', '<leader>zoo', function()
   vim.notify('Sourced config: ' .. file)
 end)
 
-set_keymap('n', '<leader>zof', function()
+set_keymap('n', '<leader>z:', function()
   local file = vim.fn.expand '$MYVIMRC'
   if file == '' then
     vim.notify('No file to source', vim.log.levels.WARN)
