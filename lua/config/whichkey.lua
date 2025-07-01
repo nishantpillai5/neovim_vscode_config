@@ -38,7 +38,7 @@ M.spec = {
   { '<leader>i', group = 'Test', mode = { 'n', 'v' } },
   { '<leader>n', group = 'Notes', mode = { 'n', 'v' } },
   { '<leader>o', group = 'Tasks' },
-  { '<leader>os', group = 'Save' },
+  { '<leader>ow', group = 'Save' },
   { '<leader>oR', group = 'Run_Cmd' },
   { '<leader>r', group = 'Refactor' },
   { '<leader>t', group = 'Trouble' },

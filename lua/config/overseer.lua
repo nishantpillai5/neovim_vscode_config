@@ -15,15 +15,23 @@ M.keys = {
   { '<leader>fo', desc = 'tasks' },
   { '<leader>on', desc = 'new' },
   { '<leader>oc', desc = 'change_last' },
+  { '<leader>oC', desc = 'change_last_core' },
   { '<leader>ol', desc = 'restart_last' },
+  { '<leader>oL', desc = 'restart_last_core' },
   { '<leader>op', desc = 'preview_last' },
+  { '<leader>oP', desc = 'preview_last_core' },
+  { '<leader>os', desc = 'split_last' },
+  { '<leader>oS', desc = 'split_last_core' },
+  { '<leader>ov', desc = 'vsplit_last' },
+  { '<leader>oV', desc = 'vsplit_last_core' },
   { '<leader>ox', desc = 'stop_last' },
-  { '<leader>oX', desc = 'stop_all' },
+  { '<leader>oX', desc = 'stop_last_core' },
+  { '<leader>oq', desc = 'stop_all' },
   { '<leader>or', desc = 'run' },
   { '<leader>ob', desc = 'build' },
-  { '<leader>oss', desc = 'save_last' },
-  { '<leader>osl', desc = 'load_bundle' },
-  { '<leader>osd', desc = 'delete_bundle' },
+  { '<leader>ows', desc = 'save_last' },
+  { '<leader>owl', desc = 'load_bundle' },
+  { '<leader>owd', desc = 'delete_bundle' },
 }
 
 local action_on_all_tasks = function(action)
@@ -141,11 +149,15 @@ M.keymaps = function()
   local overseer = require 'overseer'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
+  local function filter_core_tasks(task)
+    return M.filter_run_tasks(task) or M.filter_build_tasks(task)
+  end
+
   set_keymap('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
   end)
 
-  set_keymap('n', '<leader>oRr', ":OverseerRunCmd ")
+  set_keymap('n', '<leader>oRr', ':OverseerRunCmd ')
 
   set_keymap('n', '<leader>eo', toggle_sidebar)
 
@@ -165,21 +177,51 @@ M.keymaps = function()
     action_on_last_task(nil)
   end)
 
+  set_keymap('n', '<leader>oC', function()
+    action_on_last_task(nil, filter_core_tasks)
+  end)
+
   set_keymap('n', '<leader>ol', function()
-    action_on_last_task 'restart'
+    action_on_last_task('restart')
+  end)
+
+  set_keymap('n', '<leader>oL', function()
+    action_on_last_task('restart', filter_core_tasks)
   end)
 
   set_keymap('n', '<leader>op', function()
-    action_on_last_task 'open float'
+    action_on_last_task('open float')
+  end)
+
+  set_keymap('n', '<leader>oP', function()
+    action_on_last_task('open float', filter_core_tasks)
+  end)
+
+  set_keymap('n', '<leader>os', function()
+    action_on_last_task('open hsplit')
+  end)
+
+  set_keymap('n', '<leader>oS', function()
+    action_on_last_task('open hsplit', filter_core_tasks)
+  end)
+
+  set_keymap('n', '<leader>ov', function()
+    action_on_last_task('open vsplit')
+  end)
+
+  set_keymap('n', '<leader>oV', function()
+    action_on_last_task('open vsplit', filter_core_tasks)
   end)
 
   set_keymap('n', '<leader>ox', function()
-    action_on_last_task('stop', function(task)
-      return M.filter_run_tasks(task) or M.filter_build_tasks(task)
-    end)
+    action_on_last_task('stop')
   end)
 
   set_keymap('n', '<leader>oX', function()
+    action_on_last_task('stop', filter_core_tasks)
+  end)
+
+  set_keymap('n', '<leader>oq', function()
     action_on_all_tasks 'stop'
   end)
 
@@ -199,11 +241,11 @@ M.keymaps = function()
     end
   end)
 
-  set_keymap('n', '<leader>oss', function()
+  set_keymap('n', '<leader>ows', function()
     action_on_last_task 'save'
   end)
 
-  set_keymap('n', '<leader>osl', function()
+  set_keymap('n', '<leader>owl', function()
     vim.ui.select(overseer.list_task_bundles(), {
       prompt = 'Load bundle',
       telescope = require('telescope.themes').get_cursor(),
@@ -215,7 +257,7 @@ M.keymaps = function()
     end)
   end)
 
-  set_keymap('n', '<leader>osd', function()
+  set_keymap('n', '<leader>owd', function()
     vim.ui.select(overseer.list_task_bundles(), {
       prompt = 'Delete bundle',
       telescope = require('telescope.themes').get_cursor(),

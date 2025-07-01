@@ -1,7 +1,7 @@
 local M = {}
 
 M.keys = {
-  { '<leader>oO', desc = 'toggle' },
+  { '<leader>o;', desc = 'toggle' },
 }
 
 local init_or_toggle = function()
@@ -28,7 +28,7 @@ end
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
-  set_keymap('n', '<leader>oO', init_or_toggle)
+  set_keymap('n', '<leader>o;', init_or_toggle)
 end
 
 M.setup = function()
