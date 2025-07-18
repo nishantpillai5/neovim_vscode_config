@@ -303,7 +303,7 @@ M.setup = function()
         ['d'] = 'Dispose',
         ['j'] = 'NextTask',
         ['k'] = 'PrevTask',
-        ['x'] = 'Stop', --FIXME: doesn't work
+        ['x'] = 'Stop',
         ['r'] = 'Restart', --FIXME: doesn't work
       },
     },

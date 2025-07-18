@@ -26,13 +26,8 @@ return {
     lazy = true,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     cond = conds['stevearc/oil.nvim'] or false,
-    keys = {
-      { '<leader>ef', '<cmd>Oil<cr>', desc = 'oil' },
-    },
-    opts = {
-      -- Keep netrw enabled
-      default_file_explorer = false,
-    },
+    keys = require('config.oil').keys,
+    config = require('config.oil').config,
   },
   -- Symbol explorer
   {

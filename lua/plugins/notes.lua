@@ -25,9 +25,7 @@ return {
     lazy = true,
     cond = conds['iamcco/markdown-preview.nvim'] or false,
     ft = { 'markdown' },
-    build = function()
-      vim.fn['mkdp#util#install']()
-    end,
+    build = "cd app && yarn install",
     cmd = require('config.markdown_preview').cmd,
     config = require('config.markdown_preview').config,
   },
