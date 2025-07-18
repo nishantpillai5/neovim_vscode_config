@@ -9,6 +9,7 @@ local plugins = {
   'folke/trouble.nvim',
   'mtdl9/vim-log-highlighting',
   'folke/lazydev.nvim',
+  'chrisgrieser/nvim-rulebook',
   'Bilal2453/luvit-meta',
 }
 
@@ -148,6 +149,14 @@ return {
         { path = 'luvit-meta/library', words = { 'vim%.uv' } },
       },
     },
+  },
+  -- Suppress linter and formatters
+  {
+    'chrisgrieser/nvim-rulebook',
+    lazy = true,
+    cond = conds['chrisgrieser/nvim-rulebook'] or false,
+    keys = require('config.rulebook').keys,
+    config = require('config.rulebook').config,
   },
   {
     'Bilal2453/luvit-meta',
