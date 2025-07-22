@@ -40,7 +40,7 @@ M.spec = {
   { '<leader>o', group = 'Tasks' },
   { '<leader>ow', group = 'Save' },
   { '<leader>oR', group = 'Run_Cmd' },
-  { '<leader>r', group = 'Refactor' },
+  { '<leader>r', group = 'Refactor', mode = { 'n', 'v' } },
   { '<leader>t', group = 'Trouble' },
   { '<leader>w', group = 'Workspace' },
   { '<leader>z', group = 'Visual', mode = { 'n', 'v' } },
@@ -83,7 +83,8 @@ M.spec = {
 
   { 'K', desc = 'hover' },
   { 's', desc = 'hop_char' },
-  { 'S', group = 'Surround' },
+  { 'S', desc = 'hop_node' },
+  { '<leader>v', group = 'Surround', mode = { 'n', 'v' } },
 
   { '<F2>', desc = 'rename' },
   { '<F3>', desc = 'format_lsp' },

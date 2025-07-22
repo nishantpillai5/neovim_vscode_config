@@ -38,6 +38,7 @@ return {
     cond = conds['smoka7/hop.nvim'] or false,
     keys = {
       { 's', '<cmd>HopChar2<cr>', mode = { 'n' }, desc = 'hop_char', noremap = true },
+      { 'S', '<cmd>HopNodes<cr>', mode = { 'n' }, desc = 'hop_node', noremap = true },
     },
     cmd = { 'HopChar2', 'HopNodes' },
     opts = {
@@ -104,13 +105,13 @@ return {
     opts = {
       search_method = 'cover_or_nearest',
       mappings = {
-        add = 'Sa',
-        delete = 'Sd',
-        find = 'Sf',
-        find_left = 'SF',
-        highlight = 'Sh',
-        replace = 'Sr',
-        update_n_lines = 'Sn',
+        add = '<leader>va',
+        delete = '<leader>vd',
+        find = '<leader>vf',
+        find_left = '<leader>vF',
+        highlight = '<leader>vh',
+        replace = '<leader>vr',
+        update_n_lines = '<leader>vn',
         suffix_last = 'l',
         suffix_next = 'n',
       },
