@@ -1,12 +1,12 @@
 local plugins = {
   'chrisgrieser/nvim-spider',
   'smoka7/hop.nvim',
-  'kylechui/nvim-surround',
   'LeonHeidelbach/trailblazer.nvim',
-  -- 'gregorias/coerce.nvim', -- TODO: conflicts with gcc
+  'gregorias/coerce.nvim',
   'monaqa/dial.nvim',
   'chrisgrieser/nvim-recorder',
   'AllenDang/nvim-expand-expr',
+  'echasnovski/mini.surround',
   'echasnovski/mini.align',
 }
 
@@ -37,8 +37,7 @@ return {
     lazy = true,
     cond = conds['smoka7/hop.nvim'] or false,
     keys = {
-      { 's', '<cmd>HopChar2<cr>', mode = { 'n', 'x' }, desc = 'hop_char' },
-      { 'S', '<cmd>HopNodes<cr>', mode = { 'n' }, desc = 'hop_node' },
+      { 's', '<cmd>HopChar2<cr>', mode = { 'n' }, desc = 'hop_char', noremap = true },
     },
     cmd = { 'HopChar2', 'HopNodes' },
     opts = {
@@ -46,15 +45,6 @@ return {
       uppercase_labels = true,
       jump_on_sole_occurrence = false,
     },
-  },
-  -- Surround
-  {
-    'kylechui/nvim-surround',
-    lazy = true,
-    event = { 'BufReadPre', 'BufNewFile' },
-    version = '*',
-    cond = conds['kylechui/nvim-surround'] or false,
-    opts = {},
   },
   -- Marks
   {
@@ -66,11 +56,11 @@ return {
     keys = require('config.trailblazer').keys,
     config = require('config.trailblazer').config,
   },
-  -- Change variable case format
+  -- Change keyword's case
   {
     'gregorias/coerce.nvim',
     lazy = true,
-    tag = 'v1.0',
+    tag = 'v4.1.0',
     cond = conds['gregorias/coerce.nvim'] or false,
     keys = {
       { 'cr', desc = 'change_var_format' },
@@ -102,6 +92,28 @@ return {
     cond = conds['AllenDang/nvim-expand-expr'] or false,
     keys = {
       { '<leader>Q', ":lua require('expand_expr').expand()<cr>", desc = 'inline_macro' },
+    },
+  },
+  -- Surround
+  {
+    'echasnovski/mini.surround',
+    lazy = true,
+    version = '*',
+    event = { 'BufReadPre', 'BufNewFile' },
+    cond = conds['echasnovski/mini.surround'] or false,
+    opts = {
+      search_method = 'cover_or_nearest',
+      mappings = {
+        add = 'Sa',
+        delete = 'Sd',
+        find = 'Sf',
+        find_left = 'SF',
+        highlight = 'Sh',
+        replace = 'Sr',
+        update_n_lines = 'Sn',
+        suffix_last = 'l',
+        suffix_next = 'n',
+      },
     },
   },
   -- Align expressions

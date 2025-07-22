@@ -71,7 +71,7 @@ M.spec = {
   { '<C-k>', desc = 'move_focus_up' },
   { '<C-l>', desc = 'move_focus_right' },
 
-  { 'g', group = 'G_Operator'},
+  { 'g', group = 'G_Operator' },
   { 'gd', desc = 'definition' },
   { 'gD', desc = 'declaration' },
   { 'gi', desc = 'implementation' },
@@ -83,7 +83,7 @@ M.spec = {
 
   { 'K', desc = 'hover' },
   { 's', desc = 'hop_char' },
-  { 'S', desc = 'hop_node' },
+  { 'S', group = 'Surround' },
 
   { '<F2>', desc = 'rename' },
   { '<F3>', desc = 'format_lsp' },
