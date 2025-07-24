@@ -2,7 +2,8 @@ local keys = {
   { '<leader>s', desc = 'save' },
   { '<leader>S', desc = 'save_force' },
   { '<leader>x', desc = 'quit' },
-  { '<leader>X', desc = 'buffer_delete' },
+  { '<leader>X', desc = 'quit_force' },
+  { '<leader>zd', desc = 'delete_buffer' },
   { '<leader>W', desc = 'save_quit' },
   { '<leader>zv', desc = 'vertical_split' },
   { '<leader>zs', desc = 'horizontal_split' },
@@ -26,7 +27,8 @@ local set_keymap = require('common.utils').get_keymap_setter(keys)
 set_keymap('n', '<leader>s', ':w<cr>')
 set_keymap('n', '<leader>S', ':w!<cr>')
 set_keymap('n', '<leader>x', ':q<cr>')
-set_keymap('n', '<leader>X', ':bd<cr>')
+set_keymap('n', '<leader>X', ':q!<cr>')
+set_keymap('n', '<leader>zd', ':bd<cr>')
 set_keymap('n', '<leader>W', ':wq<cr>')
 
 -- Split
