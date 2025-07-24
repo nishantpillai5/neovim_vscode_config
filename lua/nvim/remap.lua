@@ -3,6 +3,7 @@ local keys = {
   { '<leader>S', desc = 'save_force' },
   { '<leader>x', desc = 'quit' },
   { '<leader>X', desc = 'buffer_delete' },
+  { '<leader>W', desc = 'save_quit' },
   { '<leader>zv', desc = 'vertical_split' },
   { '<leader>zs', desc = 'horizontal_split' },
   { '<C-Right>', desc = 'vertical_resize_right' },
@@ -26,6 +27,7 @@ set_keymap('n', '<leader>s', ':w<cr>')
 set_keymap('n', '<leader>S', ':w!<cr>')
 set_keymap('n', '<leader>x', ':q<cr>')
 set_keymap('n', '<leader>X', ':bd<cr>')
+set_keymap('n', '<leader>W', ':wq<cr>')
 
 -- Split
 set_keymap('n', '<leader>zv', '<cmd>vs<cr>')

@@ -3,10 +3,10 @@ _G.pyright_settings = _G.pyright_settings or nil
 local M = {}
 
 M.keys = {
-  { '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', mode = { 'n', 'v' }, desc = 'action(F4)' },
-  { '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', mode = { 'n', 'v' }, desc = 'format_with_lsp(F3)' },
-  { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename(F2)' },
-  { '<leader>rl', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename_with_lsp(F2)' },
+  { '<leader>la', '<cmd>lua vim.lsp.buf.code_action()<CR>', mode = { 'n', 'v' }, desc = 'action' },
+  { '<leader>lS', '<cmd>lua vim.lsp.buf.format()<CR>', mode = { 'n', 'v' }, desc = 'format_with_lsp' },
+  { '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename' },
+  { '<leader>rl', '<cmd>lua vim.lsp.buf.rename()<CR>', mode = { 'n', 'v' }, desc = 'rename_with_lsp' },
   { '<leader>lh', '<cmd>lua vim.lsp.buf.hover()<CR>', mode = { 'n', 'v' }, desc = 'hints_view(K)' },
   { '<leader>ld', '<cmd>lua vim.diagnostic.open_float()<CR>', mode = { 'n', 'v' }, desc = 'diagnostic_view(gl)' },
   { '<leader>lx', desc = 'refresh' },
@@ -61,7 +61,7 @@ M.setup = function()
     lsp_zero.default_keymaps {
       buffer = bufnr,
       preserve_mappings = false,
-      exclude = { 'gr' },
+      exclude = { 'gr', '<F2>', '<F3>', '<F4>' },
     }
   end)
 

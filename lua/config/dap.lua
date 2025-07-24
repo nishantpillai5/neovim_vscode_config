@@ -2,12 +2,12 @@ _G.dap_launch_json = _G.dap_launch_json or nil
 local M = {}
 
 M.keys = {
+  { '<F4>', desc = 'debug_step_over' },
   { '<F5>', desc = 'debug_continue/start' },
   { '<C-F5>', desc = 'debug_stop' },
-  { '<F6>', desc = 'debug_pause' },
-  { '<F7>', desc = 'debug_step_into' },
-  { '<C-F7>', desc = 'debug_step_out' },
-  { '<F8>', desc = 'debug_step_over' },
+  { '<F6>', desc = 'debug_step_into' },
+  { '<F8>', desc = 'debug_step_out' },
+  { '<F9>', desc = 'debug_pause' },
   { '[b', desc = 'breakpoint' },
   { ']b', desc = 'breakpoint' },
   { '<leader>fbb', desc = 'breakpoint' },
@@ -21,6 +21,11 @@ M.keys = {
 M.keymaps = function()
   local dap = require 'dap'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
+
+  set_keymap('n', '<F4>', function()
+    dap.step_over()
+  end)
+
   set_keymap('n', '<F5>', function()
     local launch_json = _G.dap_launch_json or '.vscode/launch.json'
     if vim.fn.filereadable(launch_json) then
@@ -35,22 +40,18 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<F6>', function()
-    vim.notify 'DAP: Pause'
-    dap.pause()
-  end)
-
-  set_keymap('n', '<F7>', function()
     vim.notify 'DAP: Step Into'
     dap.step_into()
   end)
 
-  set_keymap('n', '<C-F7>', function()
+  set_keymap('n', '<F8>', function()
     vim.notify 'DAP: Step Out'
     dap.step_out()
   end)
 
-  set_keymap('n', '<F8>', function()
-    dap.step_over()
+  set_keymap('n', '<F9>', function()
+    vim.notify 'DAP: Pause'
+    dap.pause()
   end)
 
   set_keymap('n', '[b', function()
