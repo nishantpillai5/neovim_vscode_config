@@ -414,6 +414,7 @@ M.keys = {
   { '<leader>fgc', desc = 'commits_checkout' },
   { '<leader>fgC', desc = 'commits_diff' },
   { '<leader>fgz', desc = 'stash' },
+  { '<leader>gzf', desc = 'find' },
   { '<leader>fgx', desc = 'conflicts' },
   { '<leader>gJ', desc = 'grep_from_head' },
   { '<leader>gK', desc = 'grep_from_fork' },
@@ -478,6 +479,7 @@ M.keymaps = function()
   set_keymap('n', '<leader>fgc', builtin.git_bcommits)
   set_keymap('n', '<leader>fgC', require('telescope').extensions.git_diffs.diff_commits)
   set_keymap('n', '<leader>fgz', builtin.git_stash)
+  set_keymap('n', '<leader>gzf', builtin.git_stash)
   set_keymap('n', '<leader>fgx', '<cmd>Telescope conflicts<cr>')
 
   set_keymap('n', '<leader>gJ', live_grep_changed_files)

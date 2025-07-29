@@ -84,7 +84,7 @@ M.spec = {
   { 'K', desc = 'hover' },
   { 's', desc = 'hop_char' },
   { 'S', desc = 'hop_node' },
-  { '<leader>v', group = 'Surround', mode = { 'n', 'v' } },
+  { '<leader>V', group = 'Surround'},
 
   { '<F2>', desc = 'rename' },
   { '<F3>', desc = 'format_lsp' },

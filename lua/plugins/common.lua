@@ -102,20 +102,7 @@ return {
     version = '*',
     event = { 'BufReadPre', 'BufNewFile' },
     cond = conds['echasnovski/mini.surround'] or false,
-    opts = {
-      search_method = 'cover_or_nearest',
-      mappings = {
-        add = '<leader>va',
-        delete = '<leader>vd',
-        find = '<leader>vf',
-        find_left = '<leader>vF',
-        highlight = '<leader>vh',
-        replace = '<leader>vr',
-        update_n_lines = '<leader>vn',
-        suffix_last = 'l',
-        suffix_next = 'n',
-      },
-    },
+    config = require('config.surround').config,
   },
   -- Align expressions
   {
