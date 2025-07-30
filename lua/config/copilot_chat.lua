@@ -42,7 +42,6 @@ M.buffer_keys = {
 
 M.keymaps = function()
   local copilot = require 'CopilotChat'
-  local actions = require 'CopilotChat.actions'
   local select = require 'CopilotChat.select'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
@@ -138,11 +137,11 @@ M.keymaps = function()
 
   -- Telescope
   set_keymap({ 'n', 'v' }, '<leader>fc', function()
-    require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
+    vim.cmd 'CopilotChatPrompts'
   end)
 
   set_keymap({ 'n', 'v' }, '<leader>cf', function()
-    require('CopilotChat.integrations.telescope').pick(actions.prompt_actions())
+    vim.cmd 'CopilotChatPrompts'
   end)
 end
 

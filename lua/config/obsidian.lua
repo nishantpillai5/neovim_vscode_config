@@ -6,23 +6,23 @@ local function is_notes_dir()
 end
 
 M.keys = {
-  { '<leader>nf', ':ObsidianQuickSwitch<cr>', desc = 'find' },
-  { '<leader>fn', ':ObsidianQuickSwitch<cr>', desc = 'notes' },
-  { '<leader>n?', ':ObsidianSearch<cr>', desc = 'search' },
-  { '<leader>nj', ':ObsidianToday<cr>', desc = 'journal_today' },
-  { '<leader>nJ', ':ObsidianDailies<cr>', desc = 'journal_list' },
-  { '<leader>nl', ':ObsidianLinks<cr>', desc = 'links' },
-  { '<leader>nL', ':ObsidianBacklinks<cr>', desc = 'backlinks' },
-  { '<leader>nr', ':ObsidianRename<cr>', desc = 'rename' },
-  { '<leader>np', ':ObsidianPasteImg<cr>', desc = 'paste_img' },
-  { '<leader>nc', ':ObsidianNew<cr>', desc = 'create' },
-  { '<leader>nC', ':ObsidianNewFromTemplate<cr>', desc = 'create_from_template' },
-  { '<leader>nt', ':ObsidianTags<cr>', desc = 'tags' },
-  { '<leader>ni', ':ObsidianTemplate<cr>', desc = 'insert_template' },
+  { '<leader>nf', ':Obsidian quick_switch<cr>', desc = 'find' },
+  { '<leader>fn', ':Obsidian quick_switch<cr>', desc = 'notes' },
+  { '<leader>n?', ':Obsidian search<cr>', desc = 'search' },
+  { '<leader>nj', ':Obsidian today<cr>', desc = 'journal_today' },
+  { '<leader>nJ', ':Obsidian dailies<cr>', desc = 'journal_list' },
+  { '<leader>nl', ':Obsidian links<cr>', desc = 'links' },
+  { '<leader>nL', ':Obsidian backlinks<cr>', desc = 'backlinks' },
+  { '<leader>nr', ':Obsidian rename<cr>', desc = 'rename' },
+  { '<leader>np', ':Obsidian paste_img<cr>', desc = 'paste_img' },
+  { '<leader>nc', ':Obsidian new<cr>', desc = 'create' },
+  { '<leader>nC', ':Obsidian new_from_template<cr>', desc = 'create_from_template' },
+  { '<leader>nt', ':Obsidian tags<cr>', desc = 'tags' },
+  { '<leader>ni', ':Obsidian template<cr>', desc = 'insert_template' },
 
-  { '<leader>nl', ':ObsidianLink<cr>', desc = 'link_existing', mode = { 'v' } },
-  { '<leader>nL', ':ObsidianLinkNew<cr>', desc = 'link_create', mode = { 'v' } },
-  { '<leader>nc', ':ObsidianExtractNote<cr>', desc = 'create', mode = { 'v' } },
+  { '<leader>nl', ':Obsidian link<cr>', desc = 'link_existing', mode = { 'v' } },
+  { '<leader>nL', ':Obsidian link_new<cr>', desc = 'link_create', mode = { 'v' } },
+  { '<leader>nc', ':Obsidian extract_note<cr>', desc = 'create', mode = { 'v' } },
 }
 
 M.common_keys = {
@@ -35,26 +35,41 @@ M.common_keys = {
 M.keymaps = function()
   if is_notes_dir() then
     local set_keymap = require('common.utils').get_keymap_setter(M.common_keys)
-    set_keymap('n', '<leader>ff', ':ObsidianQuickSwitch<cr>')
-    set_keymap('n', '<leader>?', ':ObsidianSearch<cr>')
-    set_keymap('n', '<leader>fs', ':ObsidianTOC<cr>')
-    set_keymap('n', '<leader>fS', ':ObsidianTags<cr>')
+    set_keymap('n', '<leader>ff', ':Obsidian quick_switch<cr>')
+    set_keymap('n', '<leader>?', ':Obsidian search<cr>')
+    set_keymap('n', '<leader>fs', ':Obsidian toc<cr>')
+    set_keymap('n', '<leader>fS', ':Obsidian tags<cr>')
   end
+
+  vim.api.nvim_create_autocmd('User', {
+    pattern = 'ObsidianNoteEnter',
+    callback = function(ev)
+      -- vim.keymap.set('n', 'gf', function()
+      --   require('obsidian').util.gf_passthrough()
+      -- end, {
+      --   buffer = ev.buf,
+      --   desc = 'file(obsidian)',
+      -- })
+
+      vim.keymap.set({ 'n', 'v' }, 'mc', ':Obsidian toggle_checkbox<cr>', {
+        buffer = ev.buf,
+        desc = 'smart_action(obsidian)',
+        silent = true,
+      })
+    end,
+  })
 end
 
 M.setup = function()
   local obsidian = require 'obsidian'
 
   obsidian.setup {
+    legacy_commands = false,
     ui = {
       enable = true,
-      checkboxes = {
-        [' '] = { char = '󰄱', hl_group = 'ObsidianTodo' },
-        ['x'] = { char = '󰄵', hl_group = 'ObsidianDone' },
-        -- ['>'] = { char = '', hl_group = 'ObsidianRightArrow' },
-        -- ['~'] = { char = '', hl_group = 'ObsidianTilde' },
-        -- ['!'] = { char = '', hl_group = 'ObsidianImportant' },
-      },
+    },
+    checkbox = {
+      order = { ' ', 'x', '>' },
     },
     workspaces = {
       {
@@ -75,20 +90,6 @@ M.setup = function()
     completion = {
       nvim_cmp = true,
       min_chars = 2,
-    },
-    mappings = {
-      ['gf'] = {
-        action = function()
-          return obsidian.util.gf_passthrough()
-        end,
-        opts = { noremap = false, expr = true, buffer = true, desc = 'file(obsidian)' },
-      },
-      ['mc'] = {
-        action = function()
-          return obsidian.util.smart_action()
-        end,
-        opts = { expr = true, buffer = true, desc = 'smart_action(obsidian)' },
-      },
     },
     picker = {
       name = 'telescope.nvim',

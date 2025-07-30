@@ -1,7 +1,7 @@
 local plugins = {
   'backdround/global-note.nvim',
   'iamcco/markdown-preview.nvim',
-  'epwalsh/obsidian.nvim',
+  'obsidian-nvim/obsidian.nvim',
   -- 'mpas/marp-nvim',
   'Pocco81/HighStr.nvim',
   'mattn/calendar-vim',
@@ -31,7 +31,7 @@ return {
   },
   -- Notes management
   {
-    'epwalsh/obsidian.nvim',
+    'obsidian-nvim/obsidian.nvim',
     lazy = true,
     version = '*',
     event = {
@@ -43,7 +43,7 @@ return {
       'nvim-lua/plenary.nvim',
       -- "preservim/vim-markdown"
     },
-    cond = conds['epwalsh/obsidian.nvim'] or false,
+    cond = conds['obsidian-nvim/obsidian.nvim'] or false,
     keys = require('config.obsidian').keys,
     config = require('config.obsidian').config,
   },
