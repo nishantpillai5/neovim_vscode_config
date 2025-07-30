@@ -18,7 +18,7 @@ local keys = {
   { '<leader>eyY', desc = 'yank_relative_path' },
   { '<leader>eyf', desc = 'yank_filename' },
   { '<leader>eyF', desc = 'yank_folder' },
-  { '<leader>oO', desc = 'generate_output' },
+  { '<leader>oy', desc = 'yank_to_log' },
 }
 
 local set_keymap = require('common.utils').get_keymap_setter(keys)
@@ -70,7 +70,7 @@ for key, lookup in pairs(names) do
   end)
 end
 
-set_keymap('n', '<leader>oO', function()
+set_keymap('n', '<leader>oy', function()
   local bufnr = vim.api.nvim_get_current_buf()
   if vim.bo[bufnr].buftype ~= 'terminal' then
     vim.notify('Not a terminal buffer', vim.log.levels.WARN)
