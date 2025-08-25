@@ -4,6 +4,7 @@ local plugins = {
   'stevearc/resession.nvim',
   'nvim-telescope/telescope-project.nvim',
   'klen/nvim-config-local',
+  'xvzc/chezmoi.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -57,6 +58,22 @@ return {
         config_files = { '.vscode/.nvim.lua', '.nvim.lua', '.nvimrc', '.exrc' },
         silent = true,
       }
+    end,
+  },
+  -- Global config
+  {
+    'xvzc/chezmoi.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>wC', desc = 'global_config' },
+    },
+    config = function()
+      require('chezmoi').setup {
+        -- your configurations
+      }
+
+      require('telescope').load_extension 'chezmoi'
+      vim.keymap.set('n', '<leader>wC', require('telescope').extensions.chezmoi.find_files, { desc = "global_config" })
     end,
   },
 }

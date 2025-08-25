@@ -73,6 +73,11 @@ M.keymaps = function()
         require('telescope').load_extension 'color_names'
       end
 
+      local chezmoi_status, _ = pcall(require, 'chezmoi')
+      if chezmoi_status then
+        require('telescope').load_extension 'chezmoi'
+      end
+
       -- require("telescope").load_extension("refactoring")
 
       require('telescope').load_extension 'picker_list'

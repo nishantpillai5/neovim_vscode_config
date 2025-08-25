@@ -434,7 +434,7 @@ M.keys = {
   { '<leader>fr', desc = 'recents' },
   { '<leader>f"', desc = 'registers' },
   { '<leader>fh', desc = 'buffers' },
-  { '<leader>wc', desc = 'configurations' },
+  { '<leader>wc', desc = 'local_config' },
   { '<leader>f=', desc = 'spellcheck' },
   { '<leader>gRk', desc = 'reset_file_to_fork' },
   { '<leader>gRl', desc = 'reset_file_to_main' },
