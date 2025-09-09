@@ -58,7 +58,10 @@ M.keymaps = function()
   end
 
   set_keymap('n', '<leader>cc', function()
-    vim.cmd 'CopilotChatToggle'
+    -- vim.cmd 'CopilotChatToggle'
+    require('CopilotChat').open {
+      sticky = { '##file://.github/copilot-instructions.md' },
+    }
   end)
 
   -- Built-in
@@ -107,19 +110,28 @@ M.keymaps = function()
   set_keymap('n', '<leader>cb', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      copilot.ask(input, { selection = buffer_selection })
+      copilot.ask(input, {
+        selection = buffer_selection,
+        sticky = { '##file://.github/copilot-instructions.md' },
+      })
     end
   end)
 
   set_keymap('v', '<leader>cc', function()
     local input = vim.fn.input 'Quick Chat: '
     if input ~= '' then
-      copilot.ask(input, { selection = visual_selection })
+      copilot.ask(input, {
+        selection = visual_selection,
+        sticky = { '##file://.github/copilot-instructions.md' },
+      })
     end
   end)
 
   set_keymap('v', '<leader>cs', function()
-    copilot.ask(simplify_prompt, { selection = visual_selection })
+    copilot.ask(simplify_prompt, {
+      selection = visual_selection,
+      sticky = { '##file://.github/copilot-instructions.md' },
+    })
   end)
 
   -- TODO: gitdiff from master instead of local
@@ -128,11 +140,17 @@ M.keymaps = function()
   end)
 
   set_keymap('v', '<leader>ca', function()
-    copilot.ask(attach_selection_prompt, { selection = visual_selection })
+    copilot.ask(attach_selection_prompt, {
+      selection = visual_selection,
+      sticky = { '##file://.github/copilot-instructions.md' },
+    })
   end)
 
   set_keymap('v', '<leader>cA', function()
-    copilot.ask(attach_selection_prompt, { selection = buffer_selection })
+    copilot.ask(
+      attach_selection_prompt,
+      { selection = buffer_selection, sticky = { '##file://.github/copilot-instructions.md' } }
+    )
   end)
 
   -- Telescope
@@ -154,11 +172,13 @@ M.setup = function()
     language = 'English',
     context = 'buffers',
     mappings = {
+      ---@diagnostic disable-next-line: missing-fields
       reset = {
         normal = '<C-r>',
         insert = '<C-r>',
       },
       complete = {
+        ---@diagnostic disable-next-line: missing-fields
         insert = '<S-Tab>',
       },
     },

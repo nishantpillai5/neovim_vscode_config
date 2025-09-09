@@ -6,6 +6,7 @@ local plugins = {
   'Pocco81/HighStr.nvim',
   'mattn/calendar-vim',
   'nfrid/due.nvim',
+  'MeanderingProgrammer/render-markdown.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -25,7 +26,7 @@ return {
     lazy = true,
     cond = conds['iamcco/markdown-preview.nvim'] or false,
     ft = { 'markdown' },
-    build = "cd app && yarn install",
+    build = 'cd app && yarn install',
     cmd = require('config.markdown_preview').cmd,
     config = require('config.markdown_preview').config,
   },
@@ -101,5 +102,15 @@ return {
         pattern_end = '',
       }
     end,
+  },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    lazy = true,
+    cond = conds['MeanderingProgrammer/render-markdown.nvim'] or false,
+    ft = { 'copilot-chat' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    opts = {
+      file_types = { 'copilot-chat' },
+    },
   },
 }
