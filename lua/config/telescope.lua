@@ -356,6 +356,27 @@ local changed_files_from_branch = function()
   }
 end
 
+local merge_branch = function(branch)
+  local cmd = 'Git merge ' .. branch
+  vim.cmd(cmd)
+end
+
+local merge_from_branch = function()
+  require('telescope.builtin').git_branches {
+    attach_mappings = function(_, map)
+      local select_branch = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local branch = action_state.get_selected_entry().name
+        require('telescope.actions').close(prompt_bufnr)
+        merge_branch(branch)
+      end
+      map('i', '<CR>', select_branch)
+      map('n', '<CR>', select_branch)
+      return true
+    end,
+  }
+end
+
 local reset_file_to = function(ref)
   local file = vim.fn.expand '%:p'
   local cmd = 'Git checkout ' .. ref .. ' -- ' .. file
@@ -409,6 +430,7 @@ M.keys = {
   { '<leader>fK', desc = 'grep_from_fork' },
   { '<leader>fL', desc = 'grep_from_main' },
   { '<leader>f:', desc = 'grep_from_branch' },
+  { '<leader>gm', desc = 'merge_from_branch' },
   { '<leader>fgb', desc = 'branch_checkout' },
   { '<leader>fgB', desc = 'branch_checkout_local' },
   { '<leader>fgc', desc = 'commits_checkout' },
@@ -466,6 +488,8 @@ M.keymaps = function()
   set_keymap('n', '<leader>fk', changed_files_from_fork)
   set_keymap('n', '<leader>fl', changed_files_from_main)
   set_keymap('n', '<leader>f;', changed_files_from_branch)
+
+  set_keymap('n', '<leader>gm', merge_from_branch)
 
   set_keymap('n', '<leader>fJ', live_grep_changed_files)
   set_keymap('n', '<leader>fK', live_grep_changed_files_from_fork)
