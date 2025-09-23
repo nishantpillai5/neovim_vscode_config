@@ -14,18 +14,18 @@ M.keys = {
   { '<leader>of', desc = 'change_task' },
   { '<leader>fo', desc = 'tasks' },
   { '<leader>on', desc = 'new' },
-  { '<leader>oc', desc = 'change_last' },
-  { '<leader>oC', desc = 'change_last_core' },
-  { '<leader>ol', desc = 'restart_last' },
-  { '<leader>oL', desc = 'restart_last_core' },
-  { '<leader>op', desc = 'preview_last' },
-  { '<leader>oP', desc = 'preview_last_core' },
-  { '<leader>os', desc = 'split_last' },
-  { '<leader>oS', desc = 'split_last_core' },
-  { '<leader>ov', desc = 'vsplit_last' },
-  { '<leader>oV', desc = 'vsplit_last_core' },
-  { '<leader>ox', desc = 'stop_last' },
-  { '<leader>oX', desc = 'stop_last_core' },
+  { '<leader>oc', desc = 'change_last_core' },
+  { '<leader>oC', desc = 'change_last_other' },
+  { '<leader>ol', desc = 'restart_last_core' },
+  { '<leader>oL', desc = 'restart_last_other' },
+  { '<leader>op', desc = 'preview_last_core' },
+  { '<leader>oP', desc = 'preview_last_other' },
+  { '<leader>os', desc = 'split_last_core' },
+  { '<leader>oS', desc = 'split_last_other' },
+  { '<leader>ov', desc = 'vsplit_last_core' },
+  { '<leader>oV', desc = 'vsplit_last_other' },
+  { '<leader>ox', desc = 'stop_last_core' },
+  { '<leader>oX', desc = 'stop_last_other' },
   { '<leader>oq', desc = 'stop_all' },
   { '<leader>or', desc = 'run' },
   { '<leader>ob', desc = 'build' },
@@ -153,6 +153,10 @@ M.keymaps = function()
     return M.filter_run_tasks(task) or M.filter_build_tasks(task)
   end
 
+  local function filter_other_tasks(task)
+    return not filter_core_tasks(task)
+  end
+
   set_keymap('n', '<leader>oo', function()
     vim.cmd 'OverseerRun'
   end)
@@ -174,51 +178,51 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>oc', function()
-    action_on_last_task(nil)
-  end)
-
-  set_keymap('n', '<leader>oC', function()
     action_on_last_task(nil, filter_core_tasks)
   end)
 
-  set_keymap('n', '<leader>ol', function()
-    action_on_last_task('restart')
+  set_keymap('n', '<leader>oC', function()
+    action_on_last_task(nil, filter_other_tasks)
   end)
 
-  set_keymap('n', '<leader>oL', function()
+  set_keymap('n', '<leader>ol', function()
     action_on_last_task('restart', filter_core_tasks)
   end)
 
-  set_keymap('n', '<leader>op', function()
-    action_on_last_task('open float')
+  set_keymap('n', '<leader>oL', function()
+    action_on_last_task('restart', filter_other_tasks)
   end)
 
-  set_keymap('n', '<leader>oP', function()
+  set_keymap('n', '<leader>op', function()
     action_on_last_task('open float', filter_core_tasks)
   end)
 
-  set_keymap('n', '<leader>os', function()
-    action_on_last_task('open hsplit')
+  set_keymap('n', '<leader>oP', function()
+    action_on_last_task('open float', filter_other_tasks)
   end)
 
-  set_keymap('n', '<leader>oS', function()
+  set_keymap('n', '<leader>os', function()
     action_on_last_task('open hsplit', filter_core_tasks)
   end)
 
-  set_keymap('n', '<leader>ov', function()
-    action_on_last_task('open vsplit')
+  set_keymap('n', '<leader>oS', function()
+    action_on_last_task('open hsplit', filter_other_tasks)
   end)
 
-  set_keymap('n', '<leader>oV', function()
+  set_keymap('n', '<leader>ov', function()
     action_on_last_task('open vsplit', filter_core_tasks)
   end)
 
+  set_keymap('n', '<leader>oV', function()
+    action_on_last_task('open vsplit', filter_other_tasks)
+  end)
+
   set_keymap('n', '<leader>ox', function()
-    action_on_last_task('stop')
+    action_on_last_task('stop', filter_core_tasks)
   end)
 
   set_keymap('n', '<leader>oX', function()
-    action_on_last_task('stop', filter_core_tasks)
+    action_on_last_task('stop', filter_other_tasks)
   end)
 
   set_keymap('n', '<leader>oq', function()
