@@ -35,6 +35,7 @@ return {
   {
     'stevearc/overseer.nvim',
     lazy = true,
+    version = '^1.6.0', -- FIXME: https://github.com/stevearc/overseer.nvim/pull/448
     dependencies = {
       'akinsho/nvim-toggleterm.lua',
       'nvim-telescope/telescope.nvim',

@@ -2,7 +2,7 @@ local plugins = {
   'chrisgrieser/nvim-spider',
   'smoka7/hop.nvim',
   'LeonHeidelbach/trailblazer.nvim',
-  'gregorias/coerce.nvim',
+  -- 'gregorias/coerce.nvim', -- visual mode has conflict with gc, waits for whichkey
   'monaqa/dial.nvim',
   'chrisgrieser/nvim-recorder',
   'AllenDang/nvim-expand-expr',

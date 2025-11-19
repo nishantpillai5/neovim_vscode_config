@@ -150,7 +150,7 @@ return {
     'mawkler/demicolon.nvim',
     lazy = true,
     cond = conds['mawkler/demicolon.nvim'] or false,
-    keys = {']', '[' },
+    keys = { ']', '[' },
     dependencies = {
       'nvim-treesitter/nvim-treesitter',
       'nvim-treesitter/nvim-treesitter-textobjects',
