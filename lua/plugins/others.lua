@@ -7,7 +7,8 @@ local plugins = {
   -- 'm4xshen/hardtime.nvim',
   'theprimeagen/vim-be-good',
   'seandewar/killersheep.nvim',
-  'niuiic/code-shot.nvim',
+  'epwalsh/pomo.nvim',
+  'gruvw/strudel.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -111,10 +112,20 @@ return {
   {
     'epwalsh/pomo.nvim',
     lazy = true,
+    cond = conds['epwalsh/pomo.nvim'] or false,
     version = '*', -- Recommended, use latest release instead of latest commit
     dependencies = { 'rcarriga/nvim-notify' },
     cmd = require('config.pomodoro').cmd,
     keys = require('config.pomodoro').keys,
     config = require('config.pomodoro').config,
+  },
+  {
+    'gruvw/strudel.nvim',
+    lazy = true,
+    cond = conds['gruvw/strudel.nvim'] or false,
+    cmd = require('config.strudel').cmd,
+    keys = require('config.strudel').keys,
+    build = 'npm install',
+    config = require('config.strudel').config,
   },
 }

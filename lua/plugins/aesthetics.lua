@@ -48,10 +48,14 @@ return {
   {
     'nvim-zh/colorful-winsep.nvim',
     lazy = true,
-    event = { 'BufReadPre' },
+    event = { 'WinLeave' },
     cond = conds['nvim-zh/colorful-winsep.nvim'] or false,
     config = function()
-      require('colorful-winsep').setup { smooth = false }
+      require('colorful-winsep').setup {
+        animate = {
+          enabled = false,
+        },
+      }
       require('config.theme').highlightSeparator 'n'
     end,
   },
