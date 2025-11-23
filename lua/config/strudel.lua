@@ -8,51 +8,41 @@ M.keys = {
 
 M.buffer_keys = {
   { '<leader>;q', desc = 'quit' },
-  { '<leader>;t', desc = 'toggle' },
-  { '<leader>;u', desc = 'update' },
-  { '<leader>;s', desc = 'stop' },
-  { '<leader>;b', desc = 'buffer' },
-  { '<leader>;x', desc = 'buffer_and_update' },
+  { '<leader>;x', desc = 'toggle' },
+  { '<leader><leader>', desc = 'update' },
+  { '<leader>;X', desc = 'stop' },
+  { '<leader>;s', desc = 'buffer' },
+  { '<leader>;S', desc = 'buffer_and_update' },
 }
 
--- local function pomodoro_text()
---   local pomo = require 'pomo'
---   local timer = pomo.get_first_to_finish()
---   return '󰄉 ' .. tostring(timer)
--- end
---
--- local function pomodoro_cond()
---   local ok, pomo = pcall(require, 'pomo')
---   if not ok then
---     return false
---   end
---
---   return pomo.get_first_to_finish() ~= nil
--- end
-
--- M.lualine = function()
---   local lualineY = require('lualine').get_config().tabline.lualine_y or {}
---   table.insert(lualineY, { pomodoro_text, cond = pomodoro_cond })
---   require('lualine').setup { tabline = { lualine_y = lualineY } }
--- end
+-- Define a function that sets buffer-local keymaps
+local function set_strudel_keymaps(bufnr)
+  local strudel = require 'strudel'
+  local set_keymap_buffer = require('common.utils').get_keymap_setter(M.buffer_keys, { buffer = bufnr })
+  set_keymap_buffer('n', '<leader>;q', strudel.quit)
+  set_keymap_buffer('n', '<leader>;x', strudel.toggle)
+  set_keymap_buffer('n', '<leader><leader>', strudel.update)
+  set_keymap_buffer('n', '<leader>;X', strudel.stop)
+  set_keymap_buffer('n', '<leader>;s', strudel.set_buffer)
+  set_keymap_buffer('n', '<leader>;S', strudel.execute)
+end
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
   local strudel = require 'strudel'
 
-  set_keymap('n', '<leader>zm', strudel.launch)
+  set_keymap('n', '<leader>zm', function()
+    strudel.launch()
+    if vim.fn.expand '%:e' == 'str' then
+      set_strudel_keymaps(0)
+    end
+  end)
 
-  vim.api.nvim_create_autocmd('FileType', {
-    pattern = 'str',
-    callback = function()
-      local set_keymap_buffer = require('common.utils').get_keymap_setter(M.buffer_keys, { buffer = true })
-      set_keymap_buffer('n', '<leader>;q', strudel.quit)
-      set_keymap_buffer('n', '<leader>;t', strudel.toggle)
-      set_keymap_buffer('n', '<leader>;u', strudel.update)
-      set_keymap_buffer('n', '<leader>;s', strudel.stop)
-      set_keymap_buffer('n', '<leader>;b', strudel.set_buffer)
-      set_keymap_buffer('n', '<leader>;x', strudel.execute)
+  vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    pattern = '*.str',
+    callback = function(args)
+      set_strudel_keymaps(args.buf)
     end,
   })
 end
@@ -74,7 +64,6 @@ end
 M.config = function()
   M.setup()
   M.keymaps()
-  -- M.lualine()
 end
 
 -- M.config()

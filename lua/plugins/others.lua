@@ -122,6 +122,7 @@ return {
   {
     'gruvw/strudel.nvim',
     lazy = true,
+    event = "BufRead *.str",
     cond = conds['gruvw/strudel.nvim'] or false,
     cmd = require('config.strudel').cmd,
     keys = require('config.strudel').keys,
