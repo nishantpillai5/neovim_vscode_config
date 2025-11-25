@@ -26,8 +26,9 @@ local comp = {
         self.end_time = nil
         local beepboop_status, _ = pcall(require, 'beepboop')
         if beepboop_status then
-          require('beepboop').stop_all_audio()
+          require('beepboop').stop_audio(self.audio_handle)
         end
+        self.audio_handle = nil
       end,
       ---@return nil|boolean
       on_pre_start = function(self, task)
@@ -44,7 +45,7 @@ local comp = {
       on_start = function(self)
         local beepboop_status, _ = pcall(require, 'beepboop')
         if beepboop_status then
-          require('beepboop').play_audio("elevator")
+          self.audio_handle = require('beepboop').play_audio("elevator")
         end
         if not timer then
           timer = assert(vim.loop.new_timer())
@@ -61,7 +62,7 @@ local comp = {
       on_complete = function(self)
         local beepboop_status, _ = pcall(require, 'beepboop')
         if beepboop_status then
-          require('beepboop').stop_all_audio()
+          require('beepboop').stop_audio(self.audio_handle)
         end
         self.duration = os.time() - self.start_time
         self.end_time = os.time()
