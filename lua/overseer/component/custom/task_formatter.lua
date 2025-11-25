@@ -25,7 +25,7 @@ local comp = {
         self.start_time = nil
         self.end_time = nil
         local beepboop_status, _ = pcall(require, 'beepboop')
-        if beepboop_status then
+        if beepboop_status and self.audio_handle then
           require('beepboop').stop_audio(self.audio_handle)
         end
         self.audio_handle = nil
@@ -42,9 +42,9 @@ local comp = {
           end
         end
       end,
-      on_start = function(self)
+      on_start = function(self, task)
         local beepboop_status, _ = pcall(require, 'beepboop')
-        if beepboop_status then
+        if beepboop_status and require('config.overseer').filter_build_tasks(task) then
           self.audio_handle = require('beepboop').play_audio("elevator")
         end
         if not timer then
@@ -61,7 +61,7 @@ local comp = {
       end,
       on_complete = function(self)
         local beepboop_status, _ = pcall(require, 'beepboop')
-        if beepboop_status then
+        if beepboop_status and self.audio_handle then
           require('beepboop').stop_audio(self.audio_handle)
         end
         self.duration = os.time() - self.start_time
