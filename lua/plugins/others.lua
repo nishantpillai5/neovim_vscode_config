@@ -9,6 +9,7 @@ local plugins = {
   'seandewar/killersheep.nvim',
   'epwalsh/pomo.nvim',
   'gruvw/strudel.nvim',
+  'nishantpillai5/beepboop.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -109,24 +110,39 @@ return {
       },
     },
   },
+  -- Pomodoro
   {
     'epwalsh/pomo.nvim',
     lazy = true,
     cond = conds['epwalsh/pomo.nvim'] or false,
-    version = '*', -- Recommended, use latest release instead of latest commit
+    version = '*',
     dependencies = { 'rcarriga/nvim-notify' },
     cmd = require('config.pomodoro').cmd,
     keys = require('config.pomodoro').keys,
     config = require('config.pomodoro').config,
   },
+  -- ~Vibe~ coding
   {
     'gruvw/strudel.nvim',
     lazy = true,
-    event = "BufRead *.str",
+    event = 'BufRead *.str',
     cond = conds['gruvw/strudel.nvim'] or false,
     cmd = require('config.strudel').cmd,
     keys = require('config.strudel').keys,
     build = 'npm install',
     config = require('config.strudel').config,
+  },
+  -- Elevator music
+  {
+    'nishantpillai5/beepboop.nvim', -- supports stopping sounds
+    lazy = true,
+    cond = conds['nishantpillai5/beepboop.nvim'] or false,
+    opts = {
+      audio_player = 'mpv',
+      max_sounds = 1,
+      sound_map = {
+        { trigger_name = 'elevator', sound = 'elevator.mp3' },
+      },
+    },
   },
 }
