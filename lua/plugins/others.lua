@@ -136,9 +136,10 @@ return {
   {
     'nishantpillai5/beepboop.nvim', -- supports stopping sounds
     lazy = true,
+    branch = 'winfixed',
     cond = conds['nishantpillai5/beepboop.nvim'] or false,
     opts = {
-      audio_player = 'mpv',
+      audio_player = 'ffplay',
       max_sounds = 1,
       sound_map = {
         { trigger_name = 'elevator', sound = 'elevator.mp3' },
