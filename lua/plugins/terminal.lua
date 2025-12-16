@@ -1,6 +1,6 @@
 local plugins = {
   'akinsho/nvim-toggleterm.lua',
-  'ryanmsnyder/toggleterm-manager.nvim',
+  'nishantpillai5/toggleterm-manager.nvim',
   'stevearc/overseer.nvim',
   'andythigpen/nvim-coverage',
   'pianocomposer321/officer.nvim',
@@ -20,7 +20,7 @@ return {
   },
   -- Manager
   {
-    'ryanmsnyder/toggleterm-manager.nvim',
+    'nishantpillai5/toggleterm-manager.nvim', -- forked to create terminals with env vars
     lazy = true,
     dependencies = {
       'akinsho/nvim-toggleterm.lua',

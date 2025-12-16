@@ -1,6 +1,6 @@
 local plugins = {
   -- 'kawre/leetcode.nvim',
-  'xeluxee/competitest.nvim',
+  -- 'xeluxee/competitest.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)

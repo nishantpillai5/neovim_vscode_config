@@ -1,3 +1,4 @@
+_G.terminal_envs = _G.terminal_envs or {}
 local M = {}
 
 M.keys = {
@@ -90,6 +91,7 @@ M.setup = function()
   local toggleterm_manager = require 'toggleterm-manager'
   local actions = toggleterm_manager.actions
   toggleterm_manager.setup {
+    env = _G.terminal_envs,
     mappings = {
       n = {
         ['<CR>'] = { action = actions.toggle_term, exit_on_action = true },

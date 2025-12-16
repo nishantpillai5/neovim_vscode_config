@@ -59,7 +59,7 @@ return {
       require('config.theme').highlightSeparator 'n'
     end,
   },
-  -- Context breadcrumbs
+  -- Filename in winbar
   {
     'utilyre/barbecue.nvim',
     lazy = true,
@@ -102,7 +102,7 @@ return {
     cond = conds['lukas-reineke/indent-blankline.nvim'] or false,
     config = require('config.indent_blankline').config,
   },
-  -- Better UI
+  -- Notifications
   {
     'rcarriga/nvim-notify',
     lazy = true,
@@ -122,6 +122,7 @@ return {
     cond = conds['folke/noice.nvim'] or false,
     config = require('config.noice').config,
   },
+  -- Improved UI components TODO: replace with snacks.nvim
   {
     'stevearc/dressing.nvim',
     lazy = true,
@@ -129,6 +130,7 @@ return {
     cond = conds['stevearc/dressing.nvim'] or false,
     opts = {},
   },
+  -- Window layouts
   {
     'folke/edgy.nvim',
     lazy = true,

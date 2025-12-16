@@ -8,7 +8,7 @@ local plugins = {
   'theprimeagen/vim-be-good',
   'seandewar/killersheep.nvim',
   'epwalsh/pomo.nvim',
-  'gruvw/strudel.nvim',
+  -- 'gruvw/strudel.nvim',
   'nishantpillai5/beepboop.nvim',
 }
 
