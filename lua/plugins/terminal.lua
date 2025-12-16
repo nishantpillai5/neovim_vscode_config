@@ -13,27 +13,28 @@ return {
   -- Panel
   {
     'akinsho/nvim-toggleterm.lua',
-    lazy = true,
     cond = conds['akinsho/nvim-toggleterm.lua'] or false,
+    lazy = true,
     keys = require('config.toggleterm').keys,
     config = require('config.toggleterm').config,
   },
   -- Manager
   {
     'nishantpillai5/toggleterm-manager.nvim', -- forked to create terminals with env vars
+    cond = conds['nishantpillai5/toggleterm-manager.nvim'] or false,
     lazy = true,
     dependencies = {
       'akinsho/nvim-toggleterm.lua',
       'nvim-telescope/telescope.nvim',
       'nvim-lua/plenary.nvim',
     },
-    cond = conds['ryanmsnyder/toggleterm-manager.nvim'] or false,
     keys = require('config.toggleterm_manager').keys,
     config = require('config.toggleterm_manager').config,
   },
   -- Tasks
   {
     'stevearc/overseer.nvim',
+    cond = conds['stevearc/overseer.nvim'] or false,
     lazy = true,
     version = '^1.6.0', -- FIXME: https://github.com/stevearc/overseer.nvim/pull/448
     dependencies = {
@@ -41,7 +42,6 @@ return {
       'nvim-telescope/telescope.nvim',
       'stevearc/dressing.nvim',
     },
-    cond = conds['stevearc/overseer.nvim'] or false,
     cmd = require('config.overseer').cmd,
     keys = require('config.overseer').keys,
     config = require('config.overseer').config,
@@ -49,10 +49,10 @@ return {
   -- Coverage
   {
     'andythigpen/nvim-coverage',
+    cond = conds['andythigpen/nvim-coverage'] or false,
     lazy = true,
     version = '*',
     dependencies = { 'nvim-lua/plenary.nvim' },
-    cond = conds['andythigpen/nvim-coverage'] or false,
     cmd = {
       'Coverage',
       'CoverageLoad',
@@ -72,9 +72,9 @@ return {
   -- Build task using makeprg
   {
     'pianocomposer321/officer.nvim',
+    cond = conds['pianocomposer321/officer.nvim'] or false,
     lazy = true,
     dependencies = { 'stevearc/overseer.nvim' },
-    cond = conds['pianocomposer321/officer.nvim'] or false,
     cmd = { 'Make', 'Run' },
     config = function()
       -- TODO: If you set `:set makeprg=pytest\ %`, running `:make` will run `pytest` on the current file.
@@ -86,8 +86,8 @@ return {
   -- Redir commands to buffer
   {
     'sbulav/nredir.nvim',
-    lazy = true,
     cond = conds['sbulav/nredir.nvim'] or false,
+    lazy = true,
     cmd = { 'Nredir' },
     keys = {
       { '<leader>oRR', ':Nredir !', desc = 'run_cmd_to_buffer' },
