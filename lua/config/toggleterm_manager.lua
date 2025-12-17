@@ -1,4 +1,4 @@
-_G.terminal_envs = _G.terminal_envs or {}
+_G.env_reader = _G.env_reader or {}
 local M = {}
 
 M.keys = {
@@ -94,8 +94,8 @@ M.setup = function()
     mappings = {
       n = {
         ['<CR>'] = { action = actions.toggle_term, exit_on_action = true },
-        ['o'] = { action = actions.create_and_name_term_with_env(_G.terminal_envs), exit_on_action = true },
-        ['i'] = { action = actions.create_term_with_env(_G.terminal_envs), exit_on_action = true },
+        ['o'] = { action = actions.create_and_name_term_with_env_reader(_G.env_reader), exit_on_action = true },
+        ['i'] = { action = actions.create_term_with_env_reader(_G.env_reader), exit_on_action = true },
         ['x'] = { action = actions.delete_term, exit_on_action = false },
       },
     },
