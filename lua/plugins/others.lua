@@ -10,6 +10,7 @@ local plugins = {
   'epwalsh/pomo.nvim',
   -- 'gruvw/strudel.nvim',
   'nishantpillai5/beepboop.nvim',
+  'jrop/tuis.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -145,5 +146,12 @@ return {
         { trigger_name = 'elevator', sound = 'elevator.mp3' },
       },
     },
+  },
+  {
+    'jrop/tuis.nvim',
+    lazy = true,
+    cond = conds['jrop/tuis.nvim'] or false,
+    keys = require('config.tuis').keys,
+    config = require('config.tuis').config,
   },
 }
