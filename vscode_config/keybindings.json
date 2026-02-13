@@ -52,6 +52,11 @@
         // "when": "activityBarFocus",
         "command": "workbench.action.focusSideBar"
     },
+    {
+      "key": "ctrl+h",
+      "command": "workbench.action.focusFirstEditorGroup",
+      "when": "inChat"
+    },
     // Grapple / Tab Navigation
     // TODO: change trailblazer away from homerow
     {

@@ -475,6 +475,24 @@
                     "name": "reset",
                     "type": "command",
                     "command": "only available through neovim"
+                },
+                {
+                    "key": "N",
+                    "name": "new",
+                    "type": "command",
+                    "command": "workbench.action.chat.newChat"
+                },
+                {
+                    "key": "n",
+                    "name": "reject",
+                    "type": "command",
+                    "command": "chatEditor.action.rejectHunk"
+                },
+                {
+                    "key": "y",
+                    "name": "accept",
+                    "type": "command",
+                    "command": "chatEditor.action.acceptHunk"
                 }
             ]
         },
