@@ -1,4 +1,3 @@
-_G.dap_launch_json = _G.dap_launch_json or nil
 local M = {}
 
 M.keys = {
@@ -27,10 +26,6 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<F5>', function()
-    local launch_json = _G.dap_launch_json or '.vscode/launch.json'
-    if vim.fn.filereadable(launch_json) then
-      require('dap.ext.vscode').load_launchjs(launch_json, { cppdbg = { 'c', 'cpp' } })
-    end
     dap.continue()
   end)
 
