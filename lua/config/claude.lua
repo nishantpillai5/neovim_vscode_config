@@ -10,25 +10,12 @@ M.keys = {
   },
   { '<leader>cA', desc = 'attach_buffer' },
   { '<leader>cc', desc = 'chat' },
+  { '<leader>cC', desc = 'continue' },
+  { '<leader>cf', desc = 'find_session' },
+  { '<leader>fc', desc = 'chat' },
   { '<leader>cy', desc = 'diff_accept' },
   { '<leader>cn', desc = 'diff_reject' },
   { '<leader>cm', desc = 'model' },
-  -- { '<leader>ce', mode = { 'n', 'v' }, desc = 'explain' },
-  -- { '<leader>co', mode = { 'n', 'v' }, desc = 'optimize' },
-  -- { '<leader>cd', mode = { 'n', 'v' }, desc = 'diagnostic_fix' },
-  -- { '<leader>cD', mode = { 'n', 'v' }, desc = 'docs' },
-  -- { '<leader>cg', mode = { 'n', 'v' }, desc = 'commit' },
-  -- { '<leader>cG', mode = { 'n', 'v' }, desc = 'commit_staged' },
-  -- { '<leader>cr', mode = { 'n', 'v' }, desc = 'review' },
-  -- { '<leader>ci', mode = { 'n', 'v' }, desc = 'tests' },
-  -- { '<leader>cx', desc = 'stop' },
-  -- { '<leader>cX', desc = 'reset' },
-  -- { '<leader>cb', desc = 'buffer' },
-  -- { '<leader>cc', mode = 'v', desc = 'selection' },
-  -- { '<leader>cs', mode = 'v', desc = 'simplify' },
-  -- { '<leader>cp', mode = 'n', desc = 'pr_changes' },
-  -- { '<leader>fc', mode = { 'n', 'v' }, desc = 'chat' },
-  -- { '<leader>cf', mode = { 'n', 'v' }, desc = 'find' },
 }
 
 M.keymaps = function()
@@ -43,7 +30,19 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>cc', function()
-    vim.cmd 'ClaudeCode'
+    vim.cmd 'ClaudeCodeFocus'
+  end)
+
+  set_keymap('n', '<leader>cC', function()
+    vim.cmd 'ClaudeCode --continue'
+  end)
+
+  set_keymap('n', '<leader>cf', function()
+    vim.cmd 'ClaudeCode --resume'
+  end)
+
+  set_keymap('n', '<leader>fc', function()
+    vim.cmd 'ClaudeCode --resume'
   end)
 
   set_keymap('n', '<leader>cy', function()
