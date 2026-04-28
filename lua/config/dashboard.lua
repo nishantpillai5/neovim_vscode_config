@@ -8,7 +8,9 @@ local function get_logo()
   local logo = ascii.default_logo
 
   if context == 'work' or context == 'present' then
-    logo = _G.LOGO or ascii.work_logo
+    local logos = ascii.work_logos
+    local rand_n = os.time() % #logos + 1
+    logo = _G.LOGO or logos[rand_n]
   end
 
   return logo
