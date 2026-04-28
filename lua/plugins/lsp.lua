@@ -19,8 +19,7 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    lazy = true,
-    event = 'VeryLazy',
+    lazy = false,
     cond = conds['nvim-treesitter/nvim-treesitter'] or false,
     build = ':TSUpdate',
     config = require('config.treesitter').config,

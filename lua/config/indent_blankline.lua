@@ -23,7 +23,16 @@ M.setup = function()
     vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
   end)
 
-  vim.g.rainbow_delimiters = { highlight = highlight }
+  vim.g.rainbow_delimiters = {
+    highlight = highlight,
+    condition = function(bufnr)
+      local ft = vim.bo[bufnr].ft
+      local lang = vim.treesitter.language.get_lang(ft)
+      if not lang then return false end
+      local ok, parser = pcall(vim.treesitter.get_parser, bufnr, lang)
+      return ok and parser ~= nil
+    end,
+  }
   require('ibl').setup {
     scope = { highlight = highlight },
     exclude = {
@@ -37,7 +46,5 @@ end
 M.config = function()
   M.setup()
 end
-
--- M.config()
 
 return M

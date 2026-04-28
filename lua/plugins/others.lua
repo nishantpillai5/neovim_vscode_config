@@ -1,5 +1,5 @@
 local plugins = {
-  'vhyrro/luarocks.nvim',
+  -- 'vhyrro/luarocks.nvim',
   'eandrju/cellular-automaton.nvim',
   'kwakzalver/duckytype.nvim',
   'dstein64/vim-startuptime',

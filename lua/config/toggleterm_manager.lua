@@ -1,4 +1,4 @@
-_G.env_reader = _G.env_reader or {}
+_G.env_reader = _G.env_reader or function() end
 local M = {}
 
 M.keys = {

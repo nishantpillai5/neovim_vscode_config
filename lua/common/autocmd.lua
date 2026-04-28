@@ -50,3 +50,6 @@ vim.api.nvim_create_autocmd('FileType', {
     end
   end,
 })
+
+-- Auto update kitty conf
+vim.cmd [[autocmd bufwritepost ~/.config/kitty/kitty.conf :silent !kill -SIGUSR1 $(pgrep kitty)]]

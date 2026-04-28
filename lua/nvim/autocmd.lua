@@ -30,3 +30,17 @@ vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
     vim.bo.filetype = 'javascript'
   end,
 })
+
+-- Purple tint background for terminal buffers (re-applied on ColorScheme to survive theme reloads)
+local function set_term_hl()
+  vim.api.nvim_set_hl(0, 'TermNormal', { bg = '#1e1030' })
+end
+set_term_hl()
+vim.api.nvim_create_autocmd('ColorScheme', { callback = set_term_hl })
+vim.api.nvim_create_autocmd('TermOpen', {
+  callback = function()
+    vim.schedule(function()
+      vim.wo.winhighlight = 'Normal:TermNormal'
+    end)
+  end,
+})
