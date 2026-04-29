@@ -29,6 +29,7 @@ M.setup = function()
       'icon',
     },
     delete_to_trash = true,
+    watch_for_changes = true,
     use_default_keymaps = false,
     keymaps = {
       ['g?'] = { 'actions.show_help', mode = 'n', desc = 'oil_help' },

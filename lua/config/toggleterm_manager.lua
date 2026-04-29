@@ -1,4 +1,18 @@
-_G.env_reader = _G.env_reader or function() end
+_G.env_reader = _G.env_reader or function()
+  local env_path = vim.fn.getcwd() .. '/.vscode/.env'
+  local f = io.open(env_path, 'r')
+  if not f then return nil end
+  local env = {}
+  for line in f:lines() do
+    local key, val = line:match('^([^#=]+)=(.*)$')
+    if key then
+      env[vim.trim(key)] = vim.trim(val)
+    end
+  end
+  f:close()
+  return env
+end
+
 local M = {}
 
 M.keys = {

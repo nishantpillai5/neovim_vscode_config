@@ -23,7 +23,7 @@ end
 M.setup = function()
   require('dashboard').setup {
     theme = 'hyper',
-    change_to_vcs_root = true,
+    change_to_vcs_root = false,
     shortcuts_left_side = false,
     shortcut_type = 'number',
     config = {

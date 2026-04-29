@@ -65,5 +65,8 @@ vim.o.showcmdloc = 'last'
 -- Disable auto changing directory
 vim.o.autochdir = false
 
+-- Auto read file if updated
+vim.opt.autoread = true
+
 -- python
 vim.g.python3_host_prog = require('common.env').NVIM_PYTHON
