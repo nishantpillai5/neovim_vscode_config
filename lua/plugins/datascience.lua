@@ -1,7 +1,7 @@
 local plugins = {
   'quarto-dev/quarto-nvim',
   'benlubas/molten-nvim',
-  -- '3rd/image.nvim',
+  '3rd/image.nvim',
   'jmbuhr/otter.nvim',
   'jbyuki/nabla.nvim',
   -- 'GCBallesteros/jupytext.nvim',
@@ -14,6 +14,7 @@ return {
   {
     'quarto-dev/quarto-nvim',
     lazy = true,
+    ft = require('config.quarto').ft,
     cond = conds['quarto-dev/quarto-nvim'] or false,
     dependencies = {
       'jmbuhr/otter.nvim',
@@ -29,7 +30,7 @@ return {
     lazy = true,
     cond = conds['benlubas/molten-nvim'] or false,
     version = '^1.0.0', -- use version <2.0.0 to avoid breaking changes
-    -- dependencies = { '3rd/image.nvim' },
+    dependencies = { '3rd/image.nvim' },
     build = ':UpdateRemotePlugins',
     init = require('config.molten').init,
     config = require('config.molten').config,
@@ -41,12 +42,11 @@ return {
     cond = conds['3rd/image.nvim'] or false,
     opts = {
       backend = 'kitty',
-      max_width = 100,
-      max_height = 12,
       max_height_window_percentage = math.huge,
       max_width_window_percentage = math.huge,
       window_overlap_clear_enabled = true,
       window_overlap_clear_ft_ignore = { 'cmp_menu', 'cmp_docs', '' },
+      tmux_show_only_in_active_window = true,
     },
   },
   -- LSP in markdown

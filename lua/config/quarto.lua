@@ -37,19 +37,20 @@ M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
   set_keymap('n', '<leader>wi', function()
-    vim.cmd 'MoltenInit'
-    -- FIXME: init local venv kernal
-    -- auto select venv [link](https://github.com/benlubas/molten-nvim/blob/main/docs/Virtual-Environments.md)
-    -- local venv = os.getenv 'VIRTUAL_ENV' or os.getenv 'CONDA_PREFIX'
-    -- if venv ~= nil then
-    --   venv = require("common.utils").to_unix_path(venv)
-    --   vim.notify('Before: ' .. venv)
-    --   venv = string.match(venv, '/.+/(.+)')
-    --   vim.notify('After: ', venv)
-    --   vim.cmd(('MoltenInit %s'):format(venv))
-    -- else
-    --   vim.cmd 'MoltenInit'
-    -- end
+    local venv = os.getenv 'VIRTUAL_ENV' or os.getenv 'CONDA_PREFIX'
+    if venv == nil then
+      local candidate = vim.fn.getcwd() .. '/.venv'
+      if vim.fn.isdirectory(candidate) == 1 then
+        venv = candidate
+      end
+    end
+    if venv ~= nil then
+      venv = require('common.utils').to_unix_path(venv)
+      local kernel_name = string.match(venv, '/([^/]+)/%.venv$') or string.match(venv, '/([^/]+)$') or 'venv'
+      vim.cmd(('MoltenInit %s'):format(kernel_name))
+    else
+      vim.cmd 'MoltenInit'
+    end
   end)
 
   vim.api.nvim_create_autocmd('FileType', {

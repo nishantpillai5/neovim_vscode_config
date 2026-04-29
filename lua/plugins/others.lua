@@ -11,6 +11,7 @@ local plugins = {
   -- 'gruvw/strudel.nvim',
   'nishantpillai5/beepboop.nvim',
   'jrop/tuis.nvim',
+  'aikhe/wrapped.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -153,5 +154,13 @@ return {
     cond = conds['jrop/tuis.nvim'] or false,
     keys = require('config.tuis').keys,
     config = require('config.tuis').config,
+  },
+  {
+    'aikhe/wrapped.nvim',
+    lazy = true,
+    cond = conds['aikhe/wrapped.nvim'] or false,
+    dependencies = { 'nvzone/volt' },
+    cmd = { 'WrappedNvim' },
+    opts = {},
   },
 }
