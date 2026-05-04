@@ -1,7 +1,7 @@
 local plugins = {
   'ggml-org/llama.vim',
   'coder/claudecode.nvim',
-  -- 'olimorris/codecompanion.nvim',
+  'olimorris/codecompanion.nvim',
   -- 'github/copilot.vim',
   -- 'zbirenbaum/copilot.lua',
   -- 'CopilotC-Nvim/CopilotChat.nvim',
@@ -18,8 +18,8 @@ return {
     init = function()
       vim.g.llama_config = {
         show_info = false,
-        keymap_fim_accept_full = "<Tab>",
-        keymap_fim_accept_line = "§",
+        keymap_fim_accept_full = '<Tab>',
+        keymap_fim_accept_line = '§',
         -- keymap_inst_accept = '<C-a>',
         -- keymap_fim_accept_word = "<>",
       }
@@ -28,11 +28,10 @@ return {
   -- CLI tool
   {
     'coder/claudecode.nvim',
-    -- lazy = true,
+    lazy = true,
     cond = conds['coder/claudecode.nvim'] or false,
     dependencies = { 'folke/snacks.nvim' },
-    -- event = { 'BufReadPre', 'BufNewFile' },
-    -- cmd = 'ClaudeCode',
+    cmd = 'ClaudeCode',
     keys = require('config.claude').keys,
     config = require('config.claude').config,
   },

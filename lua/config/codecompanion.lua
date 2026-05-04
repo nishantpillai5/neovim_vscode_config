@@ -1,13 +1,15 @@
 local M = {}
 
 M.keys = {
-  -- { '<leader>ls', mode = { 'n', 'v' }, desc = 'format' },
+  { '<leader>cl', mode = { 'n', 'v' }, desc = 'local_chat' },
 }
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  -- set_keymap({ 'n', 'v' }, '<leader>ls', function() end)
+  set_keymap({ 'n', 'v' }, '<leader>cl', function()
+    vim.cmd 'CodeCompanionChat'
+  end)
 end
 
 M.setup = function()
