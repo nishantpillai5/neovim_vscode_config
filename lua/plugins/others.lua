@@ -12,6 +12,7 @@ local plugins = {
   'nishantpillai5/beepboop.nvim',
   'jrop/tuis.nvim',
   'aikhe/wrapped.nvim',
+  'NStefan002/screenkey.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -123,7 +124,7 @@ return {
     keys = require('config.pomodoro').keys,
     config = require('config.pomodoro').config,
   },
-  -- ~Vibe~ coding
+  -- This is the real ~Vibe~ coding
   {
     'gruvw/strudel.nvim',
     lazy = true,
@@ -148,6 +149,7 @@ return {
       },
     },
   },
+  -- TUIs
   {
     'jrop/tuis.nvim',
     lazy = true,
@@ -155,6 +157,7 @@ return {
     keys = require('config.tuis').keys,
     config = require('config.tuis').config,
   },
+  -- See config stats
   {
     'aikhe/wrapped.nvim',
     lazy = true,
@@ -162,5 +165,13 @@ return {
     dependencies = { 'nvzone/volt' },
     cmd = { 'WrappedNvim' },
     opts = {},
+  },
+  -- Show key presses
+  {
+    'NStefan002/screenkey.nvim',
+    lazy = true,
+    cond = conds['NStefan002/screenkey.nvim'] or false,
+    cmd = 'Screenkey',
+    version = '*',
   },
 }
