@@ -18,8 +18,8 @@ return {
     init = function()
       vim.g.llama_config = {
         show_info = false,
-        keymap_fim_accept_full = '<Tab>',
-        keymap_fim_accept_line = '§',
+        keymap_fim_accept_line = '<Tab>',
+        keymap_fim_accept_full = '<S-Tab>',
         -- keymap_inst_accept = '<C-a>',
         -- keymap_fim_accept_word = "<>",
       }

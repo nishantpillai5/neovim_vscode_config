@@ -243,18 +243,6 @@
     ],
     "whichkey.bindings": [
         {
-            "key": "a",
-            "name": "grapple_add",
-            "type": "command",
-            "command": "not implemented"
-        },
-        {
-            "key": "A",
-            "name": "alternate_file",
-            "type": "command",
-            "command": "alt8.findRelatedFiles"
-        },
-        {
             "key": "d",
             "name": "delete_to_clipboard",
             "type": "command",
@@ -265,12 +253,6 @@
             "name": "delete_to_void",
             "type": "command",
             "command": "only available through neovim"
-        },
-        {
-            "key": "h",
-            "name": "grapple_list",
-            "type": "command",
-            "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor"
         },
         {
             "key": "H",
@@ -1097,6 +1079,31 @@
                             "command": "git.stashIncludeUntracked"
                         }
                     ]
+                }
+            ]
+        },
+        {
+            "key": "h",
+            "name": "+Grapple",
+            "type": "bindings",
+            "bindings": [
+                {
+                    "key": "a",
+                    "name": "grapple_add",
+                    "type": "command",
+                    "command": "not implemented"
+                },
+                {
+                    "key": "A",
+                    "name": "alternate_file",
+                    "type": "command",
+                    "command": "alt8.findRelatedFiles"
+                },
+                {
+                    "key": "h",
+                    "name": "grapple_list",
+                    "type": "command",
+                    "command": "workbench.action.quickOpenPreviousRecentlyUsedEditor"
                 }
             ]
         },

@@ -53,3 +53,9 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Auto update kitty conf
 vim.cmd [[autocmd bufwritepost ~/.config/kitty/kitty.conf :silent !kill -SIGUSR1 $(pgrep kitty)]]
+
+-- Auto update file
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = "*",
+})

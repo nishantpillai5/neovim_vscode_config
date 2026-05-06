@@ -3,7 +3,7 @@ _G.other_mappings = _G.other_mappings or nil
 local M = {}
 
 M.keys = {
-  { '<leader>A', '<cmd>Other<cr>', desc = 'alternate_file' },
+  { '<leader>hA', '<cmd>Other<cr>', desc = 'alternate_file' },
 }
 M.setup = function()
   local mappings = { 'c' }

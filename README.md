@@ -39,3 +39,7 @@ To install the configuration:
   - [Todo Tree (gruntfuggly.todo-tree)](https://marketplace.visualstudio.com/items?itemName=gruntfuggly.todo-tree)
   - [Alt8 (maksimrv.alt8)](https://marketplace.visualstudio.com/items?itemName=maksimrv.alt8)
   - [LazyGit (tompollak.lazygit-vscode)](https://marketplace.visualstudio.com/items?itemName=tompollak.lazygit-vscode)
+
+## Todo
+
+- [ ] Vscode chat keybinds are outdated
