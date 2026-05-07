@@ -10,7 +10,7 @@ M.keys = {
     desc = 'attach_file',
     ft = { 'NvimTree', 'neo-tree', 'oil', 'minifiles', 'netrw' },
   },
-  { '<leader>ac', desc = 'continue' },
+  { '<leader>as', desc = 'session_continue' },
   { '<leader>af', desc = 'find_session' },
   { '<leader>aF', desc = 'find_session_cmd' },
   { '<leader>aj', desc = 'diff_accept' },
@@ -191,7 +191,7 @@ M.keymaps = function()
   set_keymap('n', '<leader>aV', function()
     vim.cmd 'ClaudeCodeAdd %'
   end)
-  set_keymap('n', '<leader>ac', function()
+  set_keymap('n', '<leader>as', function()
     vim.cmd 'ClaudeCode --continue'
   end)
   set_keymap('n', '<leader>af', pick_claude_session)

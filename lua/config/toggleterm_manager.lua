@@ -1,17 +1,24 @@
-_G.env_reader = _G.env_reader or function()
-  local env_path = vim.fn.getcwd() .. '/.vscode/.env'
-  local f = io.open(env_path, 'r')
-  if not f then return nil end
-  local env = {}
-  for line in f:lines() do
-    local key, val = line:match('^([^#=]+)=(.*)$')
-    if key then
-      env[vim.trim(key)] = vim.trim(val)
+_G.env_reader = _G.env_reader
+  or function()
+    local cwd = vim.fn.getcwd()
+    local env_path = cwd .. '/.vscode/.env'
+    if not io.open(env_path, 'r') then
+      env_path = cwd .. '/.env'
     end
+    local f = io.open(env_path, 'r')
+    if not f then
+      return nil
+    end
+    local env = {}
+    for line in f:lines() do
+      local key, val = line:match '^([^#=]+)=(.*)$'
+      if key then
+        env[vim.trim(key)] = vim.trim(val)
+      end
+    end
+    f:close()
+    return env
   end
-  f:close()
-  return env
-end
 
 local M = {}
 
@@ -22,70 +29,70 @@ M.keys = {
 }
 
 local function pick_terminal()
-    local pickers = require 'telescope.pickers'
-    local finders = require 'telescope.finders'
-    local conf = require('telescope.config').values
-    local actions = require 'telescope.actions'
-    local action_state = require 'telescope.actions.state'
+  local pickers = require 'telescope.pickers'
+  local finders = require 'telescope.finders'
+  local conf = require('telescope.config').values
+  local actions = require 'telescope.actions'
+  local action_state = require 'telescope.actions.state'
 
-    local function get_terminal_buffers()
-      local bufs = vim.api.nvim_list_bufs()
-      local results = {}
-      for _, bufnr in ipairs(bufs) do
-        if vim.api.nvim_buf_is_loaded(bufnr) then
-          local name = vim.api.nvim_buf_get_name(bufnr)
-          if name:match '^term://' then
-            table.insert(results, {
-              bufnr = bufnr,
-              name = name ~= '' and name or '[No Name]',
-            })
-          end
+  local function get_terminal_buffers()
+    local bufs = vim.api.nvim_list_bufs()
+    local results = {}
+    for _, bufnr in ipairs(bufs) do
+      if vim.api.nvim_buf_is_loaded(bufnr) then
+        local name = vim.api.nvim_buf_get_name(bufnr)
+        if name:match '^term://' then
+          table.insert(results, {
+            bufnr = bufnr,
+            name = name ~= '' and name or '[No Name]',
+          })
         end
       end
-      return results
     end
-
-    pickers
-      .new({}, {
-        prompt_title = 'Terminal Buffers',
-        finder = finders.new_table {
-          results = get_terminal_buffers(),
-          entry_maker = function(entry)
-            return {
-              value = entry.bufnr,
-              display = entry.name,
-              ordinal = entry.name,
-              bufnr = entry.bufnr,
-            }
-          end,
-        },
-        sorter = conf.generic_sorter {},
-        previewer = require('telescope.previewers').new_buffer_previewer {
-          define_preview = function(self, entry, status)
-            local bufnr = entry.bufnr or entry.value
-            if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
-              return
-            end
-            local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-            vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
-            vim.api.nvim_buf_set_option(self.state.bufnr, 'filetype', 'terminal')
-          end,
-        },
-        attach_mappings = function(prompt_bufnr, map)
-          local select_term = function()
-            local entry = action_state.get_selected_entry()
-            actions.close(prompt_bufnr)
-            if entry and entry.bufnr then
-              vim.api.nvim_set_current_buf(entry.bufnr)
-            end
-          end
-          map('i', '<CR>', select_term)
-          map('n', '<CR>', select_term)
-          return true
-        end,
-      })
-      :find()
+    return results
   end
+
+  pickers
+    .new({}, {
+      prompt_title = 'Terminal Buffers',
+      finder = finders.new_table {
+        results = get_terminal_buffers(),
+        entry_maker = function(entry)
+          return {
+            value = entry.bufnr,
+            display = entry.name,
+            ordinal = entry.name,
+            bufnr = entry.bufnr,
+          }
+        end,
+      },
+      sorter = conf.generic_sorter {},
+      previewer = require('telescope.previewers').new_buffer_previewer {
+        define_preview = function(self, entry, status)
+          local bufnr = entry.bufnr or entry.value
+          if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+            return
+          end
+          local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+          vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
+          vim.api.nvim_buf_set_option(self.state.bufnr, 'filetype', 'terminal')
+        end,
+      },
+      attach_mappings = function(prompt_bufnr, map)
+        local select_term = function()
+          local entry = action_state.get_selected_entry()
+          actions.close(prompt_bufnr)
+          if entry and entry.bufnr then
+            vim.api.nvim_set_current_buf(entry.bufnr)
+          end
+        end
+        map('i', '<CR>', select_term)
+        map('n', '<CR>', select_term)
+        return true
+      end,
+    })
+    :find()
+end
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)

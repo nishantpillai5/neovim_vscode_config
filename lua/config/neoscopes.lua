@@ -67,9 +67,9 @@ end
 local global_scopes = function()
   local neoscopes = require 'neoscopes'
   ---@diagnostic disable-next-line: missing-fields
-  neoscopes.add { name = 'notes', dirs = { require('common.env').DIR_NOTES } }
+  -- neoscopes.add { name = 'notes', dirs = { require('common.env').DIR_NOTES } }
   ---@diagnostic disable-next-line: missing-fields
-  neoscopes.add { name = 'nvim_config', dirs = { require('common.env').DIR_NVIM } }
+  -- neoscopes.add { name = 'nvim_config', dirs = { require('common.env').DIR_NVIM } }
 end
 
 local replace_telescope_keymaps = function()
@@ -103,7 +103,7 @@ local replace_telescope_keymaps = function()
     builtin.live_grep {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -111,7 +111,7 @@ local replace_telescope_keymaps = function()
     require('telescope').extensions.live_grep_args.live_grep_args {
       prompt_prefix = icon .. '> ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -121,7 +121,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -131,7 +131,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = word,
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 
@@ -140,7 +140,7 @@ local replace_telescope_keymaps = function()
       prompt_prefix = icon .. '> ',
       search = vim.fn.input 'Search > ',
       search_dirs = neoscopes.get_current_dirs(),
-      additional_args = { '-L', '--no-ignore' }
+      additional_args = { '-L', '--no-ignore' },
     }
   end)
 end
@@ -171,6 +171,7 @@ M.setup = function(selecting)
   neoscopes.setup {
     neoscopes_config_filename = _G.scope_config_file,
     on_scope_selected = refresh_workspace,
+    enable_scopes_from_npm = true,
   }
   global_scopes()
 

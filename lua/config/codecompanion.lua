@@ -1,14 +1,27 @@
 local M = {}
 
 M.keys = {
-  { '<leader>al', mode = { 'n', 'v' }, desc = 'local_chat' },
+  { '<leader>cc', mode = { 'n', 'v' }, desc = 'chat' },
+  { '<leader>cl', mode = { 'n', 'v' }, desc = 'inline_chat' },
+  { '<leader>c;', mode = { 'n', 'v' }, desc = 'cmd' },
 }
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  set_keymap({ 'n', 'v' }, '<leader>al', function()
+  set_keymap({ 'n', 'v' }, '<leader>cc', function()
     vim.cmd 'CodeCompanionChat'
+  end)
+
+  set_keymap({ 'n', 'v' }, '<leader>cl', function()
+    vim.cmd 'CodeCompanion'
+  end)
+
+  set_keymap({ 'n', 'v' }, '<leader>c;', function()
+    local prompt = vim.fn.input 'Enter custom prompt: '
+    if prompt ~= '' then
+      vim.cmd('CodeCompanionCmd ' .. prompt)
+    end
   end)
 end
 

@@ -20,7 +20,7 @@ M.spec = {
   { '<leader>;', group = 'Leet' },
   { '<leader>a', group = 'Agent', mode = { 'n', 'v' } },
   { '<leader>b', group = 'Breakpoint' },
-  -- { '<leader>c', group = 'Chat', mode = { 'n', 'v' } },
+  { '<leader>c', group = 'Chat', mode = { 'n', 'v' } },
   { '<leader>e', group = 'Explorer' },
   { '<leader>ey', group = 'Yank' },
   { '<leader>f', group = 'Find', mode = { 'n', 'v' } },
