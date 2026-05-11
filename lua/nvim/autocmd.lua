@@ -47,9 +47,10 @@ local function update_time_diffs(buf)
   for i, line in ipairs(lines) do
     local h1, m1, h2, m2 = line:match '(%d+):(%d+)-(%d+):(%d+)'
     if h1 then
-      local diff = math.abs((tonumber(h1) * 60 + tonumber(m1)) - (tonumber(h2) * 60 + tonumber(m2)))
+      local break_min = tonumber(line:match '%(b(%d+)%)') or 30
+      local diff = math.abs((tonumber(h1) * 60 + tonumber(m1)) - (tonumber(h2) * 60 + tonumber(m2))) - break_min
       vim.api.nvim_buf_set_extmark(buf, time_diff_ns, i - 1, 0, {
-        virt_text = { { string.format('%dh %dm', math.floor(diff / 60), diff % 60), 'Comment' } },
+        virt_text = { { string.format('%dh %dm (b%d)', math.floor(diff / 60), diff % 60, break_min), 'Comment' } },
         virt_text_pos = 'eol',
       })
     end
