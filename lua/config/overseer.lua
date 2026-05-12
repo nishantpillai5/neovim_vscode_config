@@ -12,7 +12,7 @@ M.keys = {
   { '<leader>oRr', desc = 'run_cmd_with_template' },
   { '<leader>eo', desc = 'tasks' },
   { '<leader>of', desc = 'change_task' },
-  { '<leader>fo', desc = 'tasks' },
+  { '<leader>fO', desc = 'tasks' },
   { '<leader>on', desc = 'new' },
   { '<leader>oc', desc = 'change_last_core' },
   { '<leader>oC', desc = 'change_last_other' },
@@ -169,7 +169,7 @@ M.keymaps = function()
     vim.cmd 'OverseerTaskAction'
   end)
 
-  set_keymap('n', '<leader>fo', function()
+  set_keymap('n', '<leader>fO', function()
     vim.cmd 'OverseerTaskAction'
   end)
 

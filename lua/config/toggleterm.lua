@@ -4,22 +4,8 @@ M.keys = {
   { '<leader>o;', desc = 'toggle' },
 }
 
-local init_or_toggle = function()
-  local buffers = vim.api.nvim_list_bufs()
-  local toggleterm_exists = false
-  for _, buf in ipairs(buffers) do
-    local buf_name = vim.api.nvim_buf_get_name(buf)
-    if buf_name:find 'toggleterm' then
-      toggleterm_exists = true
-      break
-    end
-  end
-
-  if not toggleterm_exists then
-    vim.cmd [[ exe 1 . "ToggleTerm" ]]
-  else
-    require('toggleterm').toggle_all(true)
-  end
+local toggle_terminal = function()
+  vim.cmd [[ exe 1 . "ToggleTerm" ]]
 end
 
 local panel_align = function()
@@ -28,7 +14,7 @@ end
 
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
-  set_keymap('n', '<leader>o;', init_or_toggle)
+  set_keymap('n', '<leader>o;', toggle_terminal)
 end
 
 M.setup = function()

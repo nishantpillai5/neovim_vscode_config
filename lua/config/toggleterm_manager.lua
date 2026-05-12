@@ -23,7 +23,7 @@ _G.env_reader = _G.env_reader
 local M = {}
 
 M.keys = {
-  { '<leader>fO', desc = 'terminals' },
+  { '<leader>fo', desc = 'terminals' },
   -- { '<leader>fo', desc = 'terminals_all' },
   { '<leader>oF', desc = 'find' },
 }
@@ -97,7 +97,7 @@ end
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  set_keymap('n', '<leader>fO', function()
+  set_keymap('n', '<leader>fo', function()
     vim.cmd [[ Telescope toggleterm_manager ]]
   end)
 
