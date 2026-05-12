@@ -1,6 +1,7 @@
 local plugins = {
   'ggml-org/llama.vim',
   'coder/claudecode.nvim',
+  -- 'nickjvandyke/opencode.nvim',
   'olimorris/codecompanion.nvim',
   -- 'github/copilot.vim',
   -- 'zbirenbaum/copilot.lua',
@@ -34,6 +35,36 @@ return {
     cmd = 'ClaudeCode',
     keys = require('config.claude').keys,
     config = require('config.claude').config,
+  },
+  {
+    'nickjvandyke/opencode.nvim',
+    lazy = true,
+    version = '*',
+    cond = conds['nickjvandyke/opencode.nvim'] or false,
+    dependencies = {
+      {
+        'folke/snacks.nvim',
+        optional = true,
+        opts = {
+          input = {}, -- Enhances `ask()`
+          picker = { -- Enhances `select()`
+            actions = {
+              opencode_send = function(...)
+                return require('opencode').snacks_picker_send(...)
+              end,
+            },
+            win = {
+              input = {
+                keys = {
+                  ['<a-a>'] = { 'opencode_send', mode = { 'n', 'i' } },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+    config = require('config.opencode').config,
   },
   -- Chat
   {
