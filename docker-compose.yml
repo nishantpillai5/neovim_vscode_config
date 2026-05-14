@@ -1,0 +1,12 @@
+services:
+  nvim:
+    image: docker-nvim
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - .:/home/nvimuser/.config/nvim
+      - nvim-local:/home/nvimuser/.local
+    working_dir: /home/nvimuser/.config/nvim
+
+volumes:
+  nvim-local:
