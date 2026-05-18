@@ -9,7 +9,7 @@ local plugins = {
   'seandewar/killersheep.nvim',
   'epwalsh/pomo.nvim',
   -- 'gruvw/strudel.nvim',
-  'nishantpillai5/beepboop.nvim',
+  -- 'nishantpillai5/beepboop.nvim',
   'jrop/tuis.nvim',
   'aikhe/wrapped.nvim',
   'NStefan002/screenkey.nvim',

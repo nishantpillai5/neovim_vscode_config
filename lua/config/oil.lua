@@ -46,7 +46,7 @@ M.setup = function()
       ['~'] = { 'actions.cd', mode = 'n', desc = 'oil_cwd' },
       ['zo'] = { 'actions.change_sort', mode = 'n', desc = 'oil_order_by' },
       ['gx'] = 'actions.open_external',
-      ['zh'] = { 'actions.toggle_hidden', mode = 'n', desc = 'oil_toggle_hidden' },
+      ['z.'] = { 'actions.toggle_hidden', mode = 'n', desc = 'oil_toggle_hidden' },
       ['zt'] = { 'actions.toggle_trash', mode = 'n', desc = 'oil_toggle_trash' },
       ['zd'] = {
         desc = 'oil_toggle_detail',
