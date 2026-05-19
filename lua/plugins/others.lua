@@ -13,6 +13,7 @@ local plugins = {
   'jrop/tuis.nvim',
   'aikhe/wrapped.nvim',
   'NStefan002/screenkey.nvim',
+  -- 'andweeb/presence.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -173,5 +174,13 @@ return {
     cond = conds['NStefan002/screenkey.nvim'] or false,
     cmd = 'Screenkey',
     version = '*',
+  },
+  -- Discord presence
+  {
+    'andweeb/presence.nvim',
+    lazy = true,
+    cond = conds['andweeb/presence.nvim'] or false,
+    keys = require('config.discord').keys,
+    config = require('config.discord').config,
   },
 }
