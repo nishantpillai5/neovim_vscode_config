@@ -106,7 +106,19 @@ end
 set_keymap('n', '<leader>ew', cd_to_current_file)
 set_keymap('n', '<leader>we', cd_to_current_file)
 
-set_keymap('n', '<leader>z;', function()
+-- Reload config with a local keymap
+local function map_local(lhs, pattern, rhs)
+  vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    pattern = pattern,
+    callback = function(args)
+      set_keymap('n', lhs, rhs, { buffer = true })
+    end,
+  })
+end
+
+local XDG_CONFIG_HOME = require('common.env').XDG_CONFIG_HOME
+
+map_local('<leader>ii', XDG_CONFIG_HOME .. '/nvim/**', function()
   local file = vim.fn.expand '%:p'
   if file == '' then
     vim.notify('No file to source', vim.log.levels.WARN)
@@ -116,7 +128,7 @@ set_keymap('n', '<leader>z;', function()
   vim.notify('Sourced config: ' .. file)
 end)
 
-set_keymap('n', '<leader>z:', function()
+map_local('<leader>iI', XDG_CONFIG_HOME .. '/nvim/**', function()
   local file = vim.fn.expand '$MYVIMRC'
   if file == '' then
     vim.notify('No file to source', vim.log.levels.WARN)
@@ -126,27 +138,22 @@ set_keymap('n', '<leader>z:', function()
   vim.notify('Sourced full config: ' .. file)
 end)
 
--- Buffer-local <leader>ii to reload the external config a buffer represents
-local function map_reload(pattern, shell_cmd, label)
-  vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-    pattern = pattern,
-    callback = function()
-      set_keymap('n', '<leader>ii', function()
-        vim.fn.system(shell_cmd)
-        vim.notify('Reloaded ' .. label)
-      end, { buffer = true })
-    end,
-  })
-end
+map_local('<leader>ii', XDG_CONFIG_HOME .. '/kitty/**', function()
+  vim.fn.system 'kill -SIGUSR1 $(pgrep kitty)'
+  vim.notify 'Reloaded kitty'
+end)
 
-map_reload(vim.fn.expand '$HOME' .. '/.config/kitty/*', 'kill -SIGUSR1 $(pgrep kitty)', 'kitty')
-map_reload(
-  vim.fn.expand '$HOME' .. '/.config/tmux/*',
-  'tmux source-file ' .. vim.fn.expand '$HOME' .. '/.config/tmux/tmux.conf',
-  'tmux'
-)
-map_reload(
-  vim.fn.expand '$HOME' .. '/.oh-my-zsh/custom/*.zsh',
-  'source ' .. vim.fn.expand '$HOME' .. '/.zshrc',
-  'oh-my-zsh'
-)
+map_local('<leader>ii', XDG_CONFIG_HOME .. '/tmux/**', function()
+  vim.fn.system('tmux source-file ' .. XDG_CONFIG_HOME .. '/tmux/tmux.conf')
+  vim.notify 'Reloaded tmux'
+end)
+
+map_local('<leader>ii', vim.fn.expand '$HOME' .. '/.oh-my-zsh/custom/*.zsh', function()
+  vim.fn.system('source ' .. vim.fn.expand '$HOME' .. '/.zshrc')
+  vim.notify 'Reloaded oh-my-zsh'
+end)
+
+map_local('<leader>ii', XDG_CONFIG_HOME .. '/hypr/*', function()
+  vim.fn.system 'hyprctl reload'
+  vim.notify 'Reloaded hyprland'
+end)

@@ -42,6 +42,7 @@ else
 end
 
 M.defaults = {
+  XDG_CONFIG_HOME = vim.fn.expand '~/.config',
   NVIM_CONTEXT = 'home',
   DIR_NOTES = vim.fn.expand '~/notes',
   DIR_NVIM = vim.fn.expand '~/.config/nvim',
@@ -56,6 +57,7 @@ local set_env = function(var)
   return os.getenv(var) or M.defaults[var]
 end
 
+M.XDG_CONFIG_HOME = set_env 'XDG_CONFIG_HOME'
 M.NVIM_CONTEXT = set_env 'NVIM_CONTEXT'
 M.DIR_NOTES = set_env 'DIR_NOTES'
 M.DIR_NVIM = set_env 'DIR_NVIM'
