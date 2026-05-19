@@ -26,8 +26,8 @@ M.setup = function()
     buttons = false,
     show_time = true,
     -- Rich Presence text options
-    editing_text = 'Editing files',
-    file_explorer_text = 'Browsing files',
+    editing_text = 'Editing stuff',
+    file_explorer_text = 'Looking through files',
     git_commit_text = 'Committing changes',
     plugin_manager_text = 'Managing plugins',
     reading_text = 'Reading files',

@@ -1,5 +1,5 @@
 local plugins = {
-  'rest-nvim/rest.nvim',
+  -- 'rest-nvim/rest.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
