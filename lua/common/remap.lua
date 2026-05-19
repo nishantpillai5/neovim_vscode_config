@@ -28,6 +28,8 @@ local keys = {
 
   { '<leader>z;', desc = 'source_config_current_file' },
   { '<leader>z:', desc = 'source_config_full' },
+
+  { '<leader>ii', desc = 'reload_external_config' },
 }
 
 local set_keymap = require('common.utils').get_keymap_setter(keys)
@@ -104,7 +106,6 @@ end
 set_keymap('n', '<leader>ew', cd_to_current_file)
 set_keymap('n', '<leader>we', cd_to_current_file)
 
-
 set_keymap('n', '<leader>z;', function()
   local file = vim.fn.expand '%:p'
   if file == '' then
@@ -124,3 +125,28 @@ set_keymap('n', '<leader>z:', function()
   vim.cmd('source ' .. file)
   vim.notify('Sourced full config: ' .. file)
 end)
+
+-- Buffer-local <leader>ii to reload the external config a buffer represents
+local function map_reload(pattern, shell_cmd, label)
+  vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
+    pattern = pattern,
+    callback = function()
+      set_keymap('n', '<leader>ii', function()
+        vim.fn.system(shell_cmd)
+        vim.notify('Reloaded ' .. label)
+      end, { buffer = true })
+    end,
+  })
+end
+
+map_reload(vim.fn.expand '$HOME' .. '/.config/kitty/*', 'kill -SIGUSR1 $(pgrep kitty)', 'kitty')
+map_reload(
+  vim.fn.expand '$HOME' .. '/.config/tmux/*',
+  'tmux source-file ' .. vim.fn.expand '$HOME' .. '/.config/tmux/tmux.conf',
+  'tmux'
+)
+map_reload(
+  vim.fn.expand '$HOME' .. '/.oh-my-zsh/custom/*.zsh',
+  'source ' .. vim.fn.expand '$HOME' .. '/.zshrc',
+  'oh-my-zsh'
+)
