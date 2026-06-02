@@ -7,6 +7,7 @@ local plugins = {
   'mattn/calendar-vim',
   'nfrid/due.nvim',
   'MeanderingProgrammer/render-markdown.nvim',
+  'Avi-D-coder/whisper.nvim',
 }
 
 local conds = require('common.utils').get_conds_table(plugins)
@@ -85,6 +86,7 @@ return {
     cmd = require('config.calendar').cmd,
     config = require('config.calendar').config,
   },
+  -- Todo
   {
     'NFrid/due.nvim',
     lazy = true,
@@ -103,6 +105,7 @@ return {
       }
     end,
   },
+  -- Preview markdown
   {
     'MeanderingProgrammer/render-markdown.nvim',
     lazy = true,
@@ -112,5 +115,14 @@ return {
     opts = {
       file_types = { 'copilot-chat' },
     },
+  },
+  -- Transcribe
+  {
+    'Avi-D-coder/whisper.nvim',
+    lazy = true,
+    cond = conds['Avi-D-coder/whisper.nvim'] or false,
+    cmd = { 'WhisperToggle', 'WhisperDownloadModel' },
+    keys = require('config.whisper').keys,
+    config = require('config.whisper').config,
   },
 }
