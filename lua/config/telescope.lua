@@ -420,6 +420,7 @@ M.keys = {
   { '<leader>ff', desc = 'git_files' },
   { '<leader>fF', desc = 'ignored_files' },
   { '<leader>fa', desc = 'all' },
+  { '<leader>fn', desc = 'notes' },
   { '<leader>fA', desc = 'alternate' },
   { '<leader>fi', desc = 'files_from_head_include_untracked' },
   { '<leader>fj', desc = 'files_from_head' },
@@ -475,7 +476,15 @@ M.keymaps = function()
     builtin.find_files { default_text = prefix, no_ignore = true }
   end)
 
-  set_keymap('n', '<leader>fa', builtin.find_files)
+  set_keymap('n', '<leader>fa', function()
+    builtin.find_files { no_ignore = true }
+  end)
+
+  set_keymap('n', '<leader>fn', function()
+    local prefix = 'wiki '
+    builtin.find_files { default_text = prefix, no_ignore = true }
+  end)
+
 
   set_keymap('n', '<leader>fA', function()
     local bufname = vim.api.nvim_buf_get_name(0)

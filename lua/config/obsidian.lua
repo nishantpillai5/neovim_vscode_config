@@ -7,7 +7,7 @@ end
 
 M.keys = {
   { '<leader>nf', ':Obsidian quick_switch<cr>', desc = 'find' },
-  { '<leader>fn', ':Obsidian quick_switch<cr>', desc = 'notes' },
+  { '<leader>fN', ':Obsidian quick_switch<cr>', desc = 'notes' },
   { '<leader>n?', ':Obsidian search<cr>', desc = 'search' },
   { '<leader>nj', ':Obsidian today<cr>', desc = 'journal_today' },
   { '<leader>nJ', ':Obsidian dailies<cr>', desc = 'journal_list' },

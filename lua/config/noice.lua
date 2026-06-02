@@ -12,7 +12,7 @@ end
 
 M.keys = {
   { '<leader>zn', desc = 'noice_disable' },
-  { '<leader>fN', desc = 'notifications' },
+  { '<leader>fz', desc = 'notifications' },
 }
 
 M.keymaps = function()
@@ -21,7 +21,7 @@ M.keymaps = function()
     require('noice').cmd 'disable'
   end)
 
-  set_keymap('n', '<leader>fN', function()
+  set_keymap('n', '<leader>fz', function()
     vim.cmd 'Telescope notify'
   end)
 end
