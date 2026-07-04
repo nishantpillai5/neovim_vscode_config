@@ -109,6 +109,7 @@ local function pick_claude_session()
 
   local path_map = build_path_map()
   local sessions_base = vim.fn.expand '~/.claude/projects'
+  local cwd_encoded = vim.fn.getcwd():gsub('[/.]', '-')
   local entries = {}
 
   for _, project_dir in ipairs(vim.fn.glob(sessions_base .. '/*', false, true)) do
@@ -121,16 +122,14 @@ local function pick_claude_session()
         project = display_project,
         summary = read_session_title(session_file),
         mtime = vim.fn.getftime(session_file),
+        loadable = encoded_name == cwd_encoded,
       })
     end
   end
 
-  local cwd = vim.fn.getcwd()
   table.sort(entries, function(a, b)
-    local a_cur = a.project == cwd
-    local b_cur = b.project == cwd
-    if a_cur ~= b_cur then
-      return a_cur
+    if a.loadable ~= b.loadable then
+      return a.loadable
     end
     return a.mtime > b.mtime
   end)
@@ -146,6 +145,9 @@ local function pick_claude_session()
             local path_str = '  ' .. e.project
             local time_str = '  ' .. relative_time(e.mtime)
             local display = title .. path_str .. time_str
+            if not e.loadable then
+              return display, { { { 0, #display }, 'LspInlayHint' } }
+            end
             return display,
               {
                 { { #title, #title + #path_str }, 'Comment' },
@@ -159,6 +161,7 @@ local function pick_claude_session()
             summary = entry.summary,
             project = entry.project,
             mtime = entry.mtime,
+            loadable = entry.loadable,
           }
         end,
       },
@@ -166,6 +169,13 @@ local function pick_claude_session()
       attach_mappings = function(prompt_bufnr, map)
         local function resume_session()
           local selection = action_state.get_selected_entry()
+          if selection and not selection.loadable then
+            vim.notify(
+              'Session belongs to ' .. selection.project .. ' — not resumable from this directory.',
+              vim.log.levels.WARN
+            )
+            return
+          end
           actions.close(prompt_bufnr)
           if selection then
             vim.cmd('ClaudeCode --resume ' .. selection.value)
@@ -177,6 +187,99 @@ local function pick_claude_session()
       end,
     })
     :find()
+end
+
+-- Claude Code usage in the statusline.
+-- Reads ~/.cache/claude/usage.json, written by scripts/claude_statusline.sh
+-- (hooked into Claude Code via the statusLine setting). No polling: Claude
+-- Code pushes fresh data on every statusline update; the reset countdown is
+-- computed locally from the cached resets_at timestamp.
+local USAGE_CACHE = vim.fn.expand '~/.cache/claude/usage.json'
+local USAGE_TTL = 15 -- seconds between cache file re-reads
+local usage_state = { checked_at = 0, mtime = 0, data = nil }
+
+local function read_usage_cache()
+  local now = os.time()
+  if now - usage_state.checked_at < USAGE_TTL then
+    return usage_state.data
+  end
+  usage_state.checked_at = now
+
+  local stat = vim.uv.fs_stat(USAGE_CACHE)
+  if not stat then
+    usage_state.data = nil
+    return nil
+  end
+  if stat.mtime.sec == usage_state.mtime then
+    return usage_state.data
+  end
+  usage_state.mtime = stat.mtime.sec
+
+  local fd = io.open(USAGE_CACHE, 'r')
+  if not fd then
+    return usage_state.data
+  end
+  local ok, decoded = pcall(vim.json.decode, fd:read '*a')
+  fd:close()
+  usage_state.data = ok and decoded or nil
+  return usage_state.data
+end
+
+local function fmt_remaining(resets_at)
+  local secs = resets_at - os.time()
+  if secs <= 0 then
+    return nil
+  end
+  local d = math.floor(secs / 86400)
+  local h = math.floor(secs % 86400 / 3600)
+  local m = math.floor(secs % 3600 / 60)
+  if d > 0 then
+    return ('%dd%dh'):format(d, h)
+  elseif h > 0 then
+    return ('%dh%02dm'):format(h, m)
+  else
+    return ('%dm'):format(m)
+  end
+end
+
+local function fmt_usage_window(win, label)
+  if not win or not win.used_percentage then
+    return nil
+  end
+  local left = win.resets_at and fmt_remaining(win.resets_at)
+  -- window already reset since last cache write -> usage is back to ~0
+  local pct = left and win.used_percentage or 0
+  -- '%%%%' -> literal '%%' in the string, which the statusline renders as '%'
+  local part = ('%s %.0f%%%%'):format(label, pct)
+  if left then
+    part = part .. (' 󰔛 %s'):format(left)
+  end
+  return part
+end
+
+local function lualine_usage()
+  local data = read_usage_cache()
+  if not data then
+    return ''
+  end
+  local parts = {}
+  for _, win in ipairs { { data.five_hour, '5h' }, { data.seven_day, '7d' } } do
+    local part = fmt_usage_window(win[1], win[2])
+    if part then
+      table.insert(parts, part)
+    end
+  end
+  if #parts == 0 then
+    return ''
+  end
+  return '󰚩 ' .. table.concat(parts, ' ')
+end
+
+M.lualine = function()
+  local lualineX = require('lualine').get_config().sections.lualine_x or {}
+  table.insert(lualineX, 1, { lualine_usage })
+
+  require('lualine').setup { sections = { lualine_x = lualineX } }
 end
 
 M.keymaps = function()
@@ -216,6 +319,7 @@ end
 M.config = function()
   M.setup()
   M.keymaps()
+  M.lualine()
 end
 
 -- M.config()

@@ -1,6 +1,27 @@
 {
   "image": "mcr.microsoft.com/devcontainers/base:debian",
   "features": {
-    "ghcr.io/devcontainers/features/nix:1": {}
+    "ghcr.io/devcontainers/features/nix:1": {},
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+    "ghcr.io/w3cj/devcontainer-features/firewall:latest": {
+      "verbose": true,
+      "githubIps": true,
+      "githubDomains": true,
+      "npmRegistry": true,
+      "anthropicIps": true,
+      "anthropicApi": true,
+      "openaiApi": false,
+      "claudeCode": true,
+      "pypi": true,
+      "dnsPublic": false
+    }
+  },
+  "mounts": [
+    "source=claude-code-config,target=/home/vscode/.claude,type=volume",
+    "source=${localEnv:HOME}/notes,target=/home/vscode/notes,type=bind,consistency=cached"
+  ],
+  "containerEnv": {
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+    "DISABLE_AUTOUPDATER": "1"
   }
 }

@@ -481,10 +481,10 @@ M.keymaps = function()
   end)
 
   set_keymap('n', '<leader>fn', function()
-    local prefix = 'wiki '
-    builtin.find_files { default_text = prefix, no_ignore = true }
+    local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+    local root = vim.v.shell_error == 0 and git_root or vim.fn.getcwd()
+    builtin.find_files { cwd = root .. '/wiki', no_ignore = true }
   end)
-
 
   set_keymap('n', '<leader>fA', function()
     local bufname = vim.api.nvim_buf_get_name(0)
