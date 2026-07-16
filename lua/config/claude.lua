@@ -223,11 +223,243 @@ local function send_raw(keys)
   return true
 end
 
+-- ---------------------------------------------------------------------------
+-- Completion inside the centered prompt box (`<leader><leader>`).
+--
+-- The Claude *terminal* autocompletes @file mentions and /slash commands from
+-- inside its TUI, which nvim can't observe. This reimplements those same two
+-- completions as a buffer-local nvim-cmp source so <Tab> works in the float too.
+-- ---------------------------------------------------------------------------
+
+-- Claude's built-in slash commands (not backed by files). Project/user command
+-- and skill files are discovered dynamically alongside these.
+local BUILTIN_SLASH = {
+  'add-dir',
+  'agents',
+  'clear',
+  'compact',
+  'config',
+  'context',
+  'cost',
+  'doctor',
+  'exit',
+  'export',
+  'fast',
+  'help',
+  'hooks',
+  'init',
+  'install-github-app',
+  'login',
+  'logout',
+  'mcp',
+  'memory',
+  'model',
+  'permissions',
+  'pr-comments',
+  'review',
+  'status',
+  'statusline',
+  'terminal-setup',
+  'vim',
+}
+
+local function slash_command_names()
+  local names, seen = {}, {}
+  local function add(name)
+    if name ~= '' and not seen[name] then
+      seen[name] = true
+      names[#names + 1] = name
+    end
+  end
+  for _, n in ipairs(BUILTIN_SLASH) do
+    add(n)
+  end
+  -- Project- and user-level command files. A nested file becomes a namespaced
+  -- command (commands/git/commit.md -> git:commit), matching Claude's convention.
+  local dirs = { vim.fn.getcwd() .. '/.claude/commands', vim.fn.expand '~/.claude/commands' }
+  for _, dir in ipairs(dirs) do
+    for _, f in ipairs(vim.fn.glob(dir .. '/**/*.md', false, true)) do
+      local rel = f:sub(#dir + 2, -4) -- strip "<dir>/" prefix and ".md" suffix
+      add((rel:gsub('/', ':')))
+    end
+  end
+  return names
+end
+
+-- nvim-cmp source, active only in the prompt float (via vim.b.claude_prompt).
+local prompt_source = {}
+prompt_source.new = function()
+  return setmetatable({}, { __index = prompt_source })
+end
+function prompt_source:is_available()
+  return vim.b.claude_prompt == true
+end
+function prompt_source:get_trigger_characters()
+  return { '@', '/' }
+end
+function prompt_source:get_keyword_pattern()
+  return [[\%(@\|/\)\S*]]
+end
+function prompt_source:complete(params, callback)
+  local before = params.context.cursor_before_line
+  local line = params.context.cursor.line -- 0-based buffer row
+  local col_end = #before -- byte column at the cursor (0-based end of edit)
+
+  -- Build items whose textEdit replaces the whole @token / /token, so the
+  -- inserted text is exact regardless of how cmp guesses the keyword boundary.
+  local function make_items(start_1based, entries, kind_of)
+    local items = {}
+    for _, text in ipairs(entries) do
+      items[#items + 1] = {
+        label = text,
+        filterText = text,
+        kind = kind_of(text),
+        textEdit = {
+          range = {
+            start = { line = line, character = start_1based - 1 },
+            ['end'] = { line = line, character = col_end },
+          },
+          newText = text,
+        },
+      }
+    end
+    return items
+  end
+
+  -- /command: only when the line is just a leading slash token.
+  if before:match '^%s*/%S*$' then
+    local s = before:find '/%S*$'
+    local entries = {}
+    for _, name in ipairs(slash_command_names()) do
+      entries[#entries + 1] = '/' .. name
+    end
+    return callback {
+      items = make_items(s, entries, function()
+        return 3 -- Function
+      end),
+      isIncomplete = true,
+    }
+  end
+
+  -- @file: complete the last @token as a path relative to cwd.
+  local at = before:find '@%S*$'
+  if at then
+    local partial = before:sub(at + 1)
+    local entries = {}
+    for _, p in ipairs(vim.fn.getcompletion(partial, 'file')) do
+      entries[#entries + 1] = '@' .. p
+    end
+    return callback {
+      items = make_items(at, entries, function(text)
+        return text:sub(-1) == '/' and 19 or 17 -- Folder / File
+      end),
+      isIncomplete = true,
+    }
+  end
+
+  callback { items = {}, isIncomplete = false }
+end
+
+local prompt_source_registered = false
+local function register_prompt_source(cmp)
+  if prompt_source_registered then
+    return
+  end
+  cmp.register_source('claude_prompt', prompt_source.new())
+  prompt_source_registered = true
+end
+
+local ghost_ns = vim.api.nvim_create_namespace 'claude_prompt_ghost'
+
+-- Scrape Claude's suggested next reply (the greyed text it renders in its input
+-- box) out of the terminal buffer. The box is delimited by two horizontal-rule
+-- lines; the line between them holds the "❯ " prompt marker + suggestion.
+-- Returns nil when there's no terminal, no box, or the input is empty. NOTE:
+-- there is no per-cell colour API for terminals, so this can't tell a grey
+-- *suggestion* from text you actually typed into the terminal -- it assumes the
+-- terminal input is untouched, which holds when you pop the box open to answer.
+local function get_claude_suggestion()
+  local ok, term = pcall(require, 'claudecode.terminal')
+  if not ok then
+    return nil
+  end
+  local bufnr = term.get_active_terminal_bufnr()
+  if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+    return nil
+  end
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local function is_rule(s)
+    local stripped, n = s:gsub('\u{2500}', '')
+    return n >= 10 and stripped:gsub('%s', '') == ''
+  end
+  local bottom
+  for i = #lines, 1, -1 do
+    if is_rule(lines[i]) then
+      bottom = i
+      break
+    end
+  end
+  if not bottom then
+    return nil
+  end
+  local top
+  for i = bottom - 1, 1, -1 do
+    if is_rule(lines[i]) then
+      top = i
+      break
+    end
+  end
+  if not top then
+    return nil
+  end
+  local content = {}
+  for i = top + 1, bottom - 1 do
+    content[#content + 1] = lines[i]
+  end
+  if #content == 0 then
+    return nil
+  end
+  -- Drop the prompt marker from the first line, right-trim every line's box
+  -- padding, then trim the joined block.
+  content[1] = content[1]:gsub('^%s*', ''):gsub('^\u{276f}%s?', ''):gsub('^>%s?', '')
+  for i, l in ipairs(content) do
+    content[i] = (l:gsub('%s+$', ''))
+  end
+  local text = table.concat(content, '\n'):gsub('^%s+', ''):gsub('%s+$', '')
+  if text == '' then
+    return nil
+  end
+  return text
+end
+
 local function open_prompt_input()
   local width = math.min(100, math.max(40, math.floor(vim.o.columns * 0.7)))
   local max_height = math.max(1, math.floor(vim.o.lines * 0.5))
   local buf = vim.api.nvim_create_buf(false, true)
   vim.bo[buf].bufhidden = 'wipe'
+  vim.b[buf].claude_prompt = true
+  local suggestion = get_claude_suggestion()
+  local suggestion_lines = suggestion and vim.split(suggestion, '\n')
+
+  -- The *initial* ghost should be Claude's suggestion; everything after the
+  -- first keystroke should come from llama.vim as usual. But llama has no
+  -- per-buffer guard -- left alone it renders its own FIM ghost (green) and
+  -- rebinds <Tab> on the empty buffer, clobbering Claude's suggestion. So
+  -- suppress llama while the box is empty, then re-enable it once you type.
+  local llama_on = vim.fn.exists '#llama' == 1
+  local llama_suppressed = false
+  local function suppress_llama()
+    if llama_on and not llama_suppressed then
+      llama_suppressed = true
+      pcall(vim.fn['llama#disable'])
+    end
+  end
+  local function restore_llama()
+    if llama_on and llama_suppressed then
+      llama_suppressed = false
+      pcall(vim.fn['llama#enable'])
+    end
+  end
   local win = vim.api.nvim_open_win(buf, true, {
     relative = 'editor',
     width = width,
@@ -241,6 +473,12 @@ local function open_prompt_input()
   })
   vim.wo[win].wrap = true
   vim.wo[win].linebreak = true
+
+  -- Suppress llama *before* installing our keymaps: llama#disable() unmaps
+  -- <buffer> <Tab>, which would otherwise wipe the mapping we set below.
+  if suggestion then
+    suppress_llama()
+  end
 
   local function fit_height()
     if not vim.api.nvim_win_is_valid(win) then
@@ -259,9 +497,42 @@ local function open_prompt_input()
       col = math.floor((vim.o.columns - width) / 2),
     })
   end
+  local function buffer_is_empty()
+    local l = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
+    return #l == 1 and l[1] == ''
+  end
+
+  -- Preview Claude's suggested reply as greyed ghost text while the box is empty.
+  local function render_ghost()
+    vim.api.nvim_buf_clear_namespace(buf, ghost_ns, 0, -1)
+    if not (suggestion and buffer_is_empty()) then
+      return
+    end
+    local slines = suggestion_lines
+    local ext = { virt_text = { { slines[1], 'Comment' } }, virt_text_pos = 'inline', hl_mode = 'combine' }
+    if #slines > 1 then
+      ext.virt_lines = {}
+      for i = 2, #slines do
+        ext.virt_lines[#ext.virt_lines + 1] = { { slines[i], 'Comment' } }
+      end
+    end
+    vim.api.nvim_buf_set_extmark(buf, ghost_ns, 0, 0, ext)
+  end
+
   vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
     buffer = buf,
-    callback = fit_height,
+    callback = function()
+      fit_height()
+      render_ghost()
+      if not buffer_is_empty() then
+        restore_llama()
+      end
+    end,
+  })
+  vim.api.nvim_create_autocmd('BufWipeout', {
+    buffer = buf,
+    once = true,
+    callback = restore_llama,
   })
 
   local closed = false
@@ -289,16 +560,82 @@ local function open_prompt_input()
       end, 100)
     end
   end
-  vim.keymap.set({ 'i', 'n' }, '<CR>', function()
+  -- Normal-mode controls are always available.
+  vim.keymap.set('n', '<CR>', function()
     finish(true)
   end, { buffer = buf })
-  vim.keymap.set({ 'i', 'n' }, '<Esc>', function()
+  vim.keymap.set('n', '<Esc>', function()
     finish(false)
   end, { buffer = buf })
   vim.keymap.set('n', 'q', function()
     finish(false)
   end, { buffer = buf })
+
+  -- Insert-mode: <CR> submits, <Esc> cancels. Buffer-local so they win over
+  -- cmp's global <CR>=confirm mapping while the completion menu is open.
+  vim.keymap.set('i', '<CR>', function()
+    finish(true)
+  end, { buffer = buf })
+  vim.keymap.set('i', '<Esc>', function()
+    finish(false)
+  end, { buffer = buf })
+
+  -- Replace the empty prompt with Claude's suggested reply, cursor at its end.
+  local function accept_suggestion()
+    if not (suggestion and buffer_is_empty()) then
+      return false
+    end
+    vim.api.nvim_buf_clear_namespace(buf, ghost_ns, 0, -1)
+    local slines = suggestion_lines
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, slines)
+    vim.api.nvim_win_set_cursor(win, { #slines, #slines[#slines] })
+    fit_height()
+    return true
+  end
+
+  -- Wire cmp up for this buffer only: our @file / /command source. Completion
+  -- keys are plain buffer-local maps driving the cmp API, so nothing leaks into
+  -- cmp's global mappings.
+  local ok_cmp, cmp = pcall(require, 'cmp')
+  if ok_cmp then
+    register_prompt_source(cmp)
+    cmp.setup.buffer { sources = { { name = 'claude_prompt' } } }
+    vim.keymap.set('i', '<S-Tab>', function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      end
+    end, { buffer = buf })
+    vim.keymap.set('i', '<C-n>', function()
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        cmp.complete()
+      end
+    end, { buffer = buf })
+    vim.keymap.set('i', '<C-p>', function()
+      if cmp.visible() then
+        cmp.select_prev_item()
+      end
+    end, { buffer = buf })
+    vim.keymap.set('i', '<C-e>', function()
+      cmp.abort()
+    end, { buffer = buf })
+  end
+
+  -- <Tab>: accept a cmp completion if the menu is open, else accept Claude's
+  -- previewed suggestion if there is one, else insert a literal tab.
+  vim.keymap.set('i', '<Tab>', function()
+    if ok_cmp and cmp.visible() then
+      cmp.confirm { select = true }
+    elseif accept_suggestion() then
+      return
+    else
+      vim.api.nvim_feedkeys(vim.keycode '<Tab>', 'n', false)
+    end
+  end, { buffer = buf })
+
   vim.cmd 'startinsert'
+  render_ghost()
 end
 
 -- Forward declaration: assigned lower in the file, called from show_no_focus.
