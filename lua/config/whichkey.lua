@@ -1,13 +1,13 @@
 local M = {}
 
 M.keys = {
-  {
-    '<leader><leader>',
-    function()
-      require('which-key').show { global = true }
-    end,
-    desc = 'whichkey_help',
-  },
+  -- {
+  --   '<leader><leader>',
+  --   function()
+  --     require('which-key').show { global = true }
+  --   end,
+  --   desc = 'whichkey_help',
+  -- },
 }
 
 M.init = function()
@@ -44,6 +44,7 @@ M.spec = {
   { '<leader>r', group = 'Refactor', mode = { 'n', 'v' } },
   { '<leader>t', group = 'Trouble' },
   { '<leader>w', group = 'Workspace' },
+  { '<leader>ww', group = 'Worktree' },
   { '<leader>z', group = 'Visual', mode = { 'n', 'v' } },
   { '<leader>zp', group = 'Pomodoro' },
   { '<leader>zO', group = 'Run' },
@@ -85,7 +86,7 @@ M.spec = {
   { 'K', desc = 'hover' },
   { 's', desc = 'hop_char' },
   { 'S', desc = 'hop_node' },
-  { '<leader>V', group = 'Surround'},
+  { '<leader>V', group = 'Surround' },
 
   { '<F2>', desc = 'rename' },
   { '<F3>', desc = 'format_lsp' },

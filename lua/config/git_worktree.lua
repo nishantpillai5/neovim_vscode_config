@@ -1,12 +1,14 @@
-_G.worktree_copy_items = _G.worktree_copy_items or { '.env', '.vscode' }
+_G.worktree_symlinks = _G.worktree_symlinks or { '.env', '.vscode' }
 _G.worktree_create_callback = _G.worktree_create_callback or nil
+_G.worktree_from_branch = _G.worktree_from_branch or 'origin/main'
 
 local M = {}
 
 M.keys = {
-  { '<leader>wgs', desc = 'worktree_switch' },
-  { '<leader>wgc', desc = 'worktree_create' },
-  { '<leader>wgd', desc = 'worktree_delete' },
+  { '<leader>www', desc = 'worktree_switch' },
+  { '<leader>wwc', desc = 'worktree_create' },
+  { '<leader>wwd', desc = 'worktree_delete' },
+  { '<leader>wwm', desc = 'worktree_move_to_repo' },
 }
 
 -- Resolve the working-tree root. git-worktree.nvim and telescope run their git
@@ -28,6 +30,32 @@ end
 -- Where a worktree named `name` lives: under .claude/worktrees inside the repo
 local function worktree_dest(root, name)
   return vim.fs.joinpath(root, '.claude', 'worktrees', name)
+end
+
+-- The repo's primary working tree: the first non-bare entry `git worktree list`
+-- reports. Linked worktrees created here live under .claude/worktrees.
+local function main_worktree(cwd)
+  local list = vim.fn.systemlist { 'git', '-C', cwd, 'worktree', 'list', '--porcelain' }
+  if vim.v.shell_error ~= 0 then
+    return nil
+  end
+  local path, bare = nil, false
+  for _, line in ipairs(list) do
+    if line:match '^worktree ' then
+      path, bare = line:match '^worktree (.+)$', false
+    elseif line == 'bare' then
+      bare = true
+    elseif line == '' then
+      if path and not bare then
+        return path
+      end
+      path = nil
+    end
+  end
+  if path and not bare then
+    return path
+  end
+  return nil
 end
 
 -- Centered single-line input dialog. The global `vim.ui.input` provider renders
@@ -82,7 +110,7 @@ M.keymaps = function()
       -- working tree (not the .git dir) so `git worktree add` resolves right.
       -- The CREATE hook then switches cwd into the new worktree on success.
       vim.cmd.cd(vim.fn.fnameescape(root))
-      require('git-worktree').create_worktree(worktree_dest(root, name), name)
+      require('git-worktree').create_worktree(worktree_dest(root, name), name, _G.worktree_from_branch)
     end)
   end
 
@@ -126,9 +154,97 @@ M.keymaps = function()
     end)
   end
 
-  set_keymap('n', '<leader>wgs', switch_worktree)
-  set_keymap('n', '<leader>wgc', create_worktree)
-  set_keymap('n', '<leader>wgd', delete_worktree)
+  -- Promote the current worktree onto the main working tree: bring its branch
+  -- (committed history) and any uncommitted work over, then tear the worktree
+  -- down. The main tree ends up checked out on the worktree's branch.
+  local move_worktree_to_repo = function()
+    local cur = vim.trim(vim.fn.system { 'git', 'rev-parse', '--show-toplevel' })
+    if vim.v.shell_error ~= 0 or cur == '' then
+      vim.notify('Not inside a git worktree', vim.log.levels.ERROR)
+      return
+    end
+
+    local main = main_worktree(cur)
+    if not main then
+      vim.notify('Could not locate the main working tree', vim.log.levels.ERROR)
+      return
+    end
+    if vim.fn.fnamemodify(main, ':p') == vim.fn.fnamemodify(cur, ':p') then
+      vim.notify('Already in the main working tree — nothing to move', vim.log.levels.WARN)
+      return
+    end
+
+    local branch = vim.trim(vim.fn.system { 'git', '-C', cur, 'rev-parse', '--abbrev-ref', 'HEAD' })
+    if vim.v.shell_error ~= 0 or branch == '' or branch == 'HEAD' then
+      vim.notify('Worktree is on a detached HEAD; cannot move by branch', vim.log.levels.ERROR)
+      return
+    end
+
+    -- The main tree must be clean: `git checkout <branch>` there would refuse to
+    -- overwrite local changes otherwise.
+    if #vim.fn.systemlist { 'git', '-C', main, 'status', '--porcelain' } > 0 then
+      vim.notify('Main working tree has local changes; commit or stash them first', vim.log.levels.ERROR)
+      return
+    end
+
+    local choice = vim.fn.confirm(
+      ('Move worktree "%s" (branch %s) onto\n%s ?'):format(vim.fn.fnamemodify(cur, ':t'), branch, main),
+      '&Yes\n&No',
+      2
+    )
+    if choice ~= 1 then
+      return
+    end
+
+    -- Preserve uncommitted work (tracked + untracked) in the stash, which lives
+    -- in the shared git dir and so is reachable from the main tree afterwards.
+    local stashed = false
+    if #vim.fn.systemlist { 'git', '-C', cur, 'status', '--porcelain' } > 0 then
+      vim.fn.system { 'git', '-C', cur, 'stash', 'push', '--include-untracked', '-m', 'worktree-move: ' .. branch }
+      if vim.v.shell_error ~= 0 then
+        vim.notify('Failed to stash worktree changes; aborting', vim.log.levels.ERROR)
+        return
+      end
+      stashed = true
+    end
+
+    -- Step out of the worktree before removing it so nvim's cwd isn't inside it.
+    vim.cmd.cd(vim.fn.fnameescape(main))
+
+    vim.fn.system { 'git', '-C', main, 'worktree', 'remove', '--force', cur }
+    if vim.v.shell_error ~= 0 then
+      vim.notify('Failed to remove worktree; `git stash pop` in it to recover changes', vim.log.levels.ERROR)
+      return
+    end
+
+    vim.fn.system { 'git', '-C', main, 'checkout', branch }
+    if vim.v.shell_error ~= 0 then
+      vim.notify('Worktree removed but `git checkout ' .. branch .. '` failed in ' .. main, vim.log.levels.ERROR)
+      return
+    end
+
+    if stashed then
+      vim.fn.system { 'git', '-C', main, 'stash', 'pop' }
+      if vim.v.shell_error ~= 0 then
+        vim.notify('Branch moved, but restoring changes hit conflicts — resolve them in ' .. main, vim.log.levels.WARN)
+      end
+    end
+
+    -- Re-point the current buffer from the (now gone) worktree path into main.
+    local name = vim.api.nvim_buf_get_name(0)
+    if name:find '^oil:///' then
+      require('oil').open(main)
+    elseif name:sub(1, #cur + 1) == cur .. '/' then
+      pcall(vim.cmd.edit, vim.fn.fnameescape(main .. '/' .. name:sub(#cur + 2)))
+    end
+
+    vim.notify(('Moved %s onto the main working tree'):format(branch))
+  end
+
+  set_keymap('n', '<leader>www', switch_worktree)
+  set_keymap('n', '<leader>wwc', create_worktree)
+  set_keymap('n', '<leader>wwd', delete_worktree)
+  set_keymap('n', '<leader>wwm', move_worktree_to_repo)
 end
 
 M.setup = function()
@@ -145,18 +261,20 @@ M.setup = function()
     -- and leave us where we are instead of following into the new tree.
     M._stay_after_create = vim.uv.cwd()
 
-    -- Copy local-only files (not tracked by git) into the fresh worktree so
-    -- it's ready to run. The hook fires before the switch, so cwd is still the
-    -- source worktree.
+    -- Symlink local-only files (not tracked by git) into the fresh worktree so
+    -- it's ready to run and stays in sync with the source. The hook fires
+    -- before the switch, so cwd is still the source worktree.
     local src = vim.trim(vim.fn.system { 'git', 'rev-parse', '--show-toplevel' })
     local dest = vim.fn.fnamemodify(path, ':p'):gsub('/$', '')
-    if _G.worktree_copy_items and vim.v.shell_error == 0 and src ~= '' and src ~= dest then
-      for _, item in ipairs(_G.worktree_copy_items) do
+    if _G.worktree_symlinks and vim.v.shell_error == 0 and src ~= '' and src ~= dest then
+      for _, item in ipairs(_G.worktree_symlinks) do
         local from = src .. '/' .. item
+        local to = dest .. '/' .. item
         if vim.uv.fs_stat(from) then
-          vim.fn.system { 'cp', '-R', from, dest .. '/' }
+          -- -f replaces any existing entry, -n avoids dereferencing a symlinked dir target.
+          vim.fn.system { 'ln', '-sfn', from, to }
           if vim.v.shell_error ~= 0 then
-            vim.notify('Failed to copy ' .. item .. ' to worktree', vim.log.levels.WARN)
+            vim.notify('Failed to symlink ' .. item .. ' into worktree', vim.log.levels.WARN)
           end
         end
       end

@@ -10,10 +10,10 @@ M.keys = {
   { '<leader>tl', desc = 'lsp' },
   { '<leader>ll', desc = 'lsp' },
   { '<leader>tf', desc = 'finder' },
-  { '<leader>j', desc = 'trouble_next' },
-  { '<leader>k', desc = 'trouble_prev' },
-  { '<leader>J', desc = 'trouble_next_jump_to_hunk' },
-  { '<leader>K', desc = 'trouble_prev_jump_to_hunk' },
+  { '<leader>J', desc = 'trouble_next' },
+  { '<leader>K', desc = 'trouble_prev' },
+  -- { '<leader>J', desc = 'trouble_next_jump_to_hunk' },
+  -- { '<leader>K', desc = 'trouble_prev_jump_to_hunk' },
   { '<M-j>', desc = 'trouble_next' },
   { '<M-k>', desc = 'trouble_prev' },
   { 'gr', desc = 'references' },
@@ -76,25 +76,25 @@ M.keymaps = function()
     trouble.toggle 'telescope'
   end)
 
-  set_keymap('n', '<leader>j', function()
-    trouble.next { skip_groups = true, jump = true }
-  end)
-
-  set_keymap('n', '<leader>k', function()
-    trouble.prev { skip_groups = true, jump = true }
-  end)
-
   set_keymap('n', '<leader>J', function()
     trouble.next { skip_groups = true, jump = true }
-    vim.wait(200)
-    require('gitsigns').nav_hunk 'next'
   end)
 
   set_keymap('n', '<leader>K', function()
     trouble.prev { skip_groups = true, jump = true }
-    vim.wait(200)
-    require('gitsigns').nav_hunk 'next'
   end)
+
+  -- set_keymap('n', '<leader>J', function()
+  --   trouble.next { skip_groups = true, jump = true }
+  --   vim.wait(200)
+  --   require('gitsigns').nav_hunk 'next'
+  -- end)
+  --
+  -- set_keymap('n', '<leader>K', function()
+  --   trouble.prev { skip_groups = true, jump = true }
+  --   vim.wait(200)
+  --   require('gitsigns').nav_hunk 'next'
+  -- end)
 
   set_keymap('n', '<M-j>', function()
     trouble.next { skip_groups = true, jump = true }

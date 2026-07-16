@@ -1,7 +1,7 @@
 local M = {}
 
 M.keys = {
-  { '<leader>wW', desc = 'select_project' },
+  { '<leader>wN', desc = 'select_project' },
 }
 
 M.keymaps = function()

@@ -9,7 +9,7 @@ local icon = ' '
 local SILENT = true
 
 M.keys = {
-  { '<leader>ww', desc = 'select_scope' },
+  { '<leader>wn', desc = 'select_scope' },
   { '<leader>wx', desc = 'close_scope' },
 }
 
@@ -188,11 +188,11 @@ M.keymaps = function()
   local neoscopes = require 'neoscopes'
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  set_keymap('n', '<leader>ww', function()
+  set_keymap('n', '<leader>wn', function()
     M.setup(true)
   end)
 
-  set_keymap('n', '<leader>wx', function()
+  set_keymap('n', '<leader>wN', function()
     neoscopes.clear()
     refresh_workspace()
   end)

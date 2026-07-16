@@ -6,18 +6,27 @@ vim.api.nvim_create_autocmd('TermClose', {
   end,
 })
 
--- Auto enter insert mode when entering a terminal buffer
+-- On entering a terminal, jump to the newest output and drop to normal mode so
+-- its scrollback stays readable.
 vim.api.nvim_create_autocmd('BufEnter', {
-  pattern = '*',
+  pattern = 'term://*',
   callback = function()
     -- Wait briefly just in case we immediately switch out of the buffer
     vim.defer_fn(function()
-      if vim.bo.buftype == 'terminal' then
-        vim.cmd [[stopinsert]]
-        local line_count = vim.api.nvim_buf_line_count(0)
-        if line_count > 0 then
-          vim.api.nvim_win_set_cursor(0, { line_count, 0 })
-        end
+      if vim.bo.buftype ~= 'terminal' then
+        return
+      end
+      -- term:// name is "term://{cwd}//{pid}:{command}" -- test the command
+      -- part only, so a plain shell opened inside a .claude/ dir isn't matched.
+      local name = vim.api.nvim_buf_get_name(0)
+      local cmd = name:match ':([^:]*)$' or name
+      if cmd:find('claude', 1, true) then
+        return -- Claude terminal is owned by lua/config/claude.lua
+      end
+      vim.cmd 'stopinsert'
+      local line_count = vim.api.nvim_buf_line_count(0)
+      if line_count > 0 then
+        vim.api.nvim_win_set_cursor(0, { line_count, 0 })
       end
     end, 100)
   end,
