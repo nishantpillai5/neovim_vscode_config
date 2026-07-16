@@ -105,6 +105,9 @@ local function read_session_title(session_file)
   return (ai_title or first_msg):gsub('\n', ' '):sub(1, 80)
 end
 
+-- Forward declaration: defined lower in the file, used by the session picker.
+local show_no_focus
+
 local function pick_claude_session()
   local pickers = require 'telescope.pickers'
   local finders = require 'telescope.finders'
@@ -183,7 +186,7 @@ local function pick_claude_session()
           end
           actions.close(prompt_bufnr)
           if selection then
-            vim.cmd('ClaudeCode --resume ' .. selection.value)
+            show_no_focus('--resume ' .. selection.value)
           end
         end
         map('i', '<CR>', resume_session)
@@ -314,7 +317,7 @@ local function claude_win()
   return nil
 end
 
-local function show_no_focus(cmd_args)
+function show_no_focus(cmd_args)
   local origin = vim.api.nvim_get_current_win()
   require('claudecode.terminal').ensure_visible({}, cmd_args)
   ensure_terminal_autoscroll()
@@ -446,9 +449,37 @@ end
 -- Claude terminal behavior: drop into insert ready to type, enable jk-to-escape
 -- and tmux-style split navigation from terminal-insert (buffer-local), and keep
 -- unfocused windows scrolled to the newest output.
+-- True when the only non-floating windows left (across all tabpages) show the
+-- Claude terminal -- i.e. every editing window is gone and Claude is all that
+-- remains. Floating windows (prompt box, popups) are ignored.
+local function only_claude_windows_left()
+  local claude, other = 0, 0
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative == '' then
+      if is_claude_terminal(vim.api.nvim_win_get_buf(win)) then
+        claude = claude + 1
+      else
+        other = other + 1
+      end
+    end
+  end
+  return claude > 0 and other == 0
+end
+
+local function has_unsaved_changes()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buftype == '' and vim.bo[buf].modified then
+      return true
+    end
+  end
+  return false
+end
+
 M.autocmds = function()
+  local group = vim.api.nvim_create_augroup('ClaudeTerminal', { clear = true })
+
   vim.api.nvim_create_autocmd('BufEnter', {
-    group = vim.api.nvim_create_augroup('ClaudeTerminal', { clear = true }),
+    group = group,
     pattern = 'term://*',
     callback = function()
       -- Wait briefly just in case we immediately switch out of the buffer
@@ -471,6 +502,27 @@ M.autocmds = function()
         end
         vim.cmd 'startinsert'
       end, 100)
+    end,
+  })
+
+  -- When the last editing window is closed and only the Claude terminal remains,
+  -- quit Neovim. Deferred to a clean tick (out of the WinClosed cascade) and
+  -- guarded so it fires once; bail if any file buffer is modified so unsaved work
+  -- is never lost.
+  local quitting = false
+  vim.api.nvim_create_autocmd('WinClosed', {
+    group = group,
+    callback = function()
+      if quitting then
+        return
+      end
+      vim.defer_fn(function()
+        if quitting or not only_claude_windows_left() or has_unsaved_changes() then
+          return
+        end
+        quitting = true
+        vim.cmd 'noautocmd qall!'
+      end, 50)
     end,
   })
 end
