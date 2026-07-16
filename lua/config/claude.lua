@@ -1,8 +1,9 @@
 local M = {}
 
 M.keys = {
-  { '<leader>aa', desc = 'chat', mode = { 'n', 'v' } },
-  { '<leader>ax', desc = 'interrupt', mode = { 'n', 'v' } },
+  { '<leader>aa', desc = 'toggle', mode = { 'n', 'v' } },
+  { '<leader>al', desc = 'interrupt', mode = { 'n', 'v' } },
+  { '<leader>ax', desc = 'kill', mode = { 'n', 'v' } },
   { '<leader><leader>', desc = 'prompt', mode = { 'n', 'v' } },
   { '<leader>j', desc = 'accept_prompt', mode = { 'n', 'v' } },
   { '<leader>k', desc = 'reject_prompt', mode = { 'n', 'v' } },
@@ -219,12 +220,9 @@ local function send_raw(keys)
   return true
 end
 
--- Centered, wide floating input for one-off Claude prompts. Kept separate from
--- the global vim.ui.input (dressing) so long prompts get a roomy box without
--- changing input styling everywhere else. <CR> submits to the running Claude
--- terminal without moving focus; <Esc>/q cancel.
 local function open_prompt_input()
   local width = math.min(100, math.max(40, math.floor(vim.o.columns * 0.7)))
+  local max_height = math.max(1, math.floor(vim.o.lines * 0.5))
   local buf = vim.api.nvim_create_buf(false, true)
   vim.bo[buf].bufhidden = 'wipe'
   local win = vim.api.nvim_open_win(buf, true, {
@@ -238,6 +236,31 @@ local function open_prompt_input()
     title = ' Claude ',
     title_pos = 'center',
   })
+  vim.wo[win].wrap = true
+  vim.wo[win].linebreak = true
+
+  local function fit_height()
+    if not vim.api.nvim_win_is_valid(win) then
+      return
+    end
+    local rows = 0
+    for _, line in ipairs(vim.api.nvim_buf_get_lines(buf, 0, -1, false)) do
+      rows = rows + math.max(1, math.ceil(vim.fn.strdisplaywidth(line) / width))
+    end
+    rows = math.max(1, math.min(rows, max_height))
+    vim.api.nvim_win_set_config(win, {
+      relative = 'editor',
+      width = width,
+      height = rows,
+      row = math.floor((vim.o.lines - rows) / 2),
+      col = math.floor((vim.o.columns - width) / 2),
+    })
+  end
+  vim.api.nvim_create_autocmd({ 'TextChanged', 'TextChangedI' }, {
+    buffer = buf,
+    callback = fit_height,
+  })
+
   local closed = false
   local function finish(send)
     if closed then
@@ -275,24 +298,48 @@ local function open_prompt_input()
   vim.cmd 'startinsert'
 end
 
+-- Forward declaration: assigned lower in the file, called from show_no_focus.
+local ensure_terminal_autoscroll
+
+local function claude_win()
+  local bufnr = require('claudecode.terminal').get_active_terminal_bufnr()
+  if not bufnr then
+    return nil
+  end
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_is_valid(win) and vim.api.nvim_win_get_buf(win) == bufnr then
+      return win
+    end
+  end
+  return nil
+end
+
+local function show_no_focus(cmd_args)
+  local origin = vim.api.nvim_get_current_win()
+  require('claudecode.terminal').ensure_visible({}, cmd_args)
+  ensure_terminal_autoscroll()
+  vim.schedule(function()
+    if vim.api.nvim_win_is_valid(origin) and vim.api.nvim_get_current_win() ~= origin then
+      vim.api.nvim_set_current_win(origin)
+    end
+  end)
+end
+
+local function toggle_no_focus(cmd_args)
+  if claude_win() then
+    require('claudecode.terminal').simple_toggle()
+  else
+    show_no_focus(cmd_args)
+  end
+end
+
 M.keymaps = function()
   local set_keymap = require('common.utils').get_keymap_setter(M.keys)
 
-  -- Focus the Claude terminal AND land in insert mode ready to type. The
-  -- plugin's own auto_insert runs startinsert synchronously inside the focus
-  -- call, which Neovim cancels on return to the event loop -- schedule it so it
-  -- actually sticks.
   set_keymap({ 'n', 'v' }, '<leader>aa', function()
-    vim.cmd 'ClaudeCodeFocus'
-    vim.schedule(function()
-      if vim.bo.buftype == 'terminal' then
-        vim.cmd 'startinsert'
-      end
-    end)
+    toggle_no_focus()
   end)
 
-  -- Send a one-off prompt to Claude from your current file (centered wide box),
-  -- without moving focus out of your buffer.
   set_keymap({ 'n', 'v' }, '<leader><leader>', open_prompt_input)
 
   -- Answer Claude's prompt without leaving your file: <CR> accepts the
@@ -304,28 +351,43 @@ M.keymaps = function()
     send_raw '\27'
   end)
   -- Interrupt Claude's current turn (Esc) without leaving your file.
-  set_keymap({ 'n', 'v' }, '<leader>ax', function()
+  set_keymap({ 'n', 'v' }, '<leader>al', function()
     send_raw '\27'
   end)
+
+  set_keymap({ 'n', 'v' }, '<leader>ax', function()
+    local bufnr = require('claudecode.terminal').get_active_terminal_bufnr()
+    if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+    end
+  end)
+
   set_keymap('v', '<leader>av', function()
     vim.cmd 'ClaudeCodeSend'
   end)
+
   set_keymap('n', '<leader>aV', function()
     vim.cmd 'ClaudeCodeAdd %'
   end)
+
   set_keymap('n', '<leader>as', function()
-    vim.cmd 'ClaudeCode --continue'
+    show_no_focus '--continue'
   end)
+
   set_keymap('n', '<leader>af', pick_claude_session)
+
   set_keymap('n', '<leader>aF', function()
     vim.cmd 'ClaudeCode --resume'
   end)
+
   set_keymap('n', '<leader>ay', function()
     vim.cmd 'ClaudeCodeDiffAccept'
   end)
+
   set_keymap('n', '<leader>an', function()
     vim.cmd 'ClaudeCodeDiffDeny'
   end)
+
   set_keymap('n', '<leader>am', function()
     vim.cmd 'ClaudeCodeSelectModel'
   end)
@@ -358,7 +420,7 @@ end
 -- last line. The focused window is left alone (Neovim follows it natively, and
 -- you may be scrolling its history there).
 local autoscroll_timer = nil
-local function ensure_terminal_autoscroll()
+function ensure_terminal_autoscroll()
   if autoscroll_timer then
     return
   end
