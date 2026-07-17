@@ -551,10 +551,8 @@ local function open_prompt_input()
       vim.cmd 'stopinsert'
     end)
     if send and text:gsub('%s', '') ~= '' then
-      -- Send the text WITHOUT a submit, then press Enter separately a beat
-      -- later: a combined text+CR races Claude's TUI and the submit gets
-      -- dropped, whereas a standalone CR (same as <leader>aj) reliably submits.
-      require('claudecode.terminal').send_to_terminal(text, { submit = false, focus = false })
+      local normalized = text:gsub('\r\n', '\n'):gsub('\r', '\n')
+      send_raw('\27[200~' .. normalized .. '\27[201~')
       vim.defer_fn(function()
         send_raw '\r'
       end, 100)
@@ -690,9 +688,9 @@ M.keymaps = function()
   set_keymap({ 'n', 'v' }, '<leader>k', function()
     send_raw '\27'
   end)
-  -- Interrupt Claude's current turn (Esc) without leaving your file.
+  -- Interrupt Claude's current turn (backtick) without leaving your file.
   set_keymap({ 'n', 'v' }, '<leader>al', function()
-    send_raw '\27'
+    send_raw '`'
   end)
 
   set_keymap({ 'n', 'v' }, '<leader>ax', function()
@@ -783,7 +781,7 @@ function ensure_terminal_autoscroll()
   )
 end
 
--- Claude terminal behavior: drop into insert ready to type, enable jk-to-escape
+-- Claude terminal behavior: enable jk-to-escape
 -- and tmux-style split navigation from terminal-insert (buffer-local), and keep
 -- unfocused windows scrolled to the newest output.
 -- True when the only non-floating windows left (across all tabpages) show the
@@ -837,7 +835,6 @@ M.autocmds = function()
             { buffer = 0, silent = true, desc = 'navigate ' .. dir:lower() }
           )
         end
-        vim.cmd 'startinsert'
       end, 100)
     end,
   })
