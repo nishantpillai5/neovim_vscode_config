@@ -5,6 +5,7 @@ local keys = {
   { '<leader>X', desc = 'quit_force' },
   { '<leader>zd', desc = 'delete_buffer' },
   { '<leader>W', desc = 'save_quit' },
+  { '<leader>ll', desc = 'reload_file' },
   { '<leader>zv', desc = 'vertical_split' },
   { '<leader>zs', desc = 'horizontal_split' },
   { '<C-Right>', desc = 'vertical_resize_right' },
@@ -30,6 +31,7 @@ set_keymap('n', '<leader>x', ':q<cr>')
 set_keymap('n', '<leader>X', ':q!<cr>')
 set_keymap('n', '<leader>zd', ':bd<cr>')
 set_keymap('n', '<leader>W', ':wq<cr>')
+set_keymap('n', '<leader>ll', ':checktime<cr>') -- reload current file from disk if changed
 
 -- Split
 set_keymap('n', '<leader>zv', '<cmd>vs<cr>')
@@ -77,7 +79,7 @@ set_keymap('n', '<leader>oy', function()
     return
   end
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-  while #lines > 0 and lines[#lines]:match('^%s*$') do
+  while #lines > 0 and lines[#lines]:match '^%s*$' do
     table.remove(lines, #lines)
   end
   local term_name = vim.api.nvim_buf_get_name(bufnr)

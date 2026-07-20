@@ -8,7 +8,7 @@ M.keys = {
   { '<leader>tL', desc = 'loclist' },
   { '<leader>tg', desc = 'git' },
   { '<leader>tl', desc = 'lsp' },
-  { '<leader>ll', desc = 'lsp' },
+  -- { '<leader>ll', desc = 'lsp' },
   { '<leader>tf', desc = 'finder' },
   { '<leader>J', desc = 'trouble_next' },
   { '<leader>K', desc = 'trouble_prev' },
@@ -68,9 +68,9 @@ M.keymaps = function()
     vim.cmd 'Trouble lsp_all toggle focus=false'
   end)
 
-  set_keymap('n', '<leader>ll', function()
-    vim.cmd 'Trouble lsp_all toggle focus=false'
-  end)
+  -- set_keymap('n', '<leader>ll', function()
+  --   vim.cmd 'Trouble lsp_all toggle focus=false'
+  -- end)
 
   set_keymap('n', '<leader>tf', function()
     trouble.toggle 'telescope'

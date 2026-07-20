@@ -22,7 +22,13 @@ return {
         keymap_fim_accept_line = '<Tab>',
         keymap_fim_accept_full = '<S-Tab>',
         -- keymap_inst_accept = '<C-a>',
-        -- keymap_fim_accept_word = "<>",
+        -- Disable llama's <leader>ll* maps so <leader>ll stays free (reload_file).
+        keymap_fim_trigger = '',
+        keymap_fim_accept_word = '',
+        keymap_inst_trigger = '',
+        keymap_inst_rerun = '',
+        keymap_inst_continue = '',
+        keymap_debug_toggle = '',
       }
     end,
   },
