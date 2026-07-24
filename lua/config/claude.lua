@@ -5,6 +5,7 @@ M.keys = {
   { '<leader>al', desc = 'interrupt', mode = { 'n', 'v' } },
   { '<leader>ax', desc = 'kill', mode = { 'n', 'v' } },
   { '<leader><leader>', desc = 'prompt', mode = { 'n', 'v' } },
+  { '<leader>a;', desc = 'next_question', mode = { 'n', 'v' } },
   { '<leader>j', desc = 'accept_prompt', mode = { 'n', 'v' } },
   { '<leader>k', desc = 'reject_prompt', mode = { 'n', 'v' } },
   { '<leader>av', desc = 'attach_visual', mode = 'v' },
@@ -20,7 +21,8 @@ M.keys = {
   { '<leader>aF', desc = 'find_session_cmd' },
   { '<leader>ay', desc = 'diff_accept' },
   { '<leader>an', desc = 'diff_reject' },
-  { '<leader>am', desc = 'model' },
+  { '<leader>am', desc = 'cycle_mode', mode = { 'n', 'v' } },
+  { '<leader>aM', desc = 'model' },
 }
 
 local function relative_time(mtime)
@@ -107,6 +109,11 @@ end
 
 -- Forward declaration: defined lower in the file, used by the session picker.
 local show_no_focus
+
+-- Forward declaration: assigned lower in the file. Declared above
+-- open_prompt_input (not just above show_no_focus) so the prompt box can start
+-- the terminal with autoscroll too.
+local ensure_terminal_autoscroll
 
 local function pick_claude_session()
   local pickers = require 'telescope.pickers'
@@ -392,6 +399,19 @@ local function get_claude_suggestion()
     local stripped, n = s:gsub('\u{2500}', '')
     return n >= 10 and stripped:gsub('%s', '') == ''
   end
+  -- The live input box is always at the very bottom of the terminal, with only
+  -- a few hint lines below it. Find the last non-blank line so stale horizontal
+  -- rules from earlier scrollback can be rejected: without this, two old
+  -- separators get mistaken for the box and their contents returned as a bogus
+  -- "suggestion" -- which then (per the prompt-box gate) wrongly suppresses the
+  -- @-mention prefill.
+  local last_nonblank = 0
+  for i = #lines, 1, -1 do
+    if lines[i]:gsub('%s', '') ~= '' then
+      last_nonblank = i
+      break
+    end
+  end
   local bottom
   for i = #lines, 1, -1 do
     if is_rule(lines[i]) then
@@ -399,7 +419,7 @@ local function get_claude_suggestion()
       break
     end
   end
-  if not bottom then
+  if not bottom or (last_nonblank - bottom) > 8 then
     return nil
   end
   local top
@@ -425,20 +445,99 @@ local function get_claude_suggestion()
   for i, l in ipairs(content) do
     content[i] = (l:gsub('%s+$', ''))
   end
-  local text = table.concat(content, '\n'):gsub('^%s+', ''):gsub('%s+$', '')
+  -- Claude pads its (empty) input box with a non-breaking space (U+00A0),
+  -- which Lua's %s does not match -- normalize it to a plain space first, else
+  -- a blank box scrapes to "\u{00A0}" and is mistaken for a real suggestion
+  -- (which then wrongly suppresses the @-mention prefill).
+  local text = table.concat(content, '\n'):gsub('\u{00a0}', ' '):gsub('^%s+', ''):gsub('%s+$', '')
   if text == '' then
     return nil
   end
   return text
 end
 
+local context_ns = vim.api.nvim_create_namespace 'claude_prompt_context'
+
+-- Build the Claude @-mention text for a visual line range in the given buffer,
+-- e.g. "@lua/config/claude.lua#L10-20" (or "#L10" for a single line). The path
+-- is relative to cwd and the line numbers are 1-indexed, matching Claude's own
+-- mention format. Returns nil for non-file or unnamed buffers.
+local function build_mention(buf, vsel)
+  if vim.bo[buf].buftype ~= '' then
+    return nil
+  end
+  local file_path = vim.api.nvim_buf_get_name(buf)
+  if file_path == '' then
+    return nil
+  end
+  local rel = vim.fn.fnamemodify(file_path, ':.')
+  if vsel[1] == vsel[2] then
+    return '@' .. rel .. '#L' .. vsel[1]
+  end
+  return '@' .. rel .. '#L' .. vsel[1] .. '-' .. vsel[2]
+end
+
+-- Re-paint the visual selection in the origin buffer while the prompt float is
+-- open, so you can still see what you're asking Claude about. `vsel` is a
+-- 1-indexed {start_line, end_line} range (linewise) or nil. Returns a function
+-- that clears the highlight.
+local function highlight_origin_selection(buf, vsel)
+  if not vsel or not vim.api.nvim_buf_is_valid(buf) then
+    return function() end
+  end
+  local last = vim.api.nvim_buf_get_lines(buf, vsel[2] - 1, vsel[2], false)[1] or ''
+  pcall(vim.api.nvim_buf_set_extmark, buf, context_ns, vsel[1] - 1, 0, {
+    end_row = vsel[2] - 1,
+    end_col = #last,
+    hl_group = 'Visual',
+    hl_eol = true,
+  })
+  return function()
+    if vim.api.nvim_buf_is_valid(buf) then
+      vim.api.nvim_buf_clear_namespace(buf, context_ns, 0, -1)
+    end
+  end
+end
+
 local function open_prompt_input()
+  -- Capture the visual selection you're launching from BEFORE the float takes
+  -- focus. It becomes an @-mention *prefilled* into the box (see build_mention),
+  -- so it reaches Claude only if you actually submit -- escaping the box leaves
+  -- nothing stray behind in Claude's terminal. The selection is also re-painted
+  -- so it stays visible while you type. A plain <leader><leader> with no
+  -- selection prefills nothing -- Claude reads files on demand.
+  local origin_buf = vim.api.nvim_get_current_buf()
+  local origin_mode = vim.fn.mode()
+  local vsel
+  if origin_mode == 'v' or origin_mode == 'V' or origin_mode == '\22' then
+    local a, b = vim.fn.getpos 'v', vim.fn.getpos '.'
+    vsel = { math.min(a[2], b[2]), math.max(a[2], b[2]) } -- 1-indexed line range
+  end
+  local clear_origin_highlight = highlight_origin_selection(origin_buf, vsel)
+
+  -- Whether a Claude terminal needs starting (none running yet). The actual
+  -- start is deferred to the end of this function: opening it here would steal
+  -- focus/redraw from the float and the prompt box would never appear.
+  local need_terminal = not require('claudecode.terminal').get_active_terminal_bufnr()
+
   local width = math.min(100, math.max(40, math.floor(vim.o.columns * 0.7)))
   local max_height = math.max(1, math.floor(vim.o.lines * 0.5))
   local buf = vim.api.nvim_create_buf(false, true)
   vim.bo[buf].bufhidden = 'wipe'
   vim.b[buf].claude_prompt = true
   local suggestion = get_claude_suggestion()
+  -- A visual selection prefills its @-mention (with line range) so it rides
+  -- along with your prompt and is sent only on submit. With no selection nothing
+  -- is prefilled: the suggested-reply ghost keeps its normal behavior, and a
+  -- whole file is never force-fed into Claude's context on every prompt.
+  local prefill
+  if vsel then
+    local mention = build_mention(origin_buf, vsel)
+    if mention then
+      prefill = mention .. ' '
+      suggestion = nil -- the prefilled selection replaces the suggested-reply ghost
+    end
+  end
   local suggestion_lines = suggestion and vim.split(suggestion, '\n')
 
   -- The *initial* ghost should be Claude's suggestion; everything after the
@@ -541,6 +640,7 @@ local function open_prompt_input()
       return
     end
     closed = true
+    clear_origin_highlight()
     local text = table.concat(vim.api.nvim_buf_get_lines(buf, 0, -1, false), '\n')
     if vim.api.nvim_win_is_valid(win) then
       vim.api.nvim_win_close(win, true)
@@ -632,12 +732,310 @@ local function open_prompt_input()
     end
   end, { buffer = buf })
 
+  if prefill then
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, { prefill })
+    fit_height()
+  end
   vim.cmd 'startinsert'
+  if prefill then
+    vim.api.nvim_win_set_cursor(win, { 1, #prefill })
+  end
   render_ghost()
+
+  -- Now that the prompt box is up, start Claude if it wasn't running so it boots
+  -- while you compose. Deferred so the float is fully realized first; Snacks
+  -- focuses the new terminal window, so pull focus back to the box and re-enter
+  -- insert.
+  if need_terminal then
+    vim.schedule(function()
+      require('claudecode.terminal').ensure_visible {}
+      ensure_terminal_autoscroll()
+      if vim.api.nvim_win_is_valid(win) then
+        vim.api.nvim_set_current_win(win)
+        vim.cmd 'startinsert'
+      end
+    end)
+  end
 end
 
--- Forward declaration: assigned lower in the file, called from show_no_focus.
-local ensure_terminal_autoscroll
+-- ---------------------------------------------------------------------------
+-- Answering Claude's AskUserQuestion prompts from a selection menu.
+--
+-- When Claude asks structured questions (its tabbed multiple-choice UI) the
+-- centered text box isn't useful. We can't read the pending question from the
+-- session transcript -- Claude only flushes an AskUserQuestion to disk *after*
+-- it's answered -- so instead we scrape it live from the terminal buffer, the
+-- same trick get_claude_suggestion() uses for the input box. The prompt renders
+-- as:
+--
+--   ←  ☐ Fruit  ☐ Colors  ✔ Submit  →      <- tab bar (one tab per question + Submit)
+--   Which fruit do you prefer?           <- the current question
+--   ❯ 1. Apple                           <- ❯ marks the highlighted option
+--        A crisp red or green fruit.     <- option description (indented)
+--     2. Banana
+--   ...
+--   Enter to select · Tab/Arrow keys to navigate · Esc to cancel
+--
+-- Multi-select questions render a "[ ]" / "[x]" checkbox per option. The options
+-- are numbered, and pressing an option's number selects it (single-select) or
+-- toggles its checkbox (multi-select) -- the only input that proved reliable
+-- over the PTY (synthetic arrow keys did nothing). So <leader><leader> scrapes
+-- whatever tab is currently shown into a Telescope menu and, on pick, presses
+-- the chosen option's number key(s). <leader>a; sends Tab to move to the next
+-- tab (the menu then re-scrapes it), and <leader>j (Enter) submits from Submit.
+-- ---------------------------------------------------------------------------
+
+-- A horizontal-rule line (───...), used to bound the box on screen.
+local function is_hr(s)
+  local stripped, n = s:gsub('\u{2500}', '')
+  return n >= 10 and stripped:gsub('%s', '') == ''
+end
+
+-- Parse one option line. Returns { num, label, checked } or nil. `checked` is
+-- nil for single-select, true/false for a "[x]"/"[ ]" checkbox.
+local function parse_option_line(line)
+  local body = line:gsub('^%s*\u{276f}%s*', ''):gsub('^%s*', '')
+  local num, rest = body:match '^(%d+)%.%s+(.*)$'
+  if not num then
+    return nil
+  end
+  local inside, label = rest:match '^%[([^%]]*)%]%s*(.*)$'
+  if inside ~= nil then
+    return { num = tonumber(num), label = label, checked = inside:gsub('%s', '') ~= '' }
+  end
+  return { num = tonumber(num), label = rest }
+end
+
+-- Scrape the AskUserQuestion prompt out of the live terminal. Returns
+-- { multiselect, question, options = { {num, pos, label, desc, checked} } }
+-- for the currently-shown tab, or nil when no such prompt is on screen.
+local function scrape_claude_question()
+  local ok, term = pcall(require, 'claudecode.terminal')
+  if not ok then
+    return nil
+  end
+  local bufnr = term.get_active_terminal_bufnr()
+  if not bufnr or not vim.api.nvim_buf_is_valid(bufnr) then
+    return nil
+  end
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  local last_nonblank = 0
+  for i = #lines, 1, -1 do
+    if lines[i]:gsub('%s', '') ~= '' then
+      last_nonblank = i
+      break
+    end
+  end
+  -- The signature footer, unique to the selection prompt. Anchor on the
+  -- bottom-most one -- earlier renders leave stale copies higher in scrollback.
+  -- Require it right at the bottom so a stale prompt (no live question) is
+  -- rejected rather than answered blind.
+  local hint
+  for i = #lines, 1, -1 do
+    if lines[i]:find('to navigate', 1, true) or lines[i]:find('Enter to select', 1, true) then
+      hint = i
+      break
+    end
+  end
+  if not hint or (last_nonblank - hint) > 8 then
+    return nil
+  end
+  -- The header/tab line is the box's top boundary. It carries a checkbox glyph
+  -- per question (☐/☑/✔) -- present both for single-question prompts ("☐ Foo")
+  -- and multi-question tab bars ("← ☐ A  ☐ B  ✔ Submit →"). Take the nearest one
+  -- above the hint; refuse (fall back to the prompt box) when there's none rather
+  -- than scanning up into scrollback and swallowing stray numbered lines.
+  local top
+  for i = hint - 1, math.max(1, hint - 60), -1 do
+    if lines[i]:find('\u{2610}', 1, true) or lines[i]:find('\u{2611}', 1, true) or lines[i]:find('\u{2714}', 1, true) then
+      top = i
+      break
+    end
+  end
+  if not top then
+    return nil
+  end
+
+  local options, question_parts = {}, {}
+  for i = top + 1, hint - 1 do
+    local o = parse_option_line(lines[i])
+    if o then
+      o.pos = #options + 1
+      o.desc = ''
+      options[#options + 1] = o
+    elseif not is_hr(lines[i]) then
+      local text = lines[i]:gsub('^%s+', ''):gsub('%s+$', '')
+      if text ~= '' then
+        if #options == 0 then
+          question_parts[#question_parts + 1] = text -- question text (above the options)
+        else
+          local last = options[#options]
+          last.desc = last.desc == '' and text or (last.desc .. ' ' .. text)
+        end
+      end
+    end
+  end
+  if #options == 0 then
+    return nil
+  end
+  local multiselect = false
+  for _, o in ipairs(options) do
+    if o.checked ~= nil then
+      multiselect = true
+      break
+    end
+  end
+  return {
+    multiselect = multiselect,
+    question = table.concat(question_parts, ' '),
+    options = options,
+  }
+end
+
+-- Find the scraped option at display position `pos`.
+local function opt_by_pos(q, pos)
+  for _, o in ipairs(q.options) do
+    if o.pos == pos then
+      return o
+    end
+  end
+end
+
+-- The keystrokes to enact the chosen options on the current tab, by pressing
+-- option NUMBER keys -- the TUI's shortcut, verified to work reliably (synthetic
+-- arrow keys did not). For single-select a number selects the option and
+-- advances to the next question on its own. For multi-select a number only
+-- toggles that option's checkbox, so we press the numbers whose desired state
+-- differs from what's already checked (re-opening the menu then won't flip
+-- existing marks) and finish with a Tab to advance -- matching single-select's
+-- feel. <leader>j (Enter) still submits from the Submit tab.
+local function choice_keys(q, chosen)
+  local keys = {}
+  if #chosen == 0 then
+    return keys
+  end
+  if not q.multiselect then
+    local o = opt_by_pos(q, chosen[1])
+    if o then
+      keys[1] = tostring(o.num)
+    end
+    return keys
+  end
+  local want = {}
+  for _, p in ipairs(chosen) do
+    want[p] = true
+  end
+  for _, o in ipairs(q.options) do
+    if (want[o.pos] or false) ~= (o.checked or false) then
+      keys[#keys + 1] = tostring(o.num)
+    end
+  end
+  keys[#keys + 1] = '\t' -- multi-select numbers only toggle; Tab advances the tab
+  return keys
+end
+
+-- Press each option-number key in turn, spaced out in time. The prompt reads
+-- consecutive digits as a single multi-digit number (so "1" and "3" sent
+-- together look like option 13), so each keypress must land as its own event.
+local function send_keys_seq(keys, i)
+  i = i or 1
+  if i > #keys then
+    return
+  end
+  send_raw(keys[i])
+  vim.defer_fn(function()
+    send_keys_seq(keys, i + 1)
+  end, 80)
+end
+
+-- Telescope menu of the current tab's options. <CR> confirms; for multi-select
+-- questions, <Tab>-mark several first.
+local function pick_claude_option(q)
+  local pickers = require 'telescope.pickers'
+  local finders = require 'telescope.finders'
+  local conf = require('telescope.config').values
+  local actions = require 'telescope.actions'
+  local action_state = require 'telescope.actions.state'
+
+  local title = q.question ~= '' and q.question or 'Claude'
+  if q.multiselect then
+    title = title .. '  (Tab to mark multiple)'
+  end
+
+  pickers
+    .new({}, {
+      prompt_title = title:sub(1, 120),
+      finder = finders.new_table {
+        results = q.options,
+        entry_maker = function(o)
+          return {
+            value = o,
+            display = function(e)
+              local box = e.value.checked == nil and '' or (e.value.checked and '[x] ' or '[ ] ')
+              local head = e.value.pos .. '. ' .. box .. e.value.label
+              if e.value.desc ~= '' then
+                local full = head .. '  \u{2014}  ' .. e.value.desc
+                return full, { { { #head, #full }, 'Comment' } }
+              end
+              return head
+            end,
+            ordinal = o.label,
+          }
+        end,
+      },
+      sorter = conf.generic_sorter {},
+      attach_mappings = function(prompt_bufnr, map)
+        local function confirm()
+          local picker = action_state.get_current_picker(prompt_bufnr)
+          local multi = picker:get_multi_selection()
+          local chosen = {}
+          if q.multiselect and #multi > 0 then
+            for _, s in ipairs(multi) do
+              chosen[#chosen + 1] = s.value.pos
+            end
+          else
+            local sel = action_state.get_selected_entry()
+            if sel then
+              chosen[#chosen + 1] = sel.value.pos
+            end
+          end
+          actions.close(prompt_bufnr)
+          table.sort(chosen)
+          local keys = choice_keys(q, chosen)
+          if #keys > 0 then
+            -- Defer so Telescope's close settles before writing to the PTY.
+            vim.defer_fn(function()
+              send_keys_seq(keys)
+            end, 60)
+          end
+        end
+        map('i', '<CR>', confirm)
+        map('n', '<CR>', confirm)
+        if q.multiselect then
+          -- Space (and Tab) mark/unmark options; <CR> then submits everything
+          -- marked. Plain toggle_selection is what get_multi_selection() reads
+          -- back -- a composed action showed a mark but didn't register it.
+          map('i', '<Space>', actions.toggle_selection)
+          map('n', '<Space>', actions.toggle_selection)
+          map('i', '<Tab>', actions.toggle_selection)
+          map('n', '<Tab>', actions.toggle_selection)
+        end
+        return true
+      end,
+    })
+    :find()
+end
+
+-- Bound to <leader><leader> (see M.keymaps). Answers a live AskUserQuestion
+-- prompt when one is on screen, otherwise falls back to the free-text prompt
+-- box -- the single keymap just skips the box while a structured question waits.
+local function open_prompt_or_answer()
+  local q = scrape_claude_question()
+  if not q then
+    return open_prompt_input()
+  end
+  pick_claude_option(q)
+end
 
 local function claude_win()
   local bufnr = require('claudecode.terminal').get_active_terminal_bufnr()
@@ -678,7 +1076,7 @@ M.keymaps = function()
     toggle_no_focus()
   end)
 
-  set_keymap({ 'n', 'v' }, '<leader><leader>', open_prompt_input)
+  set_keymap({ 'n', 'v' }, '<leader><leader>', open_prompt_or_answer)
 
   -- Answer Claude's prompt without leaving your file: <CR> accepts the
   -- highlighted option, <Esc> rejects/cancels it.
@@ -691,6 +1089,12 @@ M.keymaps = function()
   -- Interrupt Claude's current turn (backtick) without leaving your file.
   set_keymap({ 'n', 'v' }, '<leader>al', function()
     send_raw '`'
+  end)
+
+  -- Move to the next question tab in Claude's AskUserQuestion prompt. The next
+  -- <leader><leader> re-scrapes whatever tab is then shown.
+  set_keymap({ 'n', 'v' }, '<leader>a;', function()
+    send_raw '\t'
   end)
 
   set_keymap({ 'n', 'v' }, '<leader>ax', function()
@@ -726,15 +1130,22 @@ M.keymaps = function()
     vim.cmd 'ClaudeCodeDiffDeny'
   end)
 
-  set_keymap('n', '<leader>am', function()
+  -- Cycle Claude's permission mode
+  -- Shift+Tab is the terminal back-tab sequence: ESC [ Z.
+  set_keymap({ 'n', 'v' }, '<leader>am', function()
+    send_raw '\27[Z'
+  end)
+
+  set_keymap('n', '<leader>aM', function()
     vim.cmd 'ClaudeCodeSelectModel'
   end)
+
 end
 
 M.setup = function()
   require('claudecode').setup {
     terminal = {
-      split_width_percentage = 0.42,
+      split_width_percentage = 0.45,
     },
   }
 end
